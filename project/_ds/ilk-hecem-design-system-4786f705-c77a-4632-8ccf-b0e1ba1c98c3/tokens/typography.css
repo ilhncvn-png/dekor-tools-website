@@ -1,0 +1,63 @@
+/* ============================================================
+   İlk Hecem — Typography
+   Display = Baloo 2 (chunky, rounded, playful headings)
+   Body    = Nunito  (warm, legible running text)
+   Type scale is generous & friendly — large, rounded, never tiny.
+   Size tokens use the --fs-* prefix (font-size).
+   ============================================================ */
+
+:root {
+  /* Families */
+  --font-display: 'Baloo 2', 'Trebuchet MS', system-ui, sans-serif;
+  --font-body:    'Nunito', system-ui, -apple-system, sans-serif;
+
+  /* Weights */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extra:    800;
+
+  /* Fluid display scale (clamped for responsive heroes) */
+  --fs-hero:    clamp(2.75rem, 8vw, 5.25rem);   /* @kind font */ /* hero headline */
+  --fs-display: clamp(2.25rem, 6vw, 3.75rem);   /* @kind font */ /* section headers */
+  --fs-h1:      clamp(2rem, 5vw, 3rem);         /* @kind font */
+  --fs-h2:      clamp(1.6rem, 3.6vw, 2.25rem);  /* @kind font */
+  --fs-h3:      clamp(1.3rem, 2.2vw, 1.6rem);   /* @kind font */
+  --fs-h4:      1.25rem;   /* @kind font */
+
+  /* Body scale (fixed) */
+  --fs-lead:    1.25rem;   /* @kind font */ /* intro paragraphs */
+  --fs-base:    1.0625rem; /* @kind font */ /* default body */
+  --fs-sm:      0.9375rem; /* @kind font */
+  --fs-xs:      0.8125rem; /* @kind font */
+  --fs-eyebrow: 0.8125rem; /* @kind font */ /* uppercase label above titles */
+
+  /* Line heights */
+  --leading-tight:   1.08;  /* @kind other */
+  --leading-snug:    1.25;  /* @kind other */
+  --leading-normal:  1.55;  /* @kind other */
+  --leading-relaxed: 1.7;   /* @kind other */
+
+  /* Letter spacing */
+  --tracking-tight:   -0.02em; /* @kind other */
+  --tracking-normal:  0;       /* @kind other */
+  --tracking-eyebrow: 0.14em;  /* @kind other */
+}
+
+/* ---- Optional helper classes (handy in static specimens) ---- */
+.t-hero    { font-family: var(--font-display); font-weight: var(--weight-bold);
+             font-size: var(--fs-hero); line-height: var(--leading-tight);
+             letter-spacing: var(--tracking-tight); color: var(--text-strong); }
+.t-display { font-family: var(--font-display); font-weight: var(--weight-semibold);
+             font-size: var(--fs-display); line-height: var(--leading-tight);
+             color: var(--text-strong); }
+.t-eyebrow { font-family: var(--font-body); font-weight: var(--weight-extra);
+             font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
+             text-transform: uppercase; }
+.t-lead    { font-family: var(--font-body); font-weight: var(--weight-regular);
+             font-size: var(--fs-lead); line-height: var(--leading-relaxed);
+             color: var(--text-body); }
+.t-body    { font-family: var(--font-body); font-weight: var(--weight-regular);
+             font-size: var(--fs-base); line-height: var(--leading-normal);
+             color: var(--text-body); }

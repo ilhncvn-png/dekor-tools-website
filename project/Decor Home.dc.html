@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="uploads/decor_logo_color.png">
+<meta property="og:title" content="Dekor — Professional Construction Hand Tools Since 1964">
+<meta property="og:description" content="Türkiye's largest manufacturer of professional hand tools. 400+ products, 60 countries.">
+<meta property="og:image" content="uploads/decor_logo_color.png">
+<meta property="og:type" content="website">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#D32027;color:#fff;}
+  [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
+  @keyframes dkrFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  @keyframes dkrSpinSlow{to{transform:rotate(360deg)}}
+  @keyframes dkrPulse{0%{transform:scale(1);opacity:.6}70%{transform:scale(3.4);opacity:0}100%{opacity:0}}
+  @keyframes dkrMarquee{to{transform:translateX(-50%)}}
+  @keyframes dkrScroll{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+  @keyframes dkrDash{to{stroke-dashoffset:0}}
+  @keyframes bnsFade{from{opacity:0}to{opacity:1}}
+  @keyframes bnsUp{from{transform:translateY(28px)}to{transform:none}}
+  /* --- Decor Motion Language: living blueprint --- */
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrDrift{0%{transform:translateY(0);opacity:0}15%{opacity:.7}85%{opacity:.7}100%{transform:translateY(-70px);opacity:0}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 16s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.6);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
+  /* --- Social Responsibility: cinematic showcase + feature cards --- */
+  .resp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.5),transparent);animation:respScan 7s ease-in-out infinite;pointer-events:none;z-index:2;}
+  @keyframes respScan{0%{top:-2%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:102%;opacity:0}}
+  .resp-card{position:relative;background:#fff;border:1px solid #E2E5E9;padding:20px 18px;border-radius:2px;overflow:hidden;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease,border-color .45s ease;}
+  .resp-card:hover{transform:translateY(-6px);border-color:#0095DA;box-shadow:0 20px 46px rgba(14,15,17,.12);}
+  .resp-icon{color:#0E0F11;transition:color .4s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .resp-card:hover .resp-icon{color:#D32027;transform:translateY(-2px);}
+  .resp-uline{display:block;height:2px;width:100%;background:#D32027;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1);margin-top:14px;}
+  .resp-card:hover .resp-uline{transform:scaleX(1);}
+  @media(prefers-reduced-motion:reduce){.resp-scan{animation:none !important;opacity:0 !important;}}
+  /* --- Dealer Partnership: premium engineering glass panels + journey --- */
+  .dlr-glass{position:relative; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); padding:22px 20px; border-radius:3px; overflow:hidden; backdrop-filter:blur(6px); transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .45s ease,box-shadow .45s ease,background .45s ease;}
+  .dlr-glass:hover{transform:translateY(-6px); border-color:rgba(211,32,39,.65); box-shadow:0 24px 54px rgba(0,0,0,.42); background:rgba(255,255,255,.06);}
+  .dlr-bp{position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.13) 1px,transparent 1px); background-size:24px 24px; opacity:0; transition:opacity .45s ease; pointer-events:none;}
+  .dlr-glass:hover .dlr-bp{opacity:1;}
+  .dlr-scan{position:absolute; left:0; right:0; top:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,149,218,.6),transparent); opacity:0; pointer-events:none;}
+  .dlr-glass:hover .dlr-scan{animation:respScan 2.6s ease-in-out infinite; opacity:1;}
+  .dlr-icon{color:rgba(255,255,255,.92); transition:color .4s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .dlr-glass:hover .dlr-icon{color:#ff7a72; transform:translateY(-2px);}
+  .dlr-uline{display:block; height:2px; width:100%; background:#D32027; transform:scaleX(0); transform-origin:left; transition:transform .55s cubic-bezier(.2,.7,.2,1); margin-top:14px;}
+  .dlr-glass:hover .dlr-uline{transform:scaleX(1);}
+  .dlr-acc{position:absolute; top:0; left:0; right:0; height:3px; background:#D32027; transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.2,.7,.2,1); z-index:2;}
+  .dlr-glass:hover .dlr-acc{transform:scaleX(1);}
+  .dlr-step{position:relative; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:3px; padding:18px 16px; transition:transform .4s ease,border-color .4s ease; flex:1 1 150px;}
+  .dlr-step:hover{transform:translateY(-4px); border-color:rgba(0,149,218,.55);}
+  .dlr-jline{flex:0 0 36px; height:2px; align-self:center; background:rgba(255,255,255,.14); position:relative; overflow:hidden;}
+  .dlr-jline::after{content:''; position:absolute; left:0; top:0; height:100%; width:45%; background:linear-gradient(90deg,transparent,#0095DA,transparent); animation:dlrFlow 3.2s linear infinite;}
+  @keyframes dlrFlow{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+  @media(max-width:760px){.dlr-jline{flex-basis:100%; width:2px; height:24px; transform:rotate(90deg); margin:2px auto;}}
+  @media(prefers-reduced-motion:reduce){.dlr-glass:hover .dlr-scan{animation:none !important;} .dlr-jline::after{animation:none !important; opacity:.45;}}
+  /* --- Featured Products: CMS-ready premium showcase --- */
+  .pchip{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; font-weight:600; padding:10px 16px; border-radius:2px; cursor:pointer; white-space:nowrap; transition:background .35s cubic-bezier(.2,.7,.2,1),color .35s ease,border-color .35s ease,transform .35s ease;}
+  .pchip:hover{transform:translateY(-2px);}
+  .prodc{position:relative; transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .5s ease,box-shadow .5s ease; will-change:transform;}
+  .prodc:hover{transform:translateY(-10px); border-color:rgba(211,32,39,.5); box-shadow:0 30px 64px rgba(0,0,0,.5);}
+  .pc-grid{transition:opacity .5s ease;}
+  .prodc:hover .pc-grid{opacity:.75;}
+  .pc-photo{transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .prodc:hover .pc-photo{transform:scale(1.07);}
+  .pc-scan{position:absolute; left:0; right:0; top:0; height:2px; background:linear-gradient(90deg,transparent,#D32027,transparent); opacity:0; pointer-events:none; z-index:4;}
+  .prodc:hover .pc-scan{opacity:1; animation:pcScan 2.4s ease-in-out infinite;}
+  @keyframes pcScan{0%{top:0}50%{top:calc(100% - 2px)}100%{top:0}}
+  .pc-guide{position:absolute; background:rgba(0,149,218,.55); opacity:0; transition:opacity .55s ease; pointer-events:none; z-index:3;}
+  .pc-gv{width:1px; top:10%; bottom:10%; transform:scaleY(0); transform-origin:top;}
+  .pc-gh{height:1px; left:10%; right:10%; transform:scaleX(0); transform-origin:left;}
+  .prodc:hover .pc-gv{opacity:1; animation:pcGuideV .6s cubic-bezier(.2,.7,.2,1) forwards;}
+  .prodc:hover .pc-gh{opacity:1; animation:pcGuideH .6s .1s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes pcGuideV{to{transform:scaleY(1)}}
+  @keyframes pcGuideH{to{transform:scaleX(1)}}
+  .pc-part{position:absolute; width:3px; height:3px; border-radius:50%; background:#0095DA; opacity:0; pointer-events:none; z-index:3;}
+  .prodc:hover .pc-part{animation:pcPart 3s ease-in-out infinite;}
+  @keyframes pcPart{0%{opacity:0; transform:translateY(0)}25%{opacity:.85}100%{opacity:0; transform:translateY(-34px)}}
+  .pc-act{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1px; color:rgba(255,255,255,.55); background:none; border:none; cursor:pointer; padding:0; transition:color .3s ease; display:inline-flex; align-items:center; gap:5px;}
+  .pc-act:hover{color:#fff;}
+  .pc-view{color:#ff7a72; font-weight:700; transition:gap .3s ease,color .3s ease;}
+  .prodc:hover .pc-view{color:#D32027;}
+  .pc-progress{height:100%; background:#D32027; transition:width .6s cubic-bezier(.2,.7,.2,1);}
+  @media(prefers-reduced-motion:reduce){.prodc:hover .pc-scan,.prodc:hover .pc-part{animation:none !important;} .prodc:hover .pc-gv,.prodc:hover .pc-gh{animation:none !important; transform:none !important;}}
+  /* --- Hero banner system (transform-only entrance; resting state always visible) --- */
+  .banner{display:none;}
+  .banner.on{display:block;}
+  .banner.on .b-eyebrow{animation:bnsUp .7s .10s;}
+  .banner.on .b-head{animation:bnsUp .7s .20s;}
+  .banner.on .b-sub{animation:bnsUp .7s .32s;}
+  .banner.on .b-ctas{animation:bnsUp .7s .44s;}
+  .banner.on .b-visual{animation:bnsUp .8s .26s;}
+  .b-arrow{transition:background .3s ease,border-color .3s ease,color .3s ease;}
+  .b-arrow:hover{background:#0095DA;border-color:#0095DA;color:#fff;}
+  @media(prefers-reduced-motion:reduce){.banner.on,.banner.on *{animation:none !important;}}
+  .dkr-nav{transition:background .4s ease,border-color .4s ease,box-shadow .4s ease;}
+  .dkr-nav.solid{background:rgba(12,13,15,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 10px 34px rgba(0,0,0,.35);padding-top:13px;padding-bottom:13px;}
+  @media(max-width:920px){
+    .dkr-herogrid{grid-template-columns:1fr !important;}
+    .dkr-2col{grid-template-columns:1fr !important;}
+    .dkr-foot{grid-template-columns:1fr 1fr !important;}
+  }
+  @media(max-width:780px){
+    .dkr-navlinks{display:none !important;}
+    .dkr-burger{display:flex !important;}
+    .dkr-foot{grid-template-columns:1fr !important;}
+  }
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#D32027;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-fam{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease,opacity .5s ease;}
+  .dkr-fam:hover{transform:translateY(-10px);box-shadow:0 30px 70px rgba(14,15,17,.20);border-color:#D32027 !important;}
+  .fam-grid:hover > a:not(:hover){opacity:.58;transform:scale(.985);}
+  .fam-blue{transition:opacity .6s ease;}
+  .dkr-fam:hover .fam-blue{opacity:.16;}
+  .fam-render{opacity:0;transition:opacity .6s ease;}
+  .dkr-fam:hover .fam-render{opacity:1;}
+  .fam-render-img{transition:transform .7s cubic-bezier(.2,.7,.2,1);}
+  .dkr-fam:hover .fam-render-img{transform:scale(1.05);}
+  .fam-chip{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .dkr-fam:hover .fam-chip{opacity:1;transform:none;}
+  .dkr-fam:hover .fam-chip:nth-child(2){transition-delay:.09s;}
+  .fam-code{transition:color .4s ease,box-shadow .4s ease;}
+  .dkr-fam:hover .fam-code{color:#D32027;box-shadow:0 0 0 1px rgba(211,32,39,.4);}
+  .dkr-fam:hover .dkr-fam-arrow{transform:translate(4px,-4px);color:#D32027;}
+  .dkr-fam-arrow{transition:transform .35s ease,color .35s ease;}
+  @media(max-width:640px){
+    .fam-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:16px;padding-bottom:8px;}
+    .fam-grid::-webkit-scrollbar{display:none;}
+    .fam-grid > a{flex:0 0 84%;scroll-snap-align:center;}
+  }
+  .dkr-prod{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s;}
+  .dkr-prod:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(0,0,0,.5);}
+  .dkr-prod:hover .dkr-prod-img{transform:scale(1.07);}
+  .dkr-prod-img{transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(211,32,39,.5);}
+  .dkr-btn-ghost:hover{background:#0E0F11;color:#fff;}
+  .dkr-btn-ghostlight:hover{background:#fff;color:#0E0F11;}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1);}
+  .faq-a.open{grid-template-rows:1fr;}
+  .faq-a>div{overflow:hidden;}
+  .faq-row{transition:border-color .3s ease;}
+  .faq-row:hover{border-color:#D32027 !important;}
+  .mapnode{transition:opacity .45s ease,filter .45s ease;}
+  .mapnode.off{opacity:.18;filter:grayscale(1);}
+  .node-pulse{animation:dkrPulse 2.8s ease-out infinite;}
+  .mapnode:nth-child(3n) .node-pulse{animation-delay:.9s;}
+  .mapnode:nth-child(3n+1) .node-pulse{animation-delay:1.8s;}
+  .reg-card{transition:background .3s ease,border-color .3s ease,transform .3s ease;cursor:pointer;}
+  .reg-card:hover,.reg-card.active{background:rgba(0,149,218,.07);border-color:#0095DA !important;transform:translateX(3px);}
+  .arc-line{stroke-opacity:.4;transition:stroke-opacity .4s ease;}
+  .arc-line.lit{animation:dkrRoute 5s ease-in-out infinite;}
+  .arc-line.off{stroke-opacity:.07 !important;animation:none !important;}
+  .arc-particle{transition:opacity .4s ease;}
+  .arc-particle.off{opacity:0 !important;}
+  @keyframes dkrRoute{0%,100%{stroke-opacity:.28}50%{stroke-opacity:1}}
+  @keyframes dkrBlink{0%,100%{opacity:.3}50%{opacity:1}}
+  .dkr-step:hover .dkr-step-num{color:#D32027;}
+  .dkr-step-num{transition:color .3s ease;}
+  /* --- hero red-panel engraved tape measure --- */
+  @keyframes dkrTapeSlide{from{transform:translateY(0)}to{transform:translateY(-1280px)}}
+  .tape-g{animation:dkrTapeSlide 104s linear infinite;will-change:transform;}
+  @media(prefers-reduced-motion:reduce){.tape-g{animation:none !important;}}
+
+  /* --- Manufacturing cinematic timeline --- */
+  .mfg-spine{position:absolute;left:50%;top:30px;bottom:30px;width:2px;background:rgba(255,255,255,.10);transform:translateX(-50%);}
+  #mfg-progress{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,#D32027,#0095DA);box-shadow:0 0 14px rgba(211,32,39,.45);transition:height .25s linear;}
+  .mfg-stage{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:46px 0;}
+  .mfg-stage:nth-child(even) .mfg-content{order:2;text-align:right;}
+  .mfg-stage:nth-child(even) .mfg-chips{justify-content:flex-end;}
+  .mfg-stage:nth-child(even) .mfg-stat{justify-content:flex-end;}
+  .mfg-node-dot{transition:background .7s ease,box-shadow .7s ease;}
+  [data-reveal].in .mfg-node-dot{background:#D32027;box-shadow:0 0 0 5px rgba(211,32,39,.16);}
+  .mfg-media{transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s ease;}
+  .mfg-stage:hover .mfg-media{transform:translateY(-6px);box-shadow:0 28px 60px rgba(0,0,0,.5);}
+  @media(max-width:860px){
+    .mfg-spine{left:7px;}
+    .mfg-stage{grid-template-columns:1fr !important;gap:22px !important;padding:34px 0 34px 36px;}
+    .mfg-stage:nth-child(even) .mfg-content{order:0;text-align:left;}
+    .mfg-stage:nth-child(even) .mfg-chips{justify-content:flex-start;}
+    .mfg-stage:nth-child(even) .mfg-stat{justify-content:flex-start;}
+    .mfg-node{left:7px !important;}
+  }
+  .dkr-cert{position:relative;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease,box-shadow .4s ease;overflow:hidden;}
+  .dkr-cert::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#D32027;transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+  .dkr-cert:hover{transform:translateY(-6px);border-color:#D0D4D9 !important;box-shadow:0 18px 40px rgba(14,15,17,.10);}
+  .dkr-cert:hover::before{transform:scaleX(1);}
+  .dkr-cert:hover .dkr-cert-ico{border-color:#D32027;color:#D32027;}
+  .dkr-cert-ico{transition:border-color .4s ease,color .4s ease;}
+  .dkr-qres{transition:color .25s ease,border-color .25s ease;}
+  .dkr-qres:hover{color:#0E0F11;border-color:#0E0F11;}
+  .dkr-qres:hover .dkr-qres-tick{width:18px;background:#D32027;}
+  .dkr-qres-tick{transition:width .3s ease,background .3s ease;}
+  .dkr-dot{transition:transform .3s ease,background .3s ease;}
+  .carbtn{transition:background .3s ease,color .3s ease,border-color .3s ease;}
+  .carbtn:hover{background:#D32027;color:#fff;border-color:#D32027;}
+  /* Architectural seam: no fog. A tight, subtle bg interpolation + the blueprint grid continuing across the boundary and fading before the next section restates it. */
+  .des-bridge{position:relative;height:clamp(20px,2.1vw,34px);background:linear-gradient(180deg,var(--from),var(--to));}
+  .des-bridge::after{content:'';position:absolute;left:0;right:0;bottom:0;top:-150px;background-image:linear-gradient(var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px),linear-gradient(90deg,var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000);}
+  .des-atmos{position:absolute;width:150%;height:150%;left:-25%;top:-25%;background:conic-gradient(from 0deg,transparent,rgba(0,149,218,.04),transparent 42%,rgba(211,32,39,.028),transparent 74%);animation:dkrSpinSlow 72s linear infinite;pointer-events:none;z-index:0;}
+  .mapnode{filter:drop-shadow(0 0 4px rgba(0,149,218,.5));}
+  @media(prefers-reduced-motion:reduce){.des-atmos,.arc-line.lit,.node-pulse{animation:none !important;}.arc-line.lit{stroke-opacity:.55 !important;}}
+  /* --- WHY: industrial spec cards + architectural transition --- */
+  @keyframes dkrDrawX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes dkrSweep{0%{transform:translateX(-130%) skewX(-16deg);opacity:0}14%{opacity:.55}50%{opacity:.55}86%{opacity:0}100%{transform:translateX(240%) skewX(-16deg);opacity:0}}
+  @keyframes dkrNode{0%,100%{box-shadow:0 0 0 0 rgba(0,149,218,.5)}60%{box-shadow:0 0 0 7px rgba(0,149,218,0)}}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:1080px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.why-grid{grid-template-columns:1fr;}}
+  .spec-card{position:relative;background:#fff;border:1px solid #E2E5E9;padding:28px 24px 26px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
+  .spec-card:hover{transform:translateY(-8px);border-color:#D32027;box-shadow:0 26px 60px rgba(14,15,17,.16);}
+  .spec-bp{position:absolute;inset:0;background-image:linear-gradient(rgba(0,149,218,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.09) 1px,transparent 1px);background-size:26px 26px;opacity:0;transition:opacity .55s ease;pointer-events:none;}
+  .spec-card:hover .spec-bp{opacity:1;}
+  .spec-icon{transition:transform .5s cubic-bezier(.2,.7,.2,1),color .5s ease;color:#0E0F11;}
+  .spec-card:hover .spec-icon{color:#D32027;transform:translateY(-3px);}
+  .spec-card:hover .spec-num{color:#D32027;}
+  .spec-num{transition:color .4s ease;}
+  .spec-accent{position:absolute;top:0;left:0;right:0;height:3px;background:#D32027;transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.7,.2,1);z-index:3;}
+  [data-reveal].in .spec-accent{transform:scaleX(1);}
+  .spec-node{width:7px;height:7px;border-radius:50%;background:#0095DA;flex:0 0 auto;animation:dkrNode 2.6s ease-in-out infinite;}
+  .why-draw{transform:scaleX(0);transform-origin:left;}
+  [data-reveal].in .why-draw{animation:dkrDrawX 1.1s cubic-bezier(.2,.7,.2,1) .15s forwards;}
+  .why-sweep{position:absolute;top:0;bottom:0;left:0;width:36%;background:linear-gradient(90deg,transparent,rgba(0,149,218,.06),transparent);animation:dkrSweep 17s ease-in-out infinite;pointer-events:none;z-index:1;}
+  /* WHY -> MANUFACTURING transition: NO fade/gradient. Pure layout overlap + continuous structural guide lines + aligned blueprint grid. */
+  .seam-guide{position:absolute;width:1px;pointer-events:none;z-index:1;}
+  @keyframes dkrCoord{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+  .cad-coord{animation:dkrCoord 9s ease-in-out infinite;}
+  @media(prefers-reduced-motion:reduce){.why-sweep,.spec-node,.cad-coord{animation:none !important;}.why-draw,.spec-accent{animation:none !important;transform:none !important;}}
+  /* nav dropdown (added) */
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #D32027;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#D32027;transition:width .3s ease;flex:0 0 auto;}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
+  a{text-decoration:none;color:inherit;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; color:#0E0F11; overflow-x:hidden;">
+
+<!-- ===================== NAV ===================== -->
+<nav class="dkr-nav {{ navClass }}" style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="#top" style="display:flex; align-items:center;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" style="{{ logoStyle }}">
+    </a>
+    <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
+      <a href="Decor Products.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">PRODUCTS</a>
+      <a href="Decor Manufacturing.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">MANUFACTURING</a>
+      <a href="Decor Export.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">EXPORT</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SALES <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AUTHORIZED DEALERS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Find an official Dekor partner</span></span></a>
+          <a href="Decor Partner Resources.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">PARTNER RESOURCES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Price lists, catalogs &amp; brand assets</span></span></a>
+          <a href="Decor B2B Portal.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTAL</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Professional ordering platform</span></span></a>
+          <a href="Decor Online Payment.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ONLINE PAYMENT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Secure invoice payment</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">NEWSROOM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">LATEST NEWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Announcements &amp; product updates</span></span></a>
+          <a href="Decor Newsroom.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRADE SHOWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fairs &amp; exhibitions</span></span></a>
+          <a href="Decor Newsroom.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRAINING ACADEMY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Applicator &amp; dealer training</span></span></a>
+          <a href="Decor Newsroom.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">COMPANY LIFE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Events, awards &amp; culture</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">ABOUT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ABOUT DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Company overview</span></span></a>
+          <a href="Decor Our Story.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">OUR STORY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Six decades of craft</span></span></a>
+          <a href="Decor Vision Mission.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VISION &amp; MISSION</span><span style="font-size:11px; color:rgba(255,255,255,.45);">What drives us forward</span></span></a>
+          <a href="Decor RD Center.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">R&amp;D CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Engineering &amp; innovation</span></span></a>
+          <a href="Decor Quality Sustainability.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">QUALITY &amp; SUSTAINABILITY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standards &amp; responsibility</span></span></a>
+          <a href="Decor Career.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CAREER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Build your career with us</span></span></a>
+          <a href="Decor Idea.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">I HAVE AN IDEA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Share it with our team</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SUPPORT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUPPORT CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Help, FAQ &amp; downloads hub</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DOWNLOADS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Technical PDFs &amp; assets</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CERTIFICATES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE &amp; compliance docs</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CATALOGS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Full product catalogs</span></span></a>
+          <a href="Decor Support.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">WARRANTY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Coverage &amp; registration</span></span></a>
+          <a href="Decor Support.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Common questions, answered</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">CONTACT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CONTACT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Offices, factory &amp; export teams</span></span></a>
+          <a href="Decor Complaint.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUBMIT YOUR COMPLAINT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Service &amp; quality issues</span></span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Search (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
+      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Become a Dealer</a>
+    </div>
+    <button onClick="{{ toggleMenu }}" class="dkr-burger" style="display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;">
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+    </button>
+  </div>
+</nav>
+<dc-import name="Decor Search" hint-size="0,0"></dc-import>
+
+<sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.97); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;">
+    <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:74px; width:auto; margin-bottom:14px;">
+    <a href="Decor Products.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">PRODUCTS</a>
+    <a href="Decor Manufacturing.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">MANUFACTURING</a>
+    <a href="Decor Export.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">EXPORT</a>
+    <a href="Decor Authorized Dealers.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">SALES</a>
+    <a href="Decor About.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">ABOUT</a>
+    <a href="Decor Contact.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">CONTACT</a>
+    <a href="Decor Complaint.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1.5px; color:rgba(255,255,255,.6);">SUBMIT YOUR COMPLAINT</a>
+    <a href="Decor Support.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">SUPPORT</a>
+    <a href="Decor Career.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">CAREER</a>
+    <a href="Decor Idea.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">I HAVE AN IDEA</a>
+    <a href="Decor Become a Dealer.dc.html" onClick="{{ toggleMenu }}" style="background:#D32027; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:8px;">Become a Dealer</a>
+  </div>
+</sc-if>
+
+<!-- ===================== HERO — DYNAMIC BANNER SYSTEM ===================== -->
+<!-- CMS-managed banner module. Each .banner maps to one admin record:
+     id · order · active · publishDate · headline · subheadline · ctaPrimary{text,link}
+     · ctaSecondary{text,link} · desktopImage · mobileImage · productCode · backgroundStyle · technicalLabels -->
+<header id="top" role="region" aria-label="Hero banners" aria-roledescription="carousel" onMouseEnter="{{ pause }}" onMouseLeave="{{ resume }}" style="position:relative; min-height:min(94vh, 900px); display:flex; flex-direction:column; background:#0b0c0e; overflow:hidden;">
+  <div class="b-stack" style="position:relative; flex:1; min-height:580px;">
+    <sc-for list="{{ banners }}" as="b" hint-placeholder-count="3">
+      <div class="banner {{ b.on }}" role="group" aria-roledescription="slide" aria-label="{{ b.tag }}" aria-hidden="{{ b.hidden }}" style="position:absolute; inset:0; background:{{ b.bg }};">
+        <!-- background grid (blue blueprint on technical banners) -->
+        <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient({{ b.gridColor }} 1px,transparent 1px),linear-gradient(90deg,{{ b.gridColor }} 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 30%,#000 40%,transparent 90%);"></div>
+        <!-- living blueprint: scan line, intersection glints, drifting particles -->
+        <div class="bp-scan"></div>
+        <div class="bp-glint" style="left:33%; top:38%;"></div>
+        <div class="bp-glint" style="left:62%; top:24%; animation-delay:2.4s;"></div>
+        <div class="bp-glint" style="left:14%; top:62%; animation-delay:4s;"></div>
+        <div class="bp-particle" style="left:24%; top:70%;"></div>
+        <div class="bp-particle" style="left:48%; top:80%; animation-delay:3s;"></div>
+        <!-- diagonal red power slash -->
+        <div style="position:absolute; top:-120px; right:-120px; width:340px; height:1200px; background:linear-gradient(180deg,#D32027,#8d1115); transform:rotate(20deg); opacity:.92; overflow:hidden;">
+          <div aria-hidden="true" style="position:absolute; inset:0; opacity:.11; pointer-events:none; mask-image:linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent); -webkit-mask-image:linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);">
+            <div class="tape-g" style="position:absolute; left:0; right:0; top:0; height:2560px;">
+              <div style="position:absolute; left:20px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.85) 5%,rgba(0,0,0,.85) 95%,rgba(0,0,0,0)); box-shadow:1px 0 0 rgba(255,255,255,.45);"></div>
+              <div style="position:absolute; left:24px; top:0; bottom:0; width:14px; background:repeating-linear-gradient(to bottom, rgba(0,0,0,.85) 0 1px, rgba(255,255,255,.5) 1px 2px, transparent 2px 16px);"></div>
+              <div style="position:absolute; left:24px; top:0; bottom:0; width:30px; background:repeating-linear-gradient(to bottom, rgba(0,0,0,.95) 0 1.5px, rgba(255,255,255,.6) 1.5px 3px, transparent 3px 80px);"></div>
+              <span style="position:absolute; left:62px; top:-10px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">10</span>
+              <span style="position:absolute; left:62px; top:310px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">20</span>
+              <span style="position:absolute; left:62px; top:630px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">30</span>
+              <span style="position:absolute; left:62px; top:950px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">40</span>
+              <span style="position:absolute; left:62px; top:1270px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">10</span>
+              <span style="position:absolute; left:62px; top:1590px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">20</span>
+              <span style="position:absolute; left:62px; top:1910px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">30</span>
+              <span style="position:absolute; left:62px; top:2230px; font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:1px; color:rgba(0,0,0,.82);">40</span>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute; top:-120px; right:200px; width:90px; height:1200px; background:rgba(211,32,39,.18); transform:rotate(20deg);"></div>
+        <div class="b-inner dkr-herogrid" style="position:relative; z-index:2; height:100%; max-width:1280px; margin:0 auto; padding:150px clamp(20px,5vw,64px) 56px; display:grid; grid-template-columns:1.08fr .92fr; gap:56px; align-items:center;">
+          <div>
+            <div class="b-eyebrow" style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#ff7a72; font-weight:600;">
+              <span style="width:32px; height:2px; background:#D32027; display:inline-block;"></span>{{ b.eyebrow }}
+            </div>
+            <h1 class="b-head" style="font-size:clamp(44px,6.6vw,88px); line-height:0.9; font-weight:900; letter-spacing:-0.035em; color:#fff; margin:26px 0 0;">{{ b.h1 }}<br>{{ b.h2 }}<span style="color:#D32027;">{{ b.h2accent }}</span></h1>
+            <p class="b-sub" style="font-size:clamp(17px,1.5vw,22px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:26px 0 0; max-width:520px;">{{ b.sub }}</p>
+            <div class="b-ctas" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:46px;">
+              <a href="{{ b.cta1link }}" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:16px 28px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 10px 30px rgba(211,32,39,.4);">{{ b.cta1 }}</a>
+              <a href="{{ b.cta2link }}" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:16px 28px; font-weight:700; font-size:15px; border-radius:2px;">{{ b.cta2 }}</a>
+            </div>
+          </div>
+          <!-- technical image frame (desktop image slot) -->
+          <div class="b-visual" style="position:relative; align-self:stretch; min-height:320px; display:flex; align-items:center; justify-content:center;">
+            <div style="position:relative; width:100%; max-width:440px; aspect-ratio:1/1; animation:dkrFloat 7s ease-in-out infinite;">
+              <div style="position:absolute; top:0; left:0; width:34px; height:34px; border-top:2px solid #D32027; border-left:2px solid #D32027;"></div>
+              <div style="position:absolute; top:0; right:0; width:34px; height:34px; border-top:2px solid {{ b.markerColor }}; border-right:2px solid {{ b.markerColor }};"></div>
+              <div style="position:absolute; bottom:0; left:0; width:34px; height:34px; border-bottom:2px solid {{ b.markerColor }}; border-left:2px solid {{ b.markerColor }};"></div>
+              <div style="position:absolute; bottom:0; right:0; width:34px; height:34px; border-bottom:2px solid #D32027; border-right:2px solid #D32027;"></div>
+              <div style="position:absolute; inset:18px; background:linear-gradient(150deg,#1f2226,#101113); border:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                {{ b.imgEl }}
+                <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:28px 28px;"></div>
+                <div style="position:absolute; top:12px; left:12px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0095DA; border:1px solid rgba(0,149,218,.45); padding:3px 7px;">{{ b.productCode }}</div>
+                <div style="position:relative; display:none; flex-direction:column; align-items:center; gap:13px; text-align:center;">
+                  <div style="width:48px; height:48px; border:1.5px solid rgba(255,255,255,.22); border-radius:50%; display:flex; align-items:center; justify-content:center;"><span style="color:#0095DA; font-size:24px; font-weight:300; line-height:1; margin-top:-2px;">+</span></div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:#9aa1a8;">{{ b.imageLabel }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:2px; color:#565c63;">PREMIUM RENDER · IMAGE SLOT</div>
+                </div>
+                <div style="position:absolute; top:50%; left:0; right:0; height:1px; background:{{ b.markerLine }};"></div>
+                <div style="position:absolute; left:50%; top:0; bottom:0; width:1px; background:{{ b.markerLine }};"></div>
+              </div>
+              <div style="position:absolute; top:28%; right:26%; width:12px; height:12px;">
+                <div style="position:absolute; inset:0; border-radius:50%; background:{{ b.nodeColor }};"></div>
+                <div style="position:absolute; inset:0; border-radius:50%; background:{{ b.nodeColor }}; animation:dkrPulse 2.4s ease-out infinite;"></div>
+              </div>
+              <div style="position:absolute; bottom:-2px; left:18px; right:18px; display:flex; align-items:center; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:9px; color:#0095DA; letter-spacing:1px;">
+                <span>{{ b.label1 }}</span><span>{{ b.label2 }}</span><span>{{ b.label3 }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- BANNER NAVIGATION SYSTEM -->
+  <div style="position:relative; z-index:5; max-width:1280px; width:100%; margin:0 auto; padding:0 clamp(20px,5vw,64px) 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px;">
+    <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.5);"><span style="color:#0095DA; font-weight:600; font-size:15px;">{{ bannerNum }}</span> &nbsp;/&nbsp; {{ bannerTotal }}</div>
+      <div style="display:flex; flex-direction:column; gap:9px; min-width:210px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#fff;">{{ bannerLabel }}</div>
+        <div style="position:relative; width:210px; max-width:46vw; height:2px; background:rgba(255,255,255,.16);">
+          <div id="b-progress" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:#D32027;"></div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.onClick }}" class="b-dot" aria-label="{{ d.aria }}" style="height:8px; width:{{ d.w }}; border-radius:4px; border:none; cursor:pointer; padding:0; background:{{ d.bg }};"></button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button onClick="{{ prevBanner }}" class="b-arrow" aria-label="Previous banner" style="width:48px; height:48px; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff; font-size:18px; cursor:pointer; border-radius:2px;">←</button>
+      <button onClick="{{ nextBanner }}" class="b-arrow" aria-label="Next banner" style="width:48px; height:48px; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff; font-size:18px; cursor:pointer; border-radius:2px;">→</button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-left:8px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.4);">SCROLL</span>
+        <div style="width:22px; height:34px; border:1.5px solid rgba(255,255,255,.3); border-radius:11px; display:flex; justify-content:center; padding-top:6px;"><div style="width:3px; height:7px; background:#0095DA; border-radius:2px; animation:dkrScroll 1.8s ease-in-out infinite;"></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== TRUST STRIP ===================== -->
+<section style="background:#0E0F11; border-top:1px solid rgba(255,255,255,.06); padding:clamp(48px,7vw,90px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600; margin-bottom:30px;">
+      <span style="width:30px; height:2px; background:#D32027;"></span>WHY THE TRADE TRUSTS DEKOR
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:0; border-top:1px solid rgba(255,255,255,.1);">
+      <sc-for list="{{ trust }}" as="t" hint-placeholder-count="6">
+        <div data-reveal style="padding:30px 24px 30px 0; border-bottom:1px solid rgba(255,255,255,.06);">
+          <div style="font-size:clamp(34px,4vw,52px); font-weight:900; color:#fff; letter-spacing:-0.03em; line-height:1;"><span data-count="{{ t.count }}" data-suffix="{{ t.suffix }}" data-comma="{{ t.comma }}">{{ t.start }}</span></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:rgba(255,255,255,.55); margin-top:10px;">{{ t.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRODUCT ECOSYSTEM ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#0E0F11; --to:#F4F5F6; --grid:rgba(90,100,110,.12);"></div>
+
+<section id="products" style="position:relative; background:#F4F5F6; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.025) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(130% 100% at 50% 0%,#000,transparent 82%); pointer-events:none;"></div>
+  <div class="bp-scan" style="animation-duration:24s;"></div>
+  <div class="bp-glint" style="left:18%; top:30%;"></div>
+  <div class="bp-glint" style="left:82%; top:46%; animation-delay:3s;"></div>
+  <div class="bp-glint" style="left:55%; top:16%; animation-delay:5.5s;"></div>
+  <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:54px;">
+      <div data-reveal>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>THE PRODUCT ECOSYSTEM</div>
+        <h2 style="font-size:clamp(34px,5vw,64px); font-weight:900; letter-spacing:-0.035em; color:#0E0F11; line-height:0.98; margin:18px 0 0;">Eleven engineered families.<br>One standard.</h2>
+      </div>
+      <p data-reveal style="max-width:380px; font-size:16px; line-height:1.6; color:#5A6066;">From the first coat to the final measurement — over 400 professional tools, engineered as one coherent system for the jobsite.</p>
+    </div>
+    <div class="fam-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px;">
+      <sc-for list="{{ families }}" as="f" hint-placeholder-count="6">
+        <a href="Decor Products.dc.html" data-reveal class="dkr-fam" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:4px; overflow:hidden; display:flex; flex-direction:column;">
+          <div style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ f.accent }}; z-index:5;"></div>
+          <!-- MEDIA: blueprint (default) transforms into product render (hover) -->
+          <div style="position:relative; height:222px; background:#E6E8EB; overflow:hidden;">
+            <div class="fam-blue" style="position:absolute; inset:0;">
+              <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:24px 24px;"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa1a8; letter-spacing:1px;">{{ f.imglabel }}</div>
+              <div style="position:absolute; bottom:13px; right:14px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:#0095DA;">{{ f.coord }}</div>
+            </div>
+            <div class="fam-render" style="position:absolute; inset:0; background:linear-gradient(158deg,#22262b 0%,#0f1115 100%);">
+              <div style="position:absolute; inset:0; background:radial-gradient(120% 85% at 32% -5%, rgba(255,255,255,.15), transparent 58%);"></div>
+              <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:26px 26px;"></div>
+              <div class="fam-render-img" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; text-align:center;">
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:#c2c8ce;">{{ f.hero }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:2px; color:#565c63;">PRODUCT RENDER</div>
+              </div>
+              <div class="fam-dot" style="position:absolute; top:26%; right:24%; width:10px; height:10px;">
+                <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA;"></div>
+                <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA; animation:dkrPulse 2.2s ease-out infinite;"></div>
+              </div>
+            </div>
+            <div class="fam-code" style="position:absolute; top:14px; left:14px; z-index:3; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:4px 9px;">{{ f.code }}</div>
+            <div style="position:absolute; bottom:13px; left:14px; right:14px; z-index:3; display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="fam-chip" style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); padding:4px 8px;">{{ f.spec1 }}</span>
+              <span class="fam-chip" style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); padding:4px 8px;">{{ f.spec2 }}</span>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div style="padding:28px 26px 30px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:2px; color:#0095DA; margin-bottom:14px;">{{ f.sku }}</div>
+            <h3 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:0; display:flex; align-items:center; justify-content:space-between; gap:12px;">{{ f.name }}<span class="dkr-fam-arrow" style="color:#9aa1a8; font-weight:700; flex:0 0 auto;">↗</span></h3>
+            <p style="font-size:14.5px; line-height:1.55; color:#5A6066; margin:12px 0 18px;">{{ f.desc }}</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#8A9097; border-top:1px solid #ECEEF1; padding-top:16px;">
+              <span>{{ f.count }}</span><span style="color:#5A6066;">{{ f.material }}</span>
+            </div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-top:36px; padding-top:28px; border-top:1px solid rgba(255,255,255,.1);">
+      <div style="display:inline-flex; align-items:center; gap:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.55);"><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; padding:0 12px; border:1px solid rgba(0,149,218,.45); color:#54bdee; border-radius:2px; font-weight:600;">+7</span>MORE ENGINEERED FAMILIES</div>
+      <a href="Decor Products.dc.html" class="dkr-btn dkr-btn-red" style="display:inline-flex; align-items:center; gap:10px; background:#D32027; color:#fff; padding:15px 28px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(211,32,39,.35);">Explore all product families →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY DEKOR ===================== -->
+<section id="why" style="position:relative; background:#fff; padding:clamp(64px,9vw,128px) clamp(20px,5vw,64px) clamp(120px,15vw,180px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.022) 1px,transparent 1px); background-size:60px 60px; -webkit-mask-image:radial-gradient(130% 100% at 50% 0%,#000,transparent 80%); mask-image:radial-gradient(130% 100% at 50% 0%,#000,transparent 80%); pointer-events:none;"></div>
+  <div class="why-sweep"></div>
+  <div class="bp-scan" style="animation-duration:20s; background:linear-gradient(90deg,transparent,rgba(0,149,218,.28),transparent);"></div>
+  <div class="bp-glint" style="left:24%; top:30%;"></div>
+  <div class="bp-glint" style="left:76%; top:22%; animation-delay:3.4s;"></div>
+  <div class="bp-particle" style="left:60%; top:62%; animation-duration:11s;"></div>
+  <div class="bp-particle" style="left:38%; top:80%; animation-duration:13s; animation-delay:4s;"></div>
+  <!-- CAD coordinate marker -->
+  <div aria-hidden="true" class="cad-coord" style="position:absolute; top:clamp(40px,6vw,72px); right:clamp(20px,5vw,64px); display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#C2C7CC; z-index:2;">
+    <span>X 1280</span><span style="color:#E2E5E9;">·</span><span>Y 0</span>
+    <span style="width:11px; height:11px; border-top:1px solid #0095DA; border-right:1px solid #0095DA; display:inline-block;"></span>
+  </div>
+  <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:780px; margin-bottom:clamp(40px,5vw,60px);">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>ENGINEERING COMMITMENTS · 04</div>
+      <h2 style="font-size:clamp(34px,4.7vw,60px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">Engineered without compromise.</h2>
+      <p style="font-size:clamp(15px,1.3vw,17px); line-height:1.65; color:#5A6066; max-width:580px; margin:20px 0 0;">Six decades of metallurgy distilled into four engineering commitments — every one measured, tested and verified before a tool earns the Dekor mark.</p>
+      <div style="display:flex; align-items:center; gap:14px; margin-top:26px;">
+        <div class="why-draw" style="width:clamp(80px,12vw,140px); height:2px; background:#0E0F11;"></div>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.6px; color:#8A9097;">ISO 9001:2015 · ENGINEERING SPECIFICATION</span>
+      </div>
+    </div>
+    <div class="why-grid">
+
+      <!-- 01 -->
+      <div class="spec-card" data-reveal style="transition-delay:.02s;">
+        <div class="spec-accent"></div>
+        <div class="spec-bp"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA; border:1px solid rgba(0,149,218,.32); padding:3px 7px;">FORGE · 01</span>
+            <span class="spec-num" style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#C7CCD1; font-weight:600;">01</span>
+          </div>
+          <div class="spec-icon" style="margin-top:22px;"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4l11 6.4v13L17 30 6 23.4v-13z"/><circle cx="17" cy="17" r="4.2"/></svg></div>
+          <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:16px 0 0;">Forged-Steel Durability</h3>
+          <p style="font-size:14px; line-height:1.6; color:#5A6066; margin:10px 0 0;">Tools forged and heat-treated to survive the jobsite — not the showroom.</p>
+          <div style="margin-top:20px;">
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#D32027; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">MATERIAL</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">1.2379 TOOL STEEL</span></div>
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#0095DA; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">HARDNESS</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">58–62 HRC</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:#8A9097;">PRECISION</span><div style="flex:1; height:2px; background:#E2E5E9; position:relative; overflow:hidden;"><div class="why-draw" style="position:absolute; left:0; top:0; bottom:0; width:94%; background:linear-gradient(90deg,#D32027,#0095DA);"></div></div><span class="spec-node"></span></div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:16px;"><span class="spec-chip" style="display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#5A6066; border:1px solid #E2E5E9; padding:5px 9px; transition:border-color .4s ease;">DROP-FORGED · HEAT-TREATED</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.6px; color:#C2C7CC; white-space:nowrap;">X.014 · Y.062</span></div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="spec-card" data-reveal style="transition-delay:.08s;">
+        <div class="spec-accent" style="background:#0095DA;"></div>
+        <div class="spec-bp"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA; border:1px solid rgba(0,149,218,.32); padding:3px 7px;">MAT · 02</span>
+            <span class="spec-num" style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#C7CCD1; font-weight:600;">02</span>
+          </div>
+          <div class="spec-icon" style="margin-top:22px;"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5l12 6-12 6L5 11z"/><path d="M5 17l12 6 12-6"/><path d="M5 23l12 6 12-6"/></svg></div>
+          <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:16px 0 0;">Engineered Materials</h3>
+          <p style="font-size:14px; line-height:1.6; color:#5A6066; margin:10px 0 0;">Stainless, carbon steel and aircraft-grade aluminium chosen per application.</p>
+          <div style="margin-top:20px;">
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#D32027; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">ALLOYS</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">SS · CARBON · 6061-T6</span></div>
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#0095DA; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">STANDARD</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">APPLICATION-MATCHED</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:#8A9097;">PRECISION</span><div style="flex:1; height:2px; background:#E2E5E9; position:relative; overflow:hidden;"><div class="why-draw" style="position:absolute; left:0; top:0; bottom:0; width:88%; background:linear-gradient(90deg,#D32027,#0095DA);"></div></div><span class="spec-node"></span></div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:16px;"><span class="spec-chip" style="display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#5A6066; border:1px solid #E2E5E9; padding:5px 9px; transition:border-color .4s ease;">CORROSION-RATED</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.6px; color:#C2C7CC; white-space:nowrap;">X.128 · Y.040</span></div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="spec-card" data-reveal style="transition-delay:.14s;">
+        <div class="spec-accent"></div>
+        <div class="spec-bp"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA; border:1px solid rgba(0,149,218,.32); padding:3px 7px;">QC · 03</span>
+            <span class="spec-num" style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#C7CCD1; font-weight:600;">03</span>
+          </div>
+          <div class="spec-icon" style="margin-top:22px;"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4l11 4v7.2C28 23 22.8 27.4 17 30c-5.8-2.6-11-7-11-14.8V8z"/><path d="M12 16.4l3.8 3.8L23 13"/></svg></div>
+          <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:16px 0 0;">100% Quality Control</h3>
+          <p style="font-size:14px; line-height:1.6; color:#5A6066; margin:10px 0 0;">Every batch inspected and stress-tested before it leaves the line.</p>
+          <div style="margin-top:20px;">
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#D32027; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">SYSTEM</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">ISO 9001:2015</span></div>
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#0095DA; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">TESTING</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">LOAD · FLEX · FINISH</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:#8A9097;">PRECISION</span><div style="flex:1; height:2px; background:#E2E5E9; position:relative; overflow:hidden;"><div class="why-draw" style="position:absolute; left:0; top:0; bottom:0; width:100%; background:linear-gradient(90deg,#D32027,#0095DA);"></div></div><span class="spec-node"></span></div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:16px;"><span class="spec-chip" style="display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#5A6066; border:1px solid #E2E5E9; padding:5px 9px; transition:border-color .4s ease;">100% BATCH VERIFIED</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.6px; color:#C2C7CC; white-space:nowrap;">X.241 · Y.118</span></div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="spec-card" data-reveal style="transition-delay:.2s;">
+        <div class="spec-accent" style="background:#0095DA;"></div>
+        <div class="spec-bp"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA; border:1px solid rgba(0,149,218,.32); padding:3px 7px;">R&amp;D · 04</span>
+            <span class="spec-num" style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#C7CCD1; font-weight:600;">04</span>
+          </div>
+          <div class="spec-icon" style="margin-top:22px;"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="7.5" r="2.6"/><path d="M15.6 9.8L8 28"/><path d="M18.4 9.8L26 28"/><path d="M12.6 21h8.8"/></svg></div>
+          <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:16px 0 0;">In-House R&amp;D</h3>
+          <p style="font-size:14px; line-height:1.6; color:#5A6066; margin:10px 0 0;">A dedicated R&amp;D centre turning trade feedback into better tools, faster.</p>
+          <div style="margin-top:20px;">
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#D32027; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">PROCESS</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">PROTOTYPE → PRODUCTION</span></div>
+            <div style="display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid #EEF0F2;"><span style="width:6px; height:6px; background:#0095DA; flex:0 0 auto;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:#8A9097;">INPUT</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:#0E0F11; font-weight:600;">FIELD-DRIVEN DESIGN</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:#8A9097;">PRECISION</span><div style="flex:1; height:2px; background:#E2E5E9; position:relative; overflow:hidden;"><div class="why-draw" style="position:absolute; left:0; top:0; bottom:0; width:90%; background:linear-gradient(90deg,#D32027,#0095DA);"></div></div><span class="spec-node"></span></div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:16px;"><span class="spec-chip" style="display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#5A6066; border:1px solid #E2E5E9; padding:5px 9px; transition:border-color .4s ease;">CONTINUOUS IMPROVEMENT</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.6px; color:#C2C7CC; white-space:nowrap;">X.356 · Y.090</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- structural guides descend into the seam; they continue in the dark Manufacturing section below -->
+  <div class="seam-guide" style="left:16%; bottom:0; height:clamp(150px,20vw,230px); background:rgba(0,149,218,.16);" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:50%; bottom:0; height:clamp(190px,24vw,290px); background:rgba(0,149,218,.2);" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:84%; bottom:0; height:clamp(150px,20vw,230px); background:rgba(0,149,218,.16);" aria-hidden="true"></div>
+</section>
+
+<!-- ===================== MANUFACTURING ===================== -->
+<section id="manufacturing" style="position:relative; background:#0E0F11; padding:clamp(140px,16vw,190px) clamp(20px,5vw,64px) clamp(56px,7vw,104px); overflow:hidden; margin-top:clamp(-150px,-14vw,-115px); z-index:2;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 80%);"></div>
+  <div class="bp-scan" style="animation-duration:19s;"></div>
+  <div class="bp-glint" style="left:80%; top:26%;"></div>
+  <div class="bp-glint" style="left:16%; top:70%; animation-delay:3s;"></div>
+  <!-- structural guides continue from the Trust section across the seam (same x, no fade) -->
+  <div class="seam-guide" style="left:16%; top:0; height:clamp(150px,20vw,230px); background:rgba(0,149,218,.32);" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:50%; top:0; height:clamp(200px,26vw,300px); background:rgba(0,149,218,.42);" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:84%; top:0; height:clamp(150px,20vw,230px); background:rgba(0,149,218,.32);" aria-hidden="true"></div>
+  <div aria-hidden="true" style="position:absolute; left:calc(50% + 10px); top:clamp(26px,4vw,46px); font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:2px; color:rgba(0,149,218,.7); z-index:1;">DATUM · SECTION B</div>
+  <div style="position:relative; z-index:2; max-width:1080px; margin:0 auto; text-align:center;">
+    <div data-reveal>
+      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>MANUFACTURING EXCELLENCE · 21,000 M²</div>
+      <h2 style="font-size:clamp(34px,5vw,68px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.96; margin:20px 0 0;">From Raw Steel to<br>Professional <span style="color:#D32027;">Precision.</span></h2>
+      <p style="font-size:clamp(16px,1.4vw,18px); line-height:1.6; color:rgba(255,255,255,.64); margin:22px auto 0; max-width:580px;">Six decades of metallurgy, forging, machining and inspection — all under one roof. A glimpse of how every Dekor tool earns its place on the jobsite.</p>
+    </div>
+    <!-- one cinematic factory visual -->
+    <div data-reveal style="position:relative; aspect-ratio:16/6; margin:46px 0 0; background:linear-gradient(155deg,#1d2025,#0e1013); border:1px solid rgba(255,255,255,.08); overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:38px 38px;"></div>
+      <div class="bp-scan" style="animation-duration:14s;"></div>
+      <div style="position:absolute; top:0; left:0; width:34px; height:34px; border-top:2px solid #D32027; border-left:2px solid #D32027;"></div>
+      <div style="position:absolute; bottom:0; right:0; width:34px; height:34px; border-bottom:2px solid #0095DA; border-right:2px solid #0095DA;"></div>
+      <div style="position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0095DA; border:1px solid rgba(0,149,218,.4); padding:3px 8px;">FACILITY-01</div>
+      <div style="text-align:center; position:relative;"><div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#aab1b8;">THE FACTORY FLOOR</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:2px; color:#565c63; margin-top:8px;">CINEMATIC DOCUMENTARY VISUAL</div></div>
+    </div>
+    <!-- simplified horizontal journey -->
+    <div data-reveal style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-top:38px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px;">
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">01 RAW MATERIAL</span>
+      <span style="color:#0095DA;">→</span>
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">02 FORGING</span>
+      <span style="color:#0095DA;">→</span>
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">03 CNC</span>
+      <span style="color:#0095DA;">→</span>
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">04 GRINDING</span>
+      <span style="color:#0095DA;">→</span>
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">05 QUALITY CONTROL</span>
+      <span style="color:#0095DA;">→</span>
+      <span style="color:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.16); padding:9px 13px;">06 GLOBAL DISTRIBUTION</span>
+    </div>
+    <!-- CTA into dedicated page -->
+    <div data-reveal style="margin-top:46px;">
+      <a href="Decor Manufacturing.dc.html" class="dkr-btn dkr-btn-red" style="display:inline-block; background:#D32027; color:#fff; padding:17px 34px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(211,32,39,.4);">Explore Our Manufacturing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPORT MAP ===================== -->
+<section id="export" style="position:relative; background:#16181b; padding:clamp(64px,9vw,128px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="des-atmos"></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:760px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>GLOBAL DISTRIBUTION NETWORK</div>
+      <h2 style="font-size:clamp(32px,4.5vw,58px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:18px 0 0;">İstanbul to <span style="color:#D32027;">60</span> countries.</h2>
+      <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.62); margin:18px 0 0;">A trusted manufacturing and distribution network — live export routes, regional partners and dependable B2B logistics, monitored across four continents.</p>
+    </div>
+    <!-- global metrics (engineering data) -->
+    <div data-reveal style="margin-top:clamp(34px,4vw,50px); display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); border-top:1px solid rgba(255,255,255,.1); border-left:1px solid rgba(255,255,255,.1);">
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(20px,2.2vw,28px); font-weight:900; color:#fff; letter-spacing:-.02em;">60+</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">COUNTRIES</div></div>
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(20px,2.2vw,28px); font-weight:900; color:#fff; letter-spacing:-.02em;">4</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">CONTINENTS</div></div>
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(20px,2.2vw,28px); font-weight:900; color:#fff; letter-spacing:-.02em;">400+</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">PRODUCT LINES</div></div>
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(20px,2.2vw,28px); font-weight:900; color:#fff; letter-spacing:-.02em;">1964</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">ESTABLISHED</div></div>
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(17px,1.8vw,22px); font-weight:900; color:#fff; letter-spacing:-.01em; white-space:nowrap;">Global</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">DEALER NETWORK</div></div>
+      <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);"><div style="font-family:'Archivo',sans-serif; font-size:clamp(17px,1.8vw,22px); font-weight:900; color:#fff; letter-spacing:-.01em; white-space:nowrap;">ISO 9001</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); margin-top:6px;">INT'L STANDARD</div></div>
+    </div>
+    <div style="display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(36px,5vw,60px); align-items:center; margin-top:clamp(40px,5vw,60px);" class="dkr-2col">
+      <!-- globe -->
+      <div data-reveal style="position:relative; width:100%; aspect-ratio:1.4/1; display:flex; align-items:center; justify-content:center;">
+        <div style="position:relative; width:min(100%,560px); aspect-ratio:1/1;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 38% 32%, #23272c, #0e0f11 72%); box-shadow:inset 0 0 80px rgba(0,0,0,.6), 0 30px 80px rgba(0,0,0,.5);"></div>
+          <div style="position:absolute; top:6px; left:6px; display:flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.62); z-index:4;"><span style="width:7px; height:7px; border-radius:50%; background:#0095DA; animation:dkrBlink 1.6s infinite;"></span>NETWORK · LIVE</div>
+          <div style="position:absolute; bottom:6px; right:8px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.2px; color:rgba(255,255,255,.4); z-index:4;">ROUTES 60 · NODES 9 · HUB TR</div>
+          <svg viewBox="0 0 400 400" style="position:absolute; inset:0; width:100%; height:100%;">
+            <defs>
+              <clipPath id="globeclip"><circle cx="200" cy="200" r="186"/></clipPath>
+            </defs>
+            <g clip-path="url(#globeclip)" stroke="rgba(255,255,255,.13)" fill="none" stroke-width="1">
+              <ellipse cx="200" cy="200" rx="186" ry="186"/>
+              <ellipse cx="200" cy="200" rx="140" ry="186"/>
+              <ellipse cx="200" cy="200" rx="80" ry="186"/>
+              <ellipse cx="200" cy="200" rx="20" ry="186"/>
+              <line x1="14" y1="200" x2="386" y2="200"/>
+              <ellipse cx="200" cy="200" rx="186" ry="120"/>
+              <ellipse cx="200" cy="200" rx="186" ry="56"/>
+            </g>
+            <g clip-path="url(#globeclip)" fill="none">
+              <sc-for list="{{ arcs }}" as="a" hint-placeholder-count="5">
+                <path class="arc-line {{ a.cls }}" d="{{ a.d }}" stroke="#0095DA" stroke-width="1.4" style="animation-delay:{{ a.delay }};"></path>
+              </sc-for>
+            </g>
+            <g clip-path="url(#globeclip)">
+              <sc-for list="{{ particles }}" as="a" hint-placeholder-count="5">
+                <circle class="arc-particle {{ a.cls }}" r="2.4" fill="#5cc6f5">
+                  <animateMotion dur="{{ a.dur }}" begin="{{ a.delay }}" repeatCount="indefinite" path="{{ a.d }}"></animateMotion>
+                </circle>
+              </sc-for>
+            </g>
+          </svg>
+          <!-- hub -->
+          <div style="position:absolute; top:37.5%; left:52.5%; width:14px; height:14px; transform:translate(-50%,-50%);">
+            <div style="position:absolute; inset:0; border-radius:50%; background:#fff; border:2px solid #0095DA;"></div>
+            <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA; animation:dkrPulse 2.6s ease-out infinite;"></div>
+            <div style="position:absolute; top:-22px; left:50%; transform:translateX(-50%); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:#fff; white-space:nowrap;">İSTANBUL</div>
+          </div>
+          <!-- region nodes -->
+          <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="6">
+            <div class="mapnode {{ n.cls }}" style="position:absolute; top:{{ n.top }}; left:{{ n.left }}; width:9px; height:9px; transform:translate(-50%,-50%);">
+              <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA;"></div>
+              <div class="node-pulse" style="position:absolute; inset:0; border-radius:50%; background:#0095DA;"></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <!-- regional info cards -->
+      <div data-reveal style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.8px; color:rgba(255,255,255,.45);"><span>REGIONAL COVERAGE</span><span style="color:#0095DA;">60 · 4</span></div>
+        <sc-for list="{{ regions }}" as="r" hint-placeholder-count="5">
+          <div class="reg-card {{ r.active }}" onMouseEnter="{{ r.onEnter }}" onMouseLeave="{{ resetRegion }}" style="position:relative; padding:14px 16px; border:1px solid rgba(255,255,255,.1); border-radius:2px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+              <span style="font-size:17px; font-weight:800; color:#fff; letter-spacing:-.01em;">{{ r.name }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0095DA; white-space:nowrap;">{{ r.countLabel }}</span>
+            </div>
+            <div style="font-size:13px; color:rgba(255,255,255,.62); margin-top:5px;">{{ r.role }} · {{ r.cap }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.38); margin-top:8px;">{{ r.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- global expansion timeline -->
+    <div data-reveal style="margin-top:clamp(48px,6vw,80px); border-top:1px solid rgba(255,255,255,.1); padding-top:clamp(28px,3.5vw,40px);">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2.4px; color:#ff7a72; font-weight:600;"><span style="width:24px; height:2px; background:#D32027;"></span>GLOBAL EXPANSION · SINCE 1964</div>
+      <div style="position:relative; margin-top:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+        <div style="position:absolute; left:0; right:0; top:6px; height:1px; background:rgba(0,149,218,.28);"></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#16181b; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">1964</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">FOUNDED · GEBZE</div></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#16181b; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">Europe</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">FIRST EXPORTS</div></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#16181b; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">Middle East</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">REGIONAL GROWTH</div></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#16181b; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">Africa</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">NETWORK EXPANSION</div></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#16181b; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">Asia</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">STRATEGIC REACH</div></div>
+        <div style="position:relative; padding-right:14px;"><div style="width:13px; height:13px; border-radius:50%; background:#0095DA; border:2px solid #0095DA; position:relative; z-index:1;"></div><div style="font-family:'Archivo',sans-serif; font-weight:800; color:#fff; font-size:15px; margin-top:13px;">Americas</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.1px; color:rgba(255,255,255,.45); margin-top:4px;">GLOBAL FOOTPRINT</div></div>
+      </div>
+    </div>
+
+    <!-- export CTA -->
+    <div data-reveal style="margin-top:clamp(44px,5vw,68px); display:flex; flex-wrap:wrap; gap:16px; align-items:center;">
+      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(211,32,39,.4);">Become an International Dealer →</a>
+      <a href="Decor Products.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px;">Explore Global Network →</a>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.55);">export@dekortools.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL RESPONSIBILITY ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#16181b; --to:#ffffff; --grid:rgba(90,100,110,.12);"></div>
+
+<section style="background:#fff; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:stretch;" class="dkr-2col">
+    <!-- LEFT: cinematic responsibility showcase -->
+    <div data-reveal class="resp-show" onMouseMove="{{ onShowMove }}" onMouseLeave="{{ onShowLeave }}" style="position:relative; min-height:clamp(440px,46vw,580px); background:#16181b; border-radius:3px; overflow:hidden;">
+      <div class="bp-live" style="position:absolute; inset:-8%; background-image:linear-gradient(rgba(0,149,218,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.10) 1px,transparent 1px); background-size:38px 38px; transform:translate(calc(var(--px,0) * -10px), calc(var(--py,0) * -8px)); transition:transform .35s ease; pointer-events:none;"></div>
+      <svg viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; opacity:.55; pointer-events:none;"><g stroke="rgba(0,149,218,.16)" stroke-width="1" fill="none"><line x1="0" y1="64" x2="400" y2="64"></line><line x1="0" y1="236" x2="400" y2="236"></line><line x1="72" y1="0" x2="72" y2="300"></line><line x1="320" y1="0" x2="320" y2="300"></line></g></svg>
+      <div class="resp-scan"></div>
+      <span class="bp-particle" style="left:18%; bottom:8%;"></span>
+      <span class="bp-particle" style="left:46%; bottom:2%; animation-delay:2.5s;"></span>
+      <span class="bp-particle" style="left:72%; bottom:12%; animation-delay:4.5s;"></span>
+      <span class="bp-particle" style="left:88%; bottom:4%; animation-delay:6.5s;"></span>
+      <div class="bp-glint" style="left:30%; top:30%;"></div>
+      <div class="bp-glint" style="left:78%; top:60%; animation-delay:3s;"></div>
+      <div style="position:absolute; top:18px; left:18px; display:flex; align-items:center; gap:10px; z-index:3;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; background:#D32027; color:#fff; padding:5px 10px;">RESPONSIBILITY</span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">PROGRAM-01</span></div>
+      <div style="position:absolute; top:20px; right:18px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.5); z-index:3;">SINCE 1964</div>
+      <div style="position:absolute; bottom:16px; right:18px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:rgba(255,255,255,.32); z-index:3;">41.0082°N · 28.9784°E · İSTANBUL</div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,149,218,.15)" stroke-width="1" aria-hidden="true" style="position:absolute; right:-30px; bottom:-26px; width:230px; height:230px; transform:translate(calc(var(--px,0) * 8px), calc(var(--py,0) * 6px)); transition:transform .35s ease;"><path d="M3 9l9-4 9 4-9 4-9-4z"></path><path d="M7 11.5V16c0 1 2.2 2 5 2s5-1 5-2v-4.5"></path><path d="M21 9v4"></path></svg>
+      <div style="position:absolute; left:clamp(22px,4vw,40px); bottom:clamp(40px,6vw,64px); right:clamp(22px,4vw,40px); z-index:3; transform:translate(calc(var(--px,0) * -16px), calc(var(--py,0) * -12px)); transition:transform .25s ease;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:2.2px; color:#5cc6f5; font-weight:600;"><span style="width:22px; height:2px; background:#0095DA;"></span>DEKOR SCHOLARSHIP PROGRAM</div>
+        <div style="font-family:'Archivo',sans-serif; font-size:clamp(30px,4vw,46px); font-weight:900; letter-spacing:-.03em; color:#fff; line-height:.98; margin-top:14px;">Future<br>Craftsmen.</div>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:18px;"><div class="why-draw" style="width:64px; height:2px; background:#D32027;"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">EDUCATION · TRAINING · CRAFT</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: narrative + feature cards -->
+    <div data-reveal>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>SOCIAL RESPONSIBILITY</div>
+      <h2 style="font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:18px 0 0;">We don't only make tools.<br>We make <span style="color:#D32027;">professionals.</span></h2>
+      <p style="font-size:16.5px; line-height:1.65; color:#5A6066; margin:20px 0 0; max-width:520px;">The Dekor story began in 1964 with two brothers and a trade. We give back through the Dekor Scholarship Program — guiding young people into education and skilled professions, and investing in the communities our tools are built in.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#5A6066; border:1px solid #E2E5E9; padding:6px 11px; border-radius:2px;">PROGRAM-01</span>
+        <span style="display:inline-flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#5A6066; border:1px solid #E2E5E9; padding:6px 11px; border-radius:2px;"><span style="width:6px; height:6px; border-radius:50%; background:#0095DA;"></span>CSR VERIFIED</span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#5A6066; border:1px solid #E2E5E9; padding:6px 11px; border-radius:2px;">SINCE 1964</span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#5A6066; border:1px solid #E2E5E9; padding:6px 11px; border-radius:2px;">COMMUNITY IMPACT</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:26px;">
+        <div class="resp-card">
+          <div style="position:absolute; top:0; left:0; right:0; height:3px; background:#D32027;"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="resp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><path d="M3 9l9-4 9 4-9 4-9-4z"></path><path d="M7 11.5V16c0 1 2.2 2 5 2s5-1 5-2v-4.5"></path><path d="M21 9v4"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#8A9097;">PRG-01</span></div>
+          <div style="font-size:16px; font-weight:800; color:#0E0F11; margin-top:16px;">Education Programs</div>
+          <div style="font-size:13px; line-height:1.55; color:#5A6066; margin-top:6px;">Scholarships and mentoring that open doors to learning.</div>
+          <span class="resp-uline"></span>
+        </div>
+        <div class="resp-card">
+          <div style="position:absolute; top:0; left:0; right:0; height:3px; background:#0095DA;"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="resp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><path d="M14.7 6.3a3.6 3.6 0 0 0-4.9 4.6l-5.1 5.1a1.8 1.8 0 0 0 2.5 2.5l5.1-5.1a3.6 3.6 0 0 0 4.6-4.9l-2.2 2.2-2.2-2.2 2.2-2.2z"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#8A9097;">PRG-02</span></div>
+          <div style="font-size:16px; font-weight:800; color:#0E0F11; margin-top:16px;">Vocational Training</div>
+          <div style="font-size:13px; line-height:1.55; color:#5A6066; margin-top:6px;">Hands-on skills training for the building trades.</div>
+          <span class="resp-uline"></span>
+        </div>
+        <div class="resp-card">
+          <div style="position:absolute; top:0; left:0; right:0; height:3px; background:#0095DA;"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="resp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><circle cx="9" cy="8" r="3"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><circle cx="17" cy="7" r="2.2"></circle><path d="M16 13.6c2.6.3 4.5 2.4 4.5 5"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#8A9097;">PRG-03</span></div>
+          <div style="font-size:16px; font-weight:800; color:#0E0F11; margin-top:16px;">Community Investment</div>
+          <div style="font-size:13px; line-height:1.55; color:#5A6066; margin-top:6px;">Long-term support for the communities we build in.</div>
+          <span class="resp-uline"></span>
+        </div>
+        <div class="resp-card">
+          <div style="position:absolute; top:0; left:0; right:0; height:3px; background:#D32027;"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="resp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path><path d="M12 12l4.5-2.5L14 14l-4.5 2.5L12 12z"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:#8A9097;">PRG-04</span></div>
+          <div style="font-size:16px; font-weight:800; color:#0E0F11; margin-top:16px;">Future Craftsmen</div>
+          <div style="font-size:13px; line-height:1.55; color:#5A6066; margin-top:6px;">Backing the next generation of master tradespeople.</div>
+          <span class="resp-uline"></span>
+        </div>
+      </div>
+      <a href="#contact" class="dkr-btn dkr-btn-red" style="display:inline-block; margin-top:26px; background:#D32027; color:#fff; padding:16px 30px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(211,32,39,.28);">Discover Our Scholarship Program →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEALER PARTNERSHIP ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#ffffff; --to:#16181b; --grid:rgba(90,100,110,.14);"></div>
+
+<section id="dealers" class="resp-show" onMouseMove="{{ onShowMove }}" onMouseLeave="{{ onShowLeave }}" style="position:relative; background:#16181b; padding:clamp(60px,8vw,112px) clamp(20px,5vw,64px); overflow:hidden;">
+  <!-- diagonal red structural panels -->
+  <div aria-hidden="true" style="position:absolute; top:0; right:0; bottom:0; width:62%; pointer-events:none; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:#9c1419; clip-path:polygon(54% 0,70% 0,30% 100%,12% 100%); opacity:.5; transform:translate(calc(var(--px,0) * 16px),0); transition:transform .4s ease;"></div>
+    <div style="position:absolute; inset:0; background:#D32027; clip-path:polygon(70% 0,100% 0,60% 100%,28% 100%); opacity:.92; transform:translate(calc(var(--px,0) * 9px),0); transition:transform .4s ease;"></div>
+    <div style="position:absolute; inset:0; background:rgba(255,255,255,.06); clip-path:polygon(70% 0,72% 0,32% 100%,30% 100%);"></div>
+  </div>
+  <!-- breathing blueprint grid + motion -->
+  <div class="bp-live" style="position:absolute; inset:-6%; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:60px 60px; transform:translate(calc(var(--px,0) * -8px), calc(var(--py,0) * -6px)); transition:transform .35s ease; pointer-events:none;"></div>
+  <div class="bp-scan" style="animation-duration:19s;"></div>
+  <span class="bp-particle" style="left:14%; bottom:6%;"></span>
+  <span class="bp-particle" style="left:34%; bottom:2%; animation-delay:2.8s;"></span>
+  <span class="bp-particle" style="left:52%; bottom:10%; animation-delay:5s;"></span>
+  <div class="bp-glint" style="left:22%; top:30%;"></div>
+  <div class="bp-glint" style="left:48%; top:64%; animation-delay:2.6s;"></div>
+  <div style="position:absolute; top:20px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.32); z-index:1; pointer-events:none;">DEALER NETWORK · SECTION 09</div>
+  <div style="position:absolute; bottom:18px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:rgba(255,255,255,.26); z-index:1; pointer-events:none;">DATUM · 41.0082°N · 28.9784°E</div>
+
+  <div style="position:relative; max-width:1280px; margin:0 auto; z-index:2;">
+    <div style="display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(36px,5vw,64px); align-items:center;" class="dkr-2col">
+      <!-- LEFT: headline + animated export stats -->
+      <div data-reveal>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>DEALER PARTNERSHIP</div>
+        <h2 style="font-size:clamp(38px,5.4vw,68px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.94; margin:18px 0 0;">Grow with <span style="color:#D32027;">Dekor.</span></h2>
+        <p style="font-size:16.5px; line-height:1.6; color:rgba(255,255,255,.66); margin:20px 0 0; max-width:460px;">Join a global network spanning 60 countries — competitive trade pricing, dependable lead times, private-label options and full marketing support.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; margin-top:34px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.1);">
+          <div style="background:#16181b; padding:20px 22px;"><div style="font-family:'Archivo',sans-serif; font-size:clamp(30px,3.4vw,46px); font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1;"><span data-count="{{ n60 }}">0</span></div><div style="display:flex; align-items:center; gap:8px; margin-top:9px;"><span style="width:6px; height:6px; background:#0095DA;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">COUNTRIES</span></div></div>
+          <div style="background:#16181b; padding:20px 22px;"><div style="font-family:'Archivo',sans-serif; font-size:clamp(30px,3.4vw,46px); font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1;"><span data-count="{{ n400 }}" data-suffix="+">0</span></div><div style="display:flex; align-items:center; gap:8px; margin-top:9px;"><span style="width:6px; height:6px; background:#0095DA;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">PRODUCTS</span></div></div>
+          <div style="background:#16181b; padding:20px 22px;"><div style="font-family:'Archivo',sans-serif; font-size:clamp(30px,3.4vw,46px); font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1;"><span data-count="{{ n60b }}">0</span></div><div style="display:flex; align-items:center; gap:8px; margin-top:9px;"><span style="width:6px; height:6px; background:#D32027;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">YEARS</span></div></div>
+          <div style="background:#16181b; padding:20px 22px;"><div style="font-family:'Archivo',sans-serif; font-size:clamp(22px,2.4vw,30px); font-weight:900; color:#fff; letter-spacing:-.02em; line-height:1.05; padding-top:6px;">Dedicated</div><div style="display:flex; align-items:center; gap:8px; margin-top:9px;"><span style="width:6px; height:6px; background:#D32027;"></span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">EXPORT TEAM</span></div></div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:30px;">
+          <a href="#contact" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:16px 28px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(211,32,39,.3);">Apply for Dealership →</a>
+          <a href="#contact" class="dkr-btn dkr-btn-ghostlight" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:16px 28px; font-weight:700; font-size:15px; border-radius:2px;">Download Catalog</a>
+        </div>
+      </div>
+      <!-- RIGHT: premium engineering glass panels -->
+      <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <div class="dlr-glass">
+          <div class="dlr-acc"></div><div class="dlr-bp"></div><div class="dlr-scan"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="dlr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><path d="M3 12h4l2-7 4 14 2-7h6"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.5);">PARTNER-01</span></div>
+          <div style="font-size:16px; font-weight:800; color:#fff; margin-top:16px;">Trade Pricing</div>
+          <div style="font-size:13px; line-height:1.55; color:rgba(255,255,255,.62); margin-top:6px;">Volume-based margins built for resale growth.</div>
+          <span class="dlr-uline"></span>
+        </div>
+        <div class="dlr-glass">
+          <div class="dlr-acc" style="background:#0095DA;"></div><div class="dlr-bp"></div><div class="dlr-scan"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="dlr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.5);">PARTNER-02</span></div>
+          <div style="font-size:16px; font-weight:800; color:#fff; margin-top:16px;">Fast Lead Times</div>
+          <div style="font-size:13px; line-height:1.55; color:rgba(255,255,255,.62); margin-top:6px;">Advanced B2B logistics and dependable supply.</div>
+          <span class="dlr-uline"></span>
+        </div>
+        <div class="dlr-glass">
+          <div class="dlr-acc" style="background:#0095DA;"></div><div class="dlr-bp"></div><div class="dlr-scan"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="dlr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><rect x="3" y="4" width="18" height="14" rx="1"></rect><path d="M3 9h18M8 14h2"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.5);">PARTNER-03</span></div>
+          <div style="font-size:16px; font-weight:800; color:#fff; margin-top:16px;">Private Label</div>
+          <div style="font-size:13px; line-height:1.55; color:rgba(255,255,255,.62); margin-top:6px;">OEM and white-label tools to your specification.</div>
+          <span class="dlr-uline"></span>
+        </div>
+        <div class="dlr-glass">
+          <div class="dlr-acc"></div><div class="dlr-bp"></div><div class="dlr-scan"></div>
+          <div style="display:flex; align-items:center; justify-content:space-between;"><svg class="dlr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px;"><path d="M12 3l8 4v5c0 4.5-3.2 7.3-8 9-4.8-1.7-8-4.5-8-9V7l8-4z"></path><path d="M9 12l2 2 4-4"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.5);">PARTNER-04</span></div>
+          <div style="font-size:16px; font-weight:800; color:#fff; margin-top:16px;">Marketing Support</div>
+          <div style="font-size:13px; line-height:1.55; color:rgba(255,255,255,.62); margin-top:6px;">Catalogues, assets and full brand backing.</div>
+          <span class="dlr-uline"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEALER JOURNEY -->
+    <div data-reveal style="margin-top:clamp(48px,6vw,76px); border-top:1px solid rgba(255,255,255,.1); padding-top:clamp(32px,4vw,48px);">
+      <div style="display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2.4px; color:rgba(255,255,255,.5); font-weight:600; margin-bottom:22px;"><span style="width:22px; height:2px; background:#0095DA;"></span>DEALER JOURNEY</div>
+      <div style="display:flex; flex-wrap:wrap; align-items:stretch; gap:10px;">
+        <div class="dlr-step"><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:#0095DA;">STEP 01</div><div style="font-size:15px; font-weight:800; color:#fff; margin-top:8px;">Choose Country</div><div style="font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); margin-top:5px;">Select your target market.</div></div>
+        <div class="dlr-jline"></div>
+        <div class="dlr-step"><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:#0095DA;">STEP 02</div><div style="font-size:15px; font-weight:800; color:#fff; margin-top:8px;">Apply</div><div style="font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); margin-top:5px;">Submit your company details.</div></div>
+        <div class="dlr-jline"></div>
+        <div class="dlr-step"><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:#0095DA;">STEP 03</div><div style="font-size:15px; font-weight:800; color:#fff; margin-top:8px;">Approval</div><div style="font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); margin-top:5px;">Export team reviews your fit.</div></div>
+        <div class="dlr-jline"></div>
+        <div class="dlr-step"><div style="position:absolute; top:0; left:0; right:0; height:3px; background:#D32027;"></div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:#ff7a72;">STEP 04</div><div style="font-size:15px; font-weight:800; color:#fff; margin-top:8px;">Start Selling</div><div style="font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); margin-top:5px;">Onboard and grow with Dekor.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURED PRODUCTS CAROUSEL ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#16181b; --to:#0E0F11; --grid:rgba(255,255,255,.08);"></div>
+
+<section style="position:relative; background:#0E0F11; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.045) 1px,transparent 1px); background-size:64px 64px; pointer-events:none;"></div>
+  <div class="bp-scan" style="animation-duration:21s;"></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto; z-index:2;">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:30px;">
+      <div data-reveal>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>FEATURED PRODUCTS</div>
+        <h2 style="font-size:clamp(32px,4.5vw,56px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:18px 0 0;">Built for the trade.</h2>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.55); margin-right:6px;">{{ pCounter }}</span>
+        <button onClick="{{ pPrev }}" class="carbtn" style="width:52px; height:52px; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff; font-size:20px; cursor:pointer; border-radius:2px;">←</button>
+        <button onClick="{{ pNext }}" class="carbtn" style="width:52px; height:52px; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff; font-size:20px; cursor:pointer; border-radius:2px;">→</button>
+      </div>
+    </div>
+    <!-- CATEGORY FILTERS (CMS-driven) -->
+    <div data-reveal style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:34px;">
+      <sc-for list="{{ productCats }}" as="c" hint-placeholder-count="7">
+        <button onClick="{{ c.onClick }}" class="pchip" style="background:{{ c.activeBg }}; color:{{ c.activeColor }}; border:1px solid {{ c.activeBorder }};">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <!-- CAROUSEL TRACK (reusable) -->
+    <div style="overflow:hidden;">
+      <div style="display:flex; gap:24px; transition:transform .65s cubic-bezier(.2,.7,.2,1); transform:{{ productTransform }};">
+        <sc-for list="{{ visibleProducts }}" as="p" hint-placeholder-count="4">
+          <div class="prodc" style="flex:0 0 360px; max-width:360px; background:#16181b; border:1px solid rgba(255,255,255,.08); border-radius:3px; overflow:hidden;">
+            <div class="pc-scan"></div>
+            <!-- IMAGE SLOT -->
+            <div style="position:relative; height:240px; background:linear-gradient(150deg,#1f2226,#101113); overflow:hidden; display:flex; align-items:center; justify-content:center;">
+              <div class="pc-photo pc-grid" style="position:absolute; inset:0; opacity:.4; background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size:26px 26px;"></div>
+              <div class="pc-guide pc-gv" style="left:22%;"></div>
+              <div class="pc-guide pc-gv" style="left:78%;"></div>
+              <div class="pc-guide pc-gh" style="top:34%;"></div>
+              <span class="pc-part" style="left:30%; bottom:14%;"></span>
+              <span class="pc-part" style="left:62%; bottom:8%; animation-delay:1.1s;"></span>
+              <span class="pc-part" style="left:48%; bottom:20%; animation-delay:2.1s;"></span>
+              <div style="position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#fff; background:rgba(255,255,255,.08); padding:5px 10px; z-index:5;">{{ p.code }}</div>
+              <div style="position:absolute; top:14px; right:14px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:#9fd4f0; border:1px solid rgba(0,149,218,.5); padding:4px 8px; z-index:5;">{{ p.cert }}</div>
+              <div style="position:absolute; bottom:12px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4); z-index:5;">{{ p.coord }}</div>
+              <div class="pc-photo" style="position:relative; z-index:2; font-family:'IBM Plex Mono',monospace; font-size:10px; color:#6b7178; letter-spacing:1.5px;">IMAGE SLOT</div>
+            </div>
+            <!-- INFO -->
+            <div style="padding:22px 24px 24px;">
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#ff7a72;">{{ p.family }}</div>
+              <h3 style="font-size:19px; font-weight:800; color:#fff; margin:10px 0 0; letter-spacing:-0.01em;">{{ p.name }}</h3>
+              <p style="font-size:13px; line-height:1.55; color:rgba(255,255,255,.55); margin:9px 0 14px;">{{ p.description }}</p>
+              <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
+                <sc-for list="{{ p.badges }}" as="b" hint-placeholder-count="3">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.8px; padding:4px 8px; border-radius:2px; color:{{ b.c }}; background:{{ b.bg }}; border:1px solid {{ b.bd }};">{{ b.label }}</span>
+                </sc-for>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:7px; border-top:1px solid rgba(255,255,255,.1); padding-top:14px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; gap:12px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(255,255,255,.4);">MATERIAL</span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:rgba(255,255,255,.7); text-align:right;">{{ p.material }}</span></div>
+                <div style="display:flex; justify-content:space-between; gap:12px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(255,255,255,.4);">ORIGIN</span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:rgba(255,255,255,.7); text-align:right;">{{ p.country }}</span></div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:14px;">
+                <a href="{{ p.link }}" class="pc-view" style="font-size:13px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">View Product →</a>
+                <div style="display:flex; align-items:center; gap:16px;">
+                  <button class="pc-act">Compare</button>
+                  <a href="{{ p.pdf }}" class="pc-act" style="text-decoration:none;">PDF ↓</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <!-- PROGRESS BAR -->
+    <div data-reveal style="margin-top:30px; display:flex; align-items:center; gap:18px;">
+      <div style="flex:1; height:2px; background:rgba(255,255,255,.12); overflow:hidden;"><div class="pc-progress" style="width:{{ pProgress }};"></div></div>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:rgba(255,255,255,.45);">FEATURED · CMS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CUSTOMER CONFIDENCE ===================== -->
+<section style="position:relative; background:#F4F5F6; padding:clamp(52px,6vw,94px) clamp(20px,5vw,64px); border-top:1px solid #D8DBDF; overflow:hidden;">
+  <div aria-hidden="true" style="position:absolute; inset:0; background-image:linear-gradient(rgba(90,100,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(90,100,110,.05) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:linear-gradient(180deg,#000,transparent 60%); mask-image:linear-gradient(180deg,#000,transparent 60%); pointer-events:none;"></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto;">
+    <div data-reveal style="text-align:center; margin-bottom:46px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">CUSTOMER CONFIDENCE</div>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:14px 0 0;">Certified. Tested. Trusted.</h2>
+    </div>
+    <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px;">
+      <sc-for list="{{ certs }}" as="c" hint-placeholder-count="5">
+        <div class="dkr-cert" style="background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:34px 26px 30px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;">
+          <div class="dkr-cert-ico" style="width:56px; height:56px; border:2px solid #0E0F11; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:15px; letter-spacing:.5px; color:#0E0F11;">{{ c.mark }}</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="font-weight:800; font-size:16px; letter-spacing:-0.01em; color:#0E0F11;">{{ c.name }}</div>
+            <div style="font-size:12.5px; line-height:1.5; color:#5A6066;">{{ c.desc }}</div>
+          </div>
+          <div style="display:inline-flex; align-items:center; gap:6px; margin-top:2px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#1F8A5B;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:11px; height:11px;"><path d="M20 6L9 17l-5-5"></path></svg>VERIFIED</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SUPPORT CTA (FAQ moved to Support Center) ===================== -->
+<section style="position:relative; background:#fff; padding:clamp(40px,5vw,60px) clamp(20px,5vw,64px); border-top:1px solid #E2E5E9; overflow:hidden;">
+  <div style="position:absolute; top:0; right:0; bottom:0; width:34%; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:34px 34px; -webkit-mask-image:linear-gradient(90deg,transparent,#000); mask-image:linear-gradient(90deg,transparent,#000); pointer-events:none;"></div>
+  <div data-reveal style="position:relative; max-width:1280px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:30px;">
+    <div style="max-width:640px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>SUPPORT CENTER</div>
+      <h2 style="font-size:clamp(26px,3.4vw,40px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:14px 0 0;">Need help?</h2>
+      <p style="font-size:15.5px; line-height:1.55; color:#5A6066; margin:12px 0 0;">Looking for technical documentation, product certificates, dealer information or frequently asked questions?</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:22px;">
+        <a href="Decor Support.dc.html#downloads" class="dkr-qres" style="display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#5A6066; padding-bottom:4px; border-bottom:1px solid #D8DBDF;"><span class="dkr-qres-tick" style="width:12px; height:2px; background:#8A9097;"></span>TECHNICAL DOCUMENTATION</a>
+        <a href="Decor Support.dc.html#downloads" class="dkr-qres" style="display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#5A6066; padding-bottom:4px; border-bottom:1px solid #D8DBDF;"><span class="dkr-qres-tick" style="width:12px; height:2px; background:#8A9097;"></span>PRODUCT CERTIFICATES</a>
+        <a href="Decor Partner Resources.dc.html" class="dkr-qres" style="display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#5A6066; padding-bottom:4px; border-bottom:1px solid #D8DBDF;"><span class="dkr-qres-tick" style="width:12px; height:2px; background:#8A9097;"></span>DEALER RESOURCES</a>
+        <a href="Decor Support.dc.html#faq" class="dkr-qres" style="display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#5A6066; padding-bottom:4px; border-bottom:1px solid #D8DBDF;"><span class="dkr-qres-tick" style="width:12px; height:2px; background:#8A9097;"></span>FREQUENTLY ASKED QUESTIONS</a>
+      </div>
+    </div>
+    <a href="Decor Support.dc.html" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:17px 30px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(211,32,39,.25); white-space:nowrap;">Visit Support Center →</a>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#ffffff; --to:#14181d; --grid:rgba(90,100,110,.12);"></div>
+
+<section id="contact" style="position:relative; background:radial-gradient(120% 100% at 50% 0%, #26292d, #0e0f11 60%); padding:clamp(72px,10vw,140px) clamp(20px,5vw,64px); overflow:hidden; text-align:center;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(100% 80% at 50% 40%,#000,transparent 75%);"></div>
+  <div class="bp-scan" style="animation-duration:22s;"></div>
+  <div class="bp-glint" style="left:30%; top:34%;"></div>
+  <div class="bp-glint" style="left:70%; top:58%; animation-delay:2.6s;"></div>
+  <div style="position:relative; max-width:880px; margin:0 auto;">
+    <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;">EST. 1964 · İSTANBUL, TÜRKİYE</div>
+    <h2 data-reveal style="font-size:clamp(40px,7vw,86px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">Let's build<br>something that lasts.</h2>
+    <div data-reveal style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:38px;">
+      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(211,32,39,.4);">Become a Dealer</a>
+      <a href="Decor Products.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px;">Download Catalog</a>
+    </div>
+    <div data-reveal style="margin-top:40px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.6);">+90 262 658 30 10 · export@dekortools.com</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<dc-import name="Decor Footer" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  state = { solid:false, menu:false, slide:0, faq:0, region:'All', banner:0, pcat:'all', pslide:0 };
+
+  // --- Featured Products: CMS-ready data source (later driven by admin panel) ---
+  PRODUCT_CATS = [
+    { key:'all', label:'All' },
+    { key:'painting', label:'Painting' },
+    { key:'plaster', label:'Plaster & Render' },
+    { key:'measurement', label:'Measurement' },
+    { key:'spatulas', label:'Spatulas' },
+    { key:'insulation', label:'Insulation' },
+    { key:'accessories', label:'Accessories' },
+  ];
+  PB = { // reusable badge presets
+    pro:{ label:'Professional Grade', c:'#fff', bg:'#D32027', bd:'#D32027' },
+    iso:{ label:'ISO 9001', c:'#9fd4f0', bg:'rgba(0,149,218,.12)', bd:'rgba(0,149,218,.5)' },
+    exp:{ label:'Export Ready', c:'rgba(255,255,255,.8)', bg:'transparent', bd:'rgba(255,255,255,.25)' },
+  };
+  FEATURED_PRODUCTS = [
+    { id:'pr-250', name:'Pro Roller 25 cm', category:'painting', code:'DKR-PR-250', coord:'X 024 · Y 118', material:'Microfibre · steel frame', country:'Made in Türkiye', cert:'CE', description:'High-capacity microfibre roller for smooth, even coverage on large interior surfaces.', featured:true },
+    { id:'pb-070', name:'Synthetic Paint Brush', category:'painting', code:'DKR-PB-070', coord:'X 070 · Y 040', material:'Synthetic bristle · beech', country:'Made in Türkiye', cert:'CE', description:'Premium synthetic brush engineered for water- and solvent-based paints without bristle loss.', featured:true },
+    { id:'pt-280', name:'Stainless Plastering Trowel', category:'plaster', code:'DKR-PT-280', coord:'X 280 · Y 120', material:'Stainless steel · soft grip', country:'Made in Türkiye', cert:'ISO', description:'Hardened stainless blade for a flawless plaster and render finish with reduced drag.', featured:true },
+    { id:'nt-100', name:'Notched Adhesive Trowel', category:'plaster', code:'DKR-NT-100', coord:'X 100 · Y 100', material:'Carbon steel', country:'Made in Türkiye', cert:'ISO', description:'Precision-notched blade delivering a consistent tile-adhesive bed thickness.', featured:true },
+    { id:'sl-200', name:'Aluminium Spirit Level 200 cm', category:'measurement', code:'DKR-SL-200', coord:'X 200 · Y 048', material:'Anodised aluminium', country:'Made in Türkiye', cert:'CE', description:'Reinforced box-profile level with shock-resistant vials accurate to 0.5 mm/m.', featured:true },
+    { id:'mt-050', name:'Steel Measuring Tape 5 m', category:'measurement', code:'DKR-MT-050', coord:'X 050 · Y 025', material:'Nylon-coated steel · ABS', country:'Made in Türkiye', cert:'CE', description:'Magnetic-hook blade with impact-resistant casing for precise on-site measurement.', featured:true },
+    { id:'sp-100', name:'Stainless Steel Spatula', category:'spatulas', code:'DKR-SP-100', coord:'X 100 · Y 060', material:'Stainless steel', country:'Made in Türkiye', cert:'ISO', description:'Flexible stainless blade for filling, smoothing and professional surface preparation.', featured:true },
+    { id:'ir-240', name:'Insulation Rasp Board', category:'insulation', code:'DKR-IR-240', coord:'X 240 · Y 110', material:'Hardened alloy teeth', country:'Made in Türkiye', cert:'ISO', description:'Coarse rasp for fast, even levelling of EPS and XPS insulation boards.', featured:true },
+    { id:'ac-050', name:'Masking Tape Dispenser', category:'accessories', code:'DKR-AC-050', coord:'X 050 · Y 090', material:'ABS · steel core', country:'Made in Türkiye', cert:'CE', description:'Ergonomic dispenser for clean, fast masking on professional job sites.', featured:true },
+  ];
+  catLabel = (k) => (this.PRODUCT_CATS.find(c=>c.key===k)||{}).label || k;
+  filteredProducts = () => { const cat = this.state.pcat || 'all'; return cat==='all' ? this.FEATURED_PRODUCTS : this.FEATURED_PRODUCTS.filter(p=>p.category===cat); };
+
+  componentDidMount(){
+    const reveal = (el)=>{
+      if(el.classList.contains('in')) return;
+      el.classList.add('in');
+      if(el.hasAttribute('data-count')) this.runCount(el);
+      if(el.querySelectorAll) el.querySelectorAll('[data-count]').forEach(c=>this.runCount(c));
+    };
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } });
+      }, { threshold:0.14, rootMargin:'0px 0px -6% 0px' });
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+      document.querySelectorAll('[data-count]').forEach(el=>{ if(!el.closest('[data-reveal]')) io.observe(el); });
+    }
+    // Robust fallback: works no matter which element actually scrolls.
+    const check = ()=>{
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{
+        const r = el.getBoundingClientRect();
+        if(r.top < vh * 0.92 && r.bottom > 0) reveal(el);
+      });
+      document.querySelectorAll('[data-count]').forEach(el=>{
+        if(el._counted) return;
+        const r = el.getBoundingClientRect();
+        if(r.top < vh && r.bottom > 0) this.runCount(el);
+      });
+      const top = document.getElementById('top');
+      const solid = top ? top.getBoundingClientRect().top < -50 : window.scrollY > 50;
+      if(solid !== this.state.solid) this.setState({ solid });
+      // Manufacturing timeline progress fill
+      const tl = document.querySelector('.mfg-timeline');
+      const fill = document.getElementById('mfg-progress');
+      if(tl && fill){
+        const r = tl.getBoundingClientRect();
+        const p = Math.max(0, Math.min(1, (vh * 0.5 - r.top) / Math.max(1, r.height)));
+        fill.style.height = (p * 100) + '%';
+      }
+    };
+    this._check = check;
+    window.addEventListener('scroll', check, { passive:true, capture:true });
+    window.addEventListener('resize', check, { passive:true });
+    requestAnimationFrame(()=>{ check(); requestAnimationFrame(check); });
+    // Safety: if the environment never scrolls, reveal everything so nothing stays hidden.
+    this._scrolled = false;
+    this._mark = ()=>{ this._scrolled = true; };
+    window.addEventListener('scroll', this._mark, { capture:true, passive:true });
+    setTimeout(()=>{ if(!this._scrolled) document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
+
+    // --- Hero banner rotation engine (progress driven outside React for smoothness) ---
+    this._bannerDur = 7000;
+    this._bStart = performance.now();
+    this._bPaused = false;
+    this._reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const loop = ()=>{
+      if(!this._bPaused && !this._reduceMotion && (this._bannerCount||1) > 1){
+        const elapsed = performance.now() - this._bStart;
+        const bar = document.getElementById('b-progress');
+        if(bar) bar.style.width = Math.min(100, elapsed / this._bannerDur * 100) + '%';
+        if(elapsed >= this._bannerDur) this.nextBanner();
+      }
+      this._bLoop = requestAnimationFrame(loop);
+    };
+    this._bLoop = requestAnimationFrame(loop);
+    this._bKey = (e)=>{ if(e.key==='ArrowLeft'){ this.prevBanner(); } else if(e.key==='ArrowRight'){ this.nextBanner(); } };
+    window.addEventListener('keydown', this._bKey);
+  }
+  componentWillUnmount(){
+    if(this._check){
+      window.removeEventListener('scroll', this._check, { capture:true });
+      window.removeEventListener('resize', this._check);
+    }
+    if(this._bLoop) cancelAnimationFrame(this._bLoop);
+    if(this._bKey) window.removeEventListener('keydown', this._bKey);
+  }
+
+  // Banner content — shape mirrors the future CMS / admin record per banner.
+  bannerData(){
+    return [
+      { id:'banner-01', order:1, active:true, publishDate:'2026-01-01', tag:'PROFESSIONAL TOOLS',
+        eyebrow:'PRECISION HAND TOOLS · SINCE 1964', h1:'FORGED FOR', h2:'THE ', h2accent:'PRO.',
+        sub:"Türkiye's largest manufacturer of professional construction hand tools. Six decades of metallurgy, testing and obsession — trusted on four continents.",
+        cta1:'Explore Products →', cta1link:'Decor Products.dc.html', cta2:'Inside the Factory', cta2link:'Decor Manufacturing.dc.html',
+        productCode:'DKR-4200', image:'uploads/001.png', imageLabel:'PRO ROLLER FRAME', label1:'FORGED · TR', label2:'ISO 9001', label3:'240MM',
+        bg:'radial-gradient(130% 100% at 80% -10%, #2b2f34 0%, #16181b 44%, #0b0c0e 100%)', gridColor:'rgba(255,255,255,.036)', accentDetail:'#D32027' },
+      { id:'banner-02', order:2, active:true, publishDate:'2026-01-01', tag:'MANUFACTURING',
+        eyebrow:'MANUFACTURING EXCELLENCE · 21,000 M²', h1:'ENGINEERED', h2:'FOR ', h2accent:'SCALE.',
+        sub:'Vertically-integrated production under one roof — material science, forging, CNC machining and human inspection at every stage.',
+        cta1:'Inside the Factory →', cta1link:'Decor Manufacturing.dc.html', cta2:'Our Process', cta2link:'Decor Manufacturing.dc.html',
+        productCode:'LINE-02', image:'uploads/002.png', imageLabel:'PRODUCTION FLOOR', label1:'CNC · 0.5MM', label2:'6 STAGES', label3:'QC 100%',
+        bg:'radial-gradient(120% 100% at 22% -10%, #18242e 0%, #0e151c 48%, #0a0d11 100%)', gridColor:'rgba(0,149,218,.105)', accentDetail:'#0095DA' },
+      { id:'banner-03', order:3, active:true, publishDate:'2026-01-01', tag:'GLOBAL EXPORT',
+        eyebrow:'EXPORT NETWORK · 60 COUNTRIES', h1:'ONE BRAND,', h2:'FOUR ', h2accent:'CONTINENTS.',
+        sub:'From İstanbul to 60 countries. Join a global dealer network built on dependable supply and trade-grade quality.',
+        cta1:'Become a Dealer →', cta1link:'Decor Become a Dealer.dc.html', cta2:'Explore Export', cta2link:'#export',
+        productCode:'GLOBAL', image:'uploads/003.png', imageLabel:'WORLD EXPORT MAP', label1:'TR → 60', label2:'4 CONTINENTS', label3:'B2B',
+        bg:'radial-gradient(120% 110% at 72% -10%, #1d2730 0%, #11171d 50%, #0a0c0f 100%)', gridColor:'rgba(0,149,218,.064)', accentDetail:'#0095DA' },
+    ].filter(b=>b.active).sort((a,b)=>a.order-b.order);
+  }
+  _restartBanner(){ this._bStart = performance.now(); const bar = document.getElementById('b-progress'); if(bar) bar.style.width = '0%'; }
+  goTo(i){ const n = this._bannerCount||1; const idx = ((i % n) + n) % n; this._restartBanner(); if(idx !== this.state.banner) this.setState({ banner: idx }); }
+  nextBanner(){ this.goTo(this.state.banner + 1); }
+  prevBanner(){ this.goTo(this.state.banner - 1); }
+  pause(){ if(this._bPaused) return; this._bPaused = true; this._bPausedAt = performance.now(); }
+  resume(){ if(!this._bPaused) return; this._bPaused = false; this._bStart += performance.now() - (this._bPausedAt||performance.now()); }
+
+  runCount(el){
+    if(el._counted) return; el._counted = true;
+    const target = parseFloat(el.getAttribute('data-count'));
+    if(isNaN(target)) return;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const comma = el.getAttribute('data-comma') === '1' || el.getAttribute('data-comma') === 'true';
+    const dur = 1500, start = performance.now();
+    const tick = (now)=>{
+      const p = Math.min(1, (now-start)/dur);
+      const e = 1 - Math.pow(1-p, 3);
+      let v = Math.round(target * e);
+      el.textContent = (comma ? v.toLocaleString('en-US') : String(v)) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  renderVals(){
+    const red = '#D32027';
+    const blue = '#0095DA';
+    const region = this.state.region;
+
+    // --- Hero banners (CMS-shaped) ---
+    const bannerList = this.bannerData();
+    this._bannerCount = bannerList.length;
+    const cur = Math.min(this.state.banner, bannerList.length - 1);
+    const banners = bannerList.map((b, i)=>({
+      ...b,
+      on: i === cur ? 'on' : '',
+      hidden: i === cur ? 'false' : 'true',
+      imgEl: b.image ? React.createElement('img', { src:b.image, loading:'lazy', alt:'', style:{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block' } }) : null,
+      markerColor: b.accentDetail,
+      markerLine: b.accentDetail === blue ? 'rgba(0,149,218,.5)' : 'rgba(211,32,39,.4)',
+      nodeColor: b.accentDetail,
+    }));
+    const dots = bannerList.map((b, i)=>({
+      onClick: ()=>this.goTo(i),
+      aria: 'Go to banner ' + (i+1) + ': ' + b.tag,
+      w: i === cur ? '28px' : '8px',
+      bg: i === cur ? red : 'rgba(255,255,255,.28)',
+    }));
+    const bannerNum = String(cur + 1).padStart(2, '0');
+    const bannerTotal = String(bannerList.length).padStart(2, '0');
+    const bannerLabel = bannerList[cur] ? bannerList[cur].tag : '';
+
+    const trust = [
+      { count:60, suffix:'', comma:false, start:'0', label:'YEARS OF MASTERY' },
+      { count:60, suffix:'', comma:false, start:'0', label:'COUNTRIES SERVED' },
+      { count:400, suffix:'+', comma:false, start:'0', label:'PRODUCT LINES' },
+      { count:21000, suffix:'', comma:true, start:'0', label:'M² PRODUCTION' },
+      { count:4, suffix:'', comma:false, start:'0', label:'CONTINENTS' },
+      { count:1, suffix:'', comma:false, start:'0', label:'#1 IN TÜRKİYE' },
+    ];
+
+    const families = [
+      { code:'PT · 01', name:'Painting Tools', desc:'Roller frames, professional brushes, trays and extension systems for flawless coverage.', count:'120+ PRODUCTS', accent:red, imglabel:'ROLLERS · BRUSHES', hero:'PRO ROLLER FRAME', sku:'DKR-4200 · HERO', material:'CHROMED STEEL', spec1:'CHROMED STEEL', spec2:'PRO GRADE', coord:'Ø 38 · 240MM' },
+      { code:'PR · 02', name:'Plaster & Render', desc:'Stainless trowels, floats and hawks engineered for clean, consistent finishes.', count:'90+ PRODUCTS', accent:'#1A1C1F', imglabel:'TROWELS · FLOATS', hero:'STAINLESS TROWEL', sku:'DKR-1180 · HERO', material:'STAINLESS', spec1:'STAINLESS STEEL', spec2:'PRECISION GROUND', coord:'280 × 130MM' },
+      { code:'SC · 03', name:'Spatulas & Scrapers', desc:'Flexible filling knives and scrapers in carbon and stainless steel.', count:'70+ PRODUCTS', accent:red, imglabel:'KNIVES · SCRAPERS', hero:'PRO SCRAPER', sku:'DKR-3120 · HERO', material:'CARBON STEEL', spec1:'CARBON STEEL', spec2:'EXPORT READY', coord:'150MM' },
+      { code:'MS · 04', name:'Measurement', desc:'Spirit levels, squares and layout tools machined to professional tolerances.', count:'60+ PRODUCTS', accent:'#1A1C1F', imglabel:'LEVELS · SQUARES', hero:'SPIRIT LEVEL', sku:'DKR-7750 · HERO', material:'ALUMINIUM', spec1:'AIRCRAFT ALU', spec2:'0.5MM / M', coord:'600MM · 3 VIAL' },
+      { code:'IN · 05', name:'Insulation Tools', desc:'Purpose-built blades, cutters and applicators for thermal systems.', count:'40+ PRODUCTS', accent:red, imglabel:'BLADES · CUTTERS', hero:'UTILITY KNIFE', sku:'DKR-6010 · HERO', material:'CARBON STEEL', spec1:'CARBON STEEL', spec2:'ISO 9001', coord:'250MM' },
+      { code:'SP · 06', name:'Surface Prep', desc:'Sanding, mixing and prep accessories that get the substrate jobsite-ready.', count:'50+ PRODUCTS', accent:'#1A1C1F', imglabel:'SANDING · MIXING', hero:'MIXING PADDLE', sku:'DKR-5440 · HERO', material:'ZINC-PLATED', spec1:'ZINC-PLATED', spec2:'PRO GRADE', coord:'120MM · HEX' },
+    ].slice(0,4);
+
+    const why = [
+      { num:'01', title:'Forged-Steel Durability', desc:'Tools forged and heat-treated to survive the jobsite — not the showroom.' },
+      { num:'02', title:'Engineered Materials', desc:'Stainless, carbon steel and aircraft-grade aluminium chosen per application.' },
+      { num:'03', title:'100% Quality Control', desc:'Every batch inspected and stress-tested before it leaves the line.' },
+      { num:'04', title:'In-House R&D', desc:'A dedicated R&D centre turning trade feedback into better tools, faster.' },
+    ];
+
+    const stages = [
+      { num:'01', title:'Raw Materials', desc:'Certified steel, alloys and hardwoods are sourced and lab-verified before a single tool is formed — quality begins long before the line.', tags:['FORGED STEEL','MATERIAL SCIENCE'], code:'MAT-01', media:'STEEL INTAKE', dim:'GRADE C60 · VERIFIED', stat:'21,000 m²', statLabel:'PRODUCTION FACILITY' },
+      { num:'02', title:'Forging', desc:'High-tonnage presses and controlled heat give every blade and body its grain structure, density and raw mechanical strength.', tags:['HEAT TREATMENT','HARDNESS HRC'], code:'FRG-02', media:'FORGING LINE', dim:'1,150°C · FORMED', stat:'', statLabel:'' },
+      { num:'03', title:'Precision CNC Machining', desc:'Multi-axis CNC centres cut edges, profiles and threads to engineering tolerances no hand process could repeat.', tags:['±0.05MM TOLERANCE','5-AXIS CNC'], code:'CNC-03', media:'CNC FLOOR', dim:'TOL ±0.05MM', stat:'400+', statLabel:'PROFESSIONAL PRODUCTS' },
+      { num:'04', title:'Grinding & Surface Treatment', desc:'Precision grinding, plating and coatings deliver the finish, corrosion resistance and feel professionals recognise instantly.', tags:['PRECISION GROUND','SURFACE FINISH'], code:'GRD-04', media:'GRINDING CELL', dim:'Ra 0.4 µm', stat:'', statLabel:'' },
+      { num:'05', title:'Quality Control', desc:'Every batch is load-, flex- and finish-tested under an ISO 9001 system. Nothing ships until it has earned the Dekor mark.', tags:['ISO 9001','100% INSPECTED'], code:'QC-05', media:'INSPECTION BAY', dim:'BATCH VERIFIED', stat:'60 yrs', statLabel:'OF MASTERY' },
+      { num:'06', title:'Packaging & Global Distribution', desc:'Finished tools are packed and routed through advanced B2B logistics to a dealer network spanning four continents.', tags:['EXPORT READY','B2B LOGISTICS'], code:'DIST-06', media:'DISPATCH HALL', dim:'TR → WORLD', stat:'60', statLabel:'EXPORT COUNTRIES' },
+    ];
+
+    const regionsData = [
+      { key:'Europe', name:'Europe', count:22, role:'Core export market', cap:'full catalogue, fast lead times', note:'CE · EU CONFORMITY' },
+      { key:'Middle East', name:'Middle East', count:14, role:'High-growth region', cap:'distributor & project supply', note:'REGIONAL WAREHOUSING' },
+      { key:'Africa', name:'Africa', count:11, role:'Expanding network', cap:'bulk B2B shipments', note:'PORT-BASED LOGISTICS' },
+      { key:'Asia', name:'Asia', count:9, role:'Strategic partnerships', cap:'OEM & private label', note:'CONTAINER FREIGHT' },
+      { key:'Americas', name:'Americas', count:4, role:'Emerging market', cap:'dealer onboarding', note:'TRADE-GRADE QUALITY' },
+    ];
+    const regions = regionsData.map(r=>({
+      name:r.name, count:r.count, role:r.role, cap:r.cap, note:r.note,
+      countLabel: r.count + ' COUNTRIES',
+      active: (region===r.key) ? 'active' : '',
+      onEnter: ()=>this.setState({ region:r.key }),
+    }));
+
+    // nodes on globe (top/left %), tagged by region
+    const nodeData = [
+      { top:'40%', left:'30%', region:'Europe' },
+      { top:'33%', left:'40%', region:'Europe' },
+      { top:'47%', left:'66%', region:'Middle East' },
+      { top:'40%', left:'62%', region:'Middle East' },
+      { top:'62%', left:'52%', region:'Africa' },
+      { top:'70%', left:'45%', region:'Africa' },
+      { top:'56%', left:'76%', region:'Asia' },
+      { top:'48%', left:'82%', region:'Asia' },
+      { top:'58%', left:'20%', region:'Americas' },
+    ];
+    const nodes = nodeData.map(n=>({
+      top:n.top, left:n.left,
+      cls: (region==='All' || region===n.region) ? '' : 'off',
+    }));
+
+    // export routes (arcs) + traveling data particles, gated by hovered region
+    const arcDefs = [
+      { d:'M210 150 Q150 120 110 158', region:'Europe', delay:'0s' },
+      { d:'M210 150 Q250 140 268 186', region:'Middle East', delay:'0.9s' },
+      { d:'M210 150 Q230 200 214 250', region:'Africa', delay:'1.8s' },
+      { d:'M210 150 Q290 175 300 232', region:'Asia', delay:'2.7s' },
+      { d:'M210 150 Q120 175 92 230', region:'Americas', delay:'3.6s' },
+    ];
+    const reduceMotion = (typeof window!=='undefined' && window.matchMedia) ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const arcs = arcDefs.map((a,i)=>({
+      d:a.d, delay:a.delay, dur:(3.4 + i*0.3).toFixed(2)+'s',
+      cls: (region==='All' || region===a.region) ? 'lit' : 'off',
+    }));
+    const particles = reduceMotion ? [] : arcs;
+
+    const dealerPerks = [
+      { num:'A1', title:'Trade Pricing', desc:'Volume-based margins built for resale growth.' },
+      { num:'A2', title:'Fast Lead Times', desc:'Advanced logistics & B2B ordering.' },
+      { num:'A3', title:'Private Label', desc:'OEM and white-label options available.' },
+      { num:'A4', title:'Marketing Support', desc:'Catalogs, assets and POS materials.' },
+    ];
+
+    const featured = [
+      { code:'DKR-4200', tag:'BESTSELLER', family:'PAINTING', name:'Pro Roller Frame', spec:'Anti-fatigue grip, 240mm cage, rust-resistant wire.', material:'CHROMED STEEL' },
+      { code:'DKR-1180', tag:'NEW', family:'PLASTER & RENDER', name:'Stainless Plaster Trowel', spec:'Hardened stainless blade, riveted soft-grip handle.', material:'STAINLESS' },
+      { code:'DKR-7750', tag:'PRO', family:'MEASUREMENT', name:'Aluminium Spirit Level 60cm', spec:'Milled frame, 3 shock-proof vials, 0.5mm/m accuracy.', material:'ALUMINIUM' },
+      { code:'DKR-3015', tag:'', family:'SPATULAS', name:'Flex Filling Spatula 100mm', spec:'Spring-tempered blade for clean, smooth pulls.', material:'CARBON STEEL' },
+      { code:'DKR-2240', tag:'PRO', family:'PLASTER & RENDER', name:'Notched Adhesive Trowel', spec:'Precision 6mm notches for tile & adhesive work.', material:'STAINLESS' },
+      { code:'DKR-5500', tag:'SET', family:'PAINTING', name:'Texture Brush Set', spec:'Three-piece natural & synthetic bristle set.', material:'BEECH + BRISTLE' },
+    ];
+    const cardW = 360, gap = 24, visible = 3;
+    const maxSlide = Math.max(0, featured.length - visible);
+    const slide = Math.min(this.state.slide, maxSlide);
+    const trackTransform = `translateX(-${slide * (cardW + gap)}px)`;
+
+    const certs = [
+      { mark:'ISO', name:'ISO 9001:2015', desc:'Certified quality management system' },
+      { mark:'CE', name:'CE Marking', desc:'European conformity standards' },
+      { mark:'TSE', name:'TSE Certified', desc:'Türk Standardları compliance' },
+      { mark:'14K', name:'ISO 14001', desc:'Environmental management' },
+      { mark:'REACH', name:'REACH', desc:'EU chemical safety regulation' },
+    ];
+
+    const faqData = [
+      { q:'How do I become a Dekor dealer or distributor?', a:'Submit an application through our dealer form with your company details and target market. Our export team reviews every request and responds with pricing, terms and the onboarding steps — typically within a few business days.' },
+      { q:'What is the minimum order quantity for export?', a:'MOQs vary by product family and destination. We work with both established distributors and growing regional partners, and will tailor a first order that suits your market and storage capacity.' },
+      { q:'Do you offer private-label or OEM manufacturing?', a:'Yes. With a vertically-integrated 21,000 m² facility and in-house R&D, we produce private-label and OEM tools to your specification, branding and packaging requirements.' },
+      { q:'Which certifications do your tools carry?', a:'Our quality system is ISO 9001:2015 certified, with ISO 14001 environmental management, CE marking, TSE certification and REACH compliance across relevant product lines.' },
+      { q:'What are your typical lead times?', a:'Stocked lines ship quickly through our advanced logistics and B2B systems. Custom and private-label runs are scheduled per order — your account manager confirms exact timing at quotation.' },
+      { q:'Can I get a full product catalog?', a:'Absolutely. Download the latest catalog from any "Download Catalog" button, or request a printed copy and physical samples directly from our export team.' },
+    ];
+    const faqs = faqData.map((f,i)=>({
+      q:f.q, a:f.a,
+      openClass: this.state.faq===i ? 'open' : '',
+      sign: this.state.faq===i ? '–' : '+',
+      signColor: this.state.faq===i ? red : '#0E0F11',
+      onClick: ()=>this.setState({ faq: this.state.faq===i ? -1 : i }),
+    }));
+
+    const footCols = [
+      { head:'PRODUCTS', links:[
+        { label:'Painting Tools', href:'Decor Products.dc.html' },
+        { label:'Plaster & Render', href:'Decor Products.dc.html' },
+        { label:'Measurement', href:'Decor Products.dc.html' },
+        { label:'All Products', href:'Decor Products.dc.html' },
+      ]},
+      { head:'COMPANY', links:[
+        { label:'About Dekor', href:'Decor About.dc.html' },
+        { label:'Manufacturing', href:'Decor Manufacturing.dc.html' },
+        { label:'Export', href:'#export' },
+        { label:'Responsibility', href:'#top' },
+      ]},
+      { head:'PARTNER', links:[
+        { label:'Become a Dealer', href:'Decor Become a Dealer.dc.html' },
+        { label:'Download Catalog', href:'#contact' },
+        { label:'Contact', href:'#contact' },
+        { label:'Request Samples', href:'#contact' },
+      ]},
+    ];
+
+    return {
+      banners, dots, bannerNum, bannerTotal, bannerLabel,
+      prevBanner: ()=>this.prevBanner(),
+      nextBanner: ()=>this.nextBanner(),
+      pause: ()=>this.pause(),
+      resume: ()=>this.resume(),
+      navClass: this.state.solid ? 'solid' : '',
+      logoStyle: 'height:'+(this.state.solid?62:74)+'px; width:auto; display:block; transition:height .3s ease-out;',
+      menu: this.state.menu,
+      toggleMenu: ()=>this.setState({ menu: !this.state.menu }),
+      trust, families, why, stages, regions, nodes, arcs, particles, dealerPerks, featured, certs, faqs, footCols,
+      n60:60, n400:400, n60b:60,
+      // --- Featured Products (CMS-ready, reusable carousel) ---
+      productCats: this.PRODUCT_CATS.map(c=>{ const on=(this.state.pcat||'all')===c.key; return { label:c.label, onClick:()=>this.setState({pcat:c.key, pslide:0}), activeBg:on?'#D32027':'transparent', activeColor:on?'#fff':'rgba(255,255,255,.62)', activeBorder:on?'#D32027':'rgba(255,255,255,.2)' }; }),
+      visibleProducts: this.filteredProducts().map(p=>({ ...p, family:this.catLabel(p.category), link:'Decor Products.dc.html', pdf:'#', badges:[ this.PB.pro, p.cert==='ISO'?this.PB.iso:{...this.PB.iso, label:'CE Marked'}, this.PB.exp ] })),
+      productTransform: `translateX(-${(this.state.pslide||0) * 384}px)`,
+      pCounter: `${String(Math.min((this.state.pslide||0)+1, Math.max(this.filteredProducts().length,1))).padStart(2,'0')} / ${String(this.filteredProducts().length).padStart(2,'0')}`,
+      pProgress: `${this.filteredProducts().length ? Math.round(((Math.min((this.state.pslide||0)+1, this.filteredProducts().length))/this.filteredProducts().length)*100) : 0}%`,
+      pPrev: ()=>this.setState(s=>({ pslide:Math.max(0,(s.pslide||0)-1) })),
+      pNext: ()=>this.setState(s=>{ const max=Math.max(0, this.filteredProducts().length-1); return { pslide:Math.min(max,(s.pslide||0)+1) }; }),
+      trackTransform,
+      prev: ()=>this.setState({ slide: Math.max(0, slide-1) }),
+      next: ()=>this.setState({ slide: Math.min(maxSlide, slide+1) }),
+      resetRegion: ()=>this.setState({ region:'All' }),
+      onShowMove: (e)=>{ const t=e.currentTarget; const r=t.getBoundingClientRect(); t.style.setProperty('--px', ((e.clientX-r.left)/r.width-0.5).toFixed(3)); t.style.setProperty('--py', ((e.clientY-r.top)/r.height-0.5).toFixed(3)); },
+      onShowLeave: (e)=>{ e.currentTarget.style.setProperty('--px','0'); e.currentTarget.style.setProperty('--py','0'); },
+    };
+  }
+}
+</script>
+</body>
+</html>

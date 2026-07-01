@@ -1,0 +1,11 @@
+/* ============================================================
+   İlk Hecem — Webfonts
+   Display: Baloo 2  — chunky, rounded, friendly. Full Turkish
+            (latin-ext) coverage incl. ç ğ ı İ ö ş ü Ç Ğ Ö Ş Ü.
+   Body:    Nunito   — soft, highly legible rounded sans (latin-ext).
+   Served from Google Fonts. Consuming HTML should ALSO add the
+   matching <link> in <head> (see ui_kits/website/index.html) so
+   the latin-ext subset loads reliably.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');

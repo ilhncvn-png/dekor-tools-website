@@ -1,0 +1,79 @@
+/* ============================================================
+   İlk Hecem — Effects: radii, shadows, borders, motion
+   Soft, rounded, pillowy. Shadows are tinted (never pure black)
+   so the whole UI feels warm. Motion is bouncy & friendly.
+   ============================================================ */
+
+:root {
+  /* ---------- Corner radii (everything is round) ---------- */
+  --radius-xs:   8px;
+  --radius-sm:   12px;
+  --radius-md:   18px;
+  --radius-lg:   26px;
+  --radius-xl:   36px;
+  --radius-2xl:  48px;
+  --radius-pill: 999px;
+  --radius-blob: 42% 58% 60% 40% / 50% 42% 58% 50%;
+
+  /* ---------- Shadows (tinted indigo, soft & lifted) ---------- */
+  --shadow-xs:   0 1px 2px rgba(39, 30, 107, 0.06);
+  --shadow-sm:   0 4px 12px rgba(39, 30, 107, 0.08);
+  --shadow-md:   0 10px 24px rgba(39, 30, 107, 0.10);
+  --shadow-lg:   0 18px 44px rgba(39, 30, 107, 0.13);
+  --shadow-xl:   0 30px 70px rgba(39, 30, 107, 0.18);
+  /* Playful colored glows for accent CTAs */
+  --shadow-sky:      0 14px 30px rgba(31, 159, 222, 0.32);
+  --shadow-coral:    0 14px 30px rgba(255, 117, 97, 0.34);
+  --shadow-whatsapp: 0 14px 30px rgba(37, 211, 102, 0.36);
+  --shadow-sun:      0 14px 30px rgba(255, 197, 46, 0.40);
+
+  /* ---------- Borders ---------- */
+  --border-width: 2px;
+  --border-hair:  1px solid var(--border-soft);
+
+  /* ---------- Focus ring (accessible, on-brand) ---------- */
+  --focus-ring: 0 0 0 4px rgba(31, 159, 222, 0.35);
+
+  /* ---------- Motion ---------- */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);     /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);  /* @kind other */
+  --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);       /* @kind other */
+  --dur-fast:   140ms;     /* @kind other */
+  --dur-base:   240ms;     /* @kind other */
+  --dur-slow:   420ms;     /* @kind other */
+  --dur-float:  6s;        /* @kind other */
+}
+
+/* ---------- Ambient keyframes (clouds, balloons, stars) ---------- */
+@keyframes ih-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes ih-float-x {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(18px); }
+}
+@keyframes ih-drift {
+  from { transform: translateX(-28vw); }
+  to   { transform: translateX(128vw); }
+}
+@keyframes ih-bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes ih-twinkle {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.8); }
+}
+@keyframes ih-spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes ih-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+@keyframes ih-rise {
+  from { transform: translateY(28px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}

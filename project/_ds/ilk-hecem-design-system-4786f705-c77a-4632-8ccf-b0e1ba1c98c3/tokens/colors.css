@@ -1,0 +1,127 @@
+/* ============================================================
+   İlk Hecem — Color System
+   Pastel-but-vivid kindergarten palette. Bright, warm, trusted.
+   Hues sampled from the brand logo: sky, sunshine, coral,
+   mint, soft pink, grape + a deep indigo "ink" for text.
+   ============================================================ */
+
+:root {
+  /* ---------- Sky Blue (primary) ---------- */
+  --sky-50:  #ecf8ff;
+  --sky-100: #d4eefe;
+  --sky-200: #aaddfb;
+  --sky-300: #74c8f4;
+  --sky-400: #3fb1ea;
+  --sky-500: #1f9fde;   /* base */
+  --sky-600: #1581bd;
+  --sky-700: #146a9a;
+
+  /* ---------- Sunshine Yellow ---------- */
+  --sun-50:  #fff9e6;
+  --sun-100: #fff0bf;
+  --sun-200: #ffe384;
+  --sun-300: #ffd24a;
+  --sun-400: #ffc52e;   /* base */
+  --sun-500: #fbb013;
+  --sun-600: #e0930a;
+  --sun-700: #b6720a;
+
+  /* ---------- Coral (warm accent / energy) ---------- */
+  --coral-50:  #fff1ee;
+  --coral-100: #ffded7;
+  --coral-200: #ffbcae;
+  --coral-300: #ff9583;
+  --coral-400: #ff7561;   /* base */
+  --coral-500: #fb5840;
+  --coral-600: #e23c24;
+  --coral-700: #bb2f1c;
+
+  /* ---------- Mint Green (growth / nature) ---------- */
+  --mint-50:  #e8fbf3;
+  --mint-100: #c6f4e1;
+  --mint-200: #8fe7c3;
+  --mint-300: #58d6a4;
+  --mint-400: #34c690;   /* base */
+  --mint-500: #1fae7c;
+  --mint-600: #168f66;
+  --mint-700: #157253;
+
+  /* ---------- Soft Pink (warmth / love) ---------- */
+  --pink-50:  #fff0f5;
+  --pink-100: #ffdce8;
+  --pink-200: #ffb6cf;
+  --pink-300: #ff8fb1;   /* base soft */
+  --pink-400: #fb6d97;
+  --pink-500: #ed4f80;
+  --pink-600: #d12f64;
+  --pink-700: #aa224f;
+
+  /* ---------- Grape (playful accent) ---------- */
+  --grape-50:  #f3ecfe;
+  --grape-100: #e6d8fc;
+  --grape-200: #cbb1f6;
+  --grape-300: #ad88ee;
+  --grape-400: #9366e4;   /* base */
+  --grape-500: #7d4fd6;
+  --grape-600: #663bb8;
+  --grape-700: #522f94;
+
+  /* ---------- Ink (deep indigo — logo outline, text) ---------- */
+  --ink-900: #1c1652;   /* darkest — display headings */
+  --ink-800: #271e6b;   /* primary text */
+  --ink-700: #3a3088;
+  --ink-600: #54489f;
+  --ink-500: #6f63b3;   /* muted text on light */
+  --ink-400: #948ac6;
+  --ink-300: #c0badd;
+
+  /* ---------- Cream / neutral surfaces ---------- */
+  --cream-50:  #fffdf8;
+  --cream-100: #fff8ee;   /* page background */
+  --cream-200: #fdf0dd;
+  --cream-300: #f6e7cf;
+  --white:     #ffffff;
+
+  /* ---------- Neutral greys (borders, subtle) ---------- */
+  --grey-100: #f4f2f7;
+  --grey-200: #e7e3ee;
+  --grey-300: #d6d1e0;
+  --grey-400: #b4aec6;
+
+  /* ============================================================
+     Semantic aliases — reach for these in components
+     ============================================================ */
+  --color-primary:        var(--sky-500);
+  --color-primary-hover:  var(--sky-600);
+  --color-primary-soft:   var(--sky-100);
+
+  --color-accent:         var(--coral-400);
+  --color-accent-hover:   var(--coral-500);
+
+  --color-whatsapp:       #25d366;
+  --color-whatsapp-hover: #1ebe5a;
+
+  --text-strong:   var(--ink-900);
+  --text-body:     var(--ink-800);
+  --text-muted:    var(--ink-500);
+  --text-on-color: var(--white);
+
+  --surface-page:   var(--cream-100);
+  --surface-card:   var(--white);
+  --surface-raised: var(--cream-50);
+  --surface-soft:   var(--sky-50);
+
+  --border-soft:    var(--grey-200);
+  --border-card:    rgba(39, 30, 107, 0.08);
+
+  /* Star / rating */
+  --color-star: var(--sun-400);
+
+  /* Program-tile accent rotation (used across the site) */
+  --accent-1: var(--sky-500);
+  --accent-2: var(--coral-400);
+  --accent-3: var(--mint-400);
+  --accent-4: var(--sun-400);
+  --accent-5: var(--pink-300);
+  --accent-6: var(--grape-400);
+}
