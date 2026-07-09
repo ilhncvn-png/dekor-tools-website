@@ -36,7 +36,7 @@
       <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.04) 1px,transparent 1px); background-size:34px 34px; pointer-events:none;"></div>
       <div style="position:relative; display:flex; align-items:center; gap:16px; padding:22px clamp(20px,3vw,30px); border-bottom:1px solid rgba(255,255,255,.1);">
         <svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px; flex:0 0 auto;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-        <input id="srch-field" class="srch-input" type="text" value="{{ query }}" onInput="{{ onQuery }}" placeholder="Search products, codes, catalogs, pages..." autocomplete="off" spellcheck="false">
+        <input id="srch-field" class="srch-input" type="text" value="{{ query }}" onInput="{{ onQuery }}" placeholder="Ürün, kod, katalog, sayfa arayın..." autocomplete="off" spellcheck="false">
         <span class="srch-key" style="flex:0 0 auto;">ESC</span>
       </div>
       <div style="position:relative; max-height:min(56vh,520px); overflow-y:auto; padding:14px clamp(14px,2vw,20px) 18px;">
@@ -55,22 +55,22 @@
           </sc-for>
         </sc-if>
         <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:40px 16px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">NO RESULTS FOR "{{ query }}"</div>
+          <div style="padding:40px 16px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">SONUÇ BULUNAMADI: "{{ query }}"</div>
         </sc-if>
         <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
           <div>
             <sc-if value="{{ hasRecent }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">RECENT SEARCHES</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
+              <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">SON ARAMALAR</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
             </sc-if>
-            <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">POPULAR PRODUCTS</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
-            <div style="margin-top:10px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">QUICK LINKS</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#ff7a72; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
+            <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">POPÜLER ÜRÜNLER</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
+            <div style="margin-top:10px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">HIZLI BAĞLANTILAR</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#0095DA; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
           </div>
         </sc-if>
       </div>
       <div style="position:relative; display:flex; align-items:center; gap:18px; padding:12px clamp(18px,2.5vw,24px); border-top:1px solid rgba(255,255,255,.1); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:rgba(255,255,255,.4);">
-        <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↑</span><span class="srch-key">↓</span> navigate</span>
-        <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↵</span> open</span>
-        <span style="display:inline-flex; align-items:center; gap:6px; margin-left:auto;"><span class="srch-key">⌘ K</span> anywhere</span>
+        <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↑</span><span class="srch-key">↓</span> gezin</span>
+        <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↵</span> aç</span>
+        <span style="display:inline-flex; align-items:center; gap:6px; margin-left:auto;"><span class="srch-key">⌘ K</span> her yerde</span>
       </div>
     </div>
   </div>
@@ -110,38 +110,38 @@ class Component extends DCLogic {
     const _sq=(this.state.query||'').trim().toLowerCase();
     const icon=R('svg',{width:15,height:15,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.7,strokeLinecap:'round',strokeLinejoin:'round'},[R('rect',{key:0,x:4,y:4,width:16,height:16,rx:1}),R('path',{key:1,d:'M4 9h16'})]);
     const SINDEX=[
-      {g:'PRODUCTS',title:'Professional Spatula',sub:'DKR-3017 · Scraper Tools',href:'Decor Product Detail.dc.html',code:'DKR-3017'},
-      {g:'PRODUCTS',title:'Pro Roller Frame 240mm',sub:'DKR-4200 · Painting',href:'Decor Category.dc.html',code:'DKR-4200'},
-      {g:'PRODUCTS',title:'Stiff Scraper 150mm',sub:'DKR-3120 · Scraper Tools',href:'Decor Product Detail.dc.html',code:'DKR-3120'},
-      {g:'PRODUCTS',title:'Aluminium Spirit Level 60cm',sub:'DKR-7750 · Measurement',href:'Decor Category.dc.html',code:'DKR-7750'},
-      {g:'PRODUCTS',title:'Stainless Plaster Trowel',sub:'DKR-1180 · Plaster',href:'Decor Category.dc.html',code:'DKR-1180'},
-      {g:'CATEGORIES',title:'Painting Tools',sub:'FAM-01 · 96 products',href:'Decor Category.dc.html'},
-      {g:'CATEGORIES',title:'Plastering / Scraper Tools',sub:'FAM-04 · 63 products',href:'Decor Category.dc.html'},
-      {g:'CATEGORIES',title:'Measuring Tools',sub:'FAM-06 · 41 products',href:'Decor Products.dc.html'},
-      {g:'PAGES',title:'Manufacturing',sub:'Vertically-integrated · 21,000 m²',href:'Decor Manufacturing.dc.html'},
-      {g:'PAGES',title:'Export',sub:'60 countries · 4 continents',href:'Decor Export.dc.html'},
-      {g:'PAGES',title:'Support Center',sub:'Help, downloads & FAQ',href:'Decor Support.dc.html'},
-      {g:'PAGES',title:'Authorized Dealers',sub:'Find a Dekor partner',href:'Decor Authorized Dealers.dc.html'},
-      {g:'PAGES',title:'Contact',sub:'Offices & export team',href:'Decor Contact.dc.html'},
-      {g:'PDF CATALOGS',title:'Full Product Catalogue',sub:'PDF · 24.0 MB',href:'Decor Support.dc.html#downloads'},
-      {g:'PDF CATALOGS',title:'Export Catalogue',sub:'PDF · 24.0 MB',href:'Decor Export.dc.html'},
-      {g:'PDF CATALOGS',title:'Company Profile',sub:'PDF · 6.4 MB',href:'Decor Export.dc.html'},
-      {g:'NEWS',title:'Dekor opens new production line',sub:'Newsroom · Company',href:'Decor Newsroom.dc.html'},
-      {g:'NEWS',title:'Dekor at Big 5 Dubai',sub:'Trade Shows',href:'Decor Newsroom.dc.html'},
-      {g:'CAREERS',title:'Mechanical Design Engineer',sub:'R&D · Kocaeli',href:'Decor Career.dc.html'},
-      {g:'CAREERS',title:'Export Sales Specialist',sub:'İstanbul',href:'Decor Career.dc.html'},
-      {g:'SUPPORT',title:'Certificates (ISO, CE)',sub:'Compliance documents',href:'Decor Support.dc.html#downloads'},
-      {g:'FAQ',title:'How do I become a dealer?',sub:'FAQ',href:'Decor Become a Dealer.dc.html'},
+      {g:'ÜRÜNLER',title:'Profesyonel Spatula',sub:'DKR-3017 · Spatula Aletleri',href:'Decor Product Detail.dc.html',code:'DKR-3017'},
+      {g:'ÜRÜNLER',title:'Pro Rulo İskeleti 240mm',sub:'DKR-4200 · Boya',href:'Decor Category.dc.html',code:'DKR-4200'},
+      {g:'ÜRÜNLER',title:'Sert Kazıyıcı 150mm',sub:'DKR-3120 · Spatula Aletleri',href:'Decor Product Detail.dc.html',code:'DKR-3120'},
+      {g:'ÜRÜNLER',title:'Alüminyum Su Terazisi 60cm',sub:'DKR-7750 · Ölçüm',href:'Decor Category.dc.html',code:'DKR-7750'},
+      {g:'ÜRÜNLER',title:'Paslanmaz Sıva Malası',sub:'DKR-1180 · Sıva',href:'Decor Category.dc.html',code:'DKR-1180'},
+      {g:'KATEGORİLER',title:'Boya Aletleri',sub:'FAM-01 · 96 ürün',href:'Decor Category.dc.html'},
+      {g:'KATEGORİLER',title:'Alçı / Spatula Aletleri',sub:'FAM-04 · 63 ürün',href:'Decor Category.dc.html'},
+      {g:'KATEGORİLER',title:'Ölçüm Aletleri',sub:'FAM-06 · 41 ürün',href:'Decor Products.dc.html'},
+      {g:'SAYFALAR',title:'Üretim',sub:'Dikey entegre · 21.000 m²',href:'Decor Manufacturing.dc.html'},
+      {g:'SAYFALAR',title:'İhracat',sub:'60 ülke · 4 kıta',href:'Decor Export.dc.html'},
+      {g:'SAYFALAR',title:'Destek Merkezi',sub:'Yardım, indirilebilir dosyalar ve SSS',href:'Decor Support.dc.html'},
+      {g:'SAYFALAR',title:'Yetkili Bayiler',sub:'Bir Dekor bayisi bulun',href:'Decor Authorized Dealers.dc.html'},
+      {g:'SAYFALAR',title:'İletişim',sub:'Ofisler ve ihracat ekibi',href:'Decor Contact.dc.html'},
+      {g:'PDF KATALOGLAR',title:'Tam Ürün Kataloğu',sub:'PDF · 24.0 MB',href:'Decor Support.dc.html#downloads'},
+      {g:'PDF KATALOGLAR',title:'İhracat Kataloğu',sub:'PDF · 24.0 MB',href:'Decor Export.dc.html'},
+      {g:'PDF KATALOGLAR',title:'Şirket Profili',sub:'PDF · 6.4 MB',href:'Decor Export.dc.html'},
+      {g:'HABERLER',title:'Dekor yeni üretim hattını açtı',sub:'Haberler · Şirket',href:'Decor Newsroom.dc.html'},
+      {g:'HABERLER',title:'Big 5 Dubai\u2019de Dekor',sub:'Fuarlar',href:'Decor Newsroom.dc.html'},
+      {g:'KARİYER',title:'Mekanik Tasarım Mühendisi',sub:'Ar-Ge · Kocaeli',href:'Decor Career.dc.html'},
+      {g:'KARİYER',title:'İhracat Satış Uzmanı',sub:'İstanbul',href:'Decor Career.dc.html'},
+      {g:'DESTEK',title:'Sertifikalar (ISO, CE)',sub:'Uygunluk belgeleri',href:'Decor Support.dc.html#downloads'},
+      {g:'SSS',title:'Nasıl bayi olabilirim?',sub:'SSS',href:'Decor Become a Dealer.dc.html'},
     ];
-    const order=['PRODUCTS','CATEGORIES','PAGES','PDF CATALOGS','NEWS','CAREERS','SUPPORT','FAQ'];
+    const order=['ÜRÜNLER','KATEGORİLER','SAYFALAR','PDF KATALOGLAR','HABERLER','KARİYER','DESTEK','SSS'];
     const match=_sq?SINDEX.filter(it=>(it.title+' '+it.sub+' '+(it.code||'')+' '+it.g).toLowerCase().includes(_sq)):[];
     const flat=[]; const groups=[];
     order.forEach(g=>{ const items=match.filter(it=>it.g===g); if(items.length){ const gi=items.map(it=>{ const fi=flat.length; flat.push(it); return { title:it.title, sub:it.sub, href:it.href, icon, cls: fi===this.state.sActive?'srch-item on':'srch-item', go:()=>this._saveRecent(this.state.query) }; }); groups.push({ label:g, items:gi }); } });
     this._flat=flat; this._flatCount=flat.length;
     let rec=[]; try{ rec=JSON.parse(window.localStorage.getItem('dekorSearchRecent')||'[]'); }catch(e){}
     const recents=rec.map(r=>({ label:r, go:()=>this.onSearch(r) }));
-    const popular=['Tape Measures','Utility Knives','Spirit Levels','Pliers'].map(p=>({ label:p, go:()=>this.onSearch(p) }));
-    const quickLinks=[ {label:'Become a Dealer',href:'Decor Become a Dealer.dc.html'}, {label:'Download Catalog',href:'Decor Support.dc.html#downloads'}, {label:'Manufacturing',href:'Decor Manufacturing.dc.html'}, {label:'Export',href:'Decor Export.dc.html'}, {label:'Contact',href:'Decor Contact.dc.html'} ];
+    const popular=['Şerit Metreler','Maket Bıçakları','Su Teraziler','Pense'].map(p=>({ label:p, go:()=>this.onSearch(p) }));
+    const quickLinks=[ {label:'Bayi Ol',href:'Decor Become a Dealer.dc.html'}, {label:'Katalog İndir',href:'Decor Support.dc.html#downloads'}, {label:'Üretim',href:'Decor Manufacturing.dc.html'}, {label:'İhracat',href:'Decor Export.dc.html'}, {label:'İletişim',href:'Decor Contact.dc.html'} ];
     return {
       searchOpen:this.state.searchOpen, query:this.state.query,
       closeSearch:()=>this.close(), onQuery:(e)=>this.onSearch(e.target.value), stopProp:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },

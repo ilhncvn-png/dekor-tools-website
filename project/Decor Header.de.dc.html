@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<!--
+  German variant of the shared Header/Nav/Dropdown component.
+  Mirrors Decor Header.dc.html / Decor Header.en.dc.html exactly (same
+  props, same structure); only visible copy is translated and internal
+  links point to the .de.dc.html counterpart of each page. New props:
+  trHref (link to the Turkish version) and enHref (link to the English
+  version) of the current page, shown in the language dropdown.
+-->
+</helmet>
+
+<sc-if value="{{ dynamicNav }}">
+<nav class="dkr-nav {{ navClass }}" style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="{{ logoHref }}" style="display:flex; align-items:center;">
+      <sc-if value="{{ dynamicLogo }}">
+        <img src="uploads/decor_logo_white.png" alt="Dekor" style="{{ logoStyle }}">
+      </sc-if>
+      <sc-if value="{{ staticLogo }}">
+        <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
+      </sc-if>
+    </a>
+    <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
+      <a href="Decor Products.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeProducts }};">PRODUKTE</a>
+      <a href="Decor Manufacturing.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeManufacturing }};">FERTIGUNG</a>
+      <a href="Decor Export.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeExport }};">EXPORT</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSales }};">VERTRIEB <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AUTORISIERTE HÄNDLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Finden Sie einen offiziellen Dekor-Händler</span></span></a>
+          <a href="Decor Partner Resources.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">PARTNER-RESSOURCEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Preislisten, Kataloge und Markenmaterialien</span></span></a>
+          <a href="Decor B2B Portal.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B-PORTAL</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Professionelle Bestellplattform</span></span></a>
+          <a href="Decor Online Payment.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ONLINE-ZAHLUNG</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sichere Rechnungszahlung</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeNewsroom }};">NEWSROOM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.de.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AKTUELLE NACHRICHTEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ankündigungen und Produkt-Updates</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">MESSEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Messen und Ausstellungen</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SCHULUNGSAKADEMIE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Schulungen für Fachhandwerker und Händler</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">UNTERNEHMENSLEBEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Veranstaltungen, Auszeichnungen und Kultur</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeAbout }};">ÜBER UNS <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ÜBER DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Unternehmensüberblick</span></span></a>
+          <a href="Decor Our Story.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">UNSERE GESCHICHTE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sechzig Jahre Handwerkskunst</span></span></a>
+          <a href="Decor Vision Mission.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VISION &amp; MISSION</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Die Werte, die uns voranbringen</span></span></a>
+          <a href="Decor RD Center.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">F&amp;E-ZENTRUM</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ingenieurwesen und Innovation</span></span></a>
+          <a href="Decor Quality Sustainability.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">QUALITÄT &amp; NACHHALTIGKEIT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standards und Verantwortung</span></span></a>
+          <a href="Decor Career.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:{{ activeCareerItem }};">KARRIERE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Bauen Sie Ihre Karriere mit uns auf</span></span></a>
+          <a href="Decor Idea.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ICH HABE EINE IDEE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Teilen Sie sie mit unserem Team</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSupport }};">SUPPORT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUPPORT-CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Hilfe, FAQ und Download-Center</span></span></a>
+          <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DOWNLOADS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Technische PDFs und Dateien</span></span></a>
+          <sc-if value="{{ supportReduced }}">
+            <a href="Decor Support.de.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Häufig gestellte Fragen, beantwortet</span></span></a>
+          </sc-if>
+          <sc-if value="{{ supportFull }}">
+            <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ZERTIFIKATE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO-, CE- und Konformitätsdokumente</span></span></a>
+            <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KATALOGE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Vollständige Produktkataloge</span></span></a>
+            <a href="Decor Support.de.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">GARANTIE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Umfang und Registrierung</span></span></a>
+            <a href="Decor Support.de.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Häufig gestellte Fragen, beantwortet</span></span></a>
+          </sc-if>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeContact }};">KONTAKT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KONTAKT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Büros, Werk und Exportteams</span></span></a>
+          <a href="Decor Complaint.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">REKLAMATION EINREICHEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Service- und Qualitätsprobleme</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Sprachauswahl, aktiv: Deutsch" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;">DE <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <a href="{{ trHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <a href="{{ enHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇩🇪 DE</span></button>
+          <a href="{{ frHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="{{ ruHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="{{ azHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="{{ arHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Suchen (Strg/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <a href="Decor Become a Dealer.de.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Händler werden</a>
+    </div>
+    <button onClick="{{ toggleMenu }}" class="dkr-burger" style="display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;">
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+    </button>
+  </div>
+</nav>
+</sc-if>
+
+<sc-if value="{{ staticNav }}">
+<nav style="position:fixed; top:0; left:0; right:0; z-index:100; padding:{{ navPaddingStatic }}; background:{{ navBgStatic }}; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.08);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="{{ logoHref }}" style="display:flex; align-items:center;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
+    </a>
+    <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
+      <a href="Decor Products.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeProducts }};">PRODUKTE</a>
+      <a href="Decor Manufacturing.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeManufacturing }};">FERTIGUNG</a>
+      <a href="Decor Export.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeExport }};">EXPORT</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSales }};">VERTRIEB <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AUTORISIERTE HÄNDLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Finden Sie einen offiziellen Dekor-Händler</span></span></a>
+          <a href="Decor Partner Resources.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">PARTNER-RESSOURCEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Preislisten, Kataloge und Markenmaterialien</span></span></a>
+          <a href="Decor B2B Portal.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B-PORTAL</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Professionelle Bestellplattform</span></span></a>
+          <a href="Decor Online Payment.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ONLINE-ZAHLUNG</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sichere Rechnungszahlung</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeNewsroom }};">NEWSROOM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.de.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AKTUELLE NACHRICHTEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ankündigungen und Produkt-Updates</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">MESSEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Messen und Ausstellungen</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SCHULUNGSAKADEMIE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Schulungen für Fachhandwerker und Händler</span></span></a>
+          <a href="Decor Newsroom.de.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">UNTERNEHMENSLEBEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Veranstaltungen, Auszeichnungen und Kultur</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeAbout }};">ÜBER UNS <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ÜBER DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Unternehmensüberblick</span></span></a>
+          <a href="Decor Our Story.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">UNSERE GESCHICHTE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sechzig Jahre Handwerkskunst</span></span></a>
+          <a href="Decor Vision Mission.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VISION &amp; MISSION</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Die Werte, die uns voranbringen</span></span></a>
+          <a href="Decor RD Center.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">F&amp;E-ZENTRUM</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ingenieurwesen und Innovation</span></span></a>
+          <a href="Decor Quality Sustainability.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">QUALITÄT &amp; NACHHALTIGKEIT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standards und Verantwortung</span></span></a>
+          <a href="Decor Career.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:{{ activeCareerItem }};">KARRIERE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Bauen Sie Ihre Karriere mit uns auf</span></span></a>
+          <a href="Decor Idea.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ICH HABE EINE IDEE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Teilen Sie sie mit unserem Team</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSupport }};">SUPPORT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUPPORT-CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Hilfe, FAQ und Download-Center</span></span></a>
+          <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DOWNLOADS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Technische PDFs und Dateien</span></span></a>
+          <sc-if value="{{ supportReduced }}">
+            <a href="Decor Support.de.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Häufig gestellte Fragen, beantwortet</span></span></a>
+          </sc-if>
+          <sc-if value="{{ supportFull }}">
+            <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ZERTIFIKATE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO-, CE- und Konformitätsdokumente</span></span></a>
+            <a href="Decor Support.de.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KATALOGE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Vollständige Produktkataloge</span></span></a>
+            <a href="Decor Support.de.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">GARANTIE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Umfang und Registrierung</span></span></a>
+            <a href="Decor Support.de.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Häufig gestellte Fragen, beantwortet</span></span></a>
+          </sc-if>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeContact }};">KONTAKT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KONTAKT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Büros, Werk und Exportteams</span></span></a>
+          <a href="Decor Complaint.de.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">REKLAMATION EINREICHEN</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Service- und Qualitätsprobleme</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Sprachauswahl, aktiv: Deutsch" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;">DE <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <a href="{{ trHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <a href="{{ enHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇩🇪 DE</span></button>
+          <a href="{{ frHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="{{ ruHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="{{ azHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="{{ arHref }}" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Suchen (Strg/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <a href="Decor Become a Dealer.de.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Händler werden</a>
+    </div>
+    <button onClick="{{ toggleMenu }}" class="dkr-burger" style="display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;">
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+    </button>
+  </div>
+</nav>
+</sc-if>
+
+</x-dc>
+</body>
+</html>

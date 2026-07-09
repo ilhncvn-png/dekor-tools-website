@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes ckUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @keyframes ckBreathe{0%,100%{opacity:.5}50%{opacity:1}}
+  .ck-card{animation:ckUp .5s cubic-bezier(.2,.8,.2,1);}
+  .ck-grid{animation:ckBreathe 11s ease-in-out infinite;}
+  .ck-btn{transition:transform .2s cubic-bezier(.2,.7,.2,1),background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease,filter .2s;cursor:pointer;font-family:'Archivo',sans-serif;}
+  .ck-btn:hover{transform:translateY(-2px);}
+  .ck-red:hover{box-shadow:0 12px 30px rgba(0,149,218,.45);filter:brightness(1.1);}
+  .ck-red:active{filter:brightness(0.85);}
+  .ck-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .ck-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);}
+  .ck-link{cursor:pointer;transition:color .2s ease;}
+  .ck-link:hover{color:#fff;}
+  .ck-sw{position:relative;width:42px;height:24px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);transition:background .25s ease,border-color .25s ease;cursor:pointer;flex:0 0 auto;}
+  .ck-sw::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s cubic-bezier(.2,.8,.2,1);}
+  .ck-sw.on{background:#0095DA;border-color:#0095DA;}
+  .ck-sw.on::after{transform:translateX(18px);}
+  .ck-sw.lock{background:rgba(0,149,218,.3);border-color:rgba(0,149,218,.5);cursor:not-allowed;opacity:.8;}
+  .ck-sw.lock::after{transform:translateX(18px);background:#cfe8f6;}
+  @media(prefers-reduced-motion:reduce){.ck-card,.ck-grid{animation:none !important;}}
+  @media(max-width:560px){.ck-card{left:12px !important;right:12px !important;bottom:12px !important;width:auto !important;max-width:none !important;max-height:70vh !important;overflow-y:auto !important;}.ck-actions{flex-direction:column !important;}.ck-actions .ck-btn{width:100%;}}
+  @media(max-width:767px){.ck-card > div{padding:18px 18px 16px !important;}}
+  body:has(.navtoggle:checked) .ck-card,body:has(.mobile-menu-js) .ck-card{display:none !important;}
+</style>
+</helmet>
+<sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
+  <div class="ck-card" style="position:fixed; left:24px; bottom:24px; z-index:130; width:min(440px,calc(100vw - 48px)); max-width:440px; background:#121417; border:1px solid rgba(255,255,255,.12); border-top:3px solid #0095DA; border-radius:5px; box-shadow:0 34px 90px rgba(0,0,0,.6); overflow:hidden; font-family:'Archivo',sans-serif;">
+    <div class="ck-grid" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:30px 30px; -webkit-mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 80%); mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 80%); pointer-events:none;"></div>
+    <div style="position:relative; padding:24px 24px 22px;">
+      <div style="display:flex; align-items:center; gap:11px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid rgba(255,255,255,.16); border-radius:3px; color:#0095DA;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px;"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"></path><circle cx="9.5" cy="11.5" r="1"></circle><circle cx="14.5" cy="14.5" r="1"></circle><circle cx="13" cy="8" r="1"></circle></svg></span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">COOKIE-EINSTELLUNGEN</span>
+      </div>
+      <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:16px 0 0;">Wir verwenden Cookies, um die Website zu betreiben, ihre Nutzung zu verstehen und Ihr Erlebnis zu verbessern. Sie können alle akzeptieren, nicht notwendige Cookies ablehnen oder genau auswählen, was Sie zulassen. Siehe unsere <a href="Decor Cookies.de.dc.html" style="color:#0095DA; font-weight:600;">Cookie-Richtlinie</a>.</p>
+
+      <sc-if value="{{ customize }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:2px; border-top:1px solid rgba(255,255,255,.1); padding-top:8px;">
+          <sc-for list="{{ categories }}" as="c" hint-placeholder-count="4">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.07);">
+              <div style="min-width:0;"><div style="font-size:14px; font-weight:700; color:#fff;">{{ c.name }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:rgba(255,255,255,.45); margin-top:3px;">{{ c.desc }}</div></div>
+              <div onClick="{{ c.toggle }}" class="{{ c.cls }}" role="switch" aria-checked="{{ c.on }}" aria-label="{{ c.name }}"></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <div class="ck-actions" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;">
+        <button type="button" onClick="{{ acceptAll }}" class="ck-btn ck-red" style="flex:1 1 auto; background:#0095DA; color:#fff; border:none; padding:13px 18px; font-weight:700; font-size:14px; border-radius:2px; box-shadow:0 10px 26px rgba(0,149,218,.32);">Alle akzeptieren</button>
+        <sc-if value="{{ notCustom }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ openCustomize }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Anpassen</button></sc-if>
+        <sc-if value="{{ customize }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ savePrefs }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Auswahl speichern</button></sc-if>
+        <button type="button" onClick="{{ reject }}" class="ck-btn ck-link" style="flex:0 1 auto; background:transparent; color:rgba(255,255,255,.6); border:none; padding:13px 14px; font-weight:600; font-size:14px; border-radius:2px;">Ablehnen</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:480,&quot;height&quot;:360}}">
+class Component extends DCLogic {
+  constructor(p){ super(p); this.KEY='dekorCookieConsent_v1'; this.state={ show:false, customize:false, prefs:{ analytics:false, marketing:false, preferences:false } }; }
+  componentDidMount(){
+    let stored=null; try{ stored=window.localStorage.getItem(this.KEY); }catch(e){}
+    if(!stored){ this._t=setTimeout(()=>this.setState({ show:true }), 700); }
+  }
+  componentWillUnmount(){ if(this._t) clearTimeout(this._t); }
+  _save(prefs){ try{ window.localStorage.setItem(this.KEY, JSON.stringify({ ts:Date.now(), necessary:true, ...prefs })); }catch(e){} this.setState({ show:false }); }
+  acceptAll(){ this._save({ analytics:true, marketing:true, preferences:true }); }
+  reject(){ this._save({ analytics:false, marketing:false, preferences:false }); }
+  savePrefs(){ this._save(this.state.prefs); }
+  openCustomize(){ this.setState({ customize:true }); }
+  toggle(k){ this.setState(s=>({ prefs:{ ...s.prefs, [k]:!s.prefs[k] } })); }
+  renderVals(){
+    const defs=[
+      { key:'necessary', name:'Notwendig', desc:'Für den Betrieb der Website erforderlich', locked:true },
+      { key:'analytics', name:'Analyse', desc:'Anonymisierte Nutzungsstatistiken', locked:false },
+      { key:'marketing', name:'Marketing', desc:'Kampagnenrelevanz und -messung', locked:false },
+      { key:'preferences', name:'Präferenzen', desc:'Merkt sich Sprach- und Regionsauswahl', locked:false },
+    ];
+    const categories=defs.map(d=>{
+      const on = d.locked ? true : !!this.state.prefs[d.key];
+      return { name:d.name, desc:d.desc, on, cls: d.locked ? 'ck-sw lock on' : ('ck-sw'+(on?' on':'')), toggle: d.locked ? (()=>{}) : (()=>this.toggle(d.key)) };
+    });
+    return {
+      show:this.state.show, customize:this.state.customize, notCustom:!this.state.customize,
+      categories,
+      acceptAll:()=>this.acceptAll(), reject:()=>this.reject(), savePrefs:()=>this.savePrefs(), openCustomize:()=>this.openCustomize(),
+    };
+  }
+}
+</script>
+</body>
+</html>

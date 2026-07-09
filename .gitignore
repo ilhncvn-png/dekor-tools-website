@@ -20,6 +20,11 @@ coverage/
 # Cache
 .cache/
 
+# QA / screenshot artifacts — kept locally for testing, never shipped to production
+project/qa/
+project/screenshots/
+project/_ds/
+
 # ------------------------------------------------------------------
 # Explicitly tracked (kept out of the ignore rules above on purpose):
 #   documentation, assets, uploads, images, videos, fonts

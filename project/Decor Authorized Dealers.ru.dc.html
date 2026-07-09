@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="uploads/decor_logo_color.png">
+<title>Авторизованные дилеры — Dekor</title>
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#0095DA;color:#fff;}
+  a{text-decoration:none;color:inherit;}
+  [data-reveal]{transform:translateY(28px);transition:transform .9s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{transform:none!important;}}
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrDrift{0%{transform:translateY(0);opacity:0}15%{opacity:.7}85%{opacity:.7}100%{transform:translateY(-70px);opacity:0}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 16s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.6);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
+  .dkr-nav{transition:background .4s ease,border-color .4s ease,box-shadow .4s ease;}
+  .dkr-nav.solid{background:rgba(12,13,15,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 10px 34px rgba(0,0,0,.35);padding-top:13px;padding-bottom:13px;}
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-link:hover .lang-code{filter:brightness(1.3);}
+  .dkr-link.active{color:#fff;}
+  .dkr-link.active::after{width:100%;}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,filter .2s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;}
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
+  @media(max-width:920px){.dkr-foot{grid-template-columns:1fr 1fr !important;}}
+  @media(max-width:780px){.dkr-foot{grid-template-columns:1fr !important;}}
+  .f-select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:2px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.6px;padding:16px 18px;outline:none;cursor:pointer;transition:border-color .3s ease,box-shadow .3s ease;-webkit-appearance:none;appearance:none;}
+  .f-select:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.2);}
+  .f-select option{background:#16181b;color:#fff;}
+  .dl-search{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:2px;color:#fff;font-family:'Archivo',sans-serif;font-size:16px;padding:18px 20px 18px 54px;outline:none;transition:border-color .3s ease,box-shadow .3s ease,background .3s ease;}
+  .dl-search::placeholder{color:rgba(255,255,255,.4);}
+  .dl-search:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.22);background:rgba(255,255,255,.07);}
+  .dl-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #E2E5E9;border-radius:2px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
+  .dl-card:hover{transform:translateY(-8px);border-color:#0095DA;box-shadow:0 26px 60px rgba(14,15,17,.16);}
+  .dl-card-acc{position:absolute;top:0;left:0;right:0;height:3px;background:#0095DA;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:3;}
+  [data-reveal].in .dl-card-acc{transform:scaleX(1);}
+  .dl-bp{position:absolute;inset:0;background-image:linear-gradient(rgba(0,149,218,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.08) 1px,transparent 1px);background-size:24px 24px;opacity:0;transition:opacity .55s ease;pointer-events:none;}
+  .dl-card:hover .dl-bp{opacity:1;}
+  .dl-logo{transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+  .dl-card:hover .dl-logo{transform:scale(1.04);}
+  .dl-view{display:inline-flex;align-items:center;gap:6px;color:#0095DA;font-weight:700;font-size:13px;transition:gap .3s ease;}
+  .dl-card:hover .dl-view{gap:11px;}
+  .dl-chip{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.8px;color:#5A6066;border:1px solid #E2E5E9;padding:4px 8px;border-radius:2px;white-space:nowrap;}
+  .des-bridge{position:relative;height:clamp(20px,2.1vw,34px);background:linear-gradient(180deg,var(--from),var(--to));}
+  .des-bridge::after{content:'';position:absolute;left:0;right:0;bottom:0;top:-150px;background-image:linear-gradient(var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px),linear-gradient(90deg,var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000);}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-ctas{flex-direction:column !important;}
+    .hero-ctas > a{width:100% !important;text-align:center !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    img,svg,video{max-width:100%;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    .hero-docmark{display:none !important;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; color:#0E0F11; overflow-x:hidden;">
+
+<nav class="dkr-nav {{ navClass }}" style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="Decor Home.ru.dc.html" style="display:flex; align-items:center;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:62px; width:auto; display:block;">
+    </a>
+    <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
+      <a href="Decor Products.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ПРОДУКЦИЯ</a>
+      <a href="Decor Manufacturing.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ПРОИЗВОДСТВО</a>
+      <a href="Decor Export.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ЭКСПОРТ</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.ru.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">ПРОДАЖИ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">АВТОРИЗОВАННЫЕ ДИЛЕРЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Найдите официального дилера Dekor</span></span></a>
+          <a href="Decor Partner Resources.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">РЕСУРСЫ ДЛЯ ПАРТНЁРОВ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Прайс-листы, каталоги и материалы бренда</span></span></a>
+          <a href="Decor B2B Portal.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B-ПОРТАЛ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Платформа профессиональных заказов</span></span></a>
+          <a href="Decor Online Payment.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ОНЛАЙН-ОПЛАТА</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Безопасная оплата счетов</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">НОВОСТИ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.ru.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ПОСЛЕДНИЕ НОВОСТИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Объявления и обновления продукции</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ВЫСТАВКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Выставки и экспозиции</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">УЧЕБНАЯ АКАДЕМИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Обучение мастеров и дилеров</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЖИЗНЬ КОМПАНИИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Мероприятия, награды и культура</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">О НАС <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">О КОМПАНИИ DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Обзор компании</span></span></a>
+          <a href="Decor Our Story.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">НАША ИСТОРИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Шестьдесят лет мастерства</span></span></a>
+          <a href="Decor Vision Mission.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ВИДЕНИЕ И МИССИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ценности, которые ведут нас вперёд</span></span></a>
+          <a href="Decor RD Center.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЦЕНТР НИОКР</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Инженерия и инновации</span></span></a>
+          <a href="Decor Quality Sustainability.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАЧЕСТВО И УСТОЙЧИВОЕ РАЗВИТИЕ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Стандарты и ответственность</span></span></a>
+          <a href="Decor Career.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАРЬЕРА</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Стройте карьеру вместе с нами</span></span></a>
+          <a href="Decor Idea.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">У МЕНЯ ЕСТЬ ИДЕЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Поделитесь с нашей командой</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">ПОДДЕРЖКА <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЦЕНТР ПОДДЕРЖКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Помощь, частые вопросы и загрузки</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЗАГРУЗКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Технические PDF-файлы и документы</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">СЕРТИФИКАТЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE и документы соответствия</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАТАЛОГИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Полные каталоги продукции</span></span></a>
+          <a href="Decor Support.ru.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ГАРАНТИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Условия и регистрация</span></span></a>
+          <a href="Decor Support.ru.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЧАСТЫЕ ВОПРОСЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ответы на популярные вопросы</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">КОНТАКТЫ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КОНТАКТЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Офисы, завод и экспортные команды</span></span></a>
+          <a href="Decor Complaint.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ПОДАТЬ ЖАЛОБУ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Вопросы сервиса и качества</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Выбор языка, активен: Русский" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">RU</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <a href="Decor Authorized Dealers.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <a href="Decor Authorized Dealers.en.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <a href="Decor Authorized Dealers.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="Decor Authorized Dealers.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇷🇺 RU</span></button>
+          <a href="Decor Authorized Dealers.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="Decor Authorized Dealers.ar.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Поиск (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
+      <a href="Decor Become a Dealer.ru.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Стать дилером</a>
+    </div>
+    <button onClick="{{ toggleMenu }}" class="dkr-burger" style="display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;">
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+      <span style="width:24px; height:2px; background:#fff; display:block;"></span>
+    </button>
+  </div>
+</nav>
+<dc-import name="Decor Search.ru" hint-size="0,0"></dc-import>
+
+<sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+  <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.97); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-langs">
+      <a href="Decor Authorized Dealers.dc.html" class="mnav-lang">TR</a>
+      <a href="Decor Authorized Dealers.en.dc.html" class="mnav-lang">EN</a>
+      <a href="Decor Authorized Dealers.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Authorized Dealers.fr.dc.html" class="mnav-lang">FR</a>
+      <span class="mnav-lang mnav-lang-active">RU</span>
+      <a href="Decor Authorized Dealers.az.dc.html" class="mnav-lang">AZ</a>
+      <a href="Decor Authorized Dealers.ar.dc.html" class="mnav-lang">AR</a>
+    </div>
+    <a href="Decor Become a Dealer.ru.dc.html" onClick="{{ toggleMenu }}" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:4px;">Стать дилером</a>
+  </div>
+</sc-if>
+
+<!-- HERO -->
+<header style="position:relative; background:radial-gradient(120% 110% at 72% -10%, #1d2730 0%, #11171d 50%, #0a0c0f 100%); padding:clamp(150px,16vw,210px) clamp(20px,5vw,64px) clamp(56px,7vw,92px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 26%,#000 40%,transparent 92%);"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="left:18%; top:40%;"></div>
+  <div class="bp-glint" style="left:74%; top:30%; animation-delay:2.6s;"></div>
+  <div class="bp-particle" style="left:30%; top:80%;"></div>
+  <div class="bp-particle" style="left:58%; top:72%; animation-delay:3s;"></div>
+  <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1100px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
+  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">ПРОДАЖИ · АВТОРИЗОВАННЫЕ ДИЛЕРЫ · 41.0082°N · 28.9784°E</div>
+  <div style="position:relative; z-index:2; max-width:880px; margin:0 auto; text-align:center;">
+    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>ПОИСК ДИЛЕРА</div>
+    <h1 data-reveal style="font-size:clamp(40px,6.4vw,86px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:24px 0 0;">Найдите авторизованного <span style="color:#0095DA;">дилера Dekor.</span></h1>
+    <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px auto 0; max-width:540px;">Официальные дистрибьюторы Dekor по всей Турции — каждый партнёр проверен, обеспечен поддержкой и работает только с оригинальным профессиональным инструментом.</p>
+  </div>
+  <!-- SEARCH + FILTERS -->
+  <div data-reveal style="position:relative; z-index:2; max-width:980px; margin:40px auto 0; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:2px; padding:22px;">
+    <div style="position:relative; margin-bottom:14px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); width:20px; height:20px; pointer-events:none;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+      <input class="dl-search" type="text" value="{{ query }}" onInput="{{ onQuery }}" placeholder="Поиск по названию дилера или городу…" aria-label="Поиск дилеров">
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+      <select class="f-select" value="{{ province }}" onChange="{{ onProvince }}" aria-label="Фильтр по региону">
+        <sc-for list="{{ provinceOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+      </select>
+      <select class="f-select" value="{{ city }}" onChange="{{ onCity }}" aria-label="Фильтр по городу">
+        <sc-for list="{{ cityOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+      </select>
+      <select class="f-select" value="{{ category }}" onChange="{{ onCategory }}" aria-label="Фильтр по категории продукции">
+        <sc-for list="{{ categoryOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+      </select>
+    </div>
+  </div>
+</header>
+
+<!-- DEALER GRID -->
+<div class="des-bridge" aria-hidden="true" style="--from:#0a0c0f; --to:#F4F5F6; --grid:rgba(90,100,110,.12);"></div>
+
+<section style="background:#F4F5F6; padding:clamp(48px,6vw,84px) clamp(20px,5vw,64px) clamp(56px,7vw,104px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:34px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>СЕТЬ ДИСТРИБЬЮТОРОВ</div>
+        <h2 style="font-size:clamp(26px,3.4vw,42px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:14px 0 0;">{{ resultLabel }}</h2>
+      </div>
+      <a href="Decor Become a Dealer.ru.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:14px 24px; font-weight:700; font-size:14px; border-radius:2px;">Стать дилером →</a>
+    </div>
+
+    <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px;">
+        <sc-for list="{{ dealers }}" as="d" hint-placeholder-count="9">
+          <a href="{{ d.href }}" data-reveal class="dl-card">
+            <div class="dl-card-acc"></div>
+            <div class="dl-bp"></div>
+            <!-- logo slot -->
+            <div style="position:relative; height:128px; background:#0E0F11; display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid #E2E5E9;">
+              <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.1) 1px,transparent 1px); background-size:22px 22px; opacity:.5;"></div>
+              <div class="dl-logo" style="position:relative; display:flex; flex-direction:column; align-items:center; gap:7px;">
+                <div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:30px; letter-spacing:-0.02em; color:#fff; line-height:1;">{{ d.initials }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.5px; color:rgba(255,255,255,.4);">МЕСТО ДЛЯ ЛОГОТИПА</div>
+              </div>
+              <span style="position:absolute; top:12px; right:12px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.35);">{{ d.code }}</span>
+            </div>
+            <div style="padding:22px; display:flex; flex-direction:column; flex:1;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; font-weight:600; color:{{ d.statusColor }}; border:1px solid {{ d.statusBorder }}; background:{{ d.statusBg }}; padding:4px 8px; border-radius:2px;">{{ d.status }}</span>
+                <span style="display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.8px; color:#5A6066;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px; height:13px;"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+                  {{ d.city }}
+                </span>
+              </div>
+              <h3 style="font-size:19px; font-weight:800; color:#0E0F11; margin:0; letter-spacing:-0.01em; line-height:1.2;">{{ d.name }}</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 18px;">
+                <sc-for list="{{ d.cats }}" as="c" hint-placeholder-count="3"><span class="dl-chip">{{ c }}</span></sc-for>
+              </div>
+              <div style="margin-top:auto; padding-top:14px; border-top:1px solid #EEF0F2; display:flex; align-items:center; justify-content:space-between;">
+                <span class="dl-view">Смотреть дилера →</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.6px; color:#8A9097;">{{ d.years }}</span>
+              </div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; padding:72px 20px; border:1px dashed #C9CED4; border-radius:2px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:#8A9097;">НЕТ ДИЛЕРОВ, СООТВЕТСТВУЮЩИХ ЭТОМУ ФИЛЬТРУ</div>
+        <button onClick="{{ resetFilters }}" style="margin-top:18px; background:#0E0F11; color:#fff; border:none; padding:13px 24px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; border-radius:2px; cursor:pointer;">Сбросить фильтры</button>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<dc-import name="Decor Footer.ru" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { solid:false, menu:false, province:'All', city:'All', category:'All', query:'' };
+
+  componentDidMount(){
+    this._onScroll = ()=>{ const y = window.scrollY || 0; const s = y > 40; if(s !== this.state.solid) this.setState({ solid:s }); };
+    window.addEventListener('scroll', this._onScroll, { passive:true });
+    this._onScroll();
+    this._io = null;
+    this._reveal();
+  }
+  componentDidUpdate(){ this._reveal(); }
+  _reveal(){
+    const mark = (el)=>{ if(!el.classList.contains('in')) el.classList.add('in'); };
+    if('IntersectionObserver' in window){
+      if(!this._io){ this._io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ mark(e.target); this._io.unobserve(e.target); } }); }, { threshold:0.12, rootMargin:'0px 0px -5% 0px' }); }
+      document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>this._io.observe(el));
+    }
+    const vh = window.innerHeight || 800;
+    document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{ const r = el.getBoundingClientRect(); if(r.top < vh*0.96 && r.bottom > 0) mark(el); });
+  }
+  componentWillUnmount(){ if(this._onScroll) window.removeEventListener('scroll', this._onScroll); }
+
+  renderVals(){
+    const red='#0095DA';
+    const ALL=[
+      { name:'Başkent Yapı Market', city:'Ankara', province:'Ankara', status:'Премиум-партнёр', cats:['Малярные','Измерение'], years:'Партнёр с 2009', slug:'baskent-yapi' },
+      { name:'Teknik Yapı Center', city:'İzmir', province:'İzmir', status:'Премиум-партнёр', cats:['Измерение','Шпатели'], years:'Партнёр с 2012', slug:'teknik-yapi' },
+      { name:'Mega Hırdavat', city:'İstanbul', province:'İstanbul', status:'Авторизован', cats:['Малярные','Штукатурка','Утепление'], years:'Партнёр с 2015', slug:'mega-hirdavat' },
+      { name:'Anadolu Boya', city:'Bursa', province:'Bursa', status:'Авторизован', cats:['Малярные','Подготовка поверхности'], years:'Партнёр с 2017', slug:'anadolu-boya' },
+      { name:'Akdeniz Yapı', city:'Antalya', province:'Antalya', status:'Премиум-партнёр', cats:['Штукатурка','Утепление'], years:'Партнёр с 2011', slug:'akdeniz-yapi' },
+      { name:'Karadeniz Tools', city:'Trabzon', province:'Trabzon', status:'Авторизован', cats:['Измерение','Малярные'], years:'Партнёр с 2019', slug:'karadeniz-tools' },
+      { name:'Güneydoğu Hırdavat', city:'Gaziantep', province:'Gaziantep', status:'Авторизован', cats:['Шпатели','Штукатурка'], years:'Партнёр с 2016', slug:'guneydogu-hirdavat' },
+      { name:'Marmara Boya Market', city:'Kocaeli', province:'Kocaeli', status:'Премиум-партнёр', cats:['Малярные','Штукатурка','Измерение'], years:'Партнёр с 2008', slug:'marmara-boya' },
+      { name:'Ege Yapı Merkezi', city:'İzmir', province:'İzmir', status:'Авторизован', cats:['Утепление','Подготовка поверхности'], years:'Партнёр с 2018', slug:'ege-yapi' },
+      { name:'Çukurova Yapı', city:'Adana', province:'Adana', status:'Авторизован', cats:['Штукатурка','Шпатели'], years:'Партнёр с 2020', slug:'cukurova-yapi' },
+      { name:'Doğu Hırdavat', city:'Erzurum', province:'Erzurum', status:'Авторизован', cats:['Малярные','Утепление'], years:'Партнёр с 2021', slug:'dogu-hirdavat' },
+      { name:'Yıldız Yapı Market', city:'Ankara', province:'Ankara', status:'Авторизован', cats:['Шпатели','Подготовка поверхности'], years:'Партнёр с 2014', slug:'yildiz-yapi' },
+    ];
+
+    const provinces = ['All', ...Array.from(new Set(ALL.map(d=>d.province))).sort()];
+    const cats = ['All', ...Array.from(new Set(ALL.flatMap(d=>d.cats))).sort()];
+    const citiesForProvince = this.state.province==='All' ? ['All', ...Array.from(new Set(ALL.map(d=>d.city))).sort()] : ['All', ...Array.from(new Set(ALL.filter(d=>d.province===this.state.province).map(d=>d.city))).sort()];
+
+    const q = (this.state.query||'').trim().toLowerCase();
+    const filtered = ALL.filter(d=>{
+      if(this.state.province!=='All' && d.province!==this.state.province) return false;
+      if(this.state.city!=='All' && d.city!==this.state.city) return false;
+      if(this.state.category!=='All' && !d.cats.includes(this.state.category)) return false;
+      if(q && !(d.name.toLowerCase().includes(q) || d.city.toLowerCase().includes(q) || d.province.toLowerCase().includes(q))) return false;
+      return true;
+    });
+
+    const dealers = filtered.map((d,i)=>{
+      const premium = d.status==='Премиум-партнёр';
+      const initials = d.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+      return {
+        ...d, initials,
+        code:'DLR·'+String(ALL.indexOf(d)+1).padStart(3,'0'),
+        href:'Decor Dealer Profile.ru.dc.html#'+d.slug,
+        statusColor: premium ? red : '#0a6aa8',
+        statusBorder: premium ? 'rgba(0,149,218,.4)' : 'rgba(0,149,218,.4)',
+        statusBg: premium ? 'rgba(0,149,218,.07)' : 'rgba(0,149,218,.07)',
+      };
+    });
+
+    const opt = (arr)=>arr.map(v=>({ value:v, label: v==='All' ? (v) : v }));
+    const provinceOpts = [{value:'All',label:'Все регионы'}, ...provinces.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
+    const cityOpts = [{value:'All',label:'Все города'}, ...citiesForProvince.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
+    const categoryOpts = [{value:'All',label:'Все категории продукции'}, ...cats.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
+
+    const n = filtered.length;
+    return {
+      navClass: this.state.solid ? 'solid' : '',
+      menu: this.state.menu,
+      toggleMenu: ()=>this.setState({ menu: !this.state.menu }),
+      province:this.state.province, city:this.state.city, category:this.state.category, query:this.state.query,
+      provinceOpts, cityOpts, categoryOpts,
+      onProvince:(e)=>this.setState({ province:e.target.value, city:'All' }),
+      onCity:(e)=>this.setState({ city:e.target.value }),
+      onCategory:(e)=>this.setState({ category:e.target.value }),
+      onQuery:(e)=>this.setState({ query:e.target.value }),
+      resetFilters:()=>this.setState({ province:'All', city:'All', category:'All', query:'' }),
+      dealers,
+      hasResults: n>0,
+      noResults: n===0,
+      resultLabel: n + ' авторизованных дилеров',
+    };
+  }
+}
+</script>
+</body>
+</html>

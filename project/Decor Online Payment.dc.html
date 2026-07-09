@@ -16,29 +16,30 @@
   <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Archivo',sans-serif;background:#0E0F11;-webkit-font-smoothing:antialiased;}
-  ::selection{background:#D32027;color:#fff;}
+  ::selection{background:#0095DA;color:#fff;}
   a{text-decoration:none;color:inherit;}
   .dkr-nav{transition:background .4s ease, box-shadow .4s ease, padding .4s ease;}
   .dkr-nav.solid{background:rgba(14,15,17,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.06);padding:12px 0 !important;}
   .dkr-link{position:relative;transition:color .3s ease;}
-  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#D32027;transition:width .3s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s ease;}
   .dkr-link:hover{color:#fff !important;}
+  .dkr-link:hover .lang-code{filter:brightness(1.3);}
   .dkr-link:hover::after{width:100%;}
   .dkr-link.active{color:#fff !important;}
   .dkr-link.active::after{width:100%;}
-  .dkr-btn{transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, background .3s ease, color .3s ease;}
-  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(211,32,39,.5);transform:translateY(-2px);}
+  .dkr-btn{transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, background .3s ease, color .3s ease, filter .2s ease;}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);transform:translateY(-2px);}
   .nav-drop{position:relative;}
   .nav-caret{display:inline-block;transition:transform .3s ease;}
   .nav-drop:hover .nav-caret{transform:rotate(180deg);}
-  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-top:2px solid #D32027;border-radius:2px;padding:10px;opacity:0;visibility:hidden;transition:opacity .3s ease, transform .3s ease, visibility .3s;box-shadow:0 30px 60px rgba(0,0,0,.55);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-top:2px solid #0095DA;border-radius:2px;padding:10px;opacity:0;visibility:hidden;transition:opacity .3s ease, transform .3s ease, visibility .3s;box-shadow:0 30px 60px rgba(0,0,0,.55);}
   .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
   .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
   .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
   .nav-drop-item:hover{background:rgba(255,255,255,.05);}
   .nav-drop-item:hover .ndi-tick{width:16px;}
   .nav-drop-item:hover .ndi-label{color:#fff;}
-  .ndi-tick{width:0;height:2px;background:#D32027;transition:width .3s ease;flex:0 0 auto;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
   @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
   [data-reveal]{transform:translateY(28px);transition:transform .9s cubic-bezier(.2,.7,.2,1);}
   [data-reveal].in{transform:none;}
@@ -60,17 +61,48 @@
   .pay-badge:hover .pb-acc{transform:scaleX(1);}
   .pb-acc{transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1);}
   .pay-cta{transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;}
-  .pay-cta:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(211,32,39,.45);}
+  .pay-cta:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(0,149,218,.45);filter:brightness(1.1);}
+  .pay-cta:active{filter:brightness(0.85);}
+  .pay-cta:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
   .pay-cta:hover .cta-arrow{transform:translateX(7px);}
   .cta-arrow{display:inline-block;transition:transform .35s ease;}
   .f-input{width:100%;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:16px 18px;font-family:'Archivo',sans-serif;font-size:15px;color:#0E0F11;transition:border-color .3s ease, box-shadow .3s ease;outline:none;}
-  .f-input:focus{border-color:#D32027;box-shadow:0 0 0 3px rgba(211,32,39,.12);}
+  .f-input:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.18);}
   .f-input::placeholder{color:#8A9097;}
   .method-chip{transition:border-color .3s ease, transform .3s ease;}
   .method-chip:hover{border-color:rgba(0,149,218,.5);transform:translateY(-3px);}
   @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle,.pay-shield,.pay-lock{animation:none!important;}}
   @media(max-width:760px){.pay-split{grid-template-columns:1fr !important;}.pay-badges{grid-template-columns:1fr !important;}}
-  </style>
+    @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-docmark{display:none !important;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    img,svg,video{max-width:100%;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }
+  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
 </helmet>
 
 <nav class="dkr-nav {{ navClass }}" style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0;">
@@ -79,60 +111,72 @@
       <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:62px; width:auto; display:block;">
     </a>
     <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
-      <a href="Decor Products.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">PRODUCTS</a>
-      <a href="Decor Manufacturing.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">MANUFACTURING</a>
-      <a href="Decor Export.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">EXPORT</a>
+      <a href="Decor Products.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRÜNLER</a>
+      <a href="Decor Manufacturing.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRETİM</a>
+      <a href="Decor Export.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">İHRACAT</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Authorized Dealers.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">SALES <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Authorized Dealers.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">SATIŞ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Authorized Dealers.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AUTHORIZED DEALERS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Find an official Dekor partner</span></span></a>
-          <a href="Decor Partner Resources.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">PARTNER RESOURCES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Price lists, catalogs &amp; brand assets</span></span></a>
-          <a href="Decor B2B Portal.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTAL</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Professional ordering platform</span></span></a>
-          <a href="Decor Online Payment.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ONLINE PAYMENT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Secure invoice payment</span></span></a>
+          <a href="Decor Authorized Dealers.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">YETKİLİ BAYİLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Resmi bir Dekor bayisi bulun</span></span></a>
+          <a href="Decor Partner Resources.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BAYİ KAYNAKLARI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fiyat listeleri, kataloglar ve marka varlıkları</span></span></a>
+          <a href="Decor B2B Portal.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTALI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Profesyonel sipariş platformu</span></span></a>
+          <a href="Decor Online Payment.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ÇEVRİMİÇİ ÖDEME</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Güvenli fatura ödemesi</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Newsroom.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">NEWSROOM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Newsroom.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">HABERLER <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Newsroom.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">LATEST NEWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Announcements &amp; product updates</span></span></a>
-          <a href="Decor Newsroom.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRADE SHOWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fairs &amp; exhibitions</span></span></a>
-          <a href="Decor Newsroom.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRAINING ACADEMY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Applicator &amp; dealer training</span></span></a>
-          <a href="Decor Newsroom.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">COMPANY LIFE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Events, awards &amp; culture</span></span></a>
+          <a href="Decor Newsroom.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SON HABERLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Duyurular ve ürün güncellemeleri</span></span></a>
+          <a href="Decor Newsroom.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FUARLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fuarlar ve sergiler</span></span></a>
+          <a href="Decor Newsroom.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">EĞİTİM AKADEMİSİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Uygulayıcı ve bayi eğitimi</span></span></a>
+          <a href="Decor Newsroom.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ŞİRKET YAŞAMI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Etkinlikler, ödüller ve kültür</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor About.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">ABOUT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor About.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">HAKKIMIZDA <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:322px;">
-          <a href="Decor About.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ABOUT DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Company overview</span></span></a>
-          <a href="Decor Our Story.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">OUR STORY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Six decades of craft</span></span></a>
-          <a href="Decor Vision Mission.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VISION &amp; MISSION</span><span style="font-size:11px; color:rgba(255,255,255,.45);">What drives us forward</span></span></a>
-          <a href="Decor RD Center.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">R&amp;D CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Engineering &amp; innovation</span></span></a>
-          <a href="Decor Quality Sustainability.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">QUALITY &amp; SUSTAINABILITY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standards &amp; responsibility</span></span></a>
-          <a href="Decor Career.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CAREER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Build your career with us</span></span></a>
-          <a href="Decor Idea.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">I HAVE AN IDEA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Share it with our team</span></span></a>
+          <a href="Decor About.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DEKOR HAKKINDA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Şirket genel bakışı</span></span></a>
+          <a href="Decor Our Story.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">HİKAYEMİZ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Altmış yıllık zanaat</span></span></a>
+          <a href="Decor Vision Mission.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VİZYON VE MİSYON</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Bizi ileriye taşıyan değerler</span></span></a>
+          <a href="Decor RD Center.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AR-GE MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Mühendislik ve inovasyon</span></span></a>
+          <a href="Decor Quality Sustainability.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KALİTE VE SÜRDÜRÜLEBİLİRLİK</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standartlar ve sorumluluk</span></span></a>
+          <a href="Decor Career.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KARİYER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Kariyerinizi bizimle inşa edin</span></span></a>
+          <a href="Decor Idea.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BİR FİKRİM VAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ekibimizle paylaşın</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Support.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SUPPORT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Support.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">DESTEK <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Support.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUPPORT CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Help, FAQ &amp; downloads hub</span></span></a>
-          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DOWNLOADS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Technical PDFs &amp; assets</span></span></a>
-          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CERTIFICATES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE &amp; compliance docs</span></span></a>
-          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CATALOGS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Full product catalogs</span></span></a>
-          <a href="Decor Support.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">WARRANTY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Coverage &amp; registration</span></span></a>
-          <a href="Decor Support.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Common questions, answered</span></span></a>
+          <a href="Decor Support.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DESTEK MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Yardım, SSS ve indirme merkezi</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">İNDİRİLEBİLİR DOSYALAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Teknik PDF'ler ve dosyalar</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SERTİFİKALAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE ve uygunluk belgeleri</span></span></a>
+          <a href="Decor Support.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KATALOGLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Tam ürün katalogları</span></span></a>
+          <a href="Decor Support.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">GARANTİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Kapsam ve kayıt</span></span></a>
+          <a href="Decor Support.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SSS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sık sorulan sorular, yanıtlandı</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Contact.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">CONTACT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Contact.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">İLETİŞİM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel">
-          <a href="Decor Contact.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CONTACT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Offices, factory &amp; export teams</span></span></a>
-          <a href="Decor Complaint.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUBMIT YOUR COMPLAINT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Service &amp; quality issues</span></span></a>
+          <a href="Decor Contact.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">İLETİŞİM</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ofisler, fabrika ve ihracat ekipleri</span></span></a>
+          <a href="Decor Complaint.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ŞİKAYET BİLDİR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Hizmet ve kalite sorunları</span></span></a>
         </div>
       </div>
-      <button type="button" class="nav-search dekor-search-trigger" aria-label="Search (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Dil seçimi, aktif: Türkçe" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">TR</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇹🇷 TR</span></button>
+          <a href="Decor Online Payment.en.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <a href="Decor Online Payment.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="Decor Online Payment.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="Decor Online Payment.ru.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="Decor Online Payment.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="Decor Online Payment.ar.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Ara (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
       <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
-      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-red" style="background:#D32027; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Become a Dealer</a>
+      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Bayi Ol</a>
     </div>
     <button onClick="{{ toggleMenu }}" class="dkr-burger" style="display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;">
       <span style="width:24px; height:2px; background:#fff; display:block;"></span>
@@ -144,18 +188,73 @@
 <dc-import name="Decor Search" hint-size="0,0"></dc-import>
 
 <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.97); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
-    <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:70px; width:auto; margin-bottom:6px;">
-    <a href="Decor Products.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">PRODUCTS</a>
-    <a href="Decor Manufacturing.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">MANUFACTURING</a>
-    <a href="Decor Export.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">EXPORT</a>
-    <a href="Decor Authorized Dealers.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#ff7a72;">SALES</a>
-    <a href="Decor About.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">ABOUT</a>
-    <a href="Decor Contact.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">CONTACT</a>
-    <a href="Decor Support.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">SUPPORT</a>
-    <a href="Decor Career.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">CAREER</a>
-    <a href="Decor Idea.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:16px; letter-spacing:2px; color:#fff;">I HAVE AN IDEA</a>
-    <a href="Decor Become a Dealer.dc.html" onClick="{{ toggleMenu }}" style="background:#D32027; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:4px;">Become a Dealer</a>
+  <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.97); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-satis" class="mnav-toggle">
+      <label for="mnav-satis" class="mnav-parent">SATIŞ<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Authorized Dealers.dc.html">YETKİLİ BAYİLER</a>
+        <a href="Decor Partner Resources.dc.html">BAYİ KAYNAKLARI</a>
+        <a href="Decor B2B Portal.dc.html">B2B PORTALI</a>
+        <a href="Decor Online Payment.dc.html">ÇEVRİMİÇİ ÖDEME</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
+      <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Newsroom.dc.html#news">SON HABERLER</a>
+        <a href="Decor Newsroom.dc.html#trade-shows">FUARLAR</a>
+        <a href="Decor Newsroom.dc.html#training-academy">EĞİTİM AKADEMİSİ</a>
+        <a href="Decor Newsroom.dc.html#company-life">ŞİRKET YAŞAMI</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-hakkimizda" class="mnav-toggle">
+      <label for="mnav-hakkimizda" class="mnav-parent">HAKKIMIZDA<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor About.dc.html">DEKOR HAKKINDA</a>
+        <a href="Decor Our Story.dc.html">HİKAYEMİZ</a>
+        <a href="Decor Vision Mission.dc.html">VİZYON VE MİSYON</a>
+        <a href="Decor RD Center.dc.html">AR-GE MERKEZİ</a>
+        <a href="Decor Quality Sustainability.dc.html">KALİTE VE SÜRDÜRÜLEBİLİRLİK</a>
+        <a href="Decor Career.dc.html">KARİYER</a>
+        <a href="Decor Idea.dc.html">BİR FİKRİM VAR</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-destek" class="mnav-toggle">
+      <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Support.dc.html">DESTEK MERKEZİ</a>
+        <a href="Decor Support.dc.html#downloads">İNDİRİLEBİLİR DOSYALAR</a>
+        <a href="Decor Support.dc.html#downloads">SERTİFİKALAR</a>
+        <a href="Decor Support.dc.html#downloads">KATALOGLAR</a>
+        <a href="Decor Support.dc.html#categories">GARANTİ</a>
+        <a href="Decor Support.dc.html#faq">SSS</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-iletisim" class="mnav-toggle">
+      <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Contact.dc.html">İLETİŞİM</a>
+        <a href="Decor Complaint.dc.html">ŞİKAYET BİLDİR</a>
+      </div>
+    </div>
+    <div class="mnav-langs">
+      <span class="mnav-lang mnav-lang-active">TR</span>
+      <a href="Decor Online Payment.en.dc.html" class="mnav-lang">EN</a>
+      <a href="Decor Online Payment.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Online Payment.fr.dc.html" class="mnav-lang">FR</a>
+      <a href="Decor Online Payment.ru.dc.html" class="mnav-lang">RU</a>
+      <a href="Decor Online Payment.az.dc.html" class="mnav-lang">AZ</a>
+      <a href="Decor Online Payment.ar.dc.html" class="mnav-lang">AR</a>
+    </div>
+    <a href="Decor Become a Dealer.dc.html" onClick="{{ toggleMenu }}" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:4px;">Bayi Ol</a>
   </div>
 </sc-if>
 
@@ -167,19 +266,19 @@
   <div class="bp-glint" style="position:absolute; left:74%; top:24%; width:4px; height:4px; border-radius:50%; background:#0095DA; animation-delay:1.6s; z-index:1;"></div>
   <div class="bp-particle" style="position:absolute; left:30%; top:62%; width:3px; height:3px; border-radius:50%; background:rgba(0,149,218,.6); z-index:1;"></div>
   <div class="bp-particle" style="position:absolute; left:64%; top:70%; width:2px; height:2px; border-radius:50%; background:rgba(0,149,218,.5); animation-delay:2.4s; z-index:1;"></div>
-  <div style="position:absolute; top:-120px; right:-120px; width:300px; height:1200px; background:linear-gradient(180deg,#D32027,#8a1419); transform:rotate(18deg); transform-origin:top right; z-index:1; pointer-events:none;"></div>
+  <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1200px; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(18deg); transform-origin:top right; z-index:1; pointer-events:none;"></div>
 
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(32px,5vw,72px); align-items:center;" class="pay-split">
     <div>
-      <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; display:flex; align-items:center; gap:14px; margin-bottom:26px;"><span style="width:34px; height:2px; background:#D32027; display:inline-block;"></span>SECURE PAYMENT GATEWAY</div>
-      <h1 data-reveal style="font-size:clamp(40px,6.2vw,82px); font-weight:900; letter-spacing:-0.04em; line-height:.98; color:#fff;">Secure online <span style="color:#D32027;">payment.</span></h1>
-      <p data-reveal style="margin-top:26px; font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); max-width:540px;">Pay your Dekor invoices quickly and safely. All transactions are processed through a bank-grade, fully encrypted payment system — no card data ever touches our servers.</p>
+      <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#0095DA; display:flex; align-items:center; gap:14px; margin-bottom:26px;"><span style="width:34px; height:2px; background:#0095DA; display:inline-block;"></span>GÜVENLİ ÖDEME AĞ GEÇİDİ</div>
+      <h1 data-reveal style="font-size:clamp(40px,6.2vw,82px); font-weight:900; letter-spacing:-0.04em; line-height:.98; color:#fff;">Güvenli çevrimiçi <span style="color:#0095DA;">ödeme.</span></h1>
+      <p data-reveal style="margin-top:26px; font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); max-width:540px;">Dekor faturalarınızı hızlı ve güvenli bir şekilde ödeyin. Tüm işlemler banka düzeyinde, tamamen şifreli bir ödeme sistemi üzerinden gerçekleştirilir — kart verileriniz asla sunucularımıza ulaşmaz.</p>
       <div data-reveal style="margin-top:46px; display:flex; flex-wrap:wrap; gap:14px;">
-        <a href="#" class="pay-cta" style="background:#D32027; color:#fff; padding:18px 34px; font-weight:700; font-size:15px; letter-spacing:.3px; border-radius:2px; display:inline-flex; align-items:center; gap:12px;">Proceed to Secure Payment <span class="cta-arrow">→</span></a>
-        <a href="Decor Contact.dc.html" style="background:transparent; color:#fff; border:1px solid rgba(255,255,255,.28); padding:18px 30px; font-weight:600; font-size:15px; border-radius:2px;">Billing Support</a>
+        <a href="#" class="pay-cta" style="background:#0095DA; color:#fff; padding:18px 34px; font-weight:700; font-size:15px; letter-spacing:.3px; border-radius:2px; display:inline-flex; align-items:center; gap:12px;">Güvenli Ödemeye Geçin <span class="cta-arrow">→</span></a>
+        <a href="Decor Contact.dc.html" style="background:transparent; color:#fff; border:1px solid rgba(255,255,255,.28); padding:18px 30px; font-weight:600; font-size:15px; border-radius:2px;">Fatura Desteği</a>
       </div>
       <div data-reveal style="margin-top:30px; display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.4);">
-        <span style="color:#0095DA;">●</span> PCI-DSS COMPLIANT · 3D SECURE · 256-BIT TLS
+        <span style="color:#0095DA;">●</span> PCI-DSS UYUMLU · 3D SECURE · 256-BİT TLS
       </div>
     </div>
 
@@ -190,9 +289,9 @@
         <div class="pay-shield pay-lock" style="width:92px; height:92px; margin:0 auto 26px; border-radius:50%; background:rgba(0,149,218,.08); border:1px solid rgba(0,149,218,.4); display:flex; align-items:center; justify-content:center;">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path><circle cx="12" cy="15.5" r="1.4" fill="#0095DA" stroke="none"></circle></svg>
         </div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; margin-bottom:10px;">ENCRYPTED CONNECTION</div>
-        <div style="font-size:21px; font-weight:800; color:#fff; letter-spacing:-0.02em;">Your data is protected</div>
-        <p style="margin-top:10px; font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.5);">Powered by an accredited Turkish bank payment infrastructure with end-to-end encryption.</p>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; margin-bottom:10px;">ŞİFRELİ BAĞLANTI</div>
+        <div style="font-size:21px; font-weight:800; color:#fff; letter-spacing:-0.02em;">Verileriniz korunuyor</div>
+        <p style="margin-top:10px; font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.5);">Uçtan uca şifrelemeye sahip akredite bir Türk banka ödeme altyapısı tarafından destekleniyor.</p>
         <div style="margin-top:26px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
           <span class="method-chip" style="border:1px solid rgba(255,255,255,.16); border-radius:2px; padding:8px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.2px; color:rgba(255,255,255,.7);">VISA</span>
           <span class="method-chip" style="border:1px solid rgba(255,255,255,.16); border-radius:2px; padding:8px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.2px; color:rgba(255,255,255,.7);">MASTERCARD</span>
@@ -207,8 +306,8 @@
 <section style="position:relative; background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); margin-top:-1px;">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="text-align:center; max-width:680px; margin:0 auto clamp(44px,5vw,68px);">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; display:inline-flex; align-items:center; gap:12px; margin-bottom:20px;"><span style="width:30px; height:2px; background:#D32027;"></span>BUILT ON TRUST<span style="width:30px; height:2px; background:#D32027;"></span></div>
-      <h2 style="font-size:clamp(30px,4.2vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02;">Engineered for security.</h2>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#0095DA; display:inline-flex; align-items:center; gap:12px; margin-bottom:20px;"><span style="width:30px; height:2px; background:#D32027;"></span>GÜVEN ÜZERİNE İNŞA EDİLDİ<span style="width:30px; height:2px; background:#D32027;"></span></div>
+      <h2 style="font-size:clamp(30px,4.2vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02;">Güvenlik için tasarlandı.</h2>
     </div>
 
     <div class="pay-badges" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
@@ -218,17 +317,17 @@
         <div style="width:58px; height:58px; border-radius:2px; background:#F4F5F6; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
         </div>
-        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">SSL Secure</div>
-        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">Every transaction runs over a 256-bit TLS encrypted channel verified by an SSL certificate authority.</p>
+        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">SSL Güvenliği</div>
+        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">Her işlem, bir SSL sertifika otoritesi tarafından doğrulanmış 256-bit TLS şifreli bir kanal üzerinden gerçekleşir.</p>
       </div>
       <div class="pay-badge" data-reveal style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:38px 30px; overflow:hidden;">
-        <div class="pb-acc" style="position:absolute; top:0; left:0; right:0; height:4px; background:#D32027;"></div>
+        <div class="pb-acc" style="position:absolute; top:0; left:0; right:0; height:4px; background:#0095DA;"></div>
         <div style="position:absolute; top:16px; right:18px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:#8A9097;">SEC-02</div>
         <div style="width:58px; height:58px; border-radius:2px; background:#F4F5F6; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D32027" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
         </div>
-        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">Encrypted Payment</div>
-        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">Card data is tokenised and processed entirely within the bank&rsquo;s PCI-DSS infrastructure &mdash; never on Dekor servers.</p>
+        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">Şifreli Ödeme</div>
+        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">Kart verileri tokenize edilir ve tamamen bankanın PCI-DSS altyapısı içinde işlenir &mdash; asla Dekor sunucularında değil.</p>
       </div>
       <div class="pay-badge" data-reveal style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:38px 30px; overflow:hidden;">
         <div class="pb-acc" style="position:absolute; top:0; left:0; right:0; height:4px; background:#0095DA;"></div>
@@ -236,8 +335,8 @@
         <div style="width:58px; height:58px; border-radius:2px; background:#F4F5F6; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M13 2L4 14h7l-2 8 9-12h-7z"></path></svg>
         </div>
-        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">Fast Processing</div>
-        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">3D Secure authorisation confirms your payment in seconds, with instant receipt and reconciliation.</p>
+        <div style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11;">Hızlı İşlem</div>
+        <p style="margin-top:12px; font-size:14.5px; line-height:1.6; color:#5A6066;">3D Secure doğrulaması ödemenizi saniyeler içinde onaylar, anında makbuz ve mutabakat sağlar.</p>
       </div>
     </div>
   </div>
@@ -251,8 +350,8 @@
 
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto; display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(36px,5vw,72px); align-items:center;" class="pay-split">
     <div data-reveal>
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; display:flex; align-items:center; gap:14px; margin-bottom:22px;"><span style="width:30px; height:2px; background:#D32027;"></span>HOW IT WORKS</div>
-      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.04;">Pay in three<br>simple steps.</h2>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#0095DA; display:flex; align-items:center; gap:14px; margin-bottom:22px;"><span style="width:30px; height:2px; background:#D32027;"></span>NASIL ÇALIŞIR</div>
+      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.04;">Üç basit<br>adımda ödeyin.</h2>
       <div style="margin-top:34px; display:flex; flex-direction:column; gap:22px;">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
           <div style="display:flex; gap:18px; align-items:flex-start;">
@@ -267,26 +366,26 @@
     </div>
 
     <!-- Invoice reference panel -->
-    <div data-reveal style="position:relative; background:#16181b; border:1px solid rgba(255,255,255,.08); border-top:3px solid #D32027; border-radius:3px; padding:clamp(32px,4vw,46px);">
+    <div data-reveal style="position:relative; background:#16181b; border:1px solid rgba(255,255,255,.08); border-top:3px solid #0095DA; border-radius:3px; padding:clamp(32px,4vw,46px);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:28px;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.45);">INVOICE PAYMENT</div>
-        <div style="display:flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA;"><span style="width:6px; height:6px; border-radius:50%; background:#0095DA;"></span>SECURE</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.45);">FATURA ÖDEMESİ</div>
+        <div style="display:flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#0095DA;"><span style="width:6px; height:6px; border-radius:50%; background:#0095DA;"></span>GÜVENLİ</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:16px;">
         <div>
-          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">DEALER / CUSTOMER CODE</label>
-          <input class="f-input" type="text" placeholder="e.g. DLR-001">
+          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">BAYİ / MÜŞTERİ KODU</label>
+          <input class="f-input" type="text" placeholder="örn. DLR-001">
         </div>
         <div>
-          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">INVOICE NUMBER</label>
-          <input class="f-input" type="text" placeholder="e.g. INV-2026-00482">
+          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">FATURA NUMARASI</label>
+          <input class="f-input" type="text" placeholder="örn. INV-2026-00482">
         </div>
         <div>
-          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">AMOUNT</label>
+          <label style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.45); margin-bottom:8px;">TUTAR</label>
           <input class="f-input" type="text" placeholder="₺ 0,00">
         </div>
-        <a href="#" class="pay-cta" style="margin-top:8px; background:#D32027; color:#fff; padding:17px 28px; font-weight:700; font-size:15px; border-radius:2px; text-align:center; display:flex; align-items:center; justify-content:center; gap:11px;">Continue to Payment <span class="cta-arrow">→</span></a>
-        <p style="text-align:center; font-size:11.5px; color:rgba(255,255,255,.35); line-height:1.5;">You will be redirected to the secure bank payment page. Dekor never stores your card details.</p>
+        <a href="#" class="pay-cta" style="margin-top:8px; background:#0095DA; color:#fff; padding:17px 28px; font-weight:700; font-size:15px; border-radius:2px; text-align:center; display:flex; align-items:center; justify-content:center; gap:11px;">Ödemeye Devam Et <span class="cta-arrow">→</span></a>
+        <p style="text-align:center; font-size:11.5px; color:rgba(255,255,255,.35); line-height:1.5;">Güvenli banka ödeme sayfasına yönlendirileceksiniz. Dekor kart bilgilerinizi asla saklamaz.</p>
       </div>
     </div>
   </div>
@@ -326,7 +425,7 @@ class Component extends DCLogic {
   toggleMenu = () => this.setState(s=>({ menu:!s.menu }));
   renderVals(){
     const lock = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>';
-    const shieldChk = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D32027" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>';
+    const shieldChk = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>';
     const bolt = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M13 2L4 14h7l-2 8 9-12h-7z"></path></svg>';
     return {
       navClass: this.state.navClass,
@@ -334,13 +433,13 @@ class Component extends DCLogic {
       toggleMenu: this.toggleMenu,
       badges: [
         { code:'SEC-01', bar:'#0095DA', icon:lock,     title:'SSL Secure',       desc:'Every transaction runs over a 256-bit TLS encrypted channel verified by an SSL certificate authority.' },
-        { code:'SEC-02', bar:'#D32027', icon:shieldChk, title:'Encrypted Payment', desc:'Card data is tokenised and processed entirely within the bank\u2019s PCI-DSS infrastructure — never on Dekor servers.' },
+        { code:'SEC-02', bar:'#0095DA', icon:shieldChk, title:'Encrypted Payment', desc:'Card data is tokenised and processed entirely within the bank\u2019s PCI-DSS infrastructure — never on Dekor servers.' },
         { code:'SEC-03', bar:'#0095DA', icon:bolt,      title:'Fast Processing',   desc:'3D Secure authorisation confirms your payment in seconds, with instant receipt and reconciliation.' },
       ],
       steps: [
-        { n:'01', t:'Enter your invoice details', d:'Provide your dealer code, invoice number and amount to be paid.' },
-        { n:'02', t:'Redirect to the secure bank page', d:'You are transferred to the accredited bank gateway with 3D Secure verification.' },
-        { n:'03', t:'Receive instant confirmation', d:'Payment is confirmed in seconds and a receipt is issued to your account.' },
+        { n:'01', t:'Fatura bilgilerinizi girin', d:'Bayi kodunuzu, fatura numaranızı ve ödenecek tutarı belirtin.' },
+        { n:'02', t:'Güvenli banka sayfasına yönlendirilin', d:'3D Secure doğrulamasıyla akredite banka ağ geçidine aktarılırsınız.' },
+        { n:'03', t:'Anında onay alın', d:'Ödeme saniyeler içinde onaylanır ve hesabınıza bir makbuz düzenlenir.' },
       ],
     };
   }

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="uploads/decor_logo_color.png">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#0095DA;color:#fff;}
+  a{text-decoration:none;color:inherit;}
+  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,filter .2s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;}
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrDrift{0%{transform:translate(0,0);opacity:0}10%{opacity:.7}90%{opacity:.7}100%{transform:translate(22px,-46px);opacity:0}}
+  @keyframes dkrSpinSlow{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 18s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.7);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
+  .des-atmos{position:absolute;inset:-40%;background:conic-gradient(from 0deg,rgba(0,149,218,.06),transparent 25%,rgba(0,149,218,.05) 50%,transparent 75%,rgba(0,149,218,.06));animation:dkrSpinSlow 60s linear infinite;pointer-events:none;z-index:0;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle,.des-atmos{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
+  .mobile-menu{display:none;position:fixed;inset:0;height:100vh;min-height:100dvh;z-index:99;background:rgba(14,15,17,.98);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px;overflow-y:auto;}
+  .navtoggle:checked ~ .mobile-menu{display:flex !important;}
+  @media(max-width:767px){.mobile-menu{gap:12px !important;padding:28px 24px !important;}.mobile-menu img{height:48px !important;margin-bottom:2px !important;}}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger2{display:flex !important;}}
+  @media(max-width:920px){.vm-split{grid-template-columns:1fr !important;}.dkr-2col{grid-template-columns:1fr !important;}}
+  .vm-side{position:relative;transition:background .5s ease;}
+  .vm-icon{transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .vm-side:hover .vm-icon{transform:translateY(-6px) rotate(-3deg);}
+  .pr-row{transition:background .35s ease,padding-left .35s ease;}
+  .pr-row:hover{background:rgba(0,149,218,.04);padding-left:14px;}
+  .pr-row:hover .pr-num{color:#0095DA;}
+  .pr-num{transition:color .3s ease;}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-docmark{display:none !important;}
+    header[style*="min-height"]{min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    img,svg,video{max-width:100%;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; overflow-x:hidden;">
+
+<!-- NAV -->
+<nav style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0; background:rgba(12,13,15,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.08);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="Decor Home.en.dc.html" style="display:flex; align-items:center;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:62px; width:auto; display:block;">
+    </a>
+    <div class="dkr-navlinks" style="display:flex; align-items:center; gap:22px;">
+      <a href="Decor Products.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">PRODUCTS</a>
+      <a href="Decor Manufacturing.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">MANUFACTURING</a>
+      <a href="Decor Export.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">EXPORT</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SALES <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AUTHORIZED DEALERS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Find an official Dekor dealer</span></span></a>
+          <a href="Decor Partner Resources.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">PARTNER RESOURCES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Price lists, catalogs and brand assets</span></span></a>
+          <a href="Decor B2B Portal.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTAL</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Professional ordering platform</span></span></a>
+          <a href="Decor Online Payment.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ONLINE PAYMENT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Secure invoice payment</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">NEWSROOM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.en.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">LATEST NEWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Announcements and product updates</span></span></a>
+          <a href="Decor Newsroom.en.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRADE SHOWS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Trade shows and exhibitions</span></span></a>
+          <a href="Decor Newsroom.en.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">TRAINING ACADEMY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Installer and dealer training</span></span></a>
+          <a href="Decor Newsroom.en.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">COMPANY LIFE</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Events, awards and culture</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.en.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">ABOUT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ABOUT DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Company overview</span></span></a>
+          <a href="Decor Our Story.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">OUR STORY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sixty years of craft</span></span></a>
+          <a href="Decor Vision Mission.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VISION &amp; MISSION</span><span style="font-size:11px; color:rgba(255,255,255,.45);">The values that drive us forward</span></span></a>
+          <a href="Decor RD Center.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">R&amp;D CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Engineering and innovation</span></span></a>
+          <a href="Decor Quality Sustainability.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">QUALITY &amp; SUSTAINABILITY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standards and responsibility</span></span></a>
+          <a href="Decor Career.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CAREERS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Build your career with us</span></span></a>
+          <a href="Decor Idea.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">I HAVE AN IDEA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Share it with our team</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SUPPORT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUPPORT CENTER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Help, FAQ and download center</span></span></a>
+          <a href="Decor Support.en.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DOWNLOADS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Technical PDFs and files</span></span></a>
+          <a href="Decor Support.en.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CERTIFICATES</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE and compliance documents</span></span></a>
+          <a href="Decor Support.en.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CATALOGS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Full product catalogs</span></span></a>
+          <a href="Decor Support.en.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">WARRANTY</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Coverage and registration</span></span></a>
+          <a href="Decor Support.en.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FAQ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Frequently asked questions, answered</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.en.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">CONTACT <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">CONTACT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Offices, factory and export teams</span></span></a>
+          <a href="Decor Complaint.en.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SUBMIT A COMPLAINT</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Service and quality issues</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Language selection, active: English" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;">EN <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <a href="Decor Vision Mission.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇬🇧 EN</span></button>
+          <a href="Decor Vision Mission.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="Decor Vision Mission.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="Decor Vision Mission.ru.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="Decor Vision Mission.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="Decor Vision Mission.ar.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Search (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
+      <a href="Decor Become a Dealer.en.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Become a Dealer</a>
+    </div>
+    <input type="checkbox" id="navtoggle" class="navtoggle" style="display:none;">
+    <label for="navtoggle" class="dkr-burger2" style="display:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;"><span style="width:24px; height:2px; background:#fff; display:block;"></span><span style="width:24px; height:2px; background:#fff; display:block;"></span><span style="width:24px; height:2px; background:#fff; display:block;"></span></label>
+    <div class="mobile-menu">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-langs">
+      <a href="Decor Vision Mission.dc.html" class="mnav-lang">TR</a>
+      <span class="mnav-lang mnav-lang-active">EN</span>
+      <a href="Decor Vision Mission.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Vision Mission.fr.dc.html" class="mnav-lang">FR</a>
+      <a href="Decor Vision Mission.ru.dc.html" class="mnav-lang">RU</a>
+      <a href="Decor Vision Mission.az.dc.html" class="mnav-lang">AZ</a>
+      <a href="Decor Vision Mission.ar.dc.html" class="mnav-lang">AR</a>
+    </div>
+    <a href="Decor Become a Dealer.en.dc.html" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">Become a Dealer</a>
+  </div>
+  </div>
+</nav>
+<dc-import name="Decor Search.en" hint-size="0,0"></dc-import>
+
+<!-- HERO -->
+<header style="position:relative; min-height:min(72vh,640px); display:flex; align-items:center; padding:150px clamp(20px,5vw,64px) clamp(48px,6vw,78px); background:radial-gradient(120% 110% at 50% -10%, #2b2f34 0%, #16181b 50%, #0b0c0e 100%); overflow:hidden;">
+  <div class="des-atmos"></div>
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 20%,#000 40%,transparent 92%); z-index:0;"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="left:30%; top:40%;"></div>
+  <div class="bp-glint" style="left:70%; top:30%; animation-delay:2.6s;"></div>
+  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>DOC · ABOUT / 02 · VISION &amp; MISSION</span><span>DEKOR · PURPOSE</span></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto; width:100%; z-index:2;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.en.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">HOME</a> &nbsp;/&nbsp; <a href="Decor About.en.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">ABOUT</a> &nbsp;/&nbsp; <span style="color:#D32027;">VISION &amp; MISSION</span></div>
+    <h1 style="font-size:clamp(44px,7.5vw,108px); font-weight:900; letter-spacing:-0.045em; color:#fff; line-height:0.88; margin:24px 0 0;">Why we make<br><span style="color:#0095DA;">tools.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:28px 0 0; max-width:540px;">A vision shows where we're going. A mission is the promise we keep every day to get there.</p>
+  </div>
+</header>
+
+<!-- SPLIT: VISION | MISSION -->
+<section style="position:relative; background:#0E0F11;">
+  <div class="vm-split" style="display:grid; grid-template-columns:1fr 1fr;">
+    <!-- VISION (dark) -->
+    <div class="vm-side" data-reveal style="background:#16181b; padding:clamp(48px,7vw,96px) clamp(28px,4.5vw,72px); border-right:1px solid rgba(255,255,255,.08); overflow:hidden;">
+      <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(120% 80% at 30% 0%,#000,transparent 80%); pointer-events:none;"></div>
+      <div style="position:relative;">
+        <div class="vm-icon" style="width:56px; height:56px; border:1.5px solid rgba(0,149,218,.6); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7S19 19 12 19 1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#5fbbe6; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>VISION · WHERE WE'RE GOING</div>
+        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:18px 0 0;">The world's most trusted name in professional hand tools.</h2>
+        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:26px 0 0;">To be the reference brand a professional reaches for anywhere in the world — known for engineering, durability and honest value. We imagine Dekor tools on job sites across four continents, chosen not for price but because they work without fail, year after year.</p>
+        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:18px 0 0;">We see Turkey as a center of manufacturing excellence, and we see Dekor as proof that a tool made by people who know the trade can compete anywhere, with anyone.</p>
+      </div>
+    </div>
+    <!-- MISSION (light) -->
+    <div class="vm-side" data-reveal style="background:#fff; padding:clamp(48px,7vw,96px) clamp(28px,4.5vw,72px); overflow:hidden;">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.03) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(120% 80% at 70% 0%,#000,transparent 80%); pointer-events:none;"></div>
+      <div style="position:relative;">
+        <div class="vm-icon" style="width:56px; height:56px; border:1.5px solid rgba(0,149,218,.5); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="#0095DA" stroke="none"/></svg>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>MISSION · WHAT WE DO EVERY DAY</div>
+        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:18px 0 0;">Design the tool the trade actually needs — and never compromise on it.</h2>
+        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:26px 0 0;">Every product starts with a real problem on a real job site, is developed in our R&D center, forged from honest materials, and tested until it earns the Dekor name. Then we deliver it to dealers and professionals in 60 countries — at scale, and on time.</p>
+        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:18px 0 0;">And we reinvest: in our people, in qualified vocational training, and in a manufacturing culture that treats quality as a commitment, not a feature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDING PRINCIPLES -->
+<section style="background:#F4F5F6; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div data-reveal style="max-width:680px; margin-bottom:48px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>GUIDING PRINCIPLES</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">The four commitments behind every tool.</h2>
+    </div>
+    <div style="border-top:1px solid #E2E5E9;">
+      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
+        <div data-reveal class="pr-row dkr-2col" style="display:grid; grid-template-columns:80px 280px 1fr; gap:28px; align-items:baseline; padding:30px 0; border-bottom:1px solid #E2E5E9;">
+          <div class="pr-num" style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; color:#C7CCD1;">{{ p.num }}</div>
+          <h3 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:0;">{{ p.title }}</h3>
+          <p style="font-size:15.5px; line-height:1.65; color:#5A6066; margin:0; max-width:560px;">{{ p.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE BAND -->
+<section style="position:relative; background:#0E0F11; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden; text-align:center;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(100% 90% at 50% 50%,#000,transparent 80%);"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="left:20%; top:30%;"></div>
+  <div class="bp-glint" style="left:80%; top:62%; animation-delay:2s;"></div>
+  <div data-reveal style="position:relative; max-width:980px; margin:0 auto; z-index:2;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-bottom:24px;">THE DEKOR PROMISE</div>
+    <p style="font-size:clamp(24px,3.4vw,44px); font-weight:800; letter-spacing:-0.025em; color:#fff; line-height:1.2; margin:0;">If it carries our name, it has earned it — on the bench, in the lab, and on the job site.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="position:relative; background:radial-gradient(120% 100% at 50% 0%, #26292d, #0e0f11 60%); padding:clamp(64px,9vw,130px) clamp(20px,5vw,64px); overflow:hidden; text-align:center;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(100% 80% at 50% 40%,#000,transparent 75%);"></div>
+  <div data-reveal style="position:relative; max-width:820px; margin:0 auto; z-index:2;">
+    <h2 style="font-size:clamp(34px,6vw,72px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.95; margin:0;">See how it's made.</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:32px;">
+      <a href="Decor RD Center.en.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">Inside the R&amp;D Center</a>
+      <a href="Decor Quality Sustainability.en.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px;">Quality &amp; Sustainability</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<dc-import name="Decor Footer.en" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    const reveal = (el)=>{ el.classList.add('in'); };
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    }
+    const check = ()=>{ const vh=window.innerHeight||800; document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.top<vh*0.92&&r.bottom>0) reveal(el); }); };
+    this._check=check; window.addEventListener('scroll',check,{passive:true,capture:true}); window.addEventListener('resize',check,{passive:true});
+    requestAnimationFrame(check);
+    this._scrolled = false;
+    this._mark = ()=>{ this._scrolled = true; };
+    window.addEventListener('scroll', this._mark, { capture:true, passive:true });
+    setTimeout(()=>{ if(!this._scrolled) document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
+  }
+  componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
+
+  renderVals(){
+    const principles = [
+      { num:'01', title:'Engineering First', desc:'Every tool starts with the trade problem it solves, developed in our R&D center before a single unit is forged.' },
+      { num:'02', title:'Built to Last', desc:'Forged steel, real-world testing and honest materials — durability isn’t negotiable, because a professional trusts a tool with their day.' },
+      { num:'03', title:'People &amp; Community', desc:'We invest in education and qualified trades through our scholarship program, training the next generation of craftsmen.' },
+      { num:'04', title:'Global, Grounded', desc:'We serve 60 countries while staying rooted in the Istanbul workshop we came from — global reach, local conscience.' },
+    ];
+    return { principles };
+  }
+}
+</script>
+</body>
+</html>

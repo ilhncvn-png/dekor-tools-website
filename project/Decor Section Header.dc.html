@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<!--
+  Shared "Section Header" component — Sprint 6 (Public Website Visual
+  System Extraction).
+
+  Extracted from a pattern confirmed byte-for-byte identical across at
+  least 9 real occurrences in Decor About.dc.html (x3), Decor Export.dc.html
+  (x5), Decor Products.dc.html (x1), plus a second, centered variant in
+  Decor Manufacturing.dc.html — see this sprint's report for the exact grep
+  evidence. This is the single most-duplicated purely-presentational block
+  in the codebase (the "eyebrow + heading + description" pattern), and has
+  zero interactive state — the lowest-risk kind of component to extract,
+  by design, following Sprint 3's Header extraction methodology (parameterize
+  what varies, never silently unify what differs).
+
+  Two real layout variants confirmed in source:
+    "left"   — inline-flex eyebrow row with a 30x2px red tick mark before
+               the text (About/Export/Products pattern), heading/description
+               left-aligned below.
+    "center" — eyebrow centered with no tick mark, heading/description
+               centered below (Manufacturing pattern).
+
+  All CSS/JS-runtime mechanics (dc-import prop passing) already proven in
+  project/Decor Header.dc.html — this file follows the identical pattern.
+
+  Props (all required except where noted optional):
+    align            'left' | 'center'
+    eyebrow           string — the mono label text (verbatim, incl. any
+                      middle-dot "·" separators already used in source)
+    heading           string, optional — omit entirely for eyebrow-only
+                      sections (confirmed real case: About's "BY THE
+                      NUMBERS" section has no heading)
+    headingSize       string, optional — exact clamp() curve from the
+                      source instance being reproduced (e.g.
+                      'clamp(30px,4.4vw,58px)') — never invent a new curve,
+                      always copy the instance's real value
+                      (docs/DESIGN_TOKEN_SYSTEM.md §2's explicit warning)
+    description       string, optional
+                      (rendered as plain text; source instances use plain
+                      paragraphs, no rich formatting)
+    descriptionMaxWidth  string, optional (e.g. '760px')
+    marginBottom      string — exact spacing from the source instance
+                      (e.g. 'clamp(40px,5vw,64px)' or '46px')
+-->
+</helmet>
+
+<sc-if value="{{ isLeft }}">
+  <div data-reveal style="max-width:{{ descriptionMaxWidth }}; margin-bottom:{{ marginBottom }};">
+    <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">
+      <span style="width:30px; height:2px; background:#D32027;"></span>{{ eyebrow }}
+    </div>
+    <sc-if value="{{ hasHeading }}">
+      <h2 style="font-size:{{ headingSize }}; font-weight:900; letter-spacing:-0.035em; color:#0E0F11; line-height:1; margin:18px 0 0;">{{ heading }}</h2>
+    </sc-if>
+    <sc-if value="{{ hasDescription }}">
+      <p style="font-size:17px; line-height:1.7; color:#5A6066; margin:24px 0 0;">{{ description }}</p>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isCenter }}">
+  <div data-reveal style="text-align:center; margin-bottom:{{ marginBottom }};">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">{{ eyebrow }}</div>
+    <sc-if value="{{ hasHeading }}">
+      <h2 style="font-size:{{ headingSize }}; font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:14px 0 0;">{{ heading }}</h2>
+    </sc-if>
+    <sc-if value="{{ hasDescription }}">
+      <p style="font-size:17px; line-height:1.7; color:#5A6066; margin:20px auto 0; max-width:{{ descriptionMaxWidth }};">{{ description }}</p>
+    </sc-if>
+  </div>
+</sc-if>
+
+</x-dc>
+</body>
+</html>

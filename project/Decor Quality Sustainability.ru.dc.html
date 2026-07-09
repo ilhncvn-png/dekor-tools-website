@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="uploads/decor_logo_color.png">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#0095DA;color:#fff;}
+  a{text-decoration:none;color:inherit;}
+  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-link:hover .lang-code{filter:brightness(1.3);}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,filter .2s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;}
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrDrift{0%{transform:translate(0,0);opacity:0}10%{opacity:.7}90%{opacity:.7}100%{transform:translate(22px,-46px);opacity:0}}
+  @keyframes dkrSpinSlow{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  @keyframes dkrDrawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 18s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.7);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
+  .des-atmos{position:absolute;inset:-40%;background:conic-gradient(from 0deg,rgba(0,149,218,.06),transparent 25%,rgba(0,149,218,.05) 50%,transparent 75%,rgba(0,149,218,.06));animation:dkrSpinSlow 60s linear infinite;pointer-events:none;z-index:0;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle,.des-atmos{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
+  .mobile-menu{display:none;position:fixed;inset:0;height:100vh;min-height:100dvh;z-index:99;background:rgba(14,15,17,.98);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px;overflow-y:auto;}
+  .navtoggle:checked ~ .mobile-menu{display:flex !important;}
+  @media(max-width:767px){.mobile-menu{gap:12px !important;padding:28px 24px !important;}.mobile-menu img{height:48px !important;margin-bottom:2px !important;}}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger2{display:flex !important;}}
+  @media(max-width:920px){.dkr-2col{grid-template-columns:1fr !important;}.qa-flow{flex-direction:column !important;}.qa-flow .qa-arrow{transform:rotate(90deg) !important;}}
+  .cert-badge{position:relative;transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s ease,background .4s ease;overflow:hidden;}
+  .cert-badge:hover{transform:translateY(-8px);border-color:#0095DA;background:#fff;}
+  .cert-badge:hover .cb-seal{border-color:#0095DA;color:#0095DA;transform:rotate(8deg);}
+  .cb-seal{transition:border-color .4s ease,color .4s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .cert-badge:hover .cb-tick{transform:scale(1);}
+  .cb-tick{transition:transform .4s cubic-bezier(.2,.7,.2,1);transform:scale(0);}
+  .spec-card{position:relative;transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s ease;overflow:hidden;}
+  .spec-card:hover{transform:translateY(-8px);border-color:rgba(0,149,218,.5);}
+  .spec-card .spec-bp{opacity:0;transition:opacity .5s ease;}
+  .spec-card:hover .spec-bp{opacity:1;}
+  .spec-card:hover .spec-ico{color:#0095DA;transform:scale(1.08);}
+  .spec-ico{transition:color .35s ease,transform .45s cubic-bezier(.2,.7,.2,1);}
+  .spec-accent{transform-origin:left;transform:scaleX(0);transition:transform .8s cubic-bezier(.2,.7,.2,1) .15s;}
+  .spec-card.in .spec-accent,[data-reveal].in .spec-accent{transform:scaleX(1);}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-ctas{flex-direction:column !important;}
+    .hero-ctas > a{width:100% !important;text-align:center !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    img,svg,video{max-width:100%;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    .hero-docmark{display:none !important;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; overflow-x:hidden;">
+
+<!-- NAV -->
+<nav style="position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0; background:rgba(12,13,15,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.08);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
+    <a href="Decor Home.ru.dc.html" style="display:flex; align-items:center;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:62px; width:auto; display:block;">
+    </a>
+    <div class="dkr-navlinks" style="display:flex; align-items:center; gap:22px;">
+      <a href="Decor Products.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ПРОДУКЦИЯ</a>
+      <a href="Decor Manufacturing.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ПРОИЗВОДСТВО</a>
+      <a href="Decor Export.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ЭКСПОРТ</a>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Authorized Dealers.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">ПРОДАЖИ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Authorized Dealers.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">АВТОРИЗОВАННЫЕ ДИЛЕРЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Найдите официального дилера Dekor</span></span></a>
+          <a href="Decor Partner Resources.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">РЕСУРСЫ ДЛЯ ПАРТНЁРОВ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Прайс-листы, каталоги и брендовые материалы</span></span></a>
+          <a href="Decor B2B Portal.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B-ПОРТАЛ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Платформа для профессиональных заказов</span></span></a>
+          <a href="Decor Online Payment.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ОНЛАЙН-ОПЛАТА</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Безопасная оплата счетов</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Newsroom.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">НОВОСТИ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Newsroom.ru.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ПОСЛЕДНИЕ НОВОСТИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Анонсы и обновления продукции</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ВЫСТАВКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Выставки и мероприятия</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">УЧЕБНАЯ АКАДЕМИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Обучение мастеров и дилеров</span></span></a>
+          <a href="Decor Newsroom.ru.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЖИЗНЬ КОМПАНИИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">События, награды и культура</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor About.ru.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">О НАС <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:322px;">
+          <a href="Decor About.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">О КОМПАНИИ DEKOR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Обзор компании</span></span></a>
+          <a href="Decor Our Story.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">НАША ИСТОРИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Шестьдесят лет мастерства</span></span></a>
+          <a href="Decor Vision Mission.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ВИДЕНИЕ И МИССИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ценности, которые ведут нас вперёд</span></span></a>
+          <a href="Decor RD Center.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЦЕНТР НИОКР</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Инженерия и инновации</span></span></a>
+          <a href="Decor Quality Sustainability.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАЧЕСТВО И УСТОЙЧИВОЕ РАЗВИТИЕ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Стандарты и ответственность</span></span></a>
+          <a href="Decor Career.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАРЬЕРА</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Стройте карьеру вместе с нами</span></span></a>
+          <a href="Decor Idea.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">У МЕНЯ ЕСТЬ ИДЕЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Поделитесь ею с нашей командой</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Support.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">ПОДДЕРЖКА <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel" style="min-width:300px;">
+          <a href="Decor Support.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЦЕНТР ПОДДЕРЖКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Помощь, FAQ и центр загрузок</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЗАГРУЗКИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Технические PDF-файлы и документы</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">СЕРТИФИКАТЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Документы ISO, CE и соответствия</span></span></a>
+          <a href="Decor Support.ru.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КАТАЛОГИ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Полные каталоги продукции</span></span></a>
+          <a href="Decor Support.ru.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ГАРАНТИЯ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Условия и регистрация</span></span></a>
+          <a href="Decor Support.ru.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ЧАСТЫЕ ВОПРОСЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Часто задаваемые вопросы с ответами</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <a href="Decor Contact.ru.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">КОНТАКТЫ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <div class="nav-drop-panel">
+          <a href="Decor Contact.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">КОНТАКТЫ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Офисы, завод и экспортные команды</span></span></a>
+          <a href="Decor Complaint.ru.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ПОДАТЬ ЖАЛОБУ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Проблемы с сервисом и качеством</span></span></a>
+        </div>
+      </div>
+      <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
+        <button type="button" class="dkr-link" aria-label="Выбор языка, активен: Русский" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;">RU <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <div class="nav-drop-panel" style="min-width:150px;">
+          <a href="Decor Quality Sustainability.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <a href="Decor Quality Sustainability.en.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <a href="Decor Quality Sustainability.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="Decor Quality Sustainability.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇷🇺 RU</span></button>
+          <a href="Decor Quality Sustainability.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="Decor Quality Sustainability.ar.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+        </div>
+      </div>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Поиск (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
+      <a href="Decor Become a Dealer.ru.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Стать дилером</a>
+    </div>
+    <input type="checkbox" id="navtoggle" class="navtoggle" style="display:none;">
+    <label for="navtoggle" class="dkr-burger2" style="display:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px;"><span style="width:24px; height:2px; background:#fff; display:block;"></span><span style="width:24px; height:2px; background:#fff; display:block;"></span><span style="width:24px; height:2px; background:#fff; display:block;"></span></label>
+    <div class="mobile-menu">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-langs">
+      <a href="Decor Quality Sustainability.dc.html" class="mnav-lang">TR</a>
+      <a href="Decor Quality Sustainability.en.dc.html" class="mnav-lang">EN</a>
+      <a href="Decor Quality Sustainability.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Quality Sustainability.fr.dc.html" class="mnav-lang">FR</a>
+      <span class="mnav-lang mnav-lang-active">RU</span>
+      <a href="Decor Quality Sustainability.az.dc.html" class="mnav-lang">AZ</a>
+      <a href="Decor Quality Sustainability.ar.dc.html" class="mnav-lang">AR</a>
+    </div>
+    <a href="Decor Become a Dealer.ru.dc.html" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">Стать дилером</a>
+  </div>
+  </div>
+</nav>
+<dc-import name="Decor Search.ru" hint-size="0,0"></dc-import>
+
+<!-- HERO -->
+<header style="position:relative; min-height:min(78vh,740px); display:flex; align-items:center; padding:150px clamp(20px,5vw,64px) clamp(52px,7vw,86px); background:radial-gradient(120% 110% at 25% -10%, #1c2a24 0%, #16181b 48%, #0b0c0e 100%); overflow:hidden;">
+  <div class="des-atmos"></div>
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 100% at 35% 20%,#000 40%,transparent 90%); z-index:0;"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="left:66%; top:40%;"></div>
+  <div class="bp-glint" style="left:34%; top:28%; animation-delay:2.6s;"></div>
+  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>ДАТУМ · О НАС / 04 · КАЧЕСТВО И УСТОЙЧИВОЕ РАЗВИТИЕ</span><span>СТАНДАРТЫ · ОТВЕТСТВЕННОСТЬ</span></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto; width:100%; z-index:2;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.ru.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">ГЛАВНАЯ</a> &nbsp;/&nbsp; <a href="Decor About.ru.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">О НАС</a> &nbsp;/&nbsp; <span style="color:#D32027;">КАЧЕСТВО И УСТОЙЧИВОЕ РАЗВИТИЕ</span></div>
+    <h1 style="font-size:clamp(42px,7vw,100px); font-weight:900; letter-spacing:-0.045em; color:#fff; line-height:0.9; margin:24px 0 0;">Качество — это<br><span style="color:#0095DA;">обязательство.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:28px 0 0; max-width:540px;">Сертифицированные стандарты, дисциплинированное производство и ответственность перед людьми и планетой — обязательства, стоящие за именем Dekor.</p>
+  </div>
+</header>
+
+<!-- PHILOSOPHY -->
+<section style="position:relative; background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); margin-top:-80px; z-index:5;">
+  <div class="seam-guide" style="left:16%; top:0; height:80px; background:rgba(0,149,218,.18); position:absolute; width:1px;" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:50%; top:0; height:108px; background:rgba(0,149,218,.24); position:absolute; width:1px;" aria-hidden="true"></div>
+  <div class="seam-guide" style="left:84%; top:0; height:80px; background:rgba(0,149,218,.18); position:absolute; width:1px;" aria-hidden="true"></div>
+  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;" class="dkr-2col">
+    <div data-reveal>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>ФИЛОСОФИЯ КАЧЕСТВА</div>
+      <h2 style="font-size:clamp(28px,3.8vw,50px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:18px 0 0;">Профессионал доверяет свой день нашим инструментам. Мы никогда об этом не забываем.</h2>
+    </div>
+    <div data-reveal>
+      <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:0;">Для Dekor качество — это не финальная проверка, а часть каждого решения от первого эскиза до упакованного готового изделия. Честные материалы, дисциплинированные процессы и независимая сертификация обеспечивают то, что выходит из Гебзе, работает именно так, как ожидает профессионал в 60 странах на четырёх континентах. Та же дисциплина распространяется и на то, как мы производим: ответственно, эффективно и с уважением к людям и окружающей среде вокруг нас.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section style="position:relative; background:#0E0F11; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 80%);"></div>
+  <div class="bp-glint" style="left:12%; top:24%;"></div>
+  <div class="bp-glint" style="left:86%; top:70%; animation-delay:3s;"></div>
+  <div style="position:relative; max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:700px; margin-bottom:48px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>СЕРТИФИКАТЫ И СТАНДАРТЫ</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:18px 0 0;">Независимо подтверждено.</h2>
+      <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,.6); margin:18px 0 0;">Признанные знаки качества и соответствия, которые определяют, как Dekor проектирует, производит и экспортирует продукцию.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px;">
+      <sc-for list="{{ certs }}" as="c" hint-placeholder-count="6">
+        <div data-reveal class="cert-badge" style="position:relative; background:#16181b; border:1px solid rgba(255,255,255,.1); border-radius:3px; padding:28px 24px 26px; text-align:center;">
+          <div style="position:absolute; top:12px; right:12px; color:#3fae6b;" class="cb-tick"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3fae6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="cb-seal" style="width:84px; height:84px; margin:0 auto; border:2px solid rgba(0,149,218,.55); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#5fbbe6;">
+            <span style="font-family:'Archivo'; font-weight:900; font-size:18px; letter-spacing:-0.02em; line-height:1;">{{ c.mark }}</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; letter-spacing:1.4px; margin-top:4px; color:rgba(255,255,255,.5);">{{ c.sub }}</span>
+          </div>
+          <h3 style="font-size:15px; font-weight:800; color:#fff; margin:20px 0 0; letter-spacing:-0.01em;">{{ c.title }}</h3>
+          <p style="font-size:12.5px; line-height:1.55; color:rgba(255,255,255,.55); margin:8px 0 0;">{{ c.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:rgba(255,255,255,.4); margin-top:22px;">СЕРТИФИКАТ · СПРАВОЧНЫЕ ЗНАКИ — ПЕРЕД ПУБЛИКАЦИЕЙ ПРОВЕРЬТЕ ОБЛАСТЬ ДЕЙСТВИЯ И НОМЕРА СЕРТИФИКАТОВ</div>
+  </div>
+</section>
+
+<!-- QA FLOW DIAGRAM -->
+<section style="background:#F4F5F6; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:680px; margin-bottom:48px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>КОНТРОЛЬ КАЧЕСТВА · ПРОЦЕСС</div>
+      <h2 style="font-size:clamp(28px,3.8vw,48px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:16px 0 0;">Проверяется на каждом этапе.</h2>
+    </div>
+    <div data-reveal class="qa-flow" style="display:flex; align-items:stretch; gap:0;">
+      <sc-for list="{{ qaFlow }}" as="q" hint-placeholder-count="5">
+        <div style="flex:1; display:flex; align-items:stretch;">
+          <div style="flex:1; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:22px 18px 24px; position:relative;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:#0095DA;">{{ q.code }}</div>
+            <div style="font-size:30px; font-weight:900; color:#E2E5E9; letter-spacing:-0.03em; line-height:1; margin-top:6px;">{{ q.num }}</div>
+            <h3 style="font-size:16px; font-weight:800; color:#0E0F11; margin:12px 0 0; letter-spacing:-0.01em;">{{ q.title }}</h3>
+            <p style="font-size:12.5px; line-height:1.55; color:#5A6066; margin:8px 0 0;">{{ q.desc }}</p>
+          </div>
+          <sc-if value="{{ q.arrow }}" hint-placeholder-val="{{ true }}">
+            <div class="qa-arrow" style="display:flex; align-items:center; justify-content:center; width:34px; flex:none; color:#0095DA; font-size:18px; font-weight:700;">→</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARDS + SUSTAINABILITY SPEC CARDS -->
+<section style="position:relative; background:#fff; padding:clamp(56px,8vw,110px) clamp(20px,5vw,64px) clamp(64px,9vw,120px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:680px; margin-bottom:44px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>СТАНДАРТЫ И ОТВЕТСТВЕННОСТЬ</div>
+      <h2 style="font-size:clamp(28px,3.8vw,48px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:16px 0 0;">Как мы поддерживаем свой стандарт.</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+      <sc-for list="{{ specs }}" as="s" hint-placeholder-count="6">
+        <div data-reveal class="spec-card" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:28px 26px 30px;">
+          <div class="spec-accent" style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ s.bar }};"></div>
+          <div class="spec-bp" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:24px 24px; border-radius:3px; pointer-events:none;"></div>
+          <div style="position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div class="spec-ico" style="color:#0095DA;">{{ s.icon }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.2px; color:#A7ADB3; border:1px solid #E2E5E9; padding:5px 9px; border-radius:2px;">{{ s.code }}</div>
+            </div>
+            <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:22px 0 0;">{{ s.title }}</h3>
+            <p style="font-size:14px; line-height:1.65; color:#5A6066; margin:12px 0 0;">{{ s.desc }}</p>
+            <div style="margin-top:18px; border-top:1px solid #E2E5E9; padding-top:14px; display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
+                <div style="display:flex; justify-content:space-between; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.6px;"><span style="color:#A7ADB3;">{{ r.k }}</span><span style="color:#0E0F11; font-weight:500;">{{ r.v }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="position:relative; background:radial-gradient(120% 100% at 50% 0%, #26292d, #0e0f11 60%); padding:clamp(64px,9vw,130px) clamp(20px,5vw,64px); overflow:hidden; text-align:center;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(100% 80% at 50% 40%,#000,transparent 75%);"></div>
+  <div class="bp-scan"></div>
+  <div data-reveal style="position:relative; max-width:820px; margin:0 auto; z-index:2;">
+    <h2 style="font-size:clamp(34px,6vw,72px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.95; margin:0;">Стандарты, на которые можно опереться.</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:34px;">
+      <a href="Decor Become a Dealer.ru.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">Стать дилером</a>
+      <a href="Decor Support.ru.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px;">Скачать сертификаты</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<dc-import name="Decor Footer.ru" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    const reveal = (el)=>{ el.classList.add('in'); };
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    }
+    const check = ()=>{ const vh=window.innerHeight||800; document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.top<vh*0.92&&r.bottom>0) reveal(el); }); };
+    this._check=check; window.addEventListener('scroll',check,{passive:true,capture:true}); window.addEventListener('resize',check,{passive:true});
+    requestAnimationFrame(check);
+    this._scrolled = false;
+    this._mark = ()=>{ this._scrolled = true; };
+    window.addEventListener('scroll', this._mark, { capture:true, passive:true });
+    setTimeout(()=>{ if(!this._scrolled) document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
+  }
+  componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
+
+  renderVals(){
+    const R=React.createElement;
+    const mk=(items)=>R('svg',{width:28,height:28,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.5,strokeLinecap:'round',strokeLinejoin:'round'},items);
+    const certs = [
+      { mark:'ISO', sub:'9001', title:'ISO 9001', desc:'Система менеджмента качества на всех этапах проектирования и производства.' },
+      { mark:'ISO', sub:'14001', title:'ISO 14001', desc:'Экологический менеджмент производственных операций.' },
+      { mark:'CE', sub:'МАРКИРОВКА', title:'Маркировка CE', desc:'Соответствие действующим европейским директивам по продукции.' },
+      { mark:'TSE', sub:'ТУРЦИЯ', title:'TSE', desc:'Соответствие продукции требованиям Турецкого института стандартов.' },
+      { mark:'EN', sub:'НОРМА', title:'Стандарты EN', desc:'Европейские технические нормы производительности и безопасности инструментов.' },
+      { mark:'KK', sub:'100%', title:'Внутренний контроль качества', desc:'Внутренний контроль качества в каждой производственной партии.' },
+    ];
+    const qaFlow = [
+      { num:'01', code:'ЭТАП-01', title:'Входящие материалы', desc:'Сырая сталь и комплектующие проверяются на соответствие техническим требованиям при поступлении.', arrow:true },
+      { num:'02', code:'ЭТАП-02', title:'В процессе производства', desc:'Контроль на станциях ковки, обработки и сборки.', arrow:true },
+      { num:'03', code:'ЭТАП-03', title:'Лабораторные испытания', desc:'Проверка прочности, усталостной стойкости и геометрических размеров.', arrow:true },
+      { num:'04', code:'ЭТАП-04', title:'Финальная проверка', desc:'Готовые инструменты выборочно проверяются и утверждаются перед упаковкой.', arrow:true },
+      { num:'05', code:'ЭТАП-05', title:'Перед экспортом', desc:'Упаковка и документы проверяются для каждого рынка.', arrow:false },
+    ];
+    const specs = [
+      { code:'STD-01', bar:'#0095DA', title:'Производственные стандарты', desc:'Дисциплинированная, сертифицированная производственная система на нашем предприятии площадью 21 000 м² в Гебзе обеспечивает стабильность в масштабе.', icon:mk([R('path',{key:0,d:'M3 21V8l6 3V8l6 3V6l6 3v12H3z'}),R('path',{key:1,d:'M3 21h18'})]), rows:[{k:'ПРЕДПРИЯТИЕ',v:'21 000 М²'},{k:'ПРОИЗВОДСТВО',v:'ВЫСОКИЙ ОБЪЁМ'}] },
+      { code:'STD-02', bar:'#0095DA', title:'Целостность материалов', desc:'Честные, соответствующие назначению материалы — правильный сплав и покрытие для каждого инструмента, никогда не самая дешёвая альтернатива.', icon:mk([R('path',{key:0,d:'M12 2l9 5v10l-9 5-9-5V7l9-5z'}),R('path',{key:1,d:'M3 7l9 5 9-5M12 12v10'})]), rows:[{k:'СТАЛЬ',v:'КОВАНАЯ'},{k:'ВЫБОР',v:'ПО НАЗНАЧЕНИЮ'}] },
+      { code:'STD-03', bar:'#0095DA', title:'Испытание до разрушения', desc:'Каждая конструкция проверяется в нашей лаборатории на прочность прежде чем получить имя Dekor — ни одно заявление не остаётся неподтверждённым.', icon:mk([R('path',{key:0,d:'M9 3h6M10 3v6.5L5.5 18a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9.5V3'}),R('path',{key:1,d:'M7.5 14h9'})]), rows:[{k:'ОХВАТ',v:'100%'},{k:'МЕТОД',v:'НАПРЯЖЕНИЕ+УСТАЛОСТЬ'}] },
+      { code:'SUS-01', bar:'#3fae6b', title:'Ответственное производство', desc:'Эффективные процессы в рамках ISO 14001 и контролируемое воздействие на окружающую среду снижают отходы и энергопотребление.', icon:mk([R('path',{key:0,d:'M12 3C7 8 6 12 6 15a6 6 0 0 0 12 0c0-3-1-7-6-12z'}),R('path',{key:1,d:'M12 21v-7'})]), rows:[{k:'СТРУКТУРА',v:'ISO 14001'},{k:'ФОКУС',v:'ОТХОДЫ+ЭНЕРГИЯ'}] },
+      { code:'SUS-02', bar:'#3fae6b', title:'Долговечность через дизайн', desc:'Инструмент, который служит долго, — самый экологичный инструмент. Долгий срок службы снижает замену и отходы по замыслу.', icon:mk([R('path',{key:0,d:'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z'}),R('path',{key:1,d:'M9 12l2 2 4-4'})]), rows:[{k:'ПРИНЦИП',v:'ДОЛГОВЕЧНОЕ ПРОИЗВОДСТВО'},{k:'ЭФФЕКТ',v:'МЕНЬШЕ ОТХОДОВ'}] },
+      { code:'SUS-03', bar:'#0095DA', title:'Люди и сообщество', desc:'Мы инвестируем в наших сотрудников и квалифицированное профессиональное обучение через нашу стипендиальную программу — ответственность за пределами завода.', icon:mk([R('circle',{key:0,cx:9,cy:8,r:3}),R('path',{key:1,d:'M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6'}),R('path',{key:2,d:'M16 11a3 3 0 1 0-1-5.8'}),R('path',{key:3,d:'M17.5 14c2.5.5 4.5 2.6 4.5 6'})]), rows:[{k:'ПРОГРАММА',v:'СТИПЕНДИИ'},{k:'ФОКУС',v:'ВОСТРЕБОВАННЫЕ ПРОФЕССИИ'}] },
+    ];
+    return { certs, qaFlow, specs };
+  }
+}
+</script>
+</body>
+</html>

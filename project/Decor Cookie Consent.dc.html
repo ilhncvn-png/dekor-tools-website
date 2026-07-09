@@ -16,31 +16,35 @@
   @keyframes ckBreathe{0%,100%{opacity:.5}50%{opacity:1}}
   .ck-card{animation:ckUp .5s cubic-bezier(.2,.8,.2,1);}
   .ck-grid{animation:ckBreathe 11s ease-in-out infinite;}
-  .ck-btn{transition:transform .2s cubic-bezier(.2,.7,.2,1),background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:pointer;font-family:'Archivo',sans-serif;}
+  .ck-btn{transition:transform .2s cubic-bezier(.2,.7,.2,1),background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease,filter .2s;cursor:pointer;font-family:'Archivo',sans-serif;}
   .ck-btn:hover{transform:translateY(-2px);}
-  .ck-red:hover{box-shadow:0 12px 30px rgba(211,32,39,.45);}
+  .ck-red:hover{box-shadow:0 12px 30px rgba(0,149,218,.45);filter:brightness(1.1);}
+  .ck-red:active{filter:brightness(0.85);}
+  .ck-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
   .ck-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);}
   .ck-link{cursor:pointer;transition:color .2s ease;}
   .ck-link:hover{color:#fff;}
   .ck-sw{position:relative;width:42px;height:24px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);transition:background .25s ease,border-color .25s ease;cursor:pointer;flex:0 0 auto;}
   .ck-sw::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s cubic-bezier(.2,.8,.2,1);}
-  .ck-sw.on{background:#D32027;border-color:#D32027;}
+  .ck-sw.on{background:#0095DA;border-color:#0095DA;}
   .ck-sw.on::after{transform:translateX(18px);}
   .ck-sw.lock{background:rgba(0,149,218,.3);border-color:rgba(0,149,218,.5);cursor:not-allowed;opacity:.8;}
   .ck-sw.lock::after{transform:translateX(18px);background:#cfe8f6;}
   @media(prefers-reduced-motion:reduce){.ck-card,.ck-grid{animation:none !important;}}
-  @media(max-width:560px){.ck-card{left:12px !important;right:12px !important;bottom:12px !important;width:auto !important;max-width:none !important;}.ck-actions{flex-direction:column !important;}.ck-actions .ck-btn{width:100%;}}
+  @media(max-width:560px){.ck-card{left:12px !important;right:12px !important;bottom:12px !important;width:auto !important;max-width:none !important;max-height:70vh !important;overflow-y:auto !important;}.ck-actions{flex-direction:column !important;}.ck-actions .ck-btn{width:100%;}}
+  @media(max-width:767px){.ck-card > div{padding:18px 18px 16px !important;}}
+  body:has(.navtoggle:checked) .ck-card,body:has(.mobile-menu-js) .ck-card{display:none !important;}
 </style>
 </helmet>
 <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
-  <div class="ck-card" style="position:fixed; left:24px; bottom:24px; z-index:130; width:min(440px,calc(100vw - 48px)); max-width:440px; background:#121417; border:1px solid rgba(255,255,255,.12); border-top:3px solid #D32027; border-radius:5px; box-shadow:0 34px 90px rgba(0,0,0,.6); overflow:hidden; font-family:'Archivo',sans-serif;">
+  <div class="ck-card" style="position:fixed; left:24px; bottom:24px; z-index:130; width:min(440px,calc(100vw - 48px)); max-width:440px; background:#121417; border:1px solid rgba(255,255,255,.12); border-top:3px solid #0095DA; border-radius:5px; box-shadow:0 34px 90px rgba(0,0,0,.6); overflow:hidden; font-family:'Archivo',sans-serif;">
     <div class="ck-grid" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:30px 30px; -webkit-mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 80%); mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 80%); pointer-events:none;"></div>
     <div style="position:relative; padding:24px 24px 22px;">
       <div style="display:flex; align-items:center; gap:11px;">
         <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid rgba(255,255,255,.16); border-radius:3px; color:#0095DA;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px;"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"></path><circle cx="9.5" cy="11.5" r="1"></circle><circle cx="14.5" cy="14.5" r="1"></circle><circle cx="13" cy="8" r="1"></circle></svg></span>
-        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#ff7a72; font-weight:600;">COOKIE PREFERENCES</span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">ÇEREZ TERCİHLERİ</span>
       </div>
-      <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:16px 0 0;">We use cookies to keep the site working, understand usage and improve your experience. You can accept all, reject non-essential, or choose what to allow. See our <a href="Decor Cookies.dc.html" style="color:#0095DA; font-weight:600;">Cookie Policy</a>.</p>
+      <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:16px 0 0;">Sitenin çalışmasını sağlamak, kullanımı anlamak ve deneyiminizi iyileştirmek için çerezler kullanıyoruz. Tümünü kabul edebilir, zorunlu olmayanları reddedebilir veya nelere izin vereceğinizi seçebilirsiniz. <a href="Decor Cookies.dc.html" style="color:#0095DA; font-weight:600;">Çerez Politikamıza</a> göz atın.</p>
 
       <sc-if value="{{ customize }}" hint-placeholder-val="{{ false }}">
         <div style="margin-top:20px; display:flex; flex-direction:column; gap:2px; border-top:1px solid rgba(255,255,255,.1); padding-top:8px;">
@@ -54,10 +58,10 @@
       </sc-if>
 
       <div class="ck-actions" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;">
-        <button type="button" onClick="{{ acceptAll }}" class="ck-btn ck-red" style="flex:1 1 auto; background:#D32027; color:#fff; border:none; padding:13px 18px; font-weight:700; font-size:14px; border-radius:2px; box-shadow:0 10px 26px rgba(211,32,39,.32);">Accept All</button>
-        <sc-if value="{{ notCustom }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ openCustomize }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Customize</button></sc-if>
-        <sc-if value="{{ customize }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ savePrefs }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Save Choices</button></sc-if>
-        <button type="button" onClick="{{ reject }}" class="ck-btn ck-link" style="flex:0 1 auto; background:transparent; color:rgba(255,255,255,.6); border:none; padding:13px 14px; font-weight:600; font-size:14px; border-radius:2px;">Reject</button>
+        <button type="button" onClick="{{ acceptAll }}" class="ck-btn ck-red" style="flex:1 1 auto; background:#0095DA; color:#fff; border:none; padding:13px 18px; font-weight:700; font-size:14px; border-radius:2px; box-shadow:0 10px 26px rgba(0,149,218,.32);">Tümünü Kabul Et</button>
+        <sc-if value="{{ notCustom }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ openCustomize }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Özelleştir</button></sc-if>
+        <sc-if value="{{ customize }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ savePrefs }}" class="ck-btn ck-ghost" style="flex:0 1 auto; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.26); padding:13px 18px; font-weight:600; font-size:14px; border-radius:2px;">Seçimleri Kaydet</button></sc-if>
+        <button type="button" onClick="{{ reject }}" class="ck-btn ck-link" style="flex:0 1 auto; background:transparent; color:rgba(255,255,255,.6); border:none; padding:13px 14px; font-weight:600; font-size:14px; border-radius:2px;">Reddet</button>
       </div>
     </div>
   </div>
@@ -79,10 +83,10 @@ class Component extends DCLogic {
   toggle(k){ this.setState(s=>({ prefs:{ ...s.prefs, [k]:!s.prefs[k] } })); }
   renderVals(){
     const defs=[
-      { key:'necessary', name:'Necessary', desc:'Required for the site to function', locked:true },
-      { key:'analytics', name:'Analytics', desc:'Anonymised usage statistics', locked:false },
-      { key:'marketing', name:'Marketing', desc:'Campaign relevance & measurement', locked:false },
-      { key:'preferences', name:'Preferences', desc:'Remembers language & region', locked:false },
+      { key:'necessary', name:'Zorunlu', desc:'Sitenin çalışması için gereklidir', locked:true },
+      { key:'analytics', name:'Analitik', desc:'Anonimleştirilmiş kullanım istatistikleri', locked:false },
+      { key:'marketing', name:'Pazarlama', desc:'Kampanya ilgisi ve ölçümü', locked:false },
+      { key:'preferences', name:'Tercihler', desc:'Dil ve bölge tercihini hatırlar', locked:false },
     ];
     const categories=defs.map(d=>{
       const on = d.locked ? true : !!this.state.prefs[d.key];

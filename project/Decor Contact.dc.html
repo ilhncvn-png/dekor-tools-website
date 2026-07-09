@@ -15,7 +15,7 @@
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{margin:0;background:#0E0F11;}
-  ::selection{background:#D32027;color:#fff;}
+  ::selection{background:#0095DA;color:#fff;}
   a{text-decoration:none;color:inherit;}
   [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
   [data-reveal].in{opacity:1;transform:none;}
@@ -31,51 +31,83 @@
   .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 18s linear infinite;pointer-events:none;z-index:1;}
   .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
   .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.6);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
-  .des-atmos{position:absolute;width:150%;height:150%;left:-25%;top:-25%;background:conic-gradient(from 0deg,transparent,rgba(0,149,218,.04),transparent 42%,rgba(211,32,39,.028),transparent 74%);animation:dkrSpinSlow 72s linear infinite;pointer-events:none;z-index:0;}
+  .des-atmos{position:absolute;width:150%;height:150%;left:-25%;top:-25%;background:conic-gradient(from 0deg,transparent,rgba(0,149,218,.04),transparent 42%,rgba(0,149,218,.028),transparent 74%);animation:dkrSpinSlow 72s linear infinite;pointer-events:none;z-index:0;}
   @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle,.des-atmos{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
   /* links + buttons */
   .dkr-link{position:relative;transition:color .25s ease;}
-  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#D32027;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
   .dkr-link:hover::after{width:100%;}
   .dkr-link:hover{color:#fff;}
-  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,border-color .3s;}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,border-color .3s,filter .2s;}
   .dkr-btn:hover{transform:translateY(-3px);}
-  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(211,32,39,.5);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
   .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;border-color:#fff;}
   .dkr-btn-dark:hover{background:#0E0F11;color:#fff;border-color:#0E0F11;}
   /* premium nav dropdown */
   .nav-drop{position:relative;}
   .nav-caret{display:inline-block;transition:transform .3s ease;}
   .nav-drop:hover .nav-caret{transform:rotate(180deg);}
-  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #D32027;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
   .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
   .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
   .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
   .nav-drop-item:hover{background:rgba(255,255,255,.05);}
   .nav-drop-item:hover .ndi-tick{width:16px;}
   .nav-drop-item:hover .ndi-label{color:#fff;}
-  .ndi-tick{width:0;height:2px;background:#D32027;transition:width .3s ease;flex:0 0 auto;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
   /* office + dept cards */
   .ofc-card{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease,border-color .45s ease;}
-  .ofc-card:hover{transform:translateY(-8px);box-shadow:0 30px 64px rgba(0,0,0,.16);border-color:#D32027 !important;}
-  .ofc-card:hover .ofc-code{color:#D32027;}
+  .ofc-card:hover{transform:translateY(-8px);box-shadow:0 30px 64px rgba(0,0,0,.16);border-color:#0095DA !important;}
+  .ofc-card:hover .ofc-code{color:#0095DA;}
   .ofc-code{transition:color .4s ease;}
   .cmono{transition:color .25s ease;display:inline-flex;align-items:center;gap:8px;}
-  .cmono:hover{color:#D32027;}
+  .cmono:hover{color:#0095DA;}
   .cmono .cdot{width:5px;height:5px;border-radius:50%;background:#0095DA;flex:0 0 auto;transition:transform .25s ease;}
   .cmono:hover .cdot{transform:scale(1.7);}
   .dept-row{transition:background .3s ease,border-color .3s ease;}
-  .dept-row:hover{background:rgba(255,255,255,.03);border-color:rgba(211,32,39,.5) !important;}
-  .dept-row:hover .dept-arrow{transform:translateX(5px);color:#D32027;}
+  .dept-row:hover{background:rgba(255,255,255,.03);border-color:rgba(0,149,218,.5) !important;}
+  .dept-row:hover .dept-arrow{transform:translateX(5px);color:#0095DA;}
   .dept-arrow{transition:transform .3s ease,color .3s ease;}
   /* map */
-  .map-pulse{position:absolute;width:18px;height:18px;border-radius:50%;background:#D32027;box-shadow:0 0 0 6px rgba(211,32,39,.18);}
-  .map-pulse::after{content:'';position:absolute;inset:0;border-radius:50%;background:#D32027;animation:dkrPulse 2.6s ease-out infinite;}
+  .map-pulse{position:absolute;width:18px;height:18px;border-radius:50%;background:#0095DA;box-shadow:0 0 0 6px rgba(0,149,218,.18);}
+  .map-pulse::after{content:'';position:absolute;inset:0;border-radius:50%;background:#0095DA;animation:dkrPulse 2.6s ease-out infinite;}
   .mapbtn{transition:background .3s ease,color .3s ease,border-color .3s ease,transform .25s ease;}
   .mapbtn:hover{transform:translateY(-2px);}
   @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
   @media(max-width:960px){.ofc-grid{grid-template-columns:1fr !important;}.hq-grid{grid-template-columns:1fr !important;}.map-grid{grid-template-columns:1fr !important;}.dkr-foot{grid-template-columns:1fr 1fr !important;}}
   @media(max-width:560px){.dkr-foot{grid-template-columns:1fr !important;}}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-ctas{flex-direction:column !important;}
+    .hero-ctas > a{width:100% !important;text-align:center !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    img,svg,video{max-width:100%;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    .hero-docmark{display:none !important;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
 </style>
 </helmet>
 
@@ -83,6 +115,12 @@
 
 <!-- ===================== NAV ===================== -->
 <dc-import name="Decor Header"
+  enHref="Decor Contact.en.dc.html"
+  deHref="Decor Contact.de.dc.html"
+  frHref="Decor Contact.fr.dc.html"
+  ruHref="Decor Contact.ru.dc.html"
+  azHref="Decor Contact.az.dc.html"
+  arHref="Decor Contact.ar.dc.html"
   dynamicNav="{{ false }}" staticNav="{{ true }}"
   navPaddingStatic="13px 0"
   navBgStatic="rgba(12,13,15,.9)"
@@ -104,19 +142,74 @@
 <dc-import name="Decor Search" hint-size="0,0"></dc-import>
 
 <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.98); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
-    <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:64px; width:auto; margin-bottom:8px;">
-    <a href="Decor Products.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">PRODUCTS</a>
-    <a href="Decor Manufacturing.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">MANUFACTURING</a>
-    <a href="Decor Export.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">EXPORT</a>
-    <a href="Decor Authorized Dealers.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">SALES</a>
-    <a href="Decor About.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">ABOUT</a>
-    <a href="Decor Contact.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#ff7a72;">CONTACT</a>
-    <a href="Decor Complaint.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1.5px; color:rgba(255,255,255,.6);">SUBMIT YOUR COMPLAINT</a>
-    <a href="Decor Support.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">SUPPORT</a>
-    <a href="Decor Career.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">CAREER</a>
-    <a href="Decor Idea.dc.html" onClick="{{ toggleMenu }}" style="font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:2px; color:#fff;">I HAVE AN IDEA</a>
-    <a href="Decor Become a Dealer.dc.html" onClick="{{ toggleMenu }}" style="background:#D32027; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">Become a Dealer</a>
+  <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.98); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-satis" class="mnav-toggle">
+      <label for="mnav-satis" class="mnav-parent">SATIŞ<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Authorized Dealers.dc.html">YETKİLİ BAYİLER</a>
+        <a href="Decor Partner Resources.dc.html">BAYİ KAYNAKLARI</a>
+        <a href="Decor B2B Portal.dc.html">B2B PORTALI</a>
+        <a href="Decor Online Payment.dc.html">ÇEVRİMİÇİ ÖDEME</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
+      <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Newsroom.dc.html#news">SON HABERLER</a>
+        <a href="Decor Newsroom.dc.html#trade-shows">FUARLAR</a>
+        <a href="Decor Newsroom.dc.html#training-academy">EĞİTİM AKADEMİSİ</a>
+        <a href="Decor Newsroom.dc.html#company-life">ŞİRKET YAŞAMI</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-hakkimizda" class="mnav-toggle">
+      <label for="mnav-hakkimizda" class="mnav-parent">HAKKIMIZDA<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor About.dc.html">DEKOR HAKKINDA</a>
+        <a href="Decor Our Story.dc.html">HİKAYEMİZ</a>
+        <a href="Decor Vision Mission.dc.html">VİZYON VE MİSYON</a>
+        <a href="Decor RD Center.dc.html">AR-GE MERKEZİ</a>
+        <a href="Decor Quality Sustainability.dc.html">KALİTE VE SÜRDÜRÜLEBİLİRLİK</a>
+        <a href="Decor Career.dc.html">KARİYER</a>
+        <a href="Decor Idea.dc.html">BİR FİKRİM VAR</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-destek" class="mnav-toggle">
+      <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Support.dc.html">DESTEK MERKEZİ</a>
+        <a href="Decor Support.dc.html#downloads">İNDİRİLENLER</a>
+        <a href="Decor Support.dc.html#faq">SSS</a>
+        <a href="Decor Support.dc.html#downloads">SERTİFİKALAR</a>
+        <a href="Decor Support.dc.html#downloads">KATALOGLAR</a>
+        <a href="Decor Support.dc.html#categories">GARANTİ</a>
+        <a href="Decor Support.dc.html#faq">SSS</a>
+      </div>
+    </div>
+    <div class="mnav-group">
+      <input type="radio" name="mnavacc" id="mnav-iletisim" class="mnav-toggle">
+      <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
+      <div class="mnav-sub">
+        <a href="Decor Contact.dc.html">İLETİŞİM</a>
+        <a href="Decor Complaint.dc.html">ŞİKAYET BİLDİR</a>
+      </div>
+    </div>
+    <div class="mnav-langs">
+      <span class="mnav-lang mnav-lang-active">TR</span>
+      <a href="Decor Contact.en.dc.html" class="mnav-lang">EN</a>
+      <a href="Decor Contact.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Contact.fr.dc.html" class="mnav-lang">FR</a>
+      <a href="Decor Contact.ru.dc.html" class="mnav-lang">RU</a>
+      <a href="Decor Contact.az.dc.html" class="mnav-lang">AZ</a>
+      <a href="Decor Contact.ar.dc.html" class="mnav-lang">AR</a>
+    </div>
+    <a href="Decor Become a Dealer.dc.html" onClick="{{ toggleMenu }}" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">Bayi Ol</a>
   </div>
 </sc-if>
 
@@ -128,27 +221,27 @@
   <div class="bp-glint" style="top:60%; left:30%; animation-delay:2s;"></div>
   <div class="bp-particle" style="left:20%; bottom:12%;"></div>
   <div class="bp-particle" style="left:74%; bottom:8%; animation-delay:3s;"></div>
-  <div style="position:absolute; top:-120px; right:-120px; width:300px; height:1000px; opacity:.9; background:linear-gradient(180deg,#D32027,#8d1115); transform:rotate(20deg);"></div>
+  <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1000px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">HOME</a> &nbsp;/&nbsp; <span style="color:#ff7a72;">CONTACT</span></div>
-    <div style="display:inline-flex; align-items:center; gap:12px; margin-top:30px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>GLOBAL CONTACT HUB</div>
-    <h1 style="font-size:clamp(46px,8vw,104px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.9; margin:18px 0 0;">Contact Decor<span style="color:#D32027;">.</span></h1>
-    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Reach our headquarters, factory, export offices and international trade teams.</p>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <span style="color:#D32027;">İLETİŞİM</span></div>
+    <div style="display:inline-flex; align-items:center; gap:12px; margin-top:30px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>KÜRESEL İLETİŞİM MERKEZİ</div>
+    <h1 style="font-size:clamp(46px,8vw,104px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.9; margin:18px 0 0;">Dekor ile İletişime Geçin<span style="color:#0095DA;">.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Merkez ofisimize, fabrikamıza, ihracat ofislerimize ve uluslararası ticaret ekiplerimize ulaşın.</p>
     <div style="display:flex; flex-wrap:wrap; gap:clamp(24px,4vw,56px); margin-top:52px; border-top:1px solid rgba(255,255,255,.14); padding-top:26px;">
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">4</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.5);">GLOBAL OFFICES</div></div>
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">3</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.5);">COUNTRIES</div></div>
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">60</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.5);">EXPORT MARKETS</div></div>
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">&lt;24h</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.5);">RESPONSE TIME</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">4</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">KÜRESEL OFİS</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">3</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">ÜLKE</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">60</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">İHRACAT PAZARI</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">&lt;24h</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">YANIT SÜRESİ</div></div>
     </div>
   </div>
 </header>
 
 <!-- ===================== OFFICE CARDS ===================== -->
-<section style="position:relative; background:#F4F5F6; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden;">
+<section id="contact-offices" style="position:relative; background:#F4F5F6; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden;">
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
     <div data-reveal style="margin-bottom:48px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>OUR OFFICES</div>
-      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Where to find us.</h2>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>OFİSLERİMİZ</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Bizi nerede bulabilirsiniz.</h2>
     </div>
     <div class="ofc-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
       <sc-for list="{{ offices }}" as="o" hint-placeholder-count="4">
@@ -180,22 +273,23 @@
   <div class="bp-scan" style="animation-duration:21s;"></div>
   <div class="hq-grid" style="position:relative; z-index:2; max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
     <div data-reveal>
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#ff7a72; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>HEADQUARTERS &amp; FACTORY</div>
-      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:18px 0 0;">One roof. Every<br>stage of the build.</h2>
-      <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,.64); margin:20px 0 0; max-width:480px;">Our 21,000 m² Çayırova facility houses material science, forging, CNC machining, quality control and global logistics — the engine behind every Dekor tool.</p>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>MERKEZ OFİS VE FABRİKA</div>
+      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:18px 0 0;">Tek çatı altında.<br>Üretimin her aşaması.</h2>
+      <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,.64); margin:20px 0 0; max-width:480px;">21.000 m²'lik Çayırova tesisimiz; malzeme bilimi, dövme, CNC işleme, kalite kontrol ve küresel lojistiği barındırır — her Dekor aletinin arkasındaki motor.</p>
       <div style="margin-top:30px; display:flex; flex-direction:column; gap:14px;">
         <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7; color:rgba(255,255,255,.8);">Cumhuriyet Mah. Turgut Özal Cd.<br>Karayel Sok. No:24 Şekerpınar<br>Çayırova / Kocaeli — TÜRKİYE</div>
         <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:6px;">
           <a href="tel:+902626583010" class="cmono" style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#fff;"><span class="cdot"></span>0 (262) 658 30 10</a>
-          <a href="mailto:info@dekortools.com" class="cmono" style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#fff;"><span class="cdot"></span>info@dekortools.com</a>
+          <a href="mailto:info@dekor-tools.com" class="cmono" style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#fff;"><span class="cdot"></span>info@dekor-tools.com</a>
         </div>
       </div>
     </div>
     <div data-reveal style="position:relative; aspect-ratio:4/3; background:#16181b; border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <img src="uploads/factory-exterior.png" alt="Dekor / Hassan fabrikası — Çayırova, Kocaeli" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;">
+      <div style="position:absolute; inset:0; background:rgba(0,0,0,.12);"></div>
       <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.08) 1px,transparent 1px); background-size:30px 30px;"></div>
       <div style="position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; background:#0095DA; color:#fff; padding:5px 10px;">FAC-01</div>
-      <div style="position:absolute; bottom:14px; right:14px; width:44px; height:44px; background:#D32027;"></div>
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,.42); letter-spacing:1px;">FACTORY · IMAGE SLOT</div>
+      <div style="position:absolute; bottom:14px; right:14px; width:44px; height:44px; background:#0095DA;"></div>
     </div>
   </div>
 </section>
@@ -204,32 +298,33 @@
 <section style="position:relative; background:#0a0b0c; padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px); overflow:hidden;">
   <div class="map-grid" style="position:relative; z-index:2; max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr; gap:28px; align-items:stretch;">
     <!-- map canvas -->
-    <div data-reveal style="position:relative; min-height:440px; background:#101418; border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden;">
-      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:40px 40px;"></div>
-      <!-- abstract roads -->
-      <div style="position:absolute; top:0; bottom:0; left:38%; width:2px; background:rgba(255,255,255,.08);"></div>
-      <div style="position:absolute; left:0; right:0; top:54%; height:2px; background:rgba(255,255,255,.08);"></div>
-      <div style="position:absolute; top:-10%; bottom:40%; left:62%; width:1px; background:rgba(0,149,218,.25); transform:rotate(22deg); transform-origin:top;"></div>
-      <div style="position:absolute; left:8%; right:30%; top:30%; height:1px; background:rgba(0,149,218,.22); transform:rotate(-8deg);"></div>
-      <!-- node -->
-      <div style="position:absolute; left:38%; top:54%; transform:translate(-50%,-50%);">
+    <div id="dkr-map-wrap" data-reveal style="position:relative; min-height:440px; background:#101418; border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden;">
+      <!-- graceful fallback, sits behind the iframe; only visible if the iframe genuinely fails to load -->
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:32px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.6; color:rgba(255,255,255,.5); z-index:0;">Harita yüklenemedi. Google Haritalar'da açmak için butonu kullanın.</div>
+      <iframe
+        title="Dekor Factory — Google Maps"
+        src="https://maps.google.com/maps?q=Hassan%20İnşaat%20Makina%20San.%20ve%20Tic.%20Ltd.%20Şti.%2C%20Cumhuriyet%20Mah.%20Turgut%20Özal%20Caddesi%2C%20Karayel%20Sokak%20No%3A22%2C%2041420%20Çayırova%2FKocaeli%2FTürkiye&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        onerror="this.style.display='none';"
+        style="position:absolute; inset:0; width:100%; height:100%; border:0; z-index:1;"
+      ></iframe>
+      <!-- decorative HUD overlay, non-interactive so it never blocks the live map -->
+      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:2;">
         <div class="map-pulse"></div>
       </div>
-      <div style="position:absolute; left:calc(38% + 18px); top:calc(54% - 30px); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#fff; background:rgba(14,15,17,.85); border:1px solid rgba(255,255,255,.14); padding:7px 11px;">HASSAN FABRİKA · 41420</div>
-      <!-- coords + scale -->
-      <div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(0,149,218,.8);">40.8261° N · 29.3787° E</div>
-      <div style="position:absolute; bottom:16px; left:16px; display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(255,255,255,.5);"><span style="width:40px; height:2px; background:rgba(255,255,255,.4); display:block;"></span>500 M</div>
-      <div style="position:absolute; top:16px; right:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.4);">ÇAYIROVA / KOCAELİ</div>
+      <div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(0,149,218,.8); pointer-events:none; z-index:2;">40.8261° N · 29.3787° E</div>
+      <div style="position:absolute; top:16px; right:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.4); pointer-events:none; z-index:2;">ÇAYIROVA / KOCAELİ</div>
     </div>
     <!-- address + CTAs -->
     <div data-reveal style="background:#16181b; border:1px solid rgba(255,255,255,.1); border-radius:3px; padding:34px 32px; display:flex; flex-direction:column;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA;">FACTORY LOCATION</div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA;">FABRİKA KONUMU</div>
       <h3 style="font-size:21px; font-weight:800; letter-spacing:-0.02em; color:#fff; line-height:1.2; margin:14px 0 0;">HASSAN İNŞAAT MAKİNA SAN. ve TİC. LTD. ŞTİ.</h3>
       <p style="font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:rgba(255,255,255,.62); margin:18px 0 0;">Cumhuriyet Mah. Turgut Özal Caddesi<br>Karayel Sokak, No:22<br>Çayırova, Cumhuriyet, 41420<br>Çayırova / Kocaeli, Türkiye</p>
       <div style="margin-top:auto; padding-top:26px; display:flex; flex-direction:column; gap:10px;">
-        <a href="https://maps.google.com/?q=HASSAN+Fabrika+Çayırova+Kocaeli" target="_blank" rel="noopener" class="mapbtn dkr-btn-red" style="background:#D32027; color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Open in Google Maps →</a>
-        <a href="https://maps.google.com/?daddr=HASSAN+Fabrika+Çayırova+Kocaeli" target="_blank" rel="noopener" class="mapbtn" style="border:1.5px solid rgba(255,255,255,.3); color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Get Directions</a>
-        <a href="tel:+902626583010" class="mapbtn" style="border:1.5px solid rgba(255,255,255,.3); color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Contact Factory</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Cumhuriyet+Mah.+Turgut+Özal+Caddesi%2C+Karayel+Sokak+No%3A22%2C+41420+Çayırova%2C+Kocaeli%2C+Türkiye" target="_blank" rel="noopener" class="mapbtn dkr-btn-red" style="background:#0095DA; color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Google Haritalar'da Aç →</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Cumhuriyet+Mah.+Turgut+Özal+Caddesi%2C+Karayel+Sokak+No%3A22%2C+41420+Çayırova%2C+Kocaeli%2C+Türkiye" target="_blank" rel="noopener" class="mapbtn" style="border:1.5px solid rgba(255,255,255,.3); color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Yol Tarifi Al</a>
+        <a href="#contact-offices" class="mapbtn" style="border:1.5px solid rgba(255,255,255,.3); color:#fff; text-align:center; padding:14px; font-weight:700; font-size:14px; border-radius:2px;">Fabrika ile İletişime Geç</a>
       </div>
     </div>
   </div>
@@ -239,8 +334,8 @@
 <section style="background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="margin-bottom:44px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>REACH THE RIGHT TEAM</div>
-      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Department shortcuts.</h2>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>DOĞRU EKİBE ULAŞIN</div>
+      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Departman kısayolları.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
       <sc-for list="{{ depts }}" as="d" hint-placeholder-count="4">
@@ -258,20 +353,20 @@
 </section>
 
 <!-- ===================== SUPPORT + DEALER CTA ===================== -->
-<section style="position:relative; background:#D32027; padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px); overflow:hidden;">
+<section style="position:relative; background:#0095DA; padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px); overflow:hidden;">
   <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px); background-size:64px 64px;"></div>
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:24px;" class="hq-grid">
     <div data-reveal style="background:rgba(14,15,17,.16); border:1px solid rgba(255,255,255,.22); border-radius:3px; padding:38px 34px;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.85);">SERVICE &amp; QUALITY</div>
-      <h3 style="font-size:clamp(24px,3vw,36px); font-weight:900; letter-spacing:-0.02em; color:#fff; line-height:1.05; margin:14px 0 0;">Have a complaint or issue?</h3>
-      <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,.86); margin:14px 0 0;">Our support team treats every report seriously. Submit the details and we'll respond fast.</p>
-      <a href="Decor Complaint.dc.html" class="dkr-btn dkr-btn-ghost" style="display:inline-block; margin-top:24px; border:1.5px solid #fff; color:#fff; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px;">Submit Your Complaint →</a>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.85);">HİZMET VE KALİTE</div>
+      <h3 style="font-size:clamp(24px,3vw,36px); font-weight:900; letter-spacing:-0.02em; color:#fff; line-height:1.05; margin:14px 0 0;">Şikayetiniz veya bir sorununuz mu var?</h3>
+      <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,.86); margin:14px 0 0;">Destek ekibimiz her bildirimi ciddiye alır. Detayları gönderin, hızlıca yanıt verelim.</p>
+      <a href="Decor Complaint.dc.html" class="dkr-btn dkr-btn-ghost" style="display:inline-block; margin-top:24px; border:1.5px solid #fff; color:#fff; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px;">Şikayetinizi Bildirin →</a>
     </div>
     <div data-reveal style="background:rgba(14,15,17,.16); border:1px solid rgba(255,255,255,.22); border-radius:3px; padding:38px 34px;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.85);">PARTNERSHIP &amp; EXPORT</div>
-      <h3 style="font-size:clamp(24px,3vw,36px); font-weight:900; letter-spacing:-0.02em; color:#fff; line-height:1.05; margin:14px 0 0;">Become a Dekor dealer.</h3>
-      <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,.86); margin:14px 0 0;">Join a global network across 60 countries with trade pricing, private-label and full support.</p>
-      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-dark" style="display:inline-block; margin-top:24px; background:#0E0F11; color:#fff; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px;">Apply for Dealership →</a>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,.85);">ORTAKLIK VE İHRACAT</div>
+      <h3 style="font-size:clamp(24px,3vw,36px); font-weight:900; letter-spacing:-0.02em; color:#fff; line-height:1.05; margin:14px 0 0;">Dekor bayisi olun.</h3>
+      <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,.86); margin:14px 0 0;">60 ülkeye yayılan küresel ağa, ticari fiyatlandırma, özel markalı üretim ve tam destekle katılın.</p>
+      <a href="Decor Become a Dealer.dc.html" class="dkr-btn dkr-btn-dark" style="display:inline-block; margin-top:24px; background:#0E0F11; color:#fff; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px;">Bayilik İçin Başvurun →</a>
     </div>
   </div>
 </section>
@@ -301,14 +396,14 @@ class Component extends DCLogic {
   componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
 
   renderVals(){
-    const red='#D32027', dark='#1A1C1F';
+    const red='#0095DA', dark='#1A1C1F';
     const offices = [
       { code:'OFC-01', name:'HASSAN Merkez', country:'İSTANBUL · TR', accent:red,
         address:'Kozyatağı Mah. Şehit İlknur Keleş Sok.\nAnaç Aksakal Plaza No:10 D:9\nKadıköy / İSTANBUL',
-        contacts:[ { text:'Headquarters — İstanbul', href:'#' } ] },
+        contacts:[ { text:'Merkez Ofis — İstanbul', href:'#' } ] },
       { code:'OFC-02', name:'HASSAN Fabrika', country:'KOCAELİ · TR', accent:'#0095DA',
         address:'Cumhuriyet Mah. Turgut Özal Cd.\nKarayel Sok. No:24 Şekerpınar\nÇayırova / Kocaeli — TÜRKİYE',
-        contacts:[ { text:'0 (262) 658 30 10', href:'tel:+902626583010' }, { text:'Fax · 0 (262) 658 30 11', href:'tel:+902626583011' }, { text:'info@dekortools.com', href:'mailto:info@dekortools.com' }, { text:'satis@dekortools.com', href:'mailto:satis@dekortools.com' }, { text:'export@dekortools.com', href:'mailto:export@dekortools.com' }, { text:'sales@dekortools.com', href:'mailto:sales@dekortools.com' } ] },
+        contacts:[ { text:'0 (262) 658 30 10', href:'tel:+902626583010' }, { text:'Faks · 0 (262) 658 30 11', href:'tel:+902626583011' }, { text:'info@dekor-tools.com', href:'mailto:info@dekor-tools.com' }, { text:'satis@dekor-tools.com', href:'mailto:satis@dekor-tools.com' }, { text:'export@dekor-tools.com', href:'mailto:export@dekor-tools.com' }, { text:'sales@dekor-tools.com', href:'mailto:sales@dekor-tools.com' } ] },
       { code:'OFC-03', name:'Dekortools UK', country:'LONDON · UK', accent:dark,
         address:'Unit A 37 New Road Langley, Berks\nSL3 8JJ London — United Kingdom',
         contacts:[ { text:'01753 547 942', href:'tel:01753547942' }, { text:'020 3004 1111', href:'tel:02030041111' }, { text:'info@dekortools.co.uk', href:'mailto:info@dekortools.co.uk' } ] },
@@ -318,32 +413,32 @@ class Component extends DCLogic {
     ];
 
     const depts = [
-      { tag:'GENERAL', name:'General Enquiries', value:'info@dekortools.com', href:'mailto:info@dekortools.com' },
-      { tag:'SALES · TR', name:'Domestic Sales', value:'satis@dekortools.com', href:'mailto:satis@dekortools.com' },
-      { tag:'EXPORT', name:'Export & International', value:'export@dekortools.com', href:'mailto:export@dekortools.com' },
-      { tag:'GLOBAL SALES', name:'International Sales', value:'sales@dekortools.com', href:'mailto:sales@dekortools.com' },
-      { tag:'PHONE · TR', name:'Factory Switchboard', value:'0 (262) 658 30 10', href:'tel:+902626583010' },
-      { tag:'SUPPORT', name:'Complaints & Service', value:'Submit a complaint →', href:'Decor Complaint.dc.html' },
+      { tag:'GENEL', name:'Genel Sorular', value:'info@dekor-tools.com', href:'mailto:info@dekor-tools.com' },
+      { tag:'SATIŞ · TR', name:'Yurt İçi Satış', value:'satis@dekor-tools.com', href:'mailto:satis@dekor-tools.com' },
+      { tag:'İHRACAT', name:'İhracat ve Uluslararası', value:'export@dekor-tools.com', href:'mailto:export@dekor-tools.com' },
+      { tag:'KÜRESEL SATIŞ', name:'Uluslararası Satış', value:'sales@dekor-tools.com', href:'mailto:sales@dekor-tools.com' },
+      { tag:'TELEFON · TR', name:'Fabrika Santrali', value:'0 (262) 658 30 10', href:'tel:+902626583010' },
+      { tag:'DESTEK', name:'Şikayet ve Servis', value:'Şikayet bildirin →', href:'Decor Complaint.dc.html' },
     ];
 
     const footCols = [
-      { head:'PRODUCTS', links:[
-        { label:'Painting Tools', href:'Decor Products.dc.html' },
-        { label:'Plaster & Render', href:'Decor Products.dc.html' },
-        { label:'Measurement', href:'Decor Products.dc.html' },
-        { label:'All Products', href:'Decor Products.dc.html' },
+      { head:'ÜRÜNLER', links:[
+        { label:'Boya Aletleri', href:'Decor Products.dc.html' },
+        { label:'Sıva ve Alçı', href:'Decor Products.dc.html' },
+        { label:'Ölçüm', href:'Decor Products.dc.html' },
+        { label:'Tüm Ürünler', href:'Decor Products.dc.html' },
       ]},
-      { head:'COMPANY', links:[
-        { label:'About Dekor', href:'Decor About.dc.html' },
-        { label:'Manufacturing', href:'Decor Manufacturing.dc.html' },
-        { label:'Career', href:'Decor Career.dc.html' },
-        { label:'I Have an Idea', href:'Decor Idea.dc.html' },
+      { head:'ŞİRKET', links:[
+        { label:'Dekor Hakkında', href:'Decor About.dc.html' },
+        { label:'Üretim', href:'Decor Manufacturing.dc.html' },
+        { label:'Kariyer', href:'Decor Career.dc.html' },
+        { label:'Bir Fikrim Var', href:'Decor Idea.dc.html' },
       ]},
-      { head:'CONTACT', links:[
-        { label:'Contact', href:'Decor Contact.dc.html' },
-        { label:'Submit a Complaint', href:'Decor Complaint.dc.html' },
-        { label:'Become a Dealer', href:'Decor Become a Dealer.dc.html' },
-        { label:'Export Team', href:'mailto:export@dekortools.com' },
+      { head:'İLETİŞİM', links:[
+        { label:'İletişim', href:'Decor Contact.dc.html' },
+        { label:'Şikayet Bildir', href:'Decor Complaint.dc.html' },
+        { label:'Bayi Ol', href:'Decor Become a Dealer.dc.html' },
+        { label:'İhracat Ekibi', href:'mailto:export@dekor-tools.com' },
       ]},
     ];
 

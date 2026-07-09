@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .ft-wrap *{box-sizing:border-box;}
+  .ft-wrap{font-family:'Archivo',sans-serif;}
+  .ft-wrap a{text-decoration:none;color:inherit;}
+  @keyframes dkrFtBreathe{0%,100%{opacity:.5}50%{opacity:1}}
+  @keyframes dkrFtScan{0%{transform:translateY(-10%);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(1100%);opacity:0}}
+  @keyframes dkrFtTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrFtDrift{0%{transform:translateY(0);opacity:0}15%{opacity:.6}85%{opacity:.6}100%{transform:translateY(-90px);opacity:0}}
+  @keyframes dkrFtPulse{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+  @keyframes dkrFtWord{0%{opacity:0;transform:translateY(6px)}4%{opacity:1;transform:none}16%{opacity:1;transform:none}20%{opacity:0;transform:translateY(-6px)}100%{opacity:0;transform:translateY(-6px)}}
+  @keyframes dkrFtLabel{0%,100%{opacity:.18}50%{opacity:.5}}
+  .ft-live{animation:dkrFtBreathe 11s ease-in-out infinite;}
+  .ft-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.4),transparent);animation:dkrFtScan 20s linear infinite;pointer-events:none;z-index:1;}
+  .ft-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrFtTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .ft-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.55);animation:dkrFtDrift 11s linear infinite;pointer-events:none;z-index:1;}
+  .ft-coord{animation:dkrFtLabel 9s ease-in-out infinite;}
+  .ft-dot{animation:dkrFtPulse 2.6s ease-in-out infinite;}
+  .ft-word{position:absolute;left:0;top:0;animation:dkrFtWord 15s cubic-bezier(.2,.7,.2,1) infinite;}
+  .ft-wrap a.ft-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.85);transition:color .22s ease;}
+  .ft-wrap a.ft-link::before{content:'';width:8px;height:1px;background:rgba(255,255,255,.32);transition:width .3s cubic-bezier(.2,.7,.2,1),background .25s ease;}
+  .ft-wrap a.ft-link:hover{color:#fff;}
+  .ft-wrap a.ft-link:hover::before{width:16px;background:#0095DA;}
+  .ft-wrap a.ft-legal{color:rgba(255,255,255,.74);transition:color .22s ease;}
+  .ft-wrap a.ft-legal:hover{color:#0095DA;}
+  .ft-wrap a.ft-credit-link{transition:color .22s ease;}
+  .ft-wrap a.ft-credit-link:hover{color:#0095DA;}
+  @media(max-width:680px){.ft-credits{flex-direction:column !important; align-items:flex-start !important;} .ft-credits span{text-align:left !important;}}
+  .ft-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,filter .2s;}
+  .ft-btn:hover{transform:translateY(-3px);}
+  .ft-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .ft-btn-red:active{filter:brightness(0.85);}
+  .ft-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .ft-btn-ghost:hover{background:#fff;color:#0E0F11;}
+  .ft-wrap a.ft-contact{display:flex;gap:14px;align-items:flex-start;color:rgba(255,255,255,.86);transition:color .22s ease;}
+  .ft-contact .ft-ico{flex:none;width:34px;height:34px;border:1px solid rgba(255,255,255,.14);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#0095DA;transition:border-color .3s ease,background .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+  .ft-contact:hover{color:#fff;}
+  .ft-contact:hover .ft-ico{border-color:rgba(0,149,218,.6);background:rgba(0,149,218,.08);transform:translateY(-2px);}
+  .ft-metric{position:relative;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.012);padding:18px 18px 16px;border-radius:2px;overflow:hidden;transition:border-color .3s ease,transform .3s ease,background .3s ease;}
+  .ft-metric::before{content:'';position:absolute;top:0;left:0;height:3px;width:100%;background:#0095DA;transform:scaleX(.18);transform-origin:left;transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+  .ft-metric:hover{border-color:rgba(0,149,218,.45);transform:translateY(-3px);background:rgba(0,149,218,.04);}
+  .ft-metric:hover::before{transform:scaleX(1);}
+  .ft-wrap a.ft-social{display:flex;align-items:center;gap:13px;padding:14px 18px;border:1px solid rgba(255,255,255,.1);border-radius:2px;color:rgba(255,255,255,.85);transition:border-color .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),background .3s ease,color .22s ease;}
+  .ft-social .ft-sico{flex:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:color .3s ease,transform .35s cubic-bezier(.2,.7,.2,1);}
+  .ft-social:hover{transform:translateY(-3px);border-color:rgba(0,149,218,.55);background:rgba(0,149,218,.05);color:#fff;}
+  .ft-social:hover .ft-sico{color:#0095DA;transform:scale(1.18) rotate(-4deg);}
+  .ft-statcell{position:relative;display:flex;flex-direction:column;gap:9px;padding:16px 22px;flex:1 1 0;min-width:150px;}
+  .ft-statcell + .ft-statcell{border-left:1px solid rgba(255,255,255,.08);}
+  @media(max-width:1080px){.ft-cols{grid-template-columns:1fr 1fr !important;}.ft-top{grid-template-columns:1fr !important;}.ft-metrics{grid-template-columns:1fr 1fr !important;}.ft-socials{grid-template-columns:1fr 1fr !important;}}
+  @media(max-width:680px){.ft-cols{grid-template-columns:1fr 1fr !important;}.ft-metrics{grid-template-columns:1fr 1fr !important;}.ft-socials{grid-template-columns:1fr !important;}.ft-statwrap{flex-direction:column !important;}.ft-statcell + .ft-statcell{border-left:none !important;border-top:1px solid rgba(255,255,255,.08) !important;}.ft-legal-bar{flex-direction:column !important;align-items:flex-start !important;}}
+  @media(max-width:767px){
+    .ft-top{gap:32px !important;padding-bottom:32px !important;}
+    .ft-cols{gap:28px 20px !important;padding:32px 0 !important;}
+    .ft-metric{padding:14px 14px 12px !important;}
+    .ft-wrap a.ft-social{padding:14px 16px !important;min-height:44px;}
+    .ft-statcell{padding:14px 16px !important;min-height:44px;}
+  }
+  @media(prefers-reduced-motion:reduce){.ft-live,.ft-scan,.ft-glint,.ft-particle,.ft-coord,.ft-dot{animation:none !important;}.ft-scan,.ft-particle{opacity:0 !important;}.ft-word{animation:none !important;}.ft-word:first-child{opacity:1 !important;transform:none !important;}.ft-word:not(:first-child){opacity:0 !important;}.ft-metric::before{transform:scaleX(1) !important;}}
+</style>
+</helmet>
+
+<div class="ft-wrap">
+
+<!-- ===================== ① CLOSING / BRAND FINALE BANNER ===================== -->
+<section style="position:relative; background:radial-gradient(130% 120% at 50% -20%, #1c252d 0%, #11161b 48%, #0c0e11 100%); padding:clamp(80px,11vw,150px) clamp(20px,5vw,64px) clamp(74px,9vw,120px); overflow:hidden; text-align:center;">
+  <div class="ft-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:radial-gradient(120% 90% at 50% 30%,#000 35%,transparent 88%); mask-image:radial-gradient(120% 90% at 50% 30%,#000 35%,transparent 88%);"></div>
+  <div class="ft-scan"></div>
+  <div class="ft-glint" style="left:16%; top:30%;"></div>
+  <div class="ft-glint" style="left:82%; top:38%; animation-delay:2.4s;"></div>
+  <div class="ft-glint" style="left:70%; top:18%; animation-delay:4s;"></div>
+  <div class="ft-particle" style="left:24%; top:78%;"></div>
+  <div class="ft-particle" style="left:62%; top:70%; animation-delay:3.5s;"></div>
+  <div class="ft-particle" style="left:44%; top:84%; animation-delay:6s;"></div>
+  <div class="ft-coord" style="position:absolute; top:clamp(26px,4vw,46px); left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.4);">DEKOR · 41.0082°N · 28.9784°E · GEBZE/KOCAELI</div>
+  <div class="ft-coord" style="position:absolute; top:clamp(26px,4vw,46px); right:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.4); animation-delay:3s;">FONDÉ · 1964 · HASSAN GROUP</div>
+  <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+    <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>DEKOR · DEPUIS 1964</div>
+    <h2 style="font-size:clamp(38px,6.2vw,84px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">Construit pour ceux<br>qui bâtissent<span style="color:#0095DA;">.</span></h2>
+    <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.6; color:rgba(255,255,255,.62); margin:24px auto 0; max-width:560px;">Des outils manuels professionnels conçus en Turquie — la marque à laquelle les chantiers font confiance dans 60 pays et sur quatre continents.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:38px;">
+      <a href="Decor Products.fr.dc.html" class="ft-btn ft-btn-red" style="background:#0095DA; color:#fff; padding:17px 34px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">Découvrir les produits →</a>
+      <a href="Decor Become a Dealer.fr.dc.html" class="ft-btn ft-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 34px; font-weight:700; font-size:16px; border-radius:2px;">Devenir revendeur</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ② MAIN FOOTER ===================== -->
+<footer style="position:relative; background:#0a0b0c; padding:clamp(60px,7vw,96px) clamp(20px,5vw,64px) 36px; border-top:1px solid rgba(255,255,255,.08); overflow:hidden;">
+  <div class="ft-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:radial-gradient(120% 80% at 22% 0%,#000,transparent 72%); mask-image:radial-gradient(120% 80% at 22% 0%,#000,transparent 72%);"></div>
+  <div class="ft-particle" style="left:12%; top:64%; animation-delay:1s;"></div>
+  <div class="ft-particle" style="left:88%; top:50%; animation-delay:5s;"></div>
+  <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
+
+    <!-- ===== TOP REGION: IDENTITY + FACTORY CONTACT ===== -->
+    <div class="ft-top" style="display:grid; grid-template-columns:1.25fr 1fr; gap:48px 56px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.08);">
+
+      <!-- ① DEKOR IDENTITY -->
+      <div>
+        <a href="Decor Home.fr.dc.html" style="display:inline-block;"><img src="uploads/decor_logo_white.png" alt="Dekor" style="height:62px; width:auto; display:block;"></a>
+        <div style="font-size:24px; font-weight:900; letter-spacing:-0.02em; color:#fff; margin-top:22px;">HASSAN GROUP</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:1.6px; color:rgba(255,255,255,.74); margin-top:8px; line-height:1.7;">OUTILS DE CONSTRUCTION PROFESSIONNELS<br>DEPUIS 1964</div>
+        <p style="font-size:15px; line-height:1.7; color:rgba(255,255,255,.6); margin:18px 0 0; max-width:420px;">Un fabricant turc de deuxième génération d'outils manuels professionnels pour la peinture, le plâtrage et la préparation de surfaces — exportés dans le monde entier.</p>
+
+        <!-- Looping engineering statement -->
+        <div style="position:relative; height:24px; margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; font-weight:600; color:#0095DA;">
+          <span class="ft-word">CONÇU</span>
+          <span class="ft-word" style="animation-delay:-3s;">CONSTRUIT</span>
+          <span class="ft-word" style="animation-delay:-6s;">FABRIQUÉ</span>
+          <span class="ft-word" style="animation-delay:-9s;">TESTÉ</span>
+          <span class="ft-word" style="animation-delay:-12s;">LIVRÉ</span>
+        </div>
+      </div>
+
+      <!-- ② FACTORY & EXPORT OFFICE -->
+      <div>
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:24px;">
+          <span style="width:7px; height:7px; background:#0095DA; border-radius:50%;"></span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.8px; color:rgba(255,255,255,.78);">USINE &amp; BUREAU D'EXPORT</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:18px;">
+
+          <a class="ft-contact" href="https://www.google.com/maps/search/?api=1&query=Cumhuriyet+Mah.+Turgut+%C3%96zal+Cd.+Karayel+Sokak+No:24+%C5%9Eekerp%C4%B1nar+%C3%87ay%C4%B1rova+Kocaeli" target="_blank" rel="noopener">
+            <span class="ft-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <span style="font-size:14px; line-height:1.6;">Cumhuriyet Mah., Turgut Özal Cd.<br>Karayel Sokak No:24, Şekerpınar<br>Çayırova / Kocaeli, Türkiye</span>
+          </a>
+
+          <a class="ft-contact" href="tel:+902626583010">
+            <span class="ft-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5 9 4l1 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1 .5 2.5c0 1.4-1.1 2.5-2.5 2.5A15.5 15.5 0 0 1 3.5 6.5C3.5 5.1 4.6 4 6.5 3.5Z"/></svg></span>
+            <span style="font-size:14px;"><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.5); margin-bottom:3px;">TÉLÉPHONE</span>+90 (262) 658 30 10</span>
+          </a>
+
+          <a class="ft-contact" href="mailto:export@dekor-tools.com">
+            <span class="ft-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span>
+            <span style="font-size:14px;"><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.5); margin-bottom:3px;">E-MAIL</span>export@dekor-tools.com</span>
+          </a>
+
+          <a class="ft-contact" href="https://www.dekor-tools.com" target="_blank" rel="noopener">
+            <span class="ft-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3Z"/></svg></span>
+            <span style="font-size:14px;"><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.5); margin-bottom:3px;">SITE WEB</span>www.dekor-tools.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NAVIGATION COLUMNS ③④⑤⑥ ===== -->
+    <div class="ft-cols" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:44px 36px; padding:46px 0; border-bottom:1px solid rgba(255,255,255,.08);">
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; color:rgba(255,255,255,.7); margin-bottom:20px;">PRODUITS</div>
+        <div style="display:flex; flex-direction:column; gap:13px; font-size:14px;">
+          <a href="Decor Products.fr.dc.html" class="ft-link">Outils de peinture</a>
+          <a href="Decor Products.fr.dc.html" class="ft-link">Plâtre &amp; enduit</a>
+          <a href="Decor Products.fr.dc.html" class="ft-link">Outils de mesure</a>
+          <a href="Decor Products.fr.dc.html" class="ft-link">Isolation</a>
+          <a href="Decor Products.fr.dc.html" class="ft-link">Accessoires</a>
+          <a href="Decor Products.fr.dc.html" class="ft-link">Tous les produits</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; color:rgba(255,255,255,.7); margin-bottom:20px;">ENTREPRISE</div>
+        <div style="display:flex; flex-direction:column; gap:13px; font-size:14px;">
+          <a href="Decor About.fr.dc.html" class="ft-link">À propos</a>
+          <a href="Decor Manufacturing.fr.dc.html" class="ft-link">Fabrication</a>
+          <a href="Decor Export.fr.dc.html" class="ft-link">Export</a>
+          <a href="Decor Newsroom.fr.dc.html" class="ft-link">Actualités</a>
+          <a href="Decor About.fr.dc.html" class="ft-link">Responsabilité</a>
+          <a href="Decor Career.fr.dc.html" class="ft-link">Carrières</a>
+          <a href="Decor Idea.fr.dc.html" class="ft-link">J'ai une idée</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; color:rgba(255,255,255,.7); margin-bottom:20px;">SUPPORT</div>
+        <div style="display:flex; flex-direction:column; gap:13px; font-size:14px;">
+          <a href="Decor Support.fr.dc.html" class="ft-link">Centre d'assistance</a>
+          <a href="Decor Support.fr.dc.html#downloads" class="ft-link">Certificats</a>
+          <a href="Decor Support.fr.dc.html#downloads" class="ft-link">Fichiers téléchargeables</a>
+          <a href="Decor Support.fr.dc.html#downloads" class="ft-link">Catalogue</a>
+          <a href="Decor Support.fr.dc.html#faq" class="ft-link">Garantie</a>
+          <a href="Decor Contact.fr.dc.html" class="ft-link">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; color:rgba(255,255,255,.7); margin-bottom:20px;">PARTENAIRES</div>
+        <div style="display:flex; flex-direction:column; gap:13px; font-size:14px;">
+          <a href="Decor Become a Dealer.fr.dc.html" class="ft-link">Devenir revendeur</a>
+          <a href="Decor Contact.fr.dc.html" class="ft-link">OEM</a>
+          <a href="Decor Contact.fr.dc.html" class="ft-link">Fabrication en marque privée</a>
+          <a href="Decor Contact.fr.dc.html" class="ft-link">Demander un échantillon</a>
+          <a href="Decor Support.fr.dc.html#downloads" class="ft-link">Supports marketing</a>
+          <a href="Decor Contact.fr.dc.html" class="ft-link">Équipe export</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ⑦ COMPANY METRICS — INDUSTRIAL DASHBOARD ===== -->
+    <div style="padding:38px 0 8px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.5); margin-bottom:18px;">L'ENTREPRISE · EN CHIFFRES</div>
+      <div class="ft-metrics" style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px;">
+        <div class="ft-metric">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.4px; color:rgba(0,149,218,.85); margin-bottom:10px;">M-01 · PORTÉE</div>
+          <div style="font-size:30px; font-weight:900; color:#fff; letter-spacing:-0.03em; line-height:1;">60</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#D32027; margin-top:6px;">PAYS</div>
+        </div>
+        <div class="ft-metric">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.4px; color:rgba(0,149,218,.85); margin-bottom:10px;">M-02 · CATALOGUE</div>
+          <div style="font-size:30px; font-weight:900; color:#fff; letter-spacing:-0.03em; line-height:1;">400+</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#D32027; margin-top:6px;">PRODUITS</div>
+        </div>
+        <div class="ft-metric">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.4px; color:rgba(0,149,218,.85); margin-bottom:10px;">M-03 · USINE</div>
+          <div style="font-size:30px; font-weight:900; color:#fff; letter-spacing:-0.03em; line-height:1;">21.000 m²</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#D32027; margin-top:6px;">SURFACE DE PRODUCTION</div>
+        </div>
+        <div class="ft-metric">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.4px; color:rgba(0,149,218,.85); margin-bottom:10px;">M-04 · QUALITÉ</div>
+          <div style="font-size:30px; font-weight:900; color:#fff; letter-spacing:-0.03em; line-height:1;">ISO 9001</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#D32027; margin-top:6px;">CERTIFIÉ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ⑧ SOCIAL + ⑨ LIVE STATUS ===== -->
+    <div style="display:grid; grid-template-columns:1fr; gap:18px; padding:38px 0 30px;">
+
+      <!-- Social media -->
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.5); margin-bottom:16px;">SUIVRE DEKOR</div>
+        <div class="ft-socials" style="display:grid; grid-template-columns:repeat(4,minmax(0,260px)); gap:14px;">
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="ft-social">
+            <span class="ft-sico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8.5h4V24h-4V8.5Zm7 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4.03 0 4.78 2.65 4.78 6.1V24h-4v-6.8c0-1.62-.03-3.7-2.25-3.7-2.26 0-2.6 1.76-2.6 3.58V24h-4V8.5Z"/></svg></span>
+            <span><span style="display:block; font-weight:700; font-size:14px;">LinkedIn</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.5);">PAGE ENTREPRISE</span></span>
+          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener" class="ft-social">
+            <span class="ft-sico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+            <span><span style="display:block; font-weight:700; font-size:14px;">Instagram</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.5);">@DEKORTOOLS</span></span>
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" class="ft-social">
+            <span class="ft-sico"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-4.5 31 31 0 0 0-.4-4.5ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></span>
+            <span><span style="display:block; font-weight:700; font-size:14px;">YouTube</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.5);">VIDÉOS PRODUITS</span></span>
+          </a>
+          <a href="https://www.tiktok.com/@dekortoolsofficial" target="_blank" rel="noopener" class="ft-social">
+            <span class="ft-sico"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.1v13.6a2.6 2.6 0 1 1-2.6-2.6c.27 0 .53.04.78.12V9.9a5.9 5.9 0 0 0-.78-.05 5.7 5.7 0 1 0 5.7 5.7V8.6a7.3 7.3 0 0 0 4.3 1.38V6.83a4.27 4.27 0 0 1-2.94-1.2A4.27 4.27 0 0 1 16.5 2.7V2Z"/></svg></span>
+            <span><span style="display:block; font-weight:700; font-size:14px;">TikTok</span><span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.5);">@DEKORTOOLSOFFICIAL</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Live status — industrial monitoring strip -->
+      <div style="border:1px solid rgba(255,255,255,.1); border-radius:2px; background:rgba(255,255,255,.012); overflow:hidden; margin-top:8px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 22px; border-bottom:1px solid rgba(255,255,255,.08);">
+          <span style="display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.66);"><span class="ft-dot" style="width:7px; height:7px; border-radius:50%; background:#3ddc84; box-shadow:0 0 8px rgba(61,220,132,.7);"></span>ÉTAT DU SYSTÈME · SURVEILLANCE EN DIRECT</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.4);">DISPONIBILITÉ 99,9 % · GMT+3</span>
+        </div>
+        <div class="ft-statwrap" style="display:flex;">
+          <div class="ft-statcell">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">USINE</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:1px; color:#fff;"><span class="ft-dot" style="width:8px; height:8px; border-radius:50%; background:#0095DA; box-shadow:0 0 9px rgba(0,149,218,.85);"></span>EN LIGNE</span>
+          </div>
+          <div class="ft-statcell">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">EXPORT</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:1px; color:#fff;"><span class="ft-dot" style="width:8px; height:8px; border-radius:50%; background:#0095DA; box-shadow:0 0 9px rgba(0,149,218,.85); animation-delay:.5s;"></span>ACTIF</span>
+          </div>
+          <div class="ft-statcell">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">SUPPORT</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:1px; color:#fff;"><span class="ft-dot" style="width:8px; height:8px; border-radius:50%; background:#0095DA; box-shadow:0 0 9px rgba(0,149,218,.85); animation-delay:1s;"></span>OUVERT</span>
+          </div>
+          <div class="ft-statcell">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.55);">RÉSEAU DE REVENDEURS</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:1px; color:#fff;"><span class="ft-dot" style="width:8px; height:8px; border-radius:50%; background:#0095DA; box-shadow:0 0 9px rgba(0,149,218,.85); animation-delay:1.5s;"></span>OUVERT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ⑩ LEGAL BAR ===== -->
+    <div class="ft-legal-bar" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; padding-top:26px; border-top:1px solid rgba(255,255,255,.08);">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:rgba(255,255,255,.6);">© 1964–2026 DEKOR · HASSAN GROUP</span>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:26px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px;">
+        <a href="Decor Privacy.fr.dc.html" class="ft-legal">CONFIDENTIALITÉ</a>
+        <a href="Decor Cookies.fr.dc.html" class="ft-legal">COOKIES</a>
+        <a href="Decor Terms.fr.dc.html" class="ft-legal">CONDITIONS D'UTILISATION</a>
+        <a href="Decor Sitemap.fr.dc.html" class="ft-legal">PLAN DU SITE</a>
+      </div>
+    </div>
+
+    <!-- ===== ⑪ CREDITS ===== -->
+    <div class="ft-credits" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 26px; padding-top:22px; margin-top:22px; border-top:1px solid rgba(255,255,255,.06);">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:rgba(255,255,255,.5);">© 2026 Dekor Tools. Tous droits réservés.</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1px; color:rgba(255,255,255,.4); text-align:center;">Fondé en 1964&nbsp;&nbsp;•&nbsp;&nbsp;Fabriqué en Turquie&nbsp;&nbsp;•&nbsp;&nbsp;Exporté dans plus de 60 pays</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1px; color:rgba(255,255,255,.4);">Conception et développement : <a href="https://www.agencybuz.com/" target="_blank" rel="noopener noreferrer" class="ft-credit-link" style="color:rgba(255,255,255,.66);">Buz Agency</a></span>
+    </div>
+  </div>
+</footer>
+
+<dc-import name="Decor Cookie Consent.fr" hint-size="0,0"></dc-import>
+
+</div>
+</x-dc>
+</body>
+</html>

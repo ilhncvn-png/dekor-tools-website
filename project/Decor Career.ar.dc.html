@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#0095DA;color:#fff;}
+  a{text-decoration:none;color:inherit;}
+  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrSpinSlow{to{transform:rotate(360deg)}}
+  @keyframes wizIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes wizPop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 18s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .des-atmos{position:absolute;width:150%;height:150%;left:-25%;top:-25%;background:conic-gradient(from 0deg,transparent,rgba(0,149,218,.04),transparent 42%,rgba(0,149,218,.028),transparent 74%);animation:dkrSpinSlow 72s linear infinite;pointer-events:none;z-index:0;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.des-atmos,.wiz-panel,.wiz-success{animation:none !important;}.bp-scan{opacity:0 !important;}}
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,border-color .3s,filter .2s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;border-color:#fff;}
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
+  .val-card{transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease;}
+  .val-card:hover{transform:translateY(-6px);border-color:#0095DA !important;}
+  .job-row{transition:background .3s ease,border-color .3s ease;}
+  .job-row:hover{background:rgba(255,255,255,.03);border-color:rgba(0,149,218,.5) !important;}
+  .job-row:hover .job-arrow{transform:translateX(5px);color:#0095DA;}
+  .job-arrow{transition:transform .3s ease,color .3s ease;}
+  /* recruitment wizard */
+  .wiz-panel{animation:wizIn .45s cubic-bezier(.2,.7,.2,1);}
+  .wiz-success{animation:wizPop .6s cubic-bezier(.2,.8,.2,1);}
+  .wiz-input,.wiz-select,.wiz-area{width:100%;font-family:'Archivo',sans-serif;font-size:15px;color:#fff;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.14);border-radius:3px;padding:13px 14px;outline:none;transition:border-color .25s ease,box-shadow .25s ease,background .25s ease;}
+  .wiz-input::placeholder,.wiz-area::placeholder{color:rgba(255,255,255,.32);}
+  .wiz-input:focus,.wiz-select:focus,.wiz-area:focus{border-color:#0095DA;box-shadow:0 0 0 4px rgba(0,149,218,.14);background:rgba(255,255,255,.05);}
+  .wiz-select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,rgba(255,255,255,.5) 50%),linear-gradient(135deg,rgba(255,255,255,.5) 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 12px) 19px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;}
+  .wiz-select option{background:#16181b;color:#fff;}
+  .wiz-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.4px;color:rgba(255,255,255,.5);margin-bottom:8px;display:block;}
+  .wiz-chip{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.5px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.03);color:rgba(255,255,255,.75);cursor:pointer;transition:background .22s ease,border-color .22s ease,color .22s ease,transform .22s ease;}
+  .wiz-chip:hover{border-color:rgba(0,149,218,.6);color:#fff;transform:translateY(-2px);}
+  .wiz-chip.on{background:#0095DA;border-color:#0095DA;color:#fff;}
+  .wiz-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;border:2px solid rgba(255,255,255,.18);color:rgba(255,255,255,.5);background:#0E0F11;transition:border-color .3s ease,color .3s ease,background .3s ease,box-shadow .3s ease;flex:0 0 auto;}
+  .wiz-step.active .wiz-dot{border-color:#0095DA;color:#fff;box-shadow:0 0 0 5px rgba(0,149,218,.16);}
+  .wiz-step.done .wiz-dot{border-color:#0095DA;background:#0095DA;color:#fff;}
+  .wiz-step.done,.wiz-step.active{cursor:pointer;}
+  .wiz-steplabel{transition:color .3s ease;}
+  .wiz-step.active .wiz-steplabel,.wiz-step.done .wiz-steplabel{color:#fff;}
+  .wiz-conn{flex:1;height:2px;background:rgba(255,255,255,.12);position:relative;overflow:hidden;}
+  .wiz-conn-fill{position:absolute;inset:0;background:#0095DA;transform-origin:left;transition:transform .5s ease;}
+  .wiz-drop{border:1.5px dashed rgba(255,255,255,.22);border-radius:4px;padding:26px 22px;text-align:center;cursor:pointer;transition:border-color .25s ease,background .25s ease;}
+  .wiz-drop:hover{border-color:#0095DA;background:rgba(0,149,218,.05);}
+  .wiz-drop.filled{border-color:#0095DA;border-style:solid;background:rgba(0,149,218,.06);}
+  .wiz-drop.drag{border-color:#0095DA;background:rgba(0,149,218,.12);}
+  .entry-card{border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:22px;background:rgba(255,255,255,.02);transition:border-color .3s ease;}
+  .entry-card:hover{border-color:rgba(255,255,255,.18);}
+  .icon-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-radius:3px;cursor:pointer;transition:all .25s ease;font-family:'IBM Plex Mono',monospace;}
+  .icon-btn:hover{border-color:#0095DA;color:#fff;background:rgba(0,149,218,.1);}
+  .rev-edit{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#0095DA;cursor:pointer;transition:color .2s ease;}
+  .rev-edit:hover{color:#0095DA;}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
+  @media(max-width:860px){.val-grid{grid-template-columns:1fr !important;}}
+  @media(max-width:720px){.wiz-2col{grid-template-columns:1fr !important;}.wiz-steplabel{display:none;}.wiz-dot{width:34px;height:34px;font-size:12px;}}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-ctas{flex-direction:column !important;}
+    .hero-ctas > a{width:100% !important;text-align:center !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    img,svg,video{max-width:100%;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    .hero-docmark{display:none !important;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; color:#0E0F11; overflow-x:hidden;">
+
+<!-- NAV -->
+<dc-import name="Decor Header.ar"
+  trHref="Decor Career.dc.html"
+  enHref="Decor Career.en.dc.html"
+  deHref="Decor Career.de.dc.html"
+  frHref="Decor Career.fr.dc.html"
+  ruHref="Decor Career.ru.dc.html"
+  azHref="Decor Career.az.dc.html"
+  dynamicNav="{{ false }}" staticNav="{{ true }}"
+  navPaddingStatic="20px 0"
+  navBgStatic="rgba(12,13,15,.9)"
+  logoHeightStatic="62"
+  logoHref="Decor Home.ar.dc.html"
+  supportFull="{{ false }}" supportReduced="{{ true }}"
+  activeProducts="rgba(255,255,255,.7)"
+  activeManufacturing="rgba(255,255,255,.7)"
+  activeExport="rgba(255,255,255,.7)"
+  activeSales="rgba(255,255,255,.7)"
+  activeNewsroom="rgba(255,255,255,.7)"
+  activeAbout="#fff"
+  activeSupport="rgba(255,255,255,.7)"
+  activeContact="rgba(255,255,255,.7)"
+  activeCareerItem="#fff"
+  menu="{{ menu }}"
+  toggleMenu="{{ toggleMenu }}"
+></dc-import>
+<dc-import name="Decor Search.ar" hint-size="0,0"></dc-import>
+
+<sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+  <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.98); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-langs">
+      <a href="Decor Career.dc.html" class="mnav-lang">TR</a>
+      <a href="Decor Career.en.dc.html" class="mnav-lang">EN</a>
+      <a href="Decor Career.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Career.fr.dc.html" class="mnav-lang">FR</a>
+      <a href="Decor Career.ru.dc.html" class="mnav-lang">RU</a>
+      <a href="Decor Career.az.dc.html" class="mnav-lang">AZ</a>
+      <span class="mnav-lang mnav-lang-active">AR</span>
+    </div>
+    <a href="Decor Become a Dealer.ar.dc.html" onClick="{{ toggleMenu }}" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">كن موزعًا</a>
+  </div>
+</sc-if>
+
+<!-- HERO -->
+<header style="position:relative; min-height:min(82vh,760px); display:flex; align-items:center; padding:clamp(140px,16vw,180px) clamp(20px,5vw,64px) clamp(70px,9vw,110px); background:radial-gradient(130% 110% at 80% -10%, #2b2f34 0%, #16181b 46%, #0b0c0e 100%); overflow:hidden;">
+  <div class="des-atmos"></div>
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:radial-gradient(120% 100% at 40% 30%,#000 40%,transparent 90%); mask-image:radial-gradient(120% 100% at 40% 30%,#000 40%,transparent 90%);"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="top:30%; left:64%;"></div>
+  <div class="bp-glint" style="top:66%; left:34%; animation-delay:2s;"></div>
+  <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1000px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
+  <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto; width:100%;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.ar.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">الرئيسية</a> &nbsp;/&nbsp; <span style="color:#D32027;">الوظائف</span></div>
+    <div style="display:inline-flex; align-items:center; gap:12px; margin-top:28px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>الوظائف في ديكور</div>
+    <h1 style="font-size:clamp(44px,7.5vw,98px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.9; margin:18px 0 0; max-width:900px; text-wrap:balance;">اصنع الأدوات التي يثق بها المحترفون<span style="color:#0095DA;">.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">انضم إلى الفريق الذي يقف وراء أكبر مصنّع للأدوات اليدوية المهنية في تركيا — الهندسة والإنتاج والبحث والتطوير والتجارة العالمية.</p>
+    <div class="hero-ctas" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:44px;">
+      <a href="#apply" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">ابدأ طلبك →</a>
+      <a href="#positions" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:16px 30px; font-weight:700; font-size:16px; border-radius:2px;">عرض الوظائف الشاغرة</a>
+    </div>
+  </div>
+</header>
+
+<!-- WHY JOIN -->
+<section style="background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="max-width:680px; margin-bottom:50px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>لماذا ديكور</div>
+      <h2 style="font-size:clamp(28px,3.8vw,48px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">عقلية ورشة عمل على نطاق صناعي.</h2>
+    </div>
+    <div class="val-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
+        <div data-reveal class="val-card" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:30px 28px 34px;">
+          <div style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ v.accent }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#C7CCD1; font-weight:600;">{{ v.num }}</div>
+          <h3 style="font-size:20px; font-weight:800; letter-spacing:-0.01em; color:#0E0F11; margin:16px 0 0;">{{ v.title }}</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5A6066; margin:12px 0 0;">{{ v.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN POSITIONS -->
+<section id="positions" style="position:relative; background:#0E0F11; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 80%); mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 80%);"></div>
+  <div class="bp-scan" style="animation-duration:20s;"></div>
+  <div style="position:relative; z-index:2; max-width:1080px; margin:0 auto;">
+    <div data-reveal style="margin-bottom:40px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>الوظائف الشاغرة</div>
+        <h2 style="font-size:clamp(28px,3.8vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:16px 0 0;">أين نقوم بالتوظيف.</h2>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:rgba(255,255,255,.45);">محدّث · يتم نشر الوظائف بانتظام</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="4">
+        <a href="#apply" onClick="{{ j.apply }}" data-reveal class="job-row" style="display:flex; align-items:center; justify-content:space-between; gap:20px; padding:26px 28px; border:1px solid rgba(255,255,255,.12); border-radius:3px; background:rgba(255,255,255,.015);">
+          <div style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA; min-width:64px;">{{ j.code }}</div>
+            <div>
+              <div style="font-size:19px; font-weight:800; letter-spacing:-0.01em; color:#fff;">{{ j.title }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.5); margin-top:6px;">{{ j.meta }}</div>
+            </div>
+          </div>
+          <span class="job-arrow" style="font-size:13px; font-family:'IBM Plex Mono',monospace; letter-spacing:1.5px; font-weight:600; color:rgba(255,255,255,.5);">تقدّم →</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APPLICATION WIZARD ===================== -->
+<section id="apply" style="position:relative; background:radial-gradient(120% 90% at 80% 0%, #1a1f24 0%, #121419 44%, #0b0c0e 100%); padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px) clamp(72px,10vw,128px); overflow:hidden;">
+  <div class="des-atmos"></div>
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:60px 60px; -webkit-mask-image:radial-gradient(120% 90% at 50% 10%,#000 30%,transparent 82%); mask-image:radial-gradient(120% 90% at 50% 10%,#000 30%,transparent 82%);"></div>
+  <div class="bp-scan" style="animation-duration:22s;"></div>
+  <div style="position:relative; z-index:2; max-width:980px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:clamp(34px,4vw,48px);">
+      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>الطلب · 6 خطوات</div>
+      <h2 style="font-size:clamp(28px,4vw,52px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:1; margin:16px 0 0;">قدّم طلبك للانضمام إلى ديكور.</h2>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div class="wiz-success" style="background:#16181b; border:1px solid rgba(255,255,255,.12); border-top:3px solid #0095DA; border-radius:5px; padding:clamp(36px,6vw,72px) clamp(24px,4vw,56px); text-align:center; box-shadow:0 40px 100px rgba(0,0,0,.5);">
+        <div style="width:84px; height:84px; margin:0 auto; border-radius:50%; background:rgba(0,149,218,.14); border:2px solid #0095DA; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:38px; height:38px;"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <h3 style="font-size:clamp(26px,3.4vw,40px); font-weight:900; letter-spacing:-0.03em; color:#fff; margin:26px 0 0;">تم إرسال طلبك.</h3>
+        <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.7); margin:14px auto 0; max-width:520px;">شكراً لك، {{ successName }}. تم استلام طلبك لوظيفة <span style="color:#fff; font-weight:700;">{{ successРosition }}</span>. سيقوم فريق المواهب لدينا بمراجعة كل ملف والتواصل معك خلال 5-7 أيام عمل.</p>
+        <div style="display:inline-flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:28px; padding:18px 26px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:4px;">
+          <div style="text-align:left;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.45);">الرقم المرجعي</div><div style="font-family:'IBM Plex Mono',monospace; font-size:15px; color:#0095DA; font-weight:600; margin-top:4px;">{{ refId }}</div></div>
+          <div style="width:1px; background:rgba(255,255,255,.12);"></div>
+          <div style="text-align:left;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.45);">الحالة</div><div style="font-family:'IBM Plex Mono',monospace; font-size:15px; color:#fff; font-weight:600; margin-top:4px;">تم الاستلام</div></div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.2px; color:rgba(255,255,255,.4); margin-top:22px;">تمت معالجة تأكيد لسجل طلبك.</div>
+        <div style="margin-top:30px;"><a href="Decor Home.ar.dc.html" class="dkr-btn dkr-btn-ghost" style="display:inline-block; border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:14px 28px; font-weight:700; font-size:15px; border-radius:2px;">العودة إلى ديكور</a></div>
+      </div>
+    </sc-if>
+
+    <!-- WIZARD -->
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#16181b; border:1px solid rgba(255,255,255,.1); border-radius:5px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.45);">
+        <!-- step indicator -->
+        <div style="padding:clamp(22px,3vw,32px) clamp(20px,3.4vw,40px) 0;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+              <div onClick="{{ s.go }}" class="{{ s.cls }}" style="display:flex; flex-direction:column; align-items:center; gap:9px; flex:0 0 auto;">
+                <div class="wiz-dot">{{ s.mark }}</div>
+                <div class="wiz-steplabel" style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4); white-space:nowrap;">{{ s.label }}</div>
+              </div>
+              <sc-if value="{{ s.hasConn }}" hint-placeholder-val="{{ true }}"><div class="wiz-conn" style="margin:0 4px 22px;"><div class="wiz-conn-fill" style="{{ s.connStyle }}"></div></div></sc-if>
+            </sc-for>
+          </div>
+          <!-- progress -->
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:18px;">
+            <div style="flex:1; height:6px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden;"><div style="{{ progressStyle }}"></div></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#fff; font-weight:600; flex:0 0 auto;">{{ progressPct }}%</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(255,255,255,.4);"><svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px; height:13px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><path d="M17 21v-8H7v8M7 3v5h8"></path></svg>{{ saveNote }}</div>
+        </div>
+
+        <div style="padding:clamp(26px,3.6vw,40px); border-top:1px solid rgba(255,255,255,.08); margin-top:24px;">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">الخطوة {{ step }} / 6</div>
+          <h3 style="font-size:clamp(22px,2.8vw,30px); font-weight:800; letter-spacing:-0.02em; color:#fff; margin:8px 0 4px;">{{ stepTitle }}</h3>
+          <p style="font-size:14px; color:rgba(255,255,255,.55); margin:0 0 26px;">{{ stepHint }}</p>
+
+          <!-- STEP 1 — PERSONAL -->
+          <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+            <div class="wiz-panel">
+              <div class="wiz-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+                <div><label class="wiz-label">الاسم الأول *</label><input class="wiz-input" type="text" placeholder="Ayşe" value="{{ f.firstName }}" onInput="{{ on.firstName }}"></div>
+                <div><label class="wiz-label">اسم العائلة *</label><input class="wiz-input" type="text" placeholder="Yılmaz" value="{{ f.lastName }}" onInput="{{ on.lastName }}"></div>
+                <div><label class="wiz-label">البريد الإلكتروني *</label><input class="wiz-input" type="email" placeholder="ayse@eposta.com" value="{{ f.email }}" onInput="{{ on.email }}"></div>
+                <div><label class="wiz-label">الهاتف *</label><input class="wiz-input" type="tel" placeholder="+90 5xx xxx xx xx" value="{{ f.phone }}" onInput="{{ on.phone }}"></div>
+                <div><label class="wiz-label">الموقع *</label><input class="wiz-input" type="text" placeholder="İstanbul, Türkiye" value="{{ f.location }}" onInput="{{ on.location }}"></div>
+                <div><label class="wiz-label">الوظيفة المتقدَّم لها *</label><select class="wiz-select" value="{{ f.position }}" onChange="{{ on.position }}"><sc-for list="{{ positionOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for></select></div>
+              </div>
+              <div style="margin-top:18px;"><label class="wiz-label">رابط LINKEDIN / معرض الأعمال</label><input class="wiz-input" type="url" placeholder="https://linkedin.com/in/…" value="{{ f.linkedin }}" onInput="{{ on.linkedin }}"></div>
+            </div>
+          </sc-if>
+
+          <!-- STEP 2 — EDUCATION -->
+          <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+            <div class="wiz-panel" style="display:flex; flex-direction:column; gap:16px;">
+              <sc-for list="{{ eduRows }}" as="e" hint-placeholder-count="1">
+                <div class="entry-card">
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">التعليم {{ e.idx }}</div><sc-if value="{{ e.canRemove }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ e.remove }}" class="icon-btn" style="font-size:10px; letter-spacing:1px; padding:6px 11px;">إزالة</button></sc-if></div>
+                  <div class="wiz-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div><label class="wiz-label">المدرسة / الجامعة *</label><input class="wiz-input" type="text" placeholder="İstanbul Teknik Üniversitesi" value="{{ e.school }}" onInput="{{ e.onSchool }}"></div>
+                    <div><label class="wiz-label">الدرجة العلمية *</label><select class="wiz-select" value="{{ e.degree }}" onChange="{{ e.onDegree }}"><sc-for list="{{ degreeOpts }}" as="d" hint-placeholder-count="5"><option value="{{ d }}">{{ d }}</option></sc-for></select></div>
+                    <div><label class="wiz-label">التخصص</label><input class="wiz-input" type="text" placeholder="هندسة ميكانيكية" value="{{ e.field }}" onInput="{{ e.onField }}"></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;"><div><label class="wiz-label">البداية</label><input class="wiz-input" type="text" placeholder="2016" value="{{ e.start }}" onInput="{{ e.onStart }}"></div><div><label class="wiz-label">النهاية</label><input class="wiz-input" type="text" placeholder="2020" value="{{ e.end }}" onInput="{{ e.onEnd }}"></div></div>
+                  </div>
+                </div>
+              </sc-for>
+              <button type="button" onClick="{{ addEdu }}" class="icon-btn" style="align-self:flex-start; font-size:12px; letter-spacing:1px; padding:12px 20px; display:inline-flex; align-items:center; gap:9px;"><span style="font-size:16px; line-height:1;">+</span> إضافة مؤهل تعليمي</button>
+            </div>
+          </sc-if>
+
+          <!-- STEP 3 — EXPERIENCE -->
+          <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+            <div class="wiz-panel" style="display:flex; flex-direction:column; gap:16px;">
+              <sc-for list="{{ expRows }}" as="x" hint-placeholder-count="1">
+                <div class="entry-card">
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">الخبرة {{ x.idx }}</div><sc-if value="{{ x.canRemove }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ x.remove }}" class="icon-btn" style="font-size:10px; letter-spacing:1px; padding:6px 11px;">إزالة</button></sc-if></div>
+                  <div class="wiz-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div><label class="wiz-label">الشركة *</label><input class="wiz-input" type="text" placeholder="اسم الشركة" value="{{ x.company }}" onInput="{{ x.onCompany }}"></div>
+                    <div><label class="wiz-label">المسمى الوظيفي *</label><input class="wiz-input" type="text" placeholder="مهندس تصميم" value="{{ x.role }}" onInput="{{ x.onRole }}"></div>
+                    <div><label class="wiz-label">البداية</label><input class="wiz-input" type="text" placeholder="2020" value="{{ x.start }}" onInput="{{ x.onStart }}"></div>
+                    <div><label class="wiz-label">النهاية</label><input class="wiz-input" type="text" placeholder="2023 أو حتى الآن" value="{{ x.end }}" onInput="{{ x.onEnd }}"></div>
+                  </div>
+                  <div style="margin-top:16px;"><label class="wiz-label">ماذا فعلت</label><textarea class="wiz-area" rows="3" placeholder="المسؤوليات والإنجازات الرئيسية…" onInput="{{ x.onSummary }}">{{ x.summary }}</textarea></div>
+                </div>
+              </sc-for>
+              <button type="button" onClick="{{ addExp }}" class="icon-btn" style="align-self:flex-start; font-size:12px; letter-spacing:1px; padding:12px 20px; display:inline-flex; align-items:center; gap:9px;"><span style="font-size:16px; line-height:1;">+</span> إضافة خبرة</button>
+            </div>
+          </sc-if>
+
+          <!-- STEP 4 — SKILLS & LANGUAGES -->
+          <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+            <div class="wiz-panel">
+              <label class="wiz-label">اختر مهاراتك * <span style="color:rgba(255,255,255,.3);">(تم اختيار {{ skillCount }})</span></label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;">
+                <sc-for list="{{ skillChips }}" as="c" hint-placeholder-count="16"><button type="button" onClick="{{ c.toggle }}" class="{{ c.cls }}">{{ c.label }}</button></sc-for>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,.08); margin:28px 0;"></div>
+              <label class="wiz-label">اللغات *</label>
+              <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+                <sc-for list="{{ langRows }}" as="l" hint-placeholder-count="1">
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input class="wiz-input" type="text" placeholder="اللغة (مثال: الإنجليزية)" value="{{ l.lang }}" onInput="{{ l.onLang }}" style="flex:1.4;">
+                    <select class="wiz-select" value="{{ l.level }}" onChange="{{ l.onLevel }}" style="flex:1;"><sc-for list="{{ levelOpts }}" as="lv" hint-placeholder-count="5"><option value="{{ lv }}">{{ lv }}</option></sc-for></select>
+                    <sc-if value="{{ l.canRemove }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ l.remove }}" class="icon-btn" style="font-size:14px; padding:11px 14px; flex:0 0 auto;">×</button></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <button type="button" onClick="{{ addLang }}" class="icon-btn" style="margin-top:14px; font-size:12px; letter-spacing:1px; padding:11px 18px; display:inline-flex; align-items:center; gap:9px;"><span style="font-size:16px; line-height:1;">+</span> إضافة لغة</button>
+            </div>
+          </sc-if>
+
+          <!-- STEP 5 — DOCUMENTS -->
+          <sc-if value="{{ isStep5 }}" hint-placeholder-val="{{ false }}">
+            <div class="wiz-panel">
+              <div class="wiz-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <sc-for list="{{ docZones }}" as="d" hint-placeholder-count="4">
+                  <div>
+                    <label class="wiz-label">{{ d.label }}</label>
+                    <div class="{{ d.cls }}" onClick="{{ d.pick }}" onDrop="{{ d.onDrop }}" onDragOver="{{ d.onDragOver }}" onDragLeave="{{ d.onDragLeave }}">
+                      <sc-if value="{{ d.empty }}" hint-placeholder-val="{{ true }}">
+                        <div><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; margin:0 auto;"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path></svg><div style="font-size:13.5px; color:#fff; font-weight:600; margin-top:10px;">{{ d.cta }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.4); margin-top:6px;">{{ d.hint }}</div></div>
+                      </sc-if>
+                      <sc-if value="{{ d.filled }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; align-items:center; gap:12px; justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px; flex:0 0 auto;"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg><div style="min-width:0;"><div style="font-size:13px; color:#fff; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ d.filename }}</div><div onClick="{{ d.clear }}" style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:#0095DA; margin-top:4px; cursor:pointer;">إزالة</div></div></div>
+                      </sc-if>
+                    </div>
+                    <input type="file" id="{{ d.inputId }}" onChange="{{ d.onInput }}" style="display:none;" accept="{{ d.accept }}">
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(255,255,255,.4); margin-top:18px;">السيرة الذاتية مطلوبة. الصيغ المقبولة: PDF, DOC, DOCX, PNG, JPG · بحد أقصى 10 ميجابايت لكل ملف.</div>
+            </div>
+          </sc-if>
+
+          <!-- STEP 6 — REVIEW -->
+          <sc-if value="{{ isStep6 }}" hint-placeholder-val="{{ false }}">
+            <div class="wiz-panel" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="entry-card">
+                <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">البيانات الشخصية</div><span onClick="{{ goStep1 }}" class="rev-edit">تعديل</span></div>
+                <div style="font-size:18px; font-weight:800; color:#fff; margin-top:12px;">{{ rev.name }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(255,255,255,.6); margin-top:6px; line-height:1.7;">{{ rev.contact }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0095DA; margin-top:8px;">الوظيفة المتقدَّم لها · {{ rev.position }}</div>
+              </div>
+              <div class="entry-card">
+                <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">التعليم</div><span onClick="{{ goStep2 }}" class="rev-edit">تعديل</span></div>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;"><sc-for list="{{ rev.education }}" as="r" hint-placeholder-count="1"><div style="font-size:14px; color:rgba(255,255,255,.85);"><span style="font-weight:700; color:#fff;">{{ r.title }}</span><span style="color:rgba(255,255,255,.5);"> · {{ r.meta }}</span></div></sc-for></div>
+              </div>
+              <div class="entry-card">
+                <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">الخبرة</div><span onClick="{{ goStep3 }}" class="rev-edit">تعديل</span></div>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;"><sc-for list="{{ rev.experience }}" as="r" hint-placeholder-count="1"><div style="font-size:14px; color:rgba(255,255,255,.85);"><span style="font-weight:700; color:#fff;">{{ r.title }}</span><span style="color:rgba(255,255,255,.5);"> · {{ r.meta }}</span></div></sc-for></div>
+              </div>
+              <div class="entry-card">
+                <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">المهارات واللغات</div><span onClick="{{ goStep4 }}" class="rev-edit">تعديل</span></div>
+                <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:12px;"><sc-for list="{{ rev.skills }}" as="s" hint-placeholder-count="4"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#fff; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:5px 12px;">{{ s }}</span></sc-for></div>
+                <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:14px;"><sc-for list="{{ rev.languages }}" as="l" hint-placeholder-count="1"><div style="font-size:13px; color:rgba(255,255,255,.85);">{{ l.lang }} <span class="lvl-pill">{{ l.level }}</span></div></sc-for></div>
+              </div>
+              <div class="entry-card">
+                <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#0095DA;">المستندات</div><span onClick="{{ goStep5 }}" class="rev-edit">تعديل</span></div>
+                <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;"><sc-for list="{{ rev.docs }}" as="d" hint-placeholder-count="1"><div style="font-size:13px; color:rgba(255,255,255,.8); display:flex; gap:10px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,.45); min-width:120px;">{{ d.label }}</span><span style="color:#fff;">{{ d.value }}</span></div></sc-for></div>
+              </div>
+              <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer; padding:4px 2px;"><input type="checkbox" checked="{{ consent }}" onChange="{{ onConsent }}" style="width:18px; height:18px; accent-color:#0095DA; margin-top:2px; flex:0 0 auto;"><span style="font-size:13px; line-height:1.5; color:rgba(255,255,255,.7);">أقر بأن المعلومات التي قدمتها صحيحة، وأوافق على معالجة ديكور لبياناتي لأغراض التوظيف.</span></label>
+            </div>
+          </sc-if>
+
+          <!-- error -->
+          <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px; padding:13px 16px; background:rgba(0,149,218,.1); border:1px solid rgba(0,149,218,.4); border-radius:3px; font-size:13px; color:#ff9a93; display:flex; align-items:center; gap:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px; height:16px; flex:0 0 auto;"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg>{{ errorMsg }}</div>
+          </sc-if>
+
+          <!-- nav -->
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:30px; padding-top:24px; border-top:1px solid rgba(255,255,255,.08);">
+            <sc-if value="{{ canPrev }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ prev }}" class="dkr-btn" style="background:transparent; border:1.5px solid rgba(255,255,255,.3); color:#fff; padding:14px 24px; font-weight:700; font-size:14px; border-radius:2px; cursor:pointer; font-family:inherit;">← السابق</button></sc-if>
+            <sc-if value="{{ noPrev }}" hint-placeholder-val="{{ true }}"><span></span></sc-if>
+            <sc-if value="{{ isLast }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ submit }}" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; border:none; padding:15px 32px; font-weight:700; font-size:15px; border-radius:2px; cursor:pointer; font-family:inherit; box-shadow:0 12px 30px rgba(0,149,218,.4);">إرسال الطلب →</button></sc-if>
+            <sc-if value="{{ notLast }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ next }}" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; border:none; padding:15px 30px; font-weight:700; font-size:15px; border-radius:2px; cursor:pointer; font-family:inherit;">متابعة →</button></sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<dc-import name="Decor Footer.ar" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(p){
+    super(p);
+    this.LS = 'dekorApplication_v1';
+    this.state = {
+      menu:false, step:1, submitted:false, refId:'', consent:false, dragKey:'', error:'', saveNote:'تم حفظ التقدم تلقائياً',
+      data: {
+        personal:{ firstName:'', lastName:'', email:'', phone:'', location:'', position:'طلب مفتوح', linkedin:'' },
+        education:[{ school:'', degree:'بكالوريوس', field:'', start:'', end:'' }],
+        experience:[{ company:'', role:'', start:'', end:'', summary:'' }],
+        skills:[],
+        languages:[{ lang:'', level:'اللغة الأم' }],
+        docs:{ cv:'', portfolio:'', certificates:'', coverLetter:'' },
+      },
+    };
+  }
+
+  componentDidMount(){
+    // restore saved progress
+    try{
+      const raw = window.localStorage.getItem(this.LS);
+      if(raw){ const s = JSON.parse(raw); if(s && s.data){ this.setState({ data: Object.assign(this.state.data, s.data), step: s.step || 1 }); } }
+    }catch(e){}
+    const reveal = (el)=>{ el.classList.add('in'); };
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    }
+    const check = ()=>{ const vh=window.innerHeight||800; document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.top<vh*0.92&&r.bottom>0) reveal(el); }); };
+    this._check=check; window.addEventListener('scroll',check,{passive:true,capture:true}); window.addEventListener('resize',check,{passive:true});
+    requestAnimationFrame(check);
+    setTimeout(()=>{ document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); },2200);
+  }
+  componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
+
+  persist(){
+    try{ window.localStorage.setItem(this.LS, JSON.stringify({ data:this.state.data, step:this.state.step })); }catch(e){}
+    const t = new Date();
+    const hh = String(t.getHours()).padStart(2,'0'), mm = String(t.getMinutes()).padStart(2,'0');
+    this.setState({ saveNote:'تم الحفظ تلقائياً · ' + hh + ':' + mm });
+  }
+  commit(mut){ const d = JSON.parse(JSON.stringify(this.state.data)); mut(d); this.setState({ data:d, error:'' }, ()=>this.persist()); }
+
+  setP(k,v){ this.commit(d=>{ d.personal[k]=v; }); }
+  addEdu(){ this.commit(d=>{ d.education.push({ school:'', degree:'بكالوريوس', field:'', start:'', end:'' }); }); }
+  rmEdu(i){ this.commit(d=>{ d.education.splice(i,1); }); }
+  setEdu(i,k,v){ this.commit(d=>{ d.education[i][k]=v; }); }
+  addExp(){ this.commit(d=>{ d.experience.push({ company:'', role:'', start:'', end:'', summary:'' }); }); }
+  rmExp(i){ this.commit(d=>{ d.experience.splice(i,1); }); }
+  setExp(i,k,v){ this.commit(d=>{ d.experience[i][k]=v; }); }
+  toggleSkill(s){ this.commit(d=>{ const i=d.skills.indexOf(s); if(i>=0) d.skills.splice(i,1); else d.skills.push(s); }); }
+  addLang(){ this.commit(d=>{ d.languages.push({ lang:'', level:'محترف' }); }); }
+  rmLang(i){ this.commit(d=>{ d.languages.splice(i,1); }); }
+  setLang(i,k,v){ this.commit(d=>{ d.languages[i][k]=v; }); }
+  setDoc(k,v){ this.commit(d=>{ d.docs[k]=v; }); }
+
+  validate(step){
+    const d = this.state.data; const p = d.personal;
+    if(step===1){
+      if(!p.firstName.trim()||!p.lastName.trim()) return 'يرجى إدخال الاسم الأول واسم العائلة.';
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email.trim())) return 'يرجى إدخال عنوان بريد إلكتروني صالح.';
+      if(!p.phone.trim()) return 'يرجى إدخال رقم هاتفك.';
+      if(!p.location.trim()) return 'يرجى إدخال موقعك.';
+      if(!p.position) return 'يرجى اختيار وظيفة.';
+    }
+    if(step===2){ if(!d.education.some(e=>e.school.trim()&&e.degree)) return 'أضف سجلاً تعليمياً واحداً على الأقل يتضمن المدرسة والدرجة العلمية.'; }
+    if(step===3){ if(!d.experience.some(x=>x.company.trim()&&x.role.trim())) return 'أضف سجل خبرة واحداً على الأقل يتضمن الشركة والمسمى الوظيفي. (لأول وظيفة لك، أدرج مشروعك الأكثر صلة.)'; }
+    if(step===4){ if(d.skills.length<1) return 'اختر مهارة واحدة على الأقل.'; if(!d.languages.some(l=>l.lang.trim())) return 'أضف لغة واحدة على الأقل.'; }
+    if(step===5){ if(!d.docs.cv) return 'يرجى تحميل سيرتك الذاتية (إلزامي).'; }
+    return '';
+  }
+  next(){ const err = this.validate(this.state.step); if(err){ this.setState({ error:err }); return; } const ns = Math.min(6, this.state.step+1); this.setState({ step:ns, error:'' }, ()=>{ this.persist(); this._scrollTop(); }); }
+  prev(){ const ns = Math.max(1, this.state.step-1); this.setState({ step:ns, error:'' }, ()=>this._scrollTop()); }
+  goTo(n){ if(n<=this.state.step){ this.setState({ step:n, error:'' }, ()=>this._scrollTop()); } }
+  _scrollTop(){ const el = document.getElementById('apply'); if(el){ const y = el.getBoundingClientRect().top + (window.pageYOffset||0) - 70; window.scrollTo({ top:y, behavior:'smooth' }); } }
+  submit(){
+    for(let s=1;s<=5;s++){ const err=this.validate(s); if(err){ this.setState({ step:s, error:err }, ()=>this._scrollTop()); return; } }
+    if(!this.state.consent){ this.setState({ error:'يرجى تحديد مربع الموافقة للإرسال.' }); return; }
+    const ref = 'DKR-APP-' + Math.random().toString(36).slice(2,7).toUpperCase();
+    try{ window.localStorage.removeItem(this.LS); }catch(e){}
+    this.setState({ submitted:true, refId:ref, error:'' }, ()=>this._scrollTop());
+  }
+
+  _pick(id){ const el=document.getElementById(id); if(el) el.click(); }
+  _onFile(key,e){ const fs=e.target.files; if(fs&&fs[0]) this.setDoc(key, fs[0].name); }
+  _onDrop(key,e){ e.preventDefault(); const fs=e.dataTransfer&&e.dataTransfer.files; if(fs&&fs[0]) this.setDoc(key, fs[0].name); if(this.state.dragKey) this.setState({dragKey:''}); }
+  _dragOver(key,e){ e.preventDefault(); if(this.state.dragKey!==key) this.setState({dragKey:key}); }
+  _dragLeave(key,e){ if(this.state.dragKey===key) this.setState({dragKey:''}); }
+
+  renderVals(){
+    const red='#0095DA', blue='#0095DA', dark='#1A1C1F';
+    const values = [
+      { num:'01', title:'حرفية حقيقية', desc:'ما زلنا نفكر كالحرفيين الذين أتينا منهم — هنا، الجودة أمر شخصي.', accent:red },
+      { num:'02', title:'عمق هندسي', desc:'بحث وتطوير وعلم معادن وتشغيل CNC داخلي — حل المشكلات الصعبة بمعدات جادة.', accent:blue },
+      { num:'03', title:'وصول عالمي', desc:'عملك يصل إلى 60 دولة في أربع قارات.', accent:dark },
+    ];
+    const jobTitles = ['مهندس تصميم ميكانيكي','فني إنتاج CNC','أخصائي مبيعات التصدير','مهندس مراقبة الجودة'];
+    const jobs = [
+      { code:'ENG-01', title:'مهندس تصميم ميكانيكي', meta:'البحث والتطوير · Çayırova، Kocaeli · دوام كامل' },
+      { code:'PRD-02', title:'فني إنتاج CNC', meta:'الإنتاج · Çayırova، Kocaeli · دوام كامل' },
+      { code:'EXP-03', title:'أخصائي مبيعات التصدير', meta:'التجارة الدولية · إسطنبول · دوام كامل' },
+      { code:'QC-04', title:'مهندس مراقبة الجودة', meta:'الجودة · Çayırova، Kocaeli · دوام كامل' },
+    ].map(j=>({ ...j, apply:(e)=>{ this.commit(d=>{ d.personal.position=j.title; }); this.setState({ step:1, error:'' }); } }));
+
+    const d = this.state.data;
+    const step = this.state.step;
+    const stepDefs = [
+      { n:1, label:'شخصي', title:'البيانات الشخصية', hint:'أخبرنا من أنت وكيف يمكننا التواصل معك.' },
+      { n:2, label:'التعليم', title:'التعليم', hint:'أضف خلفيتك الأكاديمية — الأحدث أولاً.' },
+      { n:3, label:'الخبرة', title:'الخبرة المهنية', hint:'أدرج الأدوار ذات الصلة. أضف بقدر ما تحتاج.' },
+      { n:4, label:'المهارات', title:'المهارات واللغات', hint:'اختر مهاراتك واللغات التي تتحدثها.' },
+      { n:5, label:'المستندات', title:'المستندات ومعرض الأعمال', hint:'حمّل سيرتك الذاتية والمستندات الداعمة.' },
+      { n:6, label:'المراجعة', title:'المراجعة والإرسال', hint:'تحقق من صحة كل شيء قبل الإرسال.' },
+    ];
+    const steps = stepDefs.map((s,i)=>({
+      label:s.label,
+      mark: (s.n<step) ? '✓' : String(s.n),
+      cls: 'wiz-step ' + (s.n===step?'active':(s.n<step?'done':'')),
+      go: ()=>this.goTo(s.n),
+      hasConn: i<stepDefs.length-1,
+      connStyle: 'transform:scaleX(' + (s.n<step?1:0) + ')',
+    }));
+    const pct = Math.round((step/6)*100);
+
+    const positionOpts = ['طلب مفتوح', ...jobTitles, 'تدريب', 'أخرى'];
+    const degreeOpts = ['ثانوية عامة','دبلوم','بكالوريوس','ماجستير','دكتوراه','معهد مهني'];
+    const levelOpts = ['اللغة الأم','طلاقة','محترف','متوسط','مبتدئ'];
+    const SKILLS = ['CAD / SolidWorks','AutoCAD','تشغيل CNC','تصميم الأدوات','علم المعادن','GD&T','المعالجة الحرارية','قولبة الحقن','التصنيع الرشيق','Six Sigma','مراقبة الجودة','ISO 9001','تصميم المنتجات','البحث والتطوير','اللحام','إدارة المشاريع','سلسلة التوريد','مستندات التصدير','Incoterms','مبيعات B2B'];
+
+    const f = {
+      firstName:d.personal.firstName, lastName:d.personal.lastName, email:d.personal.email, phone:d.personal.phone, location:d.personal.location, position:d.personal.position, linkedin:d.personal.linkedin,
+    };
+    const on = {
+      firstName:(e)=>this.setP('firstName',e.target.value), lastName:(e)=>this.setP('lastName',e.target.value),
+      email:(e)=>this.setP('email',e.target.value), phone:(e)=>this.setP('phone',e.target.value),
+      location:(e)=>this.setP('location',e.target.value), position:(e)=>this.setP('position',e.target.value),
+      linkedin:(e)=>this.setP('linkedin',e.target.value),
+    };
+
+    const eduRows = d.education.map((e,i)=>({
+      idx:String(i+1).padStart(2,'0'), canRemove:d.education.length>1, remove:()=>this.rmEdu(i),
+      school:e.school, degree:e.degree, field:e.field, start:e.start, end:e.end,
+      onSchool:(ev)=>this.setEdu(i,'school',ev.target.value), onDegree:(ev)=>this.setEdu(i,'degree',ev.target.value),
+      onField:(ev)=>this.setEdu(i,'field',ev.target.value), onStart:(ev)=>this.setEdu(i,'start',ev.target.value), onEnd:(ev)=>this.setEdu(i,'end',ev.target.value),
+    }));
+    const expRows = d.experience.map((x,i)=>({
+      idx:String(i+1).padStart(2,'0'), canRemove:d.experience.length>1, remove:()=>this.rmExp(i),
+      company:x.company, role:x.role, start:x.start, end:x.end, summary:x.summary,
+      onCompany:(ev)=>this.setExp(i,'company',ev.target.value), onRole:(ev)=>this.setExp(i,'role',ev.target.value),
+      onStart:(ev)=>this.setExp(i,'start',ev.target.value), onEnd:(ev)=>this.setExp(i,'end',ev.target.value), onSummary:(ev)=>this.setExp(i,'summary',ev.target.value),
+    }));
+    const skillChips = SKILLS.map(s=>({ label:s, cls:'wiz-chip ' + (d.skills.indexOf(s)>=0?'on':''), toggle:()=>this.toggleSkill(s) }));
+    const langRows = d.languages.map((l,i)=>({
+      lang:l.lang, level:l.level, canRemove:d.languages.length>1, remove:()=>this.rmLang(i),
+      onLang:(ev)=>this.setLang(i,'lang',ev.target.value), onLevel:(ev)=>this.setLang(i,'level',ev.target.value),
+    }));
+
+    const docDefs = [
+      { key:'cv', label:'السيرة الذاتية *', cta:'اسحب سيرتك الذاتية هنا', hint:'أو اضغط للتصفح' },
+      { key:'portfolio', label:'معرض الأعمال', cta:'اسحب معرض أعمالك', hint:'مستند PDF أو رابط' },
+      { key:'certificates', label:'الشهادات', cta:'اسحب الشهادات', hint:'ISO، التدريب، الجوائز' },
+      { key:'coverLetter', label:'خطاب التقديم', cta:'اسحب خطاب التقديم', hint:'اختياري لكن يُنصح به' },
+    ];
+    const docZones = docDefs.map(z=>{
+      const fn = d.docs[z.key];
+      const dragging = this.state.dragKey===z.key;
+      return {
+        label:z.label, cta:z.cta, hint:z.hint, filename:fn, inputId:'file-'+z.key, accept:'.pdf,.doc,.docx,.png,.jpg,.jpeg',
+        empty: !fn, filled: !!fn,
+        cls: 'wiz-drop' + (fn?' filled':'') + (dragging?' drag':''),
+        pick: ()=>this._pick('file-'+z.key),
+        onInput: (e)=>this._onFile(z.key,e),
+        onDrop: (e)=>this._onDrop(z.key,e),
+        onDragOver: (e)=>this._dragOver(z.key,e),
+        onDragLeave: (e)=>this._dragLeave(z.key,e),
+        clear: (e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); this.setDoc(z.key,''); },
+      };
+    });
+
+    // review
+    const rev = {
+      name: (f.firstName+' '+f.lastName).trim() || '—',
+      contact: [f.email, f.phone, f.location].filter(Boolean).join('  ·  ') || '—',
+      position: f.position,
+      education: d.education.filter(e=>e.school.trim()).map(e=>({ title:e.degree + (e.field?', '+e.field:''), meta:[e.school, [e.start,e.end].filter(Boolean).join('–')].filter(Boolean).join(' · ') })),
+      experience: d.experience.filter(x=>x.company.trim()).map(x=>({ title:x.role||'دور', meta:[x.company, [x.start,x.end].filter(Boolean).join('–')].filter(Boolean).join(' · ') })),
+      skills: d.skills,
+      languages: d.languages.filter(l=>l.lang.trim()),
+      docs: docDefs.map(z=>({ label:z.label.replace(' *',''), value: d.docs[z.key] || 'لم يتم التوفير' })),
+    };
+    if(rev.education.length===0) rev.education=[{title:'—',meta:''}];
+    if(rev.experience.length===0) rev.experience=[{title:'—',meta:''}];
+    if(rev.skills.length===0) rev.skills=['—'];
+    if(rev.languages.length===0) rev.languages=[{lang:'—',level:''}];
+
+    return {
+      values, jobs, menu:this.state.menu, toggleMenu:()=>this.setState({ menu:!this.state.menu }),
+      submitted:this.state.submitted, notSubmitted:!this.state.submitted,
+      refId:this.state.refId, successName:f.firstName||'هناك', 'successРosition':f.position,
+      steps, step, progressPct:pct, progressStyle:'width:'+pct+'%; height:100%; background:#0095DA; transition:width .5s cubic-bezier(.2,.7,.2,1);',
+      saveNote:this.state.saveNote,
+      stepTitle:stepDefs[step-1].title, stepHint:stepDefs[step-1].hint,
+      isStep1:step===1, isStep2:step===2, isStep3:step===3, isStep4:step===4, isStep5:step===5, isStep6:step===6,
+      positionOpts, degreeOpts, levelOpts,
+      f, on, eduRows, expRows, skillChips, langRows, docZones, rev,
+      skillCount:d.skills.length,
+      addEdu:()=>this.addEdu(), addExp:()=>this.addExp(), addLang:()=>this.addLang(),
+      consent:this.state.consent, onConsent:(e)=>this.setState({ consent:e.target.checked, error:'' }),
+      hasError:!!this.state.error, errorMsg:this.state.error,
+      canPrev:step>1, noPrev:step<=1, isLast:step===6, notLast:step<6,
+      prev:()=>this.prev(), next:()=>this.next(), submit:()=>this.submit(),
+      goStep1:()=>this.goTo(1), goStep2:()=>this.goTo(2), goStep3:()=>this.goTo(3), goStep4:()=>this.goTo(4), goStep5:()=>this.goTo(5),
+    };
+  }
+}
+</script>
+</body>
+</html>

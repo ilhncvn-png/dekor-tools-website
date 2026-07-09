@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="uploads/decor_logo_color.png">
+<title>Support Center — Dekor</title>
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#0E0F11;}
+  ::selection{background:#0095DA;color:#fff;}
+  a{text-decoration:none;color:inherit;}
+  [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
+  @keyframes dkrBreathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes dkrScan{0%{transform:translateY(-8vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(108vh);opacity:0}}
+  @keyframes dkrTwinkle{0%,100%{opacity:.12;transform:scale(.8)}50%{opacity:.85;transform:scale(1)}}
+  @keyframes dkrDrift{0%{transform:translateY(0);opacity:0}15%{opacity:.7}85%{opacity:.7}100%{transform:translateY(-70px);opacity:0}}
+  .bp-live{animation:dkrBreathe 11s ease-in-out infinite;}
+  .bp-scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,149,218,.45),transparent);animation:dkrScan 16s linear infinite;pointer-events:none;z-index:1;}
+  .bp-glint{position:absolute;width:5px;height:5px;border-radius:50%;background:#0095DA;box-shadow:0 0 8px rgba(0,149,218,.8);animation:dkrTwinkle 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+  .bp-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,149,218,.6);animation:dkrDrift 9s linear infinite;pointer-events:none;z-index:1;}
+  @media(prefers-reduced-motion:reduce){.bp-live,.bp-scan,.bp-glint,.bp-particle{animation:none !important;}.bp-scan,.bp-particle{opacity:0 !important;}}
+  .dkr-nav{transition:background .4s ease,border-color .4s ease,box-shadow .4s ease;}
+  .dkr-nav.solid{background:rgba(12,13,15,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 10px 34px rgba(0,0,0,.35);padding-top:13px;padding-bottom:13px;}
+  .dkr-link{position:relative;transition:color .25s ease;}
+  .dkr-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#0095DA;transition:width .3s cubic-bezier(.2,.7,.2,1);}
+  .dkr-link:hover::after{width:100%;}
+  .dkr-link:hover{color:#fff;}
+  .dkr-link.active{color:#fff;}
+  .dkr-link.active::after{width:100%;}
+  .dkr-btn{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,color .3s,filter .2s;}
+  .dkr-btn:hover{transform:translateY(-3px);}
+  .dkr-btn-red:hover{box-shadow:0 14px 36px rgba(0,149,218,.5);filter:brightness(1.1);}
+  .dkr-btn-red:active{filter:brightness(0.85);}
+  .dkr-btn-red:focus-visible{box-shadow:0 0 0 3px rgba(0,149,218,.35);}
+  .dkr-btn-ghost:hover{background:#fff;color:#0E0F11;}
+  .nav-drop{position:relative;}
+  .nav-caret{display:inline-block;transition:transform .3s ease;}
+  .nav-drop:hover .nav-caret{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);min-width:248px;background:rgba(16,18,21,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-top:2px solid #0095DA;border-radius:2px;box-shadow:0 26px 64px rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),visibility .28s;padding:8px;z-index:60;}
+  .nav-drop::before{content:'';position:absolute;top:100%;left:0;right:0;height:22px;}
+  .nav-drop:hover .nav-drop-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(14px);}
+  .nav-drop-item{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:2px;transition:background .25s ease;}
+  .nav-drop-item:hover{background:rgba(255,255,255,.05);}
+  .nav-drop-item:hover .ndi-tick{width:16px;}
+  .nav-drop-item:hover .ndi-label{color:#fff;}
+  .ndi-tick{width:0;height:2px;background:#0095DA;transition:width .3s ease;flex:0 0 auto;}
+  @media(max-width:1180px){.dkr-navlinks{display:none !important;}.dkr-burger{display:flex !important;}}
+  @media(max-width:920px){.dkr-foot{grid-template-columns:1fr 1fr !important;}}
+  @media(max-width:780px){.dkr-foot{grid-template-columns:1fr !important;}}
+  /* search */
+  .sup-search{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:2px;color:#fff;font-family:'Archivo',sans-serif;font-size:16px;padding:20px 22px 20px 56px;outline:none;transition:border-color .3s ease,box-shadow .3s ease,background .3s ease;}
+  .sup-search::placeholder{color:rgba(255,255,255,.4);}
+  .sup-search:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.22);background:rgba(255,255,255,.07);}
+  /* popular searches */
+  .sup-pop{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.55);border-bottom:1px solid transparent;transition:color .25s ease,border-color .25s ease;padding-bottom:2px;}
+  .sup-pop:hover{color:#fff;border-color:#0095DA;}
+  /* quick category tiles */
+  .sup-tile{position:relative;display:block;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:26px 22px 22px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
+  .sup-tile:hover{transform:translateY(-8px);border-color:#0095DA;box-shadow:0 26px 60px rgba(14,15,17,.16);}
+  .sup-tile-acc{position:absolute;top:0;left:0;right:0;height:3px;background:#0095DA;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:3;}
+  [data-reveal].in .sup-tile-acc{transform:scaleX(1);}
+  .sup-tile-icon{color:#0E0F11;transition:color .4s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .sup-tile:hover .sup-tile-icon{color:#0095DA;transform:translateY(-3px);}
+  .sup-tile-arrow{transition:transform .35s cubic-bezier(.2,.7,.2,1);color:#8A9097;}
+  .sup-tile:hover .sup-tile-arrow{transform:translate(4px,-4px);color:#0095DA;}
+  /* download cards */
+  .sup-card{position:relative;background:#fff;border:1px solid #E2E5E9;padding:28px 24px 24px;border-radius:2px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
+  .sup-card:hover{transform:translateY(-8px);border-color:#0095DA;box-shadow:0 26px 60px rgba(14,15,17,.16);}
+  .sup-card-acc{position:absolute;top:0;left:0;right:0;height:3px;background:#0095DA;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:3;}
+  [data-reveal].in .sup-card-acc{transform:scaleX(1);}
+  .sup-bp{position:absolute;inset:0;background-image:linear-gradient(rgba(0,149,218,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.08) 1px,transparent 1px);background-size:24px 24px;opacity:0;transition:opacity .55s ease;pointer-events:none;}
+  .sup-card:hover .sup-bp,.sup-tile:hover .sup-bp{opacity:1;}
+  .sup-card-icon{color:#0E0F11;transition:color .4s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .sup-card:hover .sup-card-icon{color:#0095DA;transform:translateY(-3px);}
+  .sup-dl{display:inline-flex;align-items:center;gap:6px;color:#0095DA;font-weight:700;font-size:13px;transition:gap .3s ease;}
+  .sup-card:hover .sup-dl{gap:11px;}
+  /* faq — dark motion language */
+  .faq-row{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:2px;margin-bottom:12px;overflow:hidden;transition:border-color .35s ease,box-shadow .35s ease,transform .35s ease,background .35s ease;background:rgba(255,255,255,.03);}
+  .faq-row:hover{border-color:#0095DA;box-shadow:0 14px 34px rgba(0,0,0,.4);background:rgba(255,255,255,.05);}
+  .faq-bp{position:absolute;inset:0;background-image:linear-gradient(rgba(0,149,218,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.12) 1px,transparent 1px);background-size:22px 22px;opacity:0;transition:opacity .45s ease;pointer-events:none;}
+  .faq-row:hover .faq-bp{opacity:1;}
+  .faq-edge{position:absolute;top:0;left:0;bottom:0;width:3px;background:#0095DA;transform:scaleY(0);transform-origin:top;transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:2;}
+  .faq-row.open .faq-edge{transform:scaleY(1);}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1);}
+  .faq-a.open{grid-template-rows:1fr;}
+  .faq-a>div{overflow:hidden;}
+  .faq-sign{transition:transform .4s cubic-bezier(.2,.7,.2,1),color .3s ease,border-color .3s ease;}
+  .des-bridge{position:relative;height:clamp(20px,2.1vw,34px);background:linear-gradient(180deg,var(--from),var(--to));}
+  .des-bridge::after{content:'';position:absolute;left:0;right:0;bottom:0;top:-150px;background-image:linear-gradient(var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px),linear-gradient(90deg,var(--grid,rgba(120,130,140,.08)) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000);}
+  @media(max-width:767px){
+    header h1{font-size:clamp(38px,12vw,58px) !important;}
+    h2{font-size:clamp(28px,9vw,42px) !important;}
+    .hero-diagonal{width:100px !important;height:460px !important;opacity:.32 !important;}
+    .hero-ctas{flex-direction:column !important;}
+    .hero-ctas > a{width:100% !important;text-align:center !important;}
+    [style*="grid-template-columns:repeat(auto-fit,minmax("]{grid-template-columns:repeat(2,1fr) !important;}
+    img,svg,video{max-width:100%;}
+    header[style*="min-height"]:not(#top){min-height:auto !important;padding-top:110px !important;padding-bottom:48px !important;}
+    .hero-docmark{display:none !important;}
+    .f-input,.f-select,.f-area,.wiz-input,.wiz-select,.wiz-area{font-size:16px !important;}
+    button[type="submit"]{width:100% !important;}
+    [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
+    [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
+    [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
+  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
+  .mnav-toggle{display:none;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
+  .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
+  .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
+  .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
+  .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
+  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
+  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
+  .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
+  .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif; background:#0E0F11; color:#0E0F11; overflow-x:hidden;">
+
+<!-- ===================== NAV ===================== -->
+<dc-import name="Decor Header.en"
+  trHref="Decor Support.dc.html"
+  deHref="Decor Support.de.dc.html"
+  frHref="Decor Support.fr.dc.html"
+  ruHref="Decor Support.ru.dc.html"
+  azHref="Decor Support.az.dc.html"
+  arHref="Decor Support.ar.dc.html"
+  dynamicNav="{{ true }}" staticNav="{{ false }}"
+  navClass="{{ navClass }}"
+  dynamicLogo="{{ false }}" staticLogo="{{ true }}"
+  logoHeightStatic="62"
+  logoHref="Decor Home.en.dc.html"
+  supportFull="{{ true }}" supportReduced="{{ false }}"
+  activeProducts="rgba(255,255,255,.7)"
+  activeManufacturing="rgba(255,255,255,.7)"
+  activeExport="rgba(255,255,255,.7)"
+  activeSales="rgba(255,255,255,.7)"
+  activeNewsroom="rgba(255,255,255,.7)"
+  activeAbout="rgba(255,255,255,.7)"
+  activeSupport="#fff"
+  activeContact="rgba(255,255,255,.7)"
+  activeCareerItem="rgba(255,255,255,.85)"
+  menu="{{ menu }}"
+  toggleMenu="{{ toggleMenu }}"
+></dc-import>
+<dc-import name="Decor Search.en" hint-size="0,0"></dc-import>
+
+<sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+  <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.97); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;">
+    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
+    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
+    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <div class="mnav-langs">
+      <a href="Decor Support.dc.html" class="mnav-lang">TR</a>
+      <span class="mnav-lang mnav-lang-active">EN</span>
+      <a href="Decor Support.de.dc.html" class="mnav-lang">DE</a>
+      <a href="Decor Support.fr.dc.html" class="mnav-lang">FR</a>
+      <a href="Decor Support.ru.dc.html" class="mnav-lang">RU</a>
+      <a href="Decor Support.az.dc.html" class="mnav-lang">AZ</a>
+      <span class="mnav-lang mnav-lang-disabled" aria-disabled="true">AR</span>
+    </div>
+    <a href="Decor Become a Dealer.en.dc.html" onClick="{{ toggleMenu }}" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; border-radius:2px; margin-top:6px;">Become a Dealer</a>
+  </div>
+</sc-if>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" style="position:relative; background:radial-gradient(120% 110% at 72% -10%, #1d2730 0%, #11171d 50%, #0a0c0f 100%); padding:clamp(150px,16vw,210px) clamp(20px,5vw,64px) clamp(56px,7vw,92px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 26%,#000 40%,transparent 92%);"></div>
+  <div class="bp-scan"></div>
+  <div class="bp-glint" style="left:18%; top:40%;"></div>
+  <div class="bp-glint" style="left:74%; top:30%; animation-delay:2.6s;"></div>
+  <div class="bp-particle" style="left:30%; top:80%;"></div>
+  <div class="bp-particle" style="left:58%; top:72%; animation-delay:3s;"></div>
+  <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1100px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
+  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">SUPPORT · SECTION 01 · 41.0082°N · 28.9784°E</div>
+  <div style="position:relative; z-index:2; max-width:880px; margin:0 auto; text-align:center;">
+    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>SUPPORT CENTER</div>
+    <h1 data-reveal style="font-size:clamp(40px,6.4vw,86px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:24px 0 0;">Everything you need to work with Dekor<span style="color:#0095DA;">.</span></h1>
+    <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px auto 0; max-width:540px;">Documentation, certificates, downloadable files, and answers for every product, export, OEM and private-label program, dealer application, and after-sales request — all in one place.</p>
+    <!-- SEARCH (design only) -->
+    <div data-reveal style="position:relative; max-width:620px; margin:48px auto 0;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); width:20px; height:20px; pointer-events:none;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+      <input class="sup-search" type="text" placeholder="Search documentation, certificates, files…" aria-label="Search documentation">
+    </div>
+    <!-- POPULAR SEARCHES -->
+    <div data-reveal style="display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content:center; margin-top:24px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.35);">POPULAR</span>
+      <sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
+        <a href="{{ p.href }}" class="sup-pop">{{ p.label }}</a>
+      </sc-for>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== QUICK CATEGORIES ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#0a0c0f; --to:#F4F5F6; --grid:rgba(90,100,110,.12);"></div>
+
+<section id="categories" style="background:#F4F5F6; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="margin-bottom:44px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>QUICK CATEGORIES</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Where would you like to go?</h2>
+    </div>
+    <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:16px;">
+      <sc-for list="{{ categories }}" as="c" hint-placeholder-count="8">
+        <a href="{{ c.href }}" class="sup-tile">
+          <div class="sup-tile-acc"></div>
+          <div class="sup-bp"></div>
+          <div style="display:flex; align-items:flex-start; justify-content:space-between;">
+            <div class="sup-tile-icon" style="width:30px; height:30px;" dangerouslySetInnerHTML="{{ c.icon }}"></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#B7BDC4;">{{ c.num }}</span>
+          </div>
+          <h3 style="font-size:18px; font-weight:800; color:#0E0F11; margin:18px 0 0; letter-spacing:-0.01em;">{{ c.title }}</h3>
+          <p style="font-size:13px; line-height:1.55; color:#5A6066; margin:8px 0 16px;">{{ c.desc }}</p>
+          <svg class="sup-tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ (dark) ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#F4F5F6; --to:#0f1419; --grid:rgba(90,100,110,.12);"></div>
+
+<section id="faq" style="position:relative; background:radial-gradient(120% 90% at 78% 0%, #161d24, #0d1116 60%); padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; top:0; left:0; bottom:0; width:34%; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:34px 34px; -webkit-mask-image:linear-gradient(270deg,transparent,#000); mask-image:linear-gradient(270deg,transparent,#000); pointer-events:none;"></div>
+  <div class="bp-glint" style="left:20%; top:24%;"></div>
+  <div class="bp-glint" style="left:8%; top:66%; animation-delay:3s;"></div>
+  <div style="position:relative; max-width:920px; margin:0 auto;">
+    <div data-reveal style="margin-bottom:40px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>FREQUENTLY ASKED QUESTIONS</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:16px 0 0;">Answers for professionals.</h2>
+    </div>
+    <div data-reveal>
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="6">
+        <div class="faq-row {{ q.openClass }}">
+          <span class="faq-edge"></span>
+          <div class="faq-bp"></div>
+          <button onClick="{{ q.onClick }}" style="position:relative; width:100%; display:flex; align-items:center; gap:20px; background:none; border:none; cursor:pointer; padding:22px 22px; text-align:left;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#0095DA; flex:0 0 auto; width:34px;">{{ q.num }}</span>
+            <span style="flex:1; font-size:clamp(16px,2vw,20px); font-weight:700; color:#fff; letter-spacing:-0.01em;">{{ q.q }}</span>
+            <span class="faq-sign" style="flex:0 0 auto; width:34px; height:34px; border:1.5px solid {{ q.signBorder }}; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:600; color:{{ q.signColor }};">{{ q.sign }}</span>
+          </button>
+          <div class="faq-a {{ q.openClass }}">
+            <div><p style="font-size:15px; line-height:1.65; color:rgba(255,255,255,.62); margin:0; padding:0 22px 24px 76px; max-width:760px;">{{ q.a }}</p></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DOWNLOAD CENTER ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#0d1116; --to:#F4F5F6; --grid:rgba(90,100,110,.12);"></div>
+
+<section id="downloads" style="background:#F4F5F6; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div data-reveal style="margin-bottom:44px;">
+      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>DOWNLOAD CENTER</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">Documents and downloadable files.</h2>
+    </div>
+    <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:16px;">
+      <sc-for list="{{ downloads }}" as="d" hint-placeholder-count="6">
+        <div class="sup-card">
+          <div class="sup-card-acc"></div>
+          <div class="sup-bp"></div>
+          <div style="display:flex; align-items:flex-start; justify-content:space-between;">
+            <div class="sup-card-icon" style="width:30px; height:30px;" dangerouslySetInnerHTML="{{ d.icon }}"></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:#8A9097; border:1px solid #E2E5E9; padding:4px 8px;">{{ d.meta }}</span>
+          </div>
+          <h3 style="font-size:18px; font-weight:800; color:#0E0F11; margin:18px 0 0; letter-spacing:-0.01em;">{{ d.title }}</h3>
+          <p style="font-size:13px; line-height:1.55; color:#5A6066; margin:8px 0 18px;">{{ d.desc }}</p>
+          <a href="#downloads" class="sup-dl">{{ d.action }} ↓</a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT SUPPORT CTA ===================== -->
+<div class="des-bridge" aria-hidden="true" style="--from:#F4F5F6; --to:#14181d; --grid:rgba(90,100,110,.12);"></div>
+
+<section style="position:relative; background:radial-gradient(120% 100% at 50% 0%, #26292d, #0e0f11 60%); padding:clamp(64px,9vw,128px) clamp(20px,5vw,64px); overflow:hidden; text-align:center;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(100% 80% at 50% 40%,#000,transparent 75%);"></div>
+  <div class="bp-scan" style="animation-duration:22s;"></div>
+  <div class="bp-glint" style="left:28%; top:36%;"></div>
+  <div class="bp-glint" style="left:72%; top:58%; animation-delay:2.6s;"></div>
+  <div style="position:relative; max-width:760px; margin:0 auto;">
+    <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">STILL NEED HELP?</div>
+    <h2 data-reveal style="font-size:clamp(32px,5vw,62px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.96; margin:18px 0 0;">Need personal assistance?</h2>
+    <p data-reveal style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.62); margin:18px auto 0; max-width:520px;">Our team is ready to help. Our export and technical specialists respond directly to dealer, OEM, certification, and documentation requests — usually within a few business days.</p>
+    <div data-reveal style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:34px;">
+      <a href="Decor Contact.en.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">Contact Us →</a>
+      <a href="Decor Complaint.en.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px;">Submit a Complaint</a>
+    </div>
+    <div data-reveal style="margin-top:34px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.6);">+90 262 658 30 10 · export@dekor-tools.com</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<dc-import name="Decor Footer.en" hint-size="100%,820px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { solid:false, menu:false, faq:0 };
+
+  componentDidMount(){
+    this._onScroll = ()=>{ const y = window.scrollY || document.documentElement.scrollTop || 0; const s = y > 40; if(s !== this.state.solid) this.setState({ solid:s }); };
+    window.addEventListener('scroll', this._onScroll, { passive:true });
+    this._onScroll();
+    const reveal = (el)=>{ if(!el.classList.contains('in')) el.classList.add('in'); };
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.14, rootMargin:'0px 0px -6% 0px' });
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    }
+    const check = ()=>{ const vh = window.innerHeight || document.documentElement.clientHeight; document.querySelectorAll('[data-reveal]:not(.in)').forEach(el=>{ const r = el.getBoundingClientRect(); if(r.top < vh * 0.94 && r.bottom > 0) reveal(el); }); };
+    check(); window.addEventListener('scroll', check, { passive:true }); setTimeout(check, 60); setTimeout(check, 400);
+  }
+  componentWillUnmount(){ if(this._onScroll) window.removeEventListener('scroll', this._onScroll); }
+
+  renderVals(){
+    const red = '#0095DA';
+    const ic = (p)=>({ __html:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;">${p}</svg>` });
+
+    const popular = [
+      { label:'Product catalog', href:'#downloads' },
+      { label:'Become a dealer', href:'Decor Become a Dealer.en.dc.html' },
+      { label:'Certificates', href:'#downloads' },
+      { label:'Warranty terms', href:'#faq' },
+      { label:'OEM program', href:'#categories' },
+    ];
+
+    const categories = [
+      { title:'Dealer Support', desc:'Partnership applications, pricing, and process management for distributors.', href:'Decor Become a Dealer.en.dc.html', icon: ic('<path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v6l9 4 9-4V7"></path>') },
+      { title:'Products', desc:'Browse six product families spanning 400+ professional tools.', href:'Decor Products.en.dc.html', icon: ic('<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>') },
+      { title:'Downloadable Files', desc:'Catalogs, brochures, brand materials, and technical PDFs.', href:'#downloads', icon: ic('<path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 21h16"></path>') },
+      { title:'Certificates', desc:'ISO, CE, TSE, and REACH compliance documents.', href:'#downloads', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
+      { title:'Warranty', desc:'Professional-grade warranty terms and after-sales service.', href:'#faq', icon: ic('<path d="M12 3l8 4v5c0 4.5-3.2 7.3-8 9-4.8-1.7-8-4.5-8-9V7l8-4z"></path><path d="M9 12l2 2 4-4"></path>') },
+      { title:'OEM / Private-Label Production', desc:'Custom production built to your brand and technical specifications.', href:'Decor Contact.en.dc.html', icon: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4h8a2 2 0 0 1 1.4.6l8.2 8.2a1.4 1.4 0 0 1 0 .6z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>') },
+      { title:'Export', desc:'Global distribution to 60 countries across 4 continents.', href:'Decor Export.en.dc.html', icon: ic('<circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"></path>') },
+      { title:'Technical Documentation', desc:'Technical data sheets, material data, and dimensional drawings.', href:'#downloads', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
+    ].map((c,i)=>({ ...c, num:String(i+1).padStart(2,'0') }));
+
+    const downloads = [
+      { title:'Product Catalog', meta:'PDF · 24 MB', action:'Download', desc:'All 400+ products across six product families, with codes and technical specifications.', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
+      { title:'Certificates', meta:'ZIP · PDF', action:'Download', desc:'ISO 9001, ISO 14001, CE, TSE, and REACH compliance documents.', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
+      { title:'Brand Materials', meta:'ZIP · 60 MB', action:'Download', desc:'Logos, the diamond emblem, color values, and brand guidelines for dealers.', icon: ic('<rect x="3" y="3" width="18" height="18" rx="1"></rect><circle cx="8.5" cy="8.5" r="1.8"></circle><path d="M21 16l-5-5L5 21"></path>') },
+      { title:'Technical PDFs', meta:'PDF', action:'Download', desc:'Technical data sheets, material data, and dimensional drawings for selected lines.', icon: ic('<path d="M3 12h4l2-7 4 14 2-7h6"></path>') },
+      { title:'Product Brochures', meta:'PDF', action:'Download', desc:'Family overviews and key features — ideal for sales and showroom use.', icon: ic('<path d="M4 5h7v15H6a2 2 0 0 1-2-2V5z"></path><path d="M20 5h-7v15h5a2 2 0 0 0 2-2V5z"></path>') },
+      { title:'Installation Guides', meta:'PDF', action:'Download', desc:'Step-by-step usage and maintenance instructions for professional results.', icon: ic('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6 2 2 6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"></path>') },
+    ];
+
+    const faqData = [
+      { q:'How can I become a Dekor dealer or distributor?', a:'Apply through our dealer form with your company information and target market. Our export team reviews every request and responds with pricing, terms, and process steps — usually within a few business days.' },
+      { q:'What is the minimum order quantity for export?', a:'Minimum order quantities vary by product family and target market. We work with both established distributors and growing regional partners, tailoring the first order to your market and warehousing capacity.' },
+      { q:'Do you offer private-label or OEM production?', a:'Yes. With our 21,000 m² vertically integrated facility and in-house R&D unit, we produce private-label and OEM tools to your specifications, branding, and packaging requirements.' },
+      { q:'What certifications do your tools carry?', a:'Our quality system is certified to ISO 9001:2015, with ISO 14001 environmental management, CE marking, TSE certification, and REACH compliance also available on relevant product lines.' },
+      { q:'What are your typical lead times?', a:'In-stock products ship quickly through our advanced logistics and B2B systems. Custom and private-label runs are scheduled per order — your account manager confirms the exact timeline at the quote stage.' },
+      { q:'Can I get the full product catalog?', a:'Of course. You can download the latest catalog from any "Download Catalog" button, or request a printed copy and physical samples directly from our export team.' },
+    ];
+    const faqs = faqData.map((f,i)=>({
+      q:f.q, a:f.a,
+      num:'Q.'+String(i+1).padStart(2,'0'),
+      openClass: this.state.faq===i ? 'open' : '',
+      sign: this.state.faq===i ? '–' : '+',
+      signColor: this.state.faq===i ? red : '#fff',
+      signBorder: this.state.faq===i ? red : 'rgba(255,255,255,.4)',
+      onClick: ()=>this.setState({ faq: this.state.faq===i ? -1 : i }),
+    }));
+
+    const footCols = [
+      { head:'PRODUCTS', links:[
+        { label:'Painting Tools', href:'Decor Products.en.dc.html' },
+        { label:'Plaster & Render', href:'Decor Products.en.dc.html' },
+        { label:'Measurement', href:'Decor Products.en.dc.html' },
+        { label:'All Products', href:'Decor Products.en.dc.html' },
+      ]},
+      { head:'COMPANY', links:[
+        { label:'About Dekor', href:'Decor About.en.dc.html' },
+        { label:'Manufacturing', href:'Decor Manufacturing.en.dc.html' },
+        { label:'Export', href:'Decor Export.en.dc.html' },
+        { label:'Support Center', href:'Decor Support.en.dc.html' },
+      ]},
+      { head:'PARTNERS', links:[
+        { label:'Become a Dealer', href:'Decor Become a Dealer.en.dc.html' },
+        { label:'Download Catalog', href:'#downloads' },
+        { label:'Contact', href:'Decor Contact.en.dc.html' },
+        { label:'Request a Sample', href:'Decor Contact.en.dc.html' },
+      ]},
+    ];
+
+    return {
+      navClass: this.state.solid ? 'solid' : '',
+      menu: this.state.menu,
+      toggleMenu: ()=>this.setState({ menu: !this.state.menu }),
+      popular, categories, downloads, faqs, footCols,
+    };
+  }
+}
+</script>
+</body>
+</html>
