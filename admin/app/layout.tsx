@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { ThemeProvider, themeInitScript } from '@/lib/theme-provider';
-import { AppShell } from '@/components/layout/AppShell';
+import { ConditionalShell } from '@/components/layout/ConditionalShell';
 import { ToastProvider } from '@/components/ui/Toast';
 import './globals.css';
 
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-display">
         <ThemeProvider>
           <ToastProvider>
-            <AppShell>{children}</AppShell>
+            <ConditionalShell>{children}</ConditionalShell>
           </ToastProvider>
         </ThemeProvider>
       </body>
