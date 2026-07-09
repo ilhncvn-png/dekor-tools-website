@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { Suspense } from 'react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
 import { Tabs } from '@/components/ui/Tabs';
@@ -25,7 +26,11 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-export default function SistemAyarlariPage() {
+// useSearchParams() opts a route out of static prerendering unless the
+// component that calls it sits inside a Suspense boundary (Next.js 14 App
+// Router requirement) — isolated here so the page export below can wrap it,
+// keeping the route statically generated instead of forcing force-dynamic.
+function SistemAyarlariContent() {
   const [notifyNewOrder, setNotifyNewOrder] = useState(true);
   const [notifyDealer, setNotifyDealer] = useState(true);
   const [maintenance, setMaintenance] = useState(false);
@@ -242,5 +247,13 @@ export default function SistemAyarlariPage() {
         )}
       </Tabs>
     </ContentContainer>
+  );
+}
+
+export default function SistemAyarlariPage() {
+  return (
+    <Suspense fallback={null}>
+      <SistemAyarlariContent />
+    </Suspense>
   );
 }
