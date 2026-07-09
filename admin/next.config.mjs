@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Mounted at dekor-tools.com/admin via a Vercel Multi-Zones rewrite from
-  // the static site's vercel.json (this app is deployed as its own,
-  // separate Vercel project — the static site's zero-config deployment is
-  // never touched). `basePath` makes every internal <Link>, router push,
-  // and Next.js-managed asset path automatically resolve under /admin
-  // without editing any page or component — do not hand-prefix hrefs
-  // elsewhere in the app instead of relying on this.
-  basePath: '/admin',
+  // No basePath: this deployment's own root (/) is the application entry
+  // point (root = login screen, redirects to /genel-bakis after auth).
+  // When this app is later bridged onto dekor-tools.com/admin, the main
+  // site's vercel.json rewrite should map /admin/:path* to this
+  // deployment's /:path* (i.e. strip the /admin prefix in the rewrite
+  // itself) rather than relying on basePath here — keeps this app's own
+  // root usable both standalone and behind the future proxy.
 };
 
 export default nextConfig;
