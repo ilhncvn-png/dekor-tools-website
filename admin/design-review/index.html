@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dekor Control Center — Tasarım İnceleme Galerisi</title>
+<style>
+  :root {
+    --bg: #0E0F11;
+    --panel: #16181b;
+    --border: rgba(255,255,255,.1);
+    --text: #fff;
+    --muted: rgba(255,255,255,.55);
+    --red: #D32027;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Archivo", "Segoe UI", sans-serif;
+  }
+  header {
+    padding: 32px clamp(20px,5vw,64px) 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .meta {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+  .meta span {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 4px 8px;
+  }
+  section {
+    padding: 28px clamp(20px,5vw,64px);
+  }
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+  section h2 {
+    font-size: 13px;
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin: 0 0 18px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  figure {
+    margin: 0;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  figure a {
+    display: block;
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    object-position: top;
+    background: #000;
+  }
+  figcaption {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--text);
+    border-top: 1px solid var(--border);
+  }
+  figcaption small {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dekor Control Center — Tasarım İnceleme Galerisi</h1>
+  <p>Sprint 6.6 kapsamında dışa aktarılan mevcut arayüz durumu. Tasarım değiştirilmedi — yalnızca inceleme amaçlıdır.</p>
+  <div class="meta">
+    <span>24 ekran görüntüsü</span>
+    <span>Yüksek çözünürlük (2x)</span>
+    <span>Kaynak: http://localhost:3001</span>
+  </div>
+</header>
+
+<section>
+  <h2>1 · Modül Sayfaları (14)</h2>
+  <div class="grid">
+    <figure>
+      <a href="01-genel-bakis.png" target="_blank"><img src="01-genel-bakis.png" alt="Genel Bakış"></a>
+      <figcaption>Genel Bakış<small>01-genel-bakis.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="02-urun-yonetimi.png" target="_blank"><img src="02-urun-yonetimi.png" alt="Ürün Yönetimi"></a>
+      <figcaption>Ürün Yönetimi<small>02-urun-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="03-kategori-yonetimi.png" target="_blank"><img src="03-kategori-yonetimi.png" alt="Kategori Yönetimi"></a>
+      <figcaption>Kategori Yönetimi<small>03-kategori-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="04-sayfa-yonetimi.png" target="_blank"><img src="04-sayfa-yonetimi.png" alt="Sayfa Yönetimi"></a>
+      <figcaption>Sayfa Yönetimi<small>04-sayfa-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="05-medya-kutuphanesi.png" target="_blank"><img src="05-medya-kutuphanesi.png" alt="Medya Kütüphanesi"></a>
+      <figcaption>Medya Kütüphanesi<small>05-medya-kutuphanesi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="06-dosya-merkezi.png" target="_blank"><img src="06-dosya-merkezi.png" alt="Dosya Merkezi"></a>
+      <figcaption>Dosya Merkezi<small>06-dosya-merkezi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="07-sertifikalar.png" target="_blank"><img src="07-sertifikalar.png" alt="Sertifikalar"></a>
+      <figcaption>Sertifikalar<small>07-sertifikalar.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="08-bayi-yonetimi.png" target="_blank"><img src="08-bayi-yonetimi.png" alt="Bayi Yönetimi"></a>
+      <figcaption>Bayi Yönetimi<small>08-bayi-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="09-form-talepleri.png" target="_blank"><img src="09-form-talepleri.png" alt="Form Talepleri"></a>
+      <figcaption>Form Talepleri<small>09-form-talepleri.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="10-seo-yonetimi.png" target="_blank"><img src="10-seo-yonetimi.png" alt="SEO Yönetimi"></a>
+      <figcaption>SEO Yönetimi<small>10-seo-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="11-dil-yonetimi.png" target="_blank"><img src="11-dil-yonetimi.png" alt="Dil Yönetimi"></a>
+      <figcaption>Dil Yönetimi<small>11-dil-yonetimi.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="12-kullanicilar.png" target="_blank"><img src="12-kullanicilar.png" alt="Kullanıcılar"></a>
+      <figcaption>Kullanıcılar<small>12-kullanicilar.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="13-roller-ve-yetkiler.png" target="_blank"><img src="13-roller-ve-yetkiler.png" alt="Roller ve Yetkiler"></a>
+      <figcaption>Roller ve Yetkiler<small>13-roller-ve-yetkiler.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="14-sistem-ayarlari.png" target="_blank"><img src="14-sistem-ayarlari.png" alt="Sistem Ayarları"></a>
+      <figcaption>Sistem Ayarları<small>14-sistem-ayarlari.png</small></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>2 · Kenar Çubuğu Durumları</h2>
+  <div class="grid">
+    <figure>
+      <a href="15-sidebar-expanded.png" target="_blank"><img src="15-sidebar-expanded.png" alt="Sidebar expanded"></a>
+      <figcaption>Kenar çubuğu — genişletilmiş<small>15-sidebar-expanded.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="16-sidebar-collapsed.png" target="_blank"><img src="16-sidebar-collapsed.png" alt="Sidebar collapsed"></a>
+      <figcaption>Kenar çubuğu — daraltılmış<small>16-sidebar-collapsed.png</small></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>3 · Tema</h2>
+  <div class="grid">
+    <figure>
+      <a href="17-dark-mode.png" target="_blank"><img src="17-dark-mode.png" alt="Dark mode"></a>
+      <figcaption>Koyu Tema (varsayılan)<small>17-dark-mode.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="18-light-mode.png" target="_blank"><img src="18-light-mode.png" alt="Light mode"></a>
+      <figcaption>Açık Tema<small>18-light-mode.png</small></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>4 · Etkileşimli Katmanlar</h2>
+  <div class="grid">
+    <figure>
+      <a href="19-search-open.png" target="_blank"><img src="19-search-open.png" alt="Search open"></a>
+      <figcaption>Arama — açık<small>19-search-open.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="20-command-palette-ctrlk.png" target="_blank"><img src="20-command-palette-ctrlk.png" alt="Command palette"></a>
+      <figcaption>Komut Paleti (⌘K / Ctrl+K)<small>20-command-palette-ctrlk.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="21-notifications-open.png" target="_blank"><img src="21-notifications-open.png" alt="Notifications open"></a>
+      <figcaption>Bildirimler — açık<small>21-notifications-open.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="22-profile-menu-open.png" target="_blank"><img src="22-profile-menu-open.png" alt="Profile menu open"></a>
+      <figcaption>Profil Menüsü — açık<small>22-profile-menu-open.png</small></figcaption>
+    </figure>
+  </div>
+  <p class="note">
+    Not: "Arama — açık" ve "Komut Paleti" aynı bileşeni (CommandPalette) farklı tetikleyicilerle
+    açar — mevcut uygulamada arama kutusu ve ⌘K kısayolu tek, ortak bir katman kullanır
+    (bkz. Sprint 6 raporu, GlobalSearch.tsx). Bu yüzden iki görsel birebir aynıdır; tasarım
+    incelemesi sırasında bunun ayrı bir "search" deneyimi mi yoksa tek katman mı olacağına
+    karar vermek isterseniz not edin.
+  </p>
+</section>
+
+<section>
+  <h2>5 · Duyarlı Tasarım</h2>
+  <div class="grid">
+    <figure>
+      <a href="23-mobile-view.png" target="_blank"><img src="23-mobile-view.png" alt="Mobile view" style="height:260px;"></a>
+      <figcaption>Mobil Görünüm (390px)<small>23-mobile-view.png</small></figcaption>
+    </figure>
+    <figure>
+      <a href="24-tablet-view.png" target="_blank"><img src="24-tablet-view.png" alt="Tablet view" style="height:260px;"></a>
+      <figcaption>Tablet Görünüm (820px)<small>24-tablet-view.png</small></figcaption>
+    </figure>
+  </div>
+</section>
+
+</body>
+</html>

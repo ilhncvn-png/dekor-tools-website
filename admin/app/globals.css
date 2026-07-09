@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-white text-near-black antialiased dark:bg-surface-dark dark:text-white;
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  /* Geist's stylistic set 1 + tabular figures — numbers in stat cards,
+     tables, and badges line up instead of shifting width digit to digit. */
+  font-feature-settings: 'ss01' 1, 'tnum' 1;
+  font-variant-numeric: tabular-nums;
+}
+
+code,
+kbd,
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Calm, thin scrollbars — matches the "premium, minimal" direction */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 144, 151, 0.4) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(138, 144, 151, 0.35);
+  border-radius: 999px;
+}
+
+/* Visible, on-brand focus ring everywhere — closes the accessibility gap
+   flagged repeatedly in docs/ACCESSIBILITY_AUDIT.md for the live public
+   site; this admin app gets it right from the start. */
+:focus-visible {
+  outline: 2px solid #d32027;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* On-brand text selection, replacing the default OS blue everywhere. */
+::selection {
+  background: rgba(211, 32, 39, 0.22);
+  color: inherit;
+}
+
+/* Smooth, subtle color transition when the theme switches — deliberately
+   scoped to color/background/border only (compositor-cheap, matches the
+   team's "animate transform/opacity, not layout" performance rule) rather
+   than a blanket `transition: all` on every element. */
+body,
+[data-theme-transition] {
+  transition:
+    background-color var(--theme-transition-duration, 260ms) ease,
+    border-color var(--theme-transition-duration, 260ms) ease,
+    color var(--theme-transition-duration, 260ms) ease;
+}
+
+/* Skeleton shimmer surface — used by components/ui/Skeleton.tsx */
+.skeleton-surface {
+  background-image: linear-gradient(
+    90deg,
+    rgba(138, 144, 151, 0.12) 0px,
+    rgba(138, 144, 151, 0.24) 200px,
+    rgba(138, 144, 151, 0.12) 400px
+  );
+  background-size: 800px 100%;
+}
+.dark .skeleton-surface {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.12) 200px,
+    rgba(255, 255, 255, 0.05) 400px
+  );
+}
