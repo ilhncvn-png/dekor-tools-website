@@ -1,4 +1,26 @@
 {
+  "rewrites": [
+    { "source": "/", "destination": "/project/Decor%20Home.dc.html" },
+    { "source": "/anasayfa", "destination": "/project/Decor%20Home.dc.html" },
+    { "source": "/urunler", "destination": "/project/Decor%20Products.dc.html" },
+    { "source": "/uretim", "destination": "/project/Decor%20Manufacturing.dc.html" },
+    { "source": "/ihracat", "destination": "/project/Decor%20Export.dc.html" },
+    { "source": "/satis", "destination": "/project/Decor%20Authorized%20Dealers.dc.html" },
+    { "source": "/haberler", "destination": "/project/Decor%20Newsroom.dc.html" },
+    { "source": "/hakkimizda", "destination": "/project/Decor%20About.dc.html" },
+    { "source": "/iletisim", "destination": "/project/Decor%20Contact.dc.html" },
+
+    { "source": "/en", "destination": "/project/Decor%20Home.en.dc.html" },
+    { "source": "/en/products", "destination": "/project/Decor%20Products.en.dc.html" },
+    { "source": "/en/manufacturing", "destination": "/project/Decor%20Manufacturing.en.dc.html" },
+    { "source": "/en/export", "destination": "/project/Decor%20Export.en.dc.html" },
+    { "source": "/en/sales", "destination": "/project/Decor%20Authorized%20Dealers.en.dc.html" },
+    { "source": "/en/newsroom", "destination": "/project/Decor%20Newsroom.en.dc.html" },
+    { "source": "/en/about", "destination": "/project/Decor%20About.en.dc.html" },
+    { "source": "/en/contact", "destination": "/project/Decor%20Contact.en.dc.html" },
+
+    { "source": "/admin", "destination": "/admin-login.html" }
+  ],
   "headers": [
     {
       "source": "/project/uploads/(.*)",

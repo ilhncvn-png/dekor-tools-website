@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decor Control Center</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/project/uploads/decor_logo_color.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: #0E0F11;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .bp-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,149,218,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,149,218,.07) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 85%);
+    pointer-events: none;
+  }
+  .stage {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: clamp(20px, 5vw, 40px);
+  }
+
+  /* ---------- login card ---------- */
+  #loginCard {
+    background: #16181b;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 3px;
+    padding: clamp(32px, 6vw, 48px) clamp(24px, 5vw, 40px);
+    position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,.5);
+  }
+  #loginCard::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: #0095DA;
+  }
+  .logo-wrap { display: flex; justify-content: center; margin-bottom: 28px; }
+  .logo-wrap img { height: 42px; width: auto; }
+  h1.title {
+    font-size: clamp(24px, 4vw, 30px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #fff;
+  }
+  p.subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255,255,255,.5);
+    margin-top: 10px;
+  }
+  .staging-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 1px;
+    color: rgba(211,32,39,.85);
+    border: 1px solid rgba(211,32,39,.35);
+    padding: 6px 10px;
+    border-radius: 2px;
+  }
+  .staging-badge::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #D32027;
+    flex: 0 0 auto;
+  }
+  form { margin-top: 30px; display: flex; flex-direction: column; gap: 16px; }
+  label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 8px;
+  }
+  input {
+    width: 100%;
+    background: #0E0F11;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    padding: 13px 14px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  input:focus {
+    outline: none;
+    border-color: #0095DA;
+    box-shadow: 0 0 0 3px rgba(0,149,218,.25);
+  }
+  button.submit {
+    margin-top: 8px;
+    background: #0095DA;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: filter .2s ease;
+  }
+  button.submit:hover { filter: brightness(1.1); }
+  button.submit:active { filter: brightness(0.85); }
+  .error-msg {
+    display: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #ff7a72;
+    background: rgba(211,32,39,.1);
+    border: 1px solid rgba(211,32,39,.3);
+    border-radius: 2px;
+    padding: 10px 12px;
+    margin-top: 4px;
+  }
+  .error-msg.show { display: block; }
+
+  /* ---------- dashboard ---------- */
+  #dashboard { display: none; width: 100%; max-width: 960px; }
+  #dashboard.show { display: block; }
+  #loginStage.hide { display: none; }
+  .dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .dash-header .logo-wrap { margin: 0; }
+  .dash-header .logo-wrap img { height: 32px; }
+  h2.dash-title {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  button.logout {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.2);
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    padding: 10px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  button.logout:hover { border-color: #D32027; color: #ff7a72; }
+  .dash-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 30px;
+    padding: 14px 16px;
+    border-left: 2px solid #0095DA;
+    background: rgba(0,149,218,.06);
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .dash-card {
+    background: #16181b;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 2px;
+    padding: 20px;
+    position: relative;
+    cursor: default;
+  }
+  .dash-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: #0095DA;
+  }
+  .dash-card .card-title {
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+  }
+  .dash-card .card-status {
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,.4);
+  }
+</style>
+</head>
+<body>
+<div class="bp-grid" aria-hidden="true"></div>
+
+<div class="stage" id="loginStage">
+  <div id="loginCard">
+    <div class="logo-wrap"><img src="/project/uploads/decor_logo_white.png" alt="Decor"></div>
+    <h1 class="title">Decor Control Center</h1>
+    <p class="subtitle">Website Management System</p>
+    <div class="staging-badge">GEÇİCİ STAGING KORUMASI &middot; GERÇEK KİMLİK DOĞRULAMA DEĞİL</div>
+    <form id="loginForm" autocomplete="off">
+      <div>
+        <label for="email">E-posta</label>
+        <input type="email" id="email" name="email" required autocomplete="username">
+      </div>
+      <div>
+        <label for="password">Şifre</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
+      </div>
+      <div class="error-msg" id="errorMsg">Kullanıcı adı veya şifre hatalı.</div>
+      <button type="submit" class="submit">Giriş Yap</button>
+    </form>
+  </div>
+</div>
+
+<div class="stage" id="dashboard">
+  <div class="dash-header">
+    <div class="logo-wrap"><img src="/project/uploads/decor_logo_white.png" alt="Decor"></div>
+    <button class="logout" id="logoutBtn">Çıkış Yap</button>
+  </div>
+  <h2 class="dash-title">Decor Control Center</h2>
+  <p class="dash-note">Admin panel altyapısı Sprint 2'de geliştirilecektir.</p>
+  <div class="card-grid">
+    <div class="dash-card"><div class="card-title">Site Durumu</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Ürün Yönetimi</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Medya Kütüphanesi</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Haberler</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Bayiler</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Dil Yönetimi</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">SEO</div><div class="card-status">YAKINDA</div></div>
+    <div class="dash-card"><div class="card-title">Ayarlar</div><div class="card-status">YAKINDA</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---------------------------------------------------------------
+  // TEMPORARY STATIC-STAGING GATE — NOT REAL AUTHENTICATION.
+  // This is a client-side-only check with no backend, no database,
+  // no server-side verification. Anyone who views this page's source
+  // can read the check below and the dashboard markup already ships
+  // to every visitor regardless of login state — this provides zero
+  // real access control. It exists only to keep the placeholder
+  // dashboard out of casual/accidental view during the static
+  // prototype phase. Replace with real server-side auth in Sprint 2.
+  // ---------------------------------------------------------------
+  var EXPECTED = 'aWxobmN2bkBnbWFpbC5jb206RGVrb3JTdGFnaW5nMjAyNiE='; // base64("email:password"), obfuscation only — not encryption
+  var SESSION_KEY = 'dccStagingSession';
+
+  var loginStage = document.getElementById('loginStage');
+  var dashboard = document.getElementById('dashboard');
+  var loginForm = document.getElementById('loginForm');
+  var errorMsg = document.getElementById('errorMsg');
+  var logoutBtn = document.getElementById('logoutBtn');
+
+  function showDashboard(){
+    loginStage.classList.add('hide');
+    dashboard.classList.add('show');
+  }
+  function showLogin(){
+    dashboard.classList.remove('show');
+    loginStage.classList.remove('hide');
+  }
+
+  if (localStorage.getItem(SESSION_KEY) === '1') {
+    showDashboard();
+  }
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value;
+    var attempt = btoa(email + ':' + password);
+    if (attempt === EXPECTED) {
+      errorMsg.classList.remove('show');
+      localStorage.setItem(SESSION_KEY, '1');
+      showDashboard();
+    } else {
+      errorMsg.classList.add('show');
+    }
+  });
+
+  logoutBtn.addEventListener('click', function(){
+    localStorage.removeItem(SESSION_KEY);
+    loginForm.reset();
+    showLogin();
+  });
+})();
+</script>
+</body>
+</html>
