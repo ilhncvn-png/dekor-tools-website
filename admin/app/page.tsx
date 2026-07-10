@@ -19,6 +19,17 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { SESSION_COOKIE_NAME, SESSION_COOKIE_VALUE, LEGACY_SESSION_KEYS } from '@/lib/auth';
 
+// This route's correct output always depends on the request's own session
+// cookie (login form vs. redirect-to-dashboard) — static optimization is
+// fundamentally incompatible with that, and was confirmed live to cause a
+// real bug: Vercel's edge cached the first (unauthenticated) response and
+// kept serving it to every visitor, including ones with a valid session,
+// because middleware's Cache-Control: no-store header didn't override the
+// page's own default static-render caching. force-dynamic disables static
+// optimization for this route entirely so every request is genuinely
+// re-evaluated.
+export const dynamic = 'force-dynamic';
+
 const EXPECTED = 'aWxobmN2bkBnbWFpbC5jb206RGVrb3JTdGFnaW5nMjAyNiE='; // base64("email:password")
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8; // 8h — staging convenience only
 
