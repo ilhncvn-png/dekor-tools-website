@@ -1,77 +1,491 @@
 {
   "redirects": [
-    { "source": "/project/Decor%20Home.dc.html", "destination": "/", "permanent": true },
-    { "source": "/project/Decor Home.dc.html", "destination": "/", "permanent": true },
-    { "source": "/Decor%20Home.dc.html", "destination": "/", "permanent": true },
-    { "source": "/Decor Home.dc.html", "destination": "/", "permanent": true },
-    { "source": "/project/Decor%20Home.html", "destination": "/", "permanent": true },
-    { "source": "/project/Decor Home.html", "destination": "/", "permanent": true },
-    { "source": "/anasayfa", "destination": "/", "permanent": true },
-
-    { "source": "/project/Decor%20Products.dc.html", "destination": "/urunler", "permanent": true },
-    { "source": "/project/Decor Products.dc.html", "destination": "/urunler", "permanent": true },
-
-    { "source": "/project/Decor%20Manufacturing.dc.html", "destination": "/uretim", "permanent": true },
-    { "source": "/project/Decor Manufacturing.dc.html", "destination": "/uretim", "permanent": true },
-
-    { "source": "/project/Decor%20Export.dc.html", "destination": "/ihracat", "permanent": true },
-    { "source": "/project/Decor Export.dc.html", "destination": "/ihracat", "permanent": true },
-
-    { "source": "/project/Decor%20Authorized%20Dealers.dc.html", "destination": "/satis", "permanent": true },
-    { "source": "/project/Decor Authorized Dealers.dc.html", "destination": "/satis", "permanent": true },
-
-    { "source": "/project/Decor%20Newsroom.dc.html", "destination": "/haberler", "permanent": true },
-    { "source": "/project/Decor Newsroom.dc.html", "destination": "/haberler", "permanent": true },
-
-    { "source": "/project/Decor%20About.dc.html", "destination": "/hakkimizda", "permanent": true },
-    { "source": "/project/Decor About.dc.html", "destination": "/hakkimizda", "permanent": true },
-
-    { "source": "/project/Decor%20Support.dc.html", "destination": "/destek", "permanent": true },
-    { "source": "/project/Decor Support.dc.html", "destination": "/destek", "permanent": true },
-
-    { "source": "/project/Decor%20Contact.dc.html", "destination": "/iletisim", "permanent": true },
-    { "source": "/project/Decor Contact.dc.html", "destination": "/iletisim", "permanent": true }
+    {
+      "source": "/project/Decor%20Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Decor%20Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Decor Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/anasayfa",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.dc.html",
+      "destination": "/urunler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.dc.html",
+      "destination": "/urunler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.dc.html",
+      "destination": "/uretim",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.dc.html",
+      "destination": "/uretim",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.dc.html",
+      "destination": "/ihracat",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.dc.html",
+      "destination": "/ihracat",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.dc.html",
+      "destination": "/satis",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.dc.html",
+      "destination": "/satis",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.dc.html",
+      "destination": "/haberler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.dc.html",
+      "destination": "/haberler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.dc.html",
+      "destination": "/hakkimizda",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.dc.html",
+      "destination": "/hakkimizda",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.dc.html",
+      "destination": "/destek",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.dc.html",
+      "destination": "/destek",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.dc.html",
+      "destination": "/iletisim",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.dc.html",
+      "destination": "/iletisim",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.dc.html",
+      "destination": "/hikayemiz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.dc.html",
+      "destination": "/hikayemiz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.dc.html",
+      "destination": "/vizyon-misyon",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.dc.html",
+      "destination": "/vizyon-misyon",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.dc.html",
+      "destination": "/kalite-surdurulebilirlik",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.dc.html",
+      "destination": "/kalite-surdurulebilirlik",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.dc.html",
+      "destination": "/ar-ge-merkezi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.dc.html",
+      "destination": "/ar-ge-merkezi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.dc.html",
+      "destination": "/kariyer",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.dc.html",
+      "destination": "/kariyer",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.dc.html",
+      "destination": "/fikrim-var",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.dc.html",
+      "destination": "/fikrim-var",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.dc.html",
+      "destination": "/sikayet-bildir",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.dc.html",
+      "destination": "/sikayet-bildir",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.dc.html",
+      "destination": "/cerez-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.dc.html",
+      "destination": "/cerez-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.dc.html",
+      "destination": "/gizlilik-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.dc.html",
+      "destination": "/gizlilik-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.dc.html",
+      "destination": "/kullanim-kosullari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.dc.html",
+      "destination": "/kullanim-kosullari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.dc.html",
+      "destination": "/site-haritasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.dc.html",
+      "destination": "/site-haritasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.dc.html",
+      "destination": "/bayi-ol",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.dc.html",
+      "destination": "/bayi-ol",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.dc.html",
+      "destination": "/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.dc.html",
+      "destination": "/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.dc.html",
+      "destination": "/online-odeme",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.dc.html",
+      "destination": "/online-odeme",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.dc.html",
+      "destination": "/bayi-kaynaklari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.dc.html",
+      "destination": "/bayi-kaynaklari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.dc.html",
+      "destination": "/haberler/detay",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.dc.html",
+      "destination": "/haberler/detay",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.dc.html",
+      "destination": "/urunler/kategori",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.dc.html",
+      "destination": "/urunler/kategori",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.dc.html",
+      "destination": "/urunler/urun",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.dc.html",
+      "destination": "/urunler/urun",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.dc.html",
+      "destination": "/satis/bayi-profili",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.dc.html",
+      "destination": "/satis/bayi-profili",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/project/Decor%20Home.dc.html" },
-    { "source": "/urunler", "destination": "/project/Decor%20Products.dc.html" },
-    { "source": "/uretim", "destination": "/project/Decor%20Manufacturing.dc.html" },
-    { "source": "/ihracat", "destination": "/project/Decor%20Export.dc.html" },
-    { "source": "/satis", "destination": "/project/Decor%20Authorized%20Dealers.dc.html" },
-    { "source": "/haberler", "destination": "/project/Decor%20Newsroom.dc.html" },
-    { "source": "/hakkimizda", "destination": "/project/Decor%20About.dc.html" },
-    { "source": "/destek", "destination": "/project/Decor%20Support.dc.html" },
-    { "source": "/iletisim", "destination": "/project/Decor%20Contact.dc.html" },
-
-    { "source": "/en", "destination": "/project/Decor%20Home.en.dc.html" },
-    { "source": "/en/products", "destination": "/project/Decor%20Products.en.dc.html" },
-    { "source": "/en/manufacturing", "destination": "/project/Decor%20Manufacturing.en.dc.html" },
-    { "source": "/en/export", "destination": "/project/Decor%20Export.en.dc.html" },
-    { "source": "/en/sales", "destination": "/project/Decor%20Authorized%20Dealers.en.dc.html" },
-    { "source": "/en/newsroom", "destination": "/project/Decor%20Newsroom.en.dc.html" },
-    { "source": "/en/about", "destination": "/project/Decor%20About.en.dc.html" },
-    { "source": "/en/contact", "destination": "/project/Decor%20Contact.en.dc.html" },
-
-    { "source": "/admin", "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin" },
-    { "source": "/admin/:path*", "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin/:path*" }
+    {
+      "source": "/",
+      "destination": "/project/Decor%20Home.dc.html"
+    },
+    {
+      "source": "/urunler",
+      "destination": "/project/Decor%20Products.dc.html"
+    },
+    {
+      "source": "/uretim",
+      "destination": "/project/Decor%20Manufacturing.dc.html"
+    },
+    {
+      "source": "/ihracat",
+      "destination": "/project/Decor%20Export.dc.html"
+    },
+    {
+      "source": "/satis",
+      "destination": "/project/Decor%20Authorized%20Dealers.dc.html"
+    },
+    {
+      "source": "/haberler",
+      "destination": "/project/Decor%20Newsroom.dc.html"
+    },
+    {
+      "source": "/hakkimizda",
+      "destination": "/project/Decor%20About.dc.html"
+    },
+    {
+      "source": "/destek",
+      "destination": "/project/Decor%20Support.dc.html"
+    },
+    {
+      "source": "/iletisim",
+      "destination": "/project/Decor%20Contact.dc.html"
+    },
+    {
+      "source": "/hikayemiz",
+      "destination": "/project/Decor%20Our%20Story.dc.html"
+    },
+    {
+      "source": "/vizyon-misyon",
+      "destination": "/project/Decor%20Vision%20Mission.dc.html"
+    },
+    {
+      "source": "/kalite-surdurulebilirlik",
+      "destination": "/project/Decor%20Quality%20Sustainability.dc.html"
+    },
+    {
+      "source": "/ar-ge-merkezi",
+      "destination": "/project/Decor%20RD%20Center.dc.html"
+    },
+    {
+      "source": "/kariyer",
+      "destination": "/project/Decor%20Career.dc.html"
+    },
+    {
+      "source": "/fikrim-var",
+      "destination": "/project/Decor%20Idea.dc.html"
+    },
+    {
+      "source": "/sikayet-bildir",
+      "destination": "/project/Decor%20Complaint.dc.html"
+    },
+    {
+      "source": "/cerez-politikasi",
+      "destination": "/project/Decor%20Cookies.dc.html"
+    },
+    {
+      "source": "/gizlilik-politikasi",
+      "destination": "/project/Decor%20Privacy.dc.html"
+    },
+    {
+      "source": "/kullanim-kosullari",
+      "destination": "/project/Decor%20Terms.dc.html"
+    },
+    {
+      "source": "/site-haritasi",
+      "destination": "/project/Decor%20Sitemap.dc.html"
+    },
+    {
+      "source": "/bayi-ol",
+      "destination": "/project/Decor%20Become%20a%20Dealer.dc.html"
+    },
+    {
+      "source": "/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.dc.html"
+    },
+    {
+      "source": "/online-odeme",
+      "destination": "/project/Decor%20Online%20Payment.dc.html"
+    },
+    {
+      "source": "/bayi-kaynaklari",
+      "destination": "/project/Decor%20Partner%20Resources.dc.html"
+    },
+    {
+      "source": "/haberler/detay",
+      "destination": "/project/Decor%20Article.dc.html"
+    },
+    {
+      "source": "/urunler/kategori",
+      "destination": "/project/Decor%20Category.dc.html"
+    },
+    {
+      "source": "/urunler/urun",
+      "destination": "/project/Decor%20Product%20Detail.dc.html"
+    },
+    {
+      "source": "/satis/bayi-profili",
+      "destination": "/project/Decor%20Dealer%20Profile.dc.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/project/Decor%20Home.en.dc.html"
+    },
+    {
+      "source": "/en/products",
+      "destination": "/project/Decor%20Products.en.dc.html"
+    },
+    {
+      "source": "/en/manufacturing",
+      "destination": "/project/Decor%20Manufacturing.en.dc.html"
+    },
+    {
+      "source": "/en/export",
+      "destination": "/project/Decor%20Export.en.dc.html"
+    },
+    {
+      "source": "/en/sales",
+      "destination": "/project/Decor%20Authorized%20Dealers.en.dc.html"
+    },
+    {
+      "source": "/en/newsroom",
+      "destination": "/project/Decor%20Newsroom.en.dc.html"
+    },
+    {
+      "source": "/en/about",
+      "destination": "/project/Decor%20About.en.dc.html"
+    },
+    {
+      "source": "/en/contact",
+      "destination": "/project/Decor%20Contact.en.dc.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin/:path*"
+    }
   ],
   "headers": [
     {
       "source": "/project/uploads/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     },
     {
       "source": "/project/support.js",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     },
     {
       "source": "/project/news-data.js",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     }
   ]
