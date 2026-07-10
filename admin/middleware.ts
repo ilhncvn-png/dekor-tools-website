@@ -11,10 +11,17 @@ import { SESSION_COOKIE_NAME, isValidSessionValue } from '@/lib/auth';
  *
  * - "/" (login route): valid session -> redirect to /genel-bakis.
  *                       no/invalid session -> allow (show login only).
- * - every other route: valid session -> allow, with Cache-Control: no-store
- *                       so a logged-out browser's Back button can't reveal
- *                       a bfcache'd copy of the authenticated page.
+ * - every other route: valid session -> allow.
  *                       no/invalid session -> redirect to "/".
+ *
+ * Every response gets Cache-Control: no-store — verified live that
+ * without this, Vercel's edge cached the "no session" response for "/"
+ * and kept serving it to every visitor regardless of their actual cookie
+ * (a valid-session request would still see the login page from cache,
+ * middleware never re-running to redirect it to /genel-bakis). The
+ * correct output here always depends on the request's own cookie, so
+ * none of these responses may ever be cached. This also covers the
+ * earlier "Back button after logout" bfcache concern.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -25,9 +32,13 @@ export function middleware(request: NextRequest) {
     if (hasValidSession) {
       const url = request.nextUrl.clone();
       url.pathname = '/genel-bakis';
-      return NextResponse.redirect(url);
+      const response = NextResponse.redirect(url);
+      response.headers.set('Cache-Control', 'no-store');
+      return response;
     }
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set('Cache-Control', 'no-store');
+    return response;
   }
 
   if (!hasValidSession) {
