@@ -3,49 +3,51 @@
 /**
  * Root entry point (/) — Decor Control Center login gate.
  *
- * TEMPORARY STATIC-STAGING AUTH — NOT REAL AUTHENTICATION. Client-side
- * only, no backend, no database, no server-side verification. The
- * credential check below is base64-obfuscated (not encrypted) purely to
- * avoid a literal plaintext password sitting in a git diff — it offers no
- * real protection, and none of the routes it "gates" enforce the session
- * themselves (a direct visit to /genel-bakis bypasses this entirely).
- * Replace with real server-side auth in Sprint 2.
+ * TEMPORARY STATIC-STAGING AUTH — NOT REAL AUTHENTICATION. No backend, no
+ * database, no server-verified identity — see lib/auth.ts. The credential
+ * check below is base64-obfuscated (not encrypted) purely to avoid a
+ * literal plaintext password sitting in a git diff.
+ *
+ * middleware.ts is what actually protects every other route (redirects to
+ * "/" server-side, before any protected page renders) and redirects away
+ * from here to /genel-bakis if a valid session cookie already exists —
+ * this page only needs to run the one-time legacy-key cleanup and handle
+ * the login form itself.
  */
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { SESSION_COOKIE_NAME, SESSION_COOKIE_VALUE, LEGACY_SESSION_KEYS } from '@/lib/auth';
 
 const EXPECTED = 'aWxobmN2bkBnbWFpbC5jb206RGVrb3JTdGFnaW5nMjAyNiE='; // base64("email:password")
-const SESSION_KEY = 'dccStagingSession';
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8; // 8h — staging convenience only
 
 export default function RootPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-  const [checkingSession, setCheckingSession] = useState(true);
 
+  // One-time cleanup: this route is reached at all only when middleware
+  // has already determined there's no valid decor_admin_session cookie
+  // (otherwise it would have redirected to /genel-bakis before this page
+  // ever rendered) — so any legacy key still present is stale and must
+  // never be treated as a session. Never auto-logs the user in from it.
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem(SESSION_KEY) === '1') {
-      router.replace('/genel-bakis');
-      return;
-    }
-    setCheckingSession(false);
-  }, [router]);
+    LEGACY_SESSION_KEYS.forEach((key) => localStorage.removeItem(key));
+  }, []);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const attempt = typeof window !== 'undefined' ? btoa(`${email.trim()}:${password}`) : '';
     if (attempt === EXPECTED) {
       setError(false);
-      localStorage.setItem(SESSION_KEY, '1');
+      document.cookie = `${SESSION_COOKIE_NAME}=${SESSION_COOKIE_VALUE}; path=/; max-age=${SESSION_MAX_AGE_SECONDS}; SameSite=Lax`;
       router.push('/genel-bakis');
     } else {
       setError(true);
     }
   }
-
-  if (checkingSession) return null;
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-near-black px-5 py-10 font-display">

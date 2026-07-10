@@ -1,12 +1,25 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Settings, LogOut, ChevronDown, UserCircle } from 'lucide-react';
 import { Popover } from './Popover';
 import { Avatar } from './Avatar';
+import { SESSION_COOKIE_NAME, LEGACY_SESSION_KEYS } from '@/lib/auth';
 
 const currentUser = { name: 'Mert Doğan', email: 'mert.dogan@dekortools.com', role: 'Yönetici' };
 
 export function UserMenu() {
+  const router = useRouter();
+
+  function handleLogout() {
+    // Expire the session cookie immediately (max-age=0) and clear every
+    // legacy key, so nothing left behind can be mistaken for a valid
+    // session — matches the one-time cleanup logic in app/page.tsx.
+    document.cookie = `${SESSION_COOKIE_NAME}=; path=/; max-age=0`;
+    LEGACY_SESSION_KEYS.forEach((key) => localStorage.removeItem(key));
+    router.replace('/');
+  }
+
   return (
     <Popover
       width={224}
@@ -45,6 +58,7 @@ export function UserMenu() {
       <div className="my-1 h-px bg-border dark:bg-white/10" />
       <button
         type="button"
+        onClick={handleLogout}
         className="flex w-full items-center gap-2.5 rounded-soft px-2.5 py-2 text-left text-sm text-danger transition-colors hover:bg-danger-soft"
       >
         <LogOut size={15} />
