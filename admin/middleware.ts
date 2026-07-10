@@ -14,14 +14,14 @@ import { SESSION_COOKIE_NAME, isValidSessionValue } from '@/lib/auth';
  * - every other route: valid session -> allow.
  *                       no/invalid session -> redirect to "/".
  *
- * Every response gets Cache-Control: no-store — verified live that
- * without this, Vercel's edge cached the "no session" response for "/"
- * and kept serving it to every visitor regardless of their actual cookie
- * (a valid-session request would still see the login page from cache,
- * middleware never re-running to redirect it to /genel-bakis). The
- * correct output here always depends on the request's own cookie, so
- * none of these responses may ever be cached. This also covers the
- * earlier "Back button after logout" bfcache concern.
+ * Every response gets Cache-Control: no-store, and app/page.tsx exports
+ * dynamic = 'force-dynamic' (from a genuine Server Component — Next.js
+ * ignores that config on a 'use client' file, which is why the login form
+ * lives in components/auth/LoginForm.tsx instead) — both were required
+ * to stop Vercel's edge from caching the "no session" response for "/"
+ * and serving it to every visitor regardless of their actual cookie.
+ * Verified live with a temporary debug response header before removing
+ * it here once confirmed fixed.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -34,12 +34,10 @@ export function middleware(request: NextRequest) {
       url.pathname = '/genel-bakis';
       const response = NextResponse.redirect(url);
       response.headers.set('Cache-Control', 'no-store');
-      response.headers.set('X-Debug-Middleware', 'root-has-session');
       return response;
     }
     const response = NextResponse.next();
     response.headers.set('Cache-Control', 'no-store');
-    response.headers.set('X-Debug-Middleware', 'root-no-session');
     return response;
   }
 
@@ -48,23 +46,16 @@ export function middleware(request: NextRequest) {
     url.pathname = '/';
     const response = NextResponse.redirect(url);
     response.headers.set('Cache-Control', 'no-store');
-    response.headers.set('X-Debug-Middleware', 'protected-no-session');
     return response;
   }
 
   const response = NextResponse.next();
   response.headers.set('Cache-Control', 'no-store');
-  response.headers.set('X-Debug-Middleware', 'protected-has-session');
   return response;
 }
 
 export const config = {
-  // "/" is listed explicitly, not just relying on the catch-all pattern
-  // below — live-tested and confirmed the bare basePath root was the one
-  // request shape that skipped middleware entirely (X-Debug-Middleware
-  // header absent), while every path with a segment after it (e.g.
-  // /genel-bakis) matched correctly. Being explicit here removes any
-  // ambiguity about how the negative-lookahead pattern combines with
-  // basePath prefixing for the empty/root case specifically.
+  // "/" listed explicitly alongside the catch-all pattern for clarity —
+  // both were confirmed live to correctly invoke this middleware.
   matcher: ['/', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|ico)$).*)'],
 };
