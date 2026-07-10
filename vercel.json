@@ -1,13 +1,46 @@
 {
+  "redirects": [
+    { "source": "/project/Decor%20Home.dc.html", "destination": "/", "permanent": true },
+    { "source": "/project/Decor Home.dc.html", "destination": "/", "permanent": true },
+    { "source": "/Decor%20Home.dc.html", "destination": "/", "permanent": true },
+    { "source": "/Decor Home.dc.html", "destination": "/", "permanent": true },
+    { "source": "/project/Decor%20Home.html", "destination": "/", "permanent": true },
+    { "source": "/project/Decor Home.html", "destination": "/", "permanent": true },
+    { "source": "/anasayfa", "destination": "/", "permanent": true },
+
+    { "source": "/project/Decor%20Products.dc.html", "destination": "/urunler", "permanent": true },
+    { "source": "/project/Decor Products.dc.html", "destination": "/urunler", "permanent": true },
+
+    { "source": "/project/Decor%20Manufacturing.dc.html", "destination": "/uretim", "permanent": true },
+    { "source": "/project/Decor Manufacturing.dc.html", "destination": "/uretim", "permanent": true },
+
+    { "source": "/project/Decor%20Export.dc.html", "destination": "/ihracat", "permanent": true },
+    { "source": "/project/Decor Export.dc.html", "destination": "/ihracat", "permanent": true },
+
+    { "source": "/project/Decor%20Authorized%20Dealers.dc.html", "destination": "/satis", "permanent": true },
+    { "source": "/project/Decor Authorized Dealers.dc.html", "destination": "/satis", "permanent": true },
+
+    { "source": "/project/Decor%20Newsroom.dc.html", "destination": "/haberler", "permanent": true },
+    { "source": "/project/Decor Newsroom.dc.html", "destination": "/haberler", "permanent": true },
+
+    { "source": "/project/Decor%20About.dc.html", "destination": "/hakkimizda", "permanent": true },
+    { "source": "/project/Decor About.dc.html", "destination": "/hakkimizda", "permanent": true },
+
+    { "source": "/project/Decor%20Support.dc.html", "destination": "/destek", "permanent": true },
+    { "source": "/project/Decor Support.dc.html", "destination": "/destek", "permanent": true },
+
+    { "source": "/project/Decor%20Contact.dc.html", "destination": "/iletisim", "permanent": true },
+    { "source": "/project/Decor Contact.dc.html", "destination": "/iletisim", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/project/Decor%20Home.dc.html" },
-    { "source": "/anasayfa", "destination": "/project/Decor%20Home.dc.html" },
     { "source": "/urunler", "destination": "/project/Decor%20Products.dc.html" },
     { "source": "/uretim", "destination": "/project/Decor%20Manufacturing.dc.html" },
     { "source": "/ihracat", "destination": "/project/Decor%20Export.dc.html" },
     { "source": "/satis", "destination": "/project/Decor%20Authorized%20Dealers.dc.html" },
     { "source": "/haberler", "destination": "/project/Decor%20Newsroom.dc.html" },
     { "source": "/hakkimizda", "destination": "/project/Decor%20About.dc.html" },
+    { "source": "/destek", "destination": "/project/Decor%20Support.dc.html" },
     { "source": "/iletisim", "destination": "/project/Decor%20Contact.dc.html" },
 
     { "source": "/en", "destination": "/project/Decor%20Home.en.dc.html" },

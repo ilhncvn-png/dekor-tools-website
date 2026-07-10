@@ -138,7 +138,7 @@
   navPaddingStatic="20px 0"
   navBgStatic="rgba(12,13,15,.9)"
   logoHeightStatic="62"
-  logoHref="Decor Home.dc.html"
+  logoHref="/"
   supportFull="{{ false }}" supportReduced="{{ true }}"
   activeProducts="rgba(255,255,255,.7)"
   activeManufacturing="rgba(255,255,255,.7)"
@@ -156,14 +156,14 @@
 
 <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
   <div class="mobile-menu-js" style="position:fixed; inset:0; z-index:99; background:rgba(14,15,17,.98); backdrop-filter:blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; overflow-y:auto; padding:40px 0;">
-    <a href="Decor Products.dc.html" class="mnav-link">ÜRÜNLER</a>
-    <a href="Decor Manufacturing.dc.html" class="mnav-link">ÜRETİM</a>
-    <a href="Decor Export.dc.html" class="mnav-link">İHRACAT</a>
+    <a href="/urunler" class="mnav-link">ÜRÜNLER</a>
+    <a href="/uretim" class="mnav-link">ÜRETİM</a>
+    <a href="/ihracat" class="mnav-link">İHRACAT</a>
     <div class="mnav-group">
       <input type="radio" name="mnavacc" id="mnav-satis" class="mnav-toggle">
       <label for="mnav-satis" class="mnav-parent">SATIŞ<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Authorized Dealers.dc.html">YETKİLİ BAYİLER</a>
+        <a href="/satis">YETKİLİ BAYİLER</a>
         <a href="Decor Partner Resources.dc.html">BAYİ KAYNAKLARI</a>
         <a href="Decor B2B Portal.dc.html">B2B PORTALI</a>
         <a href="Decor Online Payment.dc.html">ÇEVRİMİÇİ ÖDEME</a>
@@ -173,17 +173,17 @@
       <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
       <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Newsroom.dc.html#news">SON HABERLER</a>
-        <a href="Decor Newsroom.dc.html#trade-shows">FUARLAR</a>
-        <a href="Decor Newsroom.dc.html#training-academy">EĞİTİM AKADEMİSİ</a>
-        <a href="Decor Newsroom.dc.html#company-life">ŞİRKET YAŞAMI</a>
+        <a href="/haberler#news">SON HABERLER</a>
+        <a href="/haberler#trade-shows">FUARLAR</a>
+        <a href="/haberler#training-academy">EĞİTİM AKADEMİSİ</a>
+        <a href="/haberler#company-life">ŞİRKET YAŞAMI</a>
       </div>
     </div>
     <div class="mnav-group">
       <input type="radio" name="mnavacc" id="mnav-hakkimizda" class="mnav-toggle">
       <label for="mnav-hakkimizda" class="mnav-parent">HAKKIMIZDA<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor About.dc.html">DEKOR HAKKINDA</a>
+        <a href="/hakkimizda">DEKOR HAKKINDA</a>
         <a href="Decor Our Story.dc.html">HİKAYEMİZ</a>
         <a href="Decor Vision Mission.dc.html">VİZYON VE MİSYON</a>
         <a href="Decor RD Center.dc.html">AR-GE MERKEZİ</a>
@@ -196,20 +196,20 @@
       <input type="radio" name="mnavacc" id="mnav-destek" class="mnav-toggle">
       <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Support.dc.html">DESTEK MERKEZİ</a>
-        <a href="Decor Support.dc.html#downloads">İNDİRİLENLER</a>
-        <a href="Decor Support.dc.html#faq">SSS</a>
-        <a href="Decor Support.dc.html#downloads">SERTİFİKALAR</a>
-        <a href="Decor Support.dc.html#downloads">KATALOGLAR</a>
-        <a href="Decor Support.dc.html#categories">GARANTİ</a>
-        <a href="Decor Support.dc.html#faq">SSS</a>
+        <a href="/destek">DESTEK MERKEZİ</a>
+        <a href="/destek#downloads">İNDİRİLENLER</a>
+        <a href="/destek#faq">SSS</a>
+        <a href="/destek#downloads">SERTİFİKALAR</a>
+        <a href="/destek#downloads">KATALOGLAR</a>
+        <a href="/destek#categories">GARANTİ</a>
+        <a href="/destek#faq">SSS</a>
       </div>
     </div>
     <div class="mnav-group">
       <input type="radio" name="mnavacc" id="mnav-iletisim" class="mnav-toggle">
       <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Contact.dc.html">İLETİŞİM</a>
+        <a href="/iletisim">İLETİŞİM</a>
         <a href="Decor Complaint.dc.html">ŞİKAYET BİLDİR</a>
       </div>
     </div>
@@ -235,7 +235,7 @@
   <div class="bp-glint" style="top:66%; left:34%; animation-delay:2s;"></div>
   <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1000px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto; width:100%;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <span style="color:#D32027;">KARİYER</span></div>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <span style="color:#D32027;">KARİYER</span></div>
     <div style="display:inline-flex; align-items:center; gap:12px; margin-top:28px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>DEKOR'DA KARİYER</div>
     <h1 style="font-size:clamp(44px,7.5vw,98px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.9; margin:18px 0 0; max-width:900px; text-wrap:balance;">Profesyonellerin güvendiği aletleri üretin<span style="color:#0095DA;">.</span></h1>
     <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Türkiye'nin en büyük profesyonel el aletleri üreticisinin arkasındaki ekibe katılın — mühendislik, üretim, Ar-Ge ve küresel ticaret.</p>
@@ -318,7 +318,7 @@
           <div style="text-align:left;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; color:rgba(255,255,255,.45);">DURUM</div><div style="font-family:'IBM Plex Mono',monospace; font-size:15px; color:#fff; font-weight:600; margin-top:4px;">ALINDI</div></div>
         </div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.2px; color:rgba(255,255,255,.4); margin-top:22px;">Başvuru kaydınıza bir onay işlendi.</div>
-        <div style="margin-top:30px;"><a href="Decor Home.dc.html" class="dkr-btn dkr-btn-ghost" style="display:inline-block; border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:14px 28px; font-weight:700; font-size:15px; border-radius:2px;">Dekor'a Dön</a></div>
+        <div style="margin-top:30px;"><a href="/" class="dkr-btn dkr-btn-ghost" style="display:inline-block; border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:14px 28px; font-weight:700; font-size:15px; border-radius:2px;">Dekor'a Dön</a></div>
       </div>
     </sc-if>
 
