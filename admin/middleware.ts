@@ -59,6 +59,12 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Every route except Next.js internals and static image/font files.
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|ico)$).*)'],
+  // "/" is listed explicitly, not just relying on the catch-all pattern
+  // below — live-tested and confirmed the bare basePath root was the one
+  // request shape that skipped middleware entirely (X-Debug-Middleware
+  // header absent), while every path with a segment after it (e.g.
+  // /genel-bakis) matched correctly. Being explicit here removes any
+  // ambiguity about how the negative-lookahead pattern combines with
+  // basePath prefixing for the empty/root case specifically.
+  matcher: ['/', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|ico)$).*)'],
 };
