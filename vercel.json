@@ -19,7 +19,8 @@
     { "source": "/en/about", "destination": "/project/Decor%20About.en.dc.html" },
     { "source": "/en/contact", "destination": "/project/Decor%20Contact.en.dc.html" },
 
-    { "source": "/admin", "destination": "/admin-login.html" }
+    { "source": "/admin", "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin" },
+    { "source": "/admin/:path*", "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin/:path*" }
   ],
   "headers": [
     {
