@@ -13,7 +13,12 @@ import { CommandPalette } from '@/components/ui/CommandPalette';
  * mobile drawer, right panel visibility, palette open) that don't belong
  * to any single page.
  */
-export function AppShell({ children }: { children: ReactNode }) {
+interface AppShellProps {
+  children: ReactNode;
+  user: { name: string; email: string };
+}
+
+export function AppShell({ children, user }: AppShellProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [rightPanelOpen, setRightPanelOpen] = useState(false);
@@ -45,6 +50,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           onOpenMobileSidebar={() => setMobileSidebarOpen(true)}
           onOpenCommandPalette={() => setCommandPaletteOpen(true)}
           onToggleRightPanel={() => setRightPanelOpen((v) => !v)}
+          user={user}
         />
 
         <div className="flex min-w-0 flex-1">

@@ -1,23 +1,26 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 import { Settings, LogOut, ChevronDown, UserCircle } from 'lucide-react';
 import { Popover } from './Popover';
 import { Avatar } from './Avatar';
-import { SESSION_COOKIE_NAME, LEGACY_SESSION_KEYS } from '@/lib/auth';
+import { logout } from '@/lib/actions/auth-actions';
 
-const currentUser = { name: 'Mert Doğan', email: 'mert.dogan@dekortools.com', role: 'Yönetici' };
+interface UserMenuProps {
+  user: { name: string; email: string };
+}
 
-export function UserMenu() {
+export function UserMenu({ user }: UserMenuProps) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   function handleLogout() {
-    // Expire the session cookie immediately (max-age=0) and clear every
-    // legacy key, so nothing left behind can be mistaken for a valid
-    // session — matches the one-time cleanup logic in app/page.tsx.
-    document.cookie = `${SESSION_COOKIE_NAME}=; path=/; max-age=0`;
-    LEGACY_SESSION_KEYS.forEach((key) => localStorage.removeItem(key));
-    router.replace('/');
+    startTransition(async () => {
+      await logout();
+      router.replace('/');
+      router.refresh();
+    });
   }
 
   return (
@@ -31,14 +34,14 @@ export function UserMenu() {
           aria-expanded={open}
           className="flex items-center gap-2 rounded-soft py-1 pl-1 pr-2 transition-colors hover:bg-mist dark:hover:bg-white/5"
         >
-          <Avatar name={currentUser.name} size="sm" tone="red" />
+          <Avatar name={user.name} size="sm" tone="red" />
           <ChevronDown size={14} className="text-steel dark:text-white/40" />
         </button>
       )}
     >
       <div className="px-2.5 py-2">
-        <div className="text-sm font-medium text-near-black dark:text-white">{currentUser.name}</div>
-        <div className="text-xs text-steel dark:text-white/40">{currentUser.email}</div>
+        <div className="text-sm font-medium text-near-black dark:text-white">{user.name}</div>
+        <div className="text-xs text-steel dark:text-white/40">{user.email}</div>
       </div>
       <div className="my-1 h-px bg-border dark:bg-white/10" />
       <button
@@ -59,10 +62,11 @@ export function UserMenu() {
       <button
         type="button"
         onClick={handleLogout}
-        className="flex w-full items-center gap-2.5 rounded-soft px-2.5 py-2 text-left text-sm text-danger transition-colors hover:bg-danger-soft"
+        disabled={isPending}
+        className="flex w-full items-center gap-2.5 rounded-soft px-2.5 py-2 text-left text-sm text-danger transition-colors hover:bg-danger-soft disabled:cursor-not-allowed disabled:opacity-60"
       >
         <LogOut size={15} />
-        Çıkış Yap
+        {isPending ? 'Çıkış yapılıyor…' : 'Çıkış Yap'}
       </button>
     </Popover>
   );

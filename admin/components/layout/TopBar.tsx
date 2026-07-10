@@ -11,9 +11,10 @@ interface TopBarProps {
   onOpenMobileSidebar: () => void;
   onOpenCommandPalette: () => void;
   onToggleRightPanel: () => void;
+  user: { name: string; email: string };
 }
 
-export function TopBar({ onOpenMobileSidebar, onOpenCommandPalette, onToggleRightPanel }: TopBarProps) {
+export function TopBar({ onOpenMobileSidebar, onOpenCommandPalette, onToggleRightPanel, user }: TopBarProps) {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-white/80 px-4 backdrop-blur-md dark:border-white/10 dark:bg-surface-dark/80">
       <button
@@ -55,7 +56,7 @@ export function TopBar({ onOpenMobileSidebar, onOpenCommandPalette, onToggleRigh
 
         <div className="ml-1 h-6 w-px bg-border dark:bg-white/10" />
 
-        <UserMenu />
+        <UserMenu user={user} />
       </div>
     </header>
   );

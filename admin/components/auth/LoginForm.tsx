@@ -8,43 +8,37 @@
  * which is why this logic was split out of page.tsx rather than staying
  * there directly — same behavior, same design, just moved).
  *
- * TEMPORARY STATIC-STAGING AUTH — NOT REAL AUTHENTICATION. No backend, no
- * database, no server-verified identity — see lib/auth.ts. The credential
- * check below is base64-obfuscated (not encrypted) purely to avoid a
- * literal plaintext password sitting in a git diff.
+ * Real server-verified authentication: submits to the `login` Server
+ * Action (lib/actions/auth-actions.ts), which checks the password against
+ * an Argon2 hash in Postgres and, on success, sets a signed HttpOnly
+ * session cookie itself — this component never sees or sets the cookie.
  */
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { SESSION_COOKIE_NAME, SESSION_COOKIE_VALUE, LEGACY_SESSION_KEYS } from '@/lib/auth';
-
-const EXPECTED = 'aWxobmN2bkBnbWFpbC5jb206RGVrb3JTdGFnaW5nMjAyNiE='; // base64("email:password")
-const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8; // 8h — staging convenience only
+import { login } from '@/lib/actions/auth-actions';
 
 export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  // One-time cleanup: this route is reached at all only when middleware
-  // has already determined there's no valid decor_admin_session cookie
-  // (otherwise it would have redirected to /genel-bakis before this page
-  // ever rendered) — so any legacy key still present is stale and must
-  // never be treated as a session. Never auto-logs the user in from it.
-  useEffect(() => {
-    LEGACY_SESSION_KEYS.forEach((key) => localStorage.removeItem(key));
-  }, []);
-
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const attempt = typeof window !== 'undefined' ? btoa(`${email.trim()}:${password}`) : '';
-    if (attempt === EXPECTED) {
-      setError(false);
-      document.cookie = `${SESSION_COOKIE_NAME}=${SESSION_COOKIE_VALUE}; path=/; max-age=${SESSION_MAX_AGE_SECONDS}; SameSite=Lax`;
-      router.push('/genel-bakis');
-    } else {
-      setError(true);
+    setSubmitting(true);
+    setError(false);
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        router.push('/genel-bakis');
+        router.refresh();
+      } else {
+        setError(true);
+      }
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -74,11 +68,6 @@ export function LoginForm() {
           <p className="mt-2.5 text-center font-mono text-[11px] uppercase tracking-[2px] text-white/50">
             Website Management System
           </p>
-
-          <div className="mx-auto mt-4.5 flex w-fit items-center gap-1.5 rounded-soft border border-red/35 px-2.5 py-1.5 font-mono text-[9.5px] tracking-[1px] text-red-eyebrow">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-red" />
-            GEÇİCİ STAGING KORUMASI &middot; GERÇEK KİMLİK DOĞRULAMA DEĞİL
-          </div>
 
           <form onSubmit={handleSubmit} className="mt-7 flex flex-col gap-4" autoComplete="off">
             <div>
@@ -118,9 +107,10 @@ export function LoginForm() {
 
             <button
               type="submit"
-              className="mt-1 h-11 rounded-soft bg-blue font-medium text-white transition-[filter] duration-fast hover:brightness-110 active:brightness-90"
+              disabled={submitting}
+              className="mt-1 h-11 rounded-soft bg-blue font-medium text-white transition-[filter] duration-fast hover:brightness-110 active:brightness-90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Giriş Yap
+              {submitting ? 'Giriş yapılıyor…' : 'Giriş Yap'}
             </button>
           </form>
         </div>

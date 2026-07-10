@@ -1,0 +1,863 @@
+// Decor Control Center — enterprise CMS schema.
+// See docs/enterprise-cms-migration.md for the architecture this implements.
+//
+// Design notes (deliberate deviations from a literal 1:1 reading of the spec,
+// recorded here since Prisma has no table inheritance / native polymorphism):
+//
+// - Per-module revision tables (ProductRevision, PageRevision, NewsRevision,
+//   BannerRevision) store structured, type-specific snapshots for the four
+//   content types that need rich diffing in the editor UI (side-by-side
+//   field compare). ContentRevision is a SEPARATE, generic, polymorphic
+//   (entityType + entityId) revision/audit trail that every content type
+//   writes to uniformly, and is what "roll back to revision" and "compare
+//   revisions" work off of in the shared UI. Keeping both avoids either
+//   (a) four near-duplicate generic tables, or (b) losing type-specific
+//   snapshot shape.
+// - AuditLog is the immutable, security-relevant action trail (Section 15
+//   of the spec: login, permission changes, deletes, etc). ActivityLog is a
+//   denormalized, fast-read feed purpose-built for the dashboard's "recent
+//   activity" widget (Section 17) — written alongside AuditLog, never the
+//   source of truth, safe to rebuild/truncate without losing audit history.
+// - Polymorphic references (ContentRevision.entityId, AuditLog.entityId,
+//   MediaUsage.entityId, Redirect targets) use plain String fields rather
+//   than Prisma relations, since Prisma cannot express a FK against "one of
+//   several possible tables." Referential integrity for these is enforced
+//   at the application layer (lib/audit, lib/publishing), not the DB layer.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================
+// AUTHENTICATION & RBAC
+// ============================================================
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+  PENDING
+}
+
+model User {
+  id                  String     @id @default(cuid())
+  name                String
+  email               String     @unique
+  passwordHash        String
+  status              UserStatus @default(ACTIVE)
+  failedLoginAttempts Int        @default(0)
+  lockedUntil         DateTime?
+  lastLoginAt         DateTime?
+  lastLoginIp         String?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  deletedAt           DateTime?
+
+  roles            UserRole[]
+  sessions         Session[]
+  auditLogs        AuditLog[]        @relation("AuditActor")
+  activityLogs     ActivityLog[]     @relation("ActivityActor")
+  contentRevisions ContentRevision[] @relation("RevisionAuthor")
+  authoredPages    Page[]            @relation("PageAuthor")
+  editedPages      Page[]            @relation("PageEditor")
+  authoredProducts Product[]         @relation("ProductAuthor")
+  editedProducts   Product[]         @relation("ProductEditor")
+  uploadedMedia    MediaAsset[]      @relation("MediaUploader")
+
+  @@index([email])
+  @@index([status])
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  key         String   @unique // e.g. SUPER_ADMIN, ADMIN, EDITOR, TRANSLATOR, MEDIA_MANAGER, VIEWER
+  label       String
+  description String?
+  isSystem    Boolean  @default(false) // built-in roles cannot be deleted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       UserRole[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g. "products.publish"
+  label     String
+  category  String   // e.g. "products", "pages", "media"
+  createdAt DateTime @default(now())
+
+  roles RolePermission[]
+}
+
+model UserRole {
+  userId     String
+  roleId     String
+  assignedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique // SHA-256 of the session token; raw token never stored
+  ipAddress String?
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ============================================================
+// LANGUAGE
+// ============================================================
+
+enum TranslationStatus {
+  MISSING
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  PUBLISHED
+}
+
+model Language {
+  code      String  @id // tr, en, de, fr, ru, az, ar
+  label     String
+  isDefault Boolean @default(false)
+  isRtl     Boolean @default(false)
+  isActive  Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  pageTranslations        PageTranslation[]
+  pageSectionTranslations PageSectionTranslation[]
+  categoryTranslations    ProductCategoryTranslation[]
+  productTranslations     ProductTranslation[]
+  newsTranslations        NewsArticleTranslation[]
+  dealerTranslations      DealerTranslation[]
+  bannerTranslations      BannerTranslation[]
+  menuItemTranslations    MenuItemTranslation[]
+  siteSettingTranslations SiteSettingTranslation[]
+}
+
+// ============================================================
+// WORKFLOW (shared enums + generic polymorphic tables)
+// ============================================================
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW
+  SCHEDULED
+  PUBLISHED
+  UNPUBLISHED
+  ARCHIVED
+}
+
+enum RevisionAction {
+  CREATE
+  UPDATE
+  PUBLISH
+  UNPUBLISH
+  SCHEDULE
+  ARCHIVE
+  RESTORE
+  ROLLBACK
+  DELETE
+}
+
+// One row per meaningful change to ANY content entity, keyed polymorphically.
+// entityType is a stable string like "product", "page", "news_article".
+model ContentRevision {
+  id           String         @id @default(cuid())
+  entityType   String
+  entityId     String
+  action       RevisionAction
+  previousData Json?
+  newData      Json?
+  note         String?
+  authorId     String
+  createdAt    DateTime       @default(now())
+
+  author User @relation("RevisionAuthor", fields: [authorId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model ScheduledPublication {
+  id            String    @id @default(cuid())
+  entityType    String
+  entityId      String
+  scheduledFor  DateTime
+  status        String    @default("PENDING") // PENDING | EXECUTED | CANCELLED | FAILED
+  createdById   String
+  executedAt    DateTime?
+  failureReason String?
+  createdAt     DateTime  @default(now())
+
+  @@index([entityType, entityId])
+  @@index([scheduledFor, status])
+}
+
+// ============================================================
+// PAGES
+// ============================================================
+
+model Page {
+  id          String        @id @default(cuid())
+  key         String        @unique // stable internal identifier, e.g. "home", "about"
+  slug        String        @unique // canonical (Turkish) slug, no leading slash
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  authorId    String
+  editorId    String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  author User  @relation("PageAuthor", fields: [authorId], references: [id])
+  editor User? @relation("PageEditor", fields: [editorId], references: [id])
+
+  translations PageTranslation[]
+  sections     PageSection[]
+  revisions    PageRevision[]
+  seo          SeoMetadata?
+
+  @@index([status])
+  @@index([slug])
+}
+
+model PageTranslation {
+  id                String            @id @default(cuid())
+  pageId            String
+  languageCode      String
+  title             String
+  slug              String            // per-language slug
+  excerpt           String?
+  translationStatus TranslationStatus @default(DRAFT)
+  updatedAt         DateTime          @updatedAt
+
+  page     Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageCode], references: [code])
+
+  @@unique([pageId, languageCode])
+  @@unique([languageCode, slug])
+}
+
+model PageSection {
+  id        String   @id @default(cuid())
+  pageId    String
+  key       String   // e.g. "hero", "featured-products"
+  type      String   // section component type
+  sortOrder Int      @default(0)
+  data      Json     // structural, language-agnostic config (layout, refs)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  page         Page                     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  translations PageSectionTranslation[]
+
+  @@unique([pageId, key])
+  @@index([pageId, sortOrder])
+}
+
+model PageSectionTranslation {
+  id           String   @id @default(cuid())
+  sectionId    String
+  languageCode String
+  content      Json     // translated copy fields (headline, body, cta labels...)
+  updatedAt    DateTime @updatedAt
+
+  section  PageSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  language Language    @relation(fields: [languageCode], references: [code])
+
+  @@unique([sectionId, languageCode])
+}
+
+model PageRevision {
+  id        String         @id @default(cuid())
+  pageId    String
+  snapshot  Json           // full page + translations + sections at time of save
+  action    RevisionAction
+  authorId  String
+  note      String?
+  createdAt DateTime       @default(now())
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId, createdAt])
+}
+
+// ============================================================
+// PRODUCTS
+// ============================================================
+
+model ProductCategory {
+  id        String    @id @default(cuid())
+  key       String    @unique
+  slug      String    @unique
+  parentId  String?
+  sortOrder Int       @default(0)
+  isVisible Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  parent   ProductCategory?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children ProductCategory[] @relation("CategoryTree")
+
+  translations ProductCategoryTranslation[]
+  products     Product[]
+
+  @@index([parentId])
+}
+
+model ProductCategoryTranslation {
+  id                String            @id @default(cuid())
+  categoryId        String
+  languageCode      String
+  name              String
+  slug              String
+  description       String?
+  translationStatus TranslationStatus @default(DRAFT)
+  updatedAt         DateTime          @updatedAt
+
+  category ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  language Language        @relation(fields: [languageCode], references: [code])
+
+  @@unique([categoryId, languageCode])
+  @@unique([languageCode, slug])
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  sku         String        @unique
+  slug        String        @unique
+  categoryId  String?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  authorId    String
+  editorId    String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  category ProductCategory? @relation(fields: [categoryId], references: [id])
+  author   User             @relation("ProductAuthor", fields: [authorId], references: [id])
+  editor   User?            @relation("ProductEditor", fields: [editorId], references: [id])
+
+  translations ProductTranslation[]
+  media        ProductMedia[]
+  variants     ProductVariant[]
+  features     ProductFeature[]
+  specs        ProductTechnicalSpecification[]
+  revisions    ProductRevision[]
+  seo          SeoMetadata?
+
+  @@index([status])
+  @@index([categoryId])
+}
+
+model ProductTranslation {
+  id                String            @id @default(cuid())
+  productId         String
+  languageCode      String
+  name              String
+  slug              String
+  shortDescription  String?
+  description       String?
+  translationStatus TranslationStatus @default(DRAFT)
+  updatedAt         DateTime          @updatedAt
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageCode], references: [code])
+
+  @@unique([productId, languageCode])
+  @@unique([languageCode, slug])
+}
+
+model ProductMedia {
+  id        String @id @default(cuid())
+  productId String
+  mediaId   String
+  role      String @default("gallery") // "primary" | "gallery" | "spec-sheet"
+  sortOrder Int    @default(0)
+
+  product Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  media   MediaAsset @relation(fields: [mediaId], references: [id])
+
+  @@unique([productId, mediaId, role])
+  @@index([productId, sortOrder])
+}
+
+model ProductVariant {
+  id         String  @id @default(cuid())
+  productId  String
+  sku        String  @unique
+  attributes Json    // { color: "red", size: "L" } etc.
+  isDefault  Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+model ProductFeature {
+  id           String @id @default(cuid())
+  productId    String
+  languageCode String
+  label        String
+  sortOrder    Int    @default(0)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, languageCode])
+}
+
+model ProductTechnicalSpecification {
+  id           String @id @default(cuid())
+  productId    String
+  languageCode String
+  label        String
+  value        String
+  sortOrder    Int    @default(0)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, languageCode])
+}
+
+model ProductRevision {
+  id        String         @id @default(cuid())
+  productId String
+  snapshot  Json
+  action    RevisionAction
+  authorId  String
+  note      String?
+  createdAt DateTime       @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, createdAt])
+}
+
+// ============================================================
+// NEWS
+// ============================================================
+
+model NewsCategory {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  articles NewsArticle[]
+}
+
+model NewsArticle {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  categoryId  String?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  authorId    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  category NewsCategory? @relation(fields: [categoryId], references: [id])
+
+  translations NewsArticleTranslation[]
+  revisions    NewsRevision[]
+  seo          SeoMetadata?
+
+  @@index([status])
+  @@index([categoryId])
+}
+
+model NewsArticleTranslation {
+  id                String            @id @default(cuid())
+  articleId         String
+  languageCode      String
+  title             String
+  slug              String
+  excerpt           String?
+  body              String?
+  translationStatus TranslationStatus @default(DRAFT)
+  updatedAt         DateTime          @updatedAt
+
+  article  NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  language Language    @relation(fields: [languageCode], references: [code])
+
+  @@unique([articleId, languageCode])
+  @@unique([languageCode, slug])
+}
+
+model NewsRevision {
+  id        String         @id @default(cuid())
+  articleId String
+  snapshot  Json
+  action    RevisionAction
+  authorId  String
+  note      String?
+  createdAt DateTime       @default(now())
+
+  article NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@index([articleId, createdAt])
+}
+
+// ============================================================
+// DEALERS
+// ============================================================
+
+model Dealer {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  status      ContentStatus @default(DRAFT)
+  country     String
+  city        String?
+  latitude    Float?
+  longitude   Float?
+  email       String?
+  phone       String?
+  website     String?
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  translations DealerTranslation[]
+  documents    DealerDocument[]
+
+  @@index([status])
+  @@index([country])
+}
+
+model DealerTranslation {
+  id           String   @id @default(cuid())
+  dealerId     String
+  languageCode String
+  name         String
+  description  String?
+  address      String?
+  updatedAt    DateTime @updatedAt
+
+  dealer   Dealer   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageCode], references: [code])
+
+  @@unique([dealerId, languageCode])
+}
+
+model DealerDocument {
+  id        String   @id @default(cuid())
+  dealerId  String
+  mediaId   String
+  label     String
+  createdAt DateTime @default(now())
+
+  dealer Dealer     @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  media  MediaAsset @relation(fields: [mediaId], references: [id])
+
+  @@index([dealerId])
+}
+
+// ============================================================
+// BANNERS
+// ============================================================
+
+model Banner {
+  id          String        @id @default(cuid())
+  key         String        @unique
+  placement   String        // e.g. "home-hero", "products-top"
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  translations BannerTranslation[]
+  slides       BannerSlide[]
+  revisions    BannerRevision[]
+
+  @@index([status, placement])
+}
+
+model BannerTranslation {
+  id           String   @id @default(cuid())
+  bannerId     String
+  languageCode String
+  headline     String?
+  body         String?
+  ctaLabel     String?
+  ctaUrl       String?
+  updatedAt    DateTime @updatedAt
+
+  banner   Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageCode], references: [code])
+
+  @@unique([bannerId, languageCode])
+}
+
+model BannerSlide {
+  id        String @id @default(cuid())
+  bannerId  String
+  mediaId   String
+  sortOrder Int    @default(0)
+
+  banner Banner     @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+  media  MediaAsset @relation(fields: [mediaId], references: [id])
+
+  @@index([bannerId, sortOrder])
+}
+
+model BannerRevision {
+  id        String         @id @default(cuid())
+  bannerId  String
+  snapshot  Json
+  action    RevisionAction
+  authorId  String
+  note      String?
+  createdAt DateTime       @default(now())
+
+  banner Banner @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@index([bannerId, createdAt])
+}
+
+// ============================================================
+// MEDIA
+// ============================================================
+
+model MediaFolder {
+  id        String   @id @default(cuid())
+  name      String
+  parentId  String?
+  createdAt DateTime @default(now())
+
+  parent   MediaFolder?  @relation("FolderTree", fields: [parentId], references: [id])
+  children MediaFolder[] @relation("FolderTree")
+  assets   MediaAsset[]
+
+  @@index([parentId])
+}
+
+model MediaAsset {
+  id           String    @id @default(cuid())
+  folderId     String?
+  fileName     String
+  url          String    // Vercel Blob URL
+  mimeType     String
+  sizeBytes    Int
+  width        Int?
+  height       Int?
+  altText      String?
+  caption      String?
+  uploadedById String
+  createdAt    DateTime  @default(now())
+  deletedAt    DateTime?
+
+  folder     MediaFolder? @relation(fields: [folderId], references: [id])
+  uploadedBy User         @relation("MediaUploader", fields: [uploadedById], references: [id])
+
+  productLinks ProductMedia[]
+  dealerDocs   DealerDocument[]
+  bannerSlides BannerSlide[]
+  usages       MediaUsage[]
+
+  @@index([folderId])
+  @@index([mimeType])
+}
+
+// Tracks every place a media asset is referenced so deletes can warn/block.
+model MediaUsage {
+  id         String @id @default(cuid())
+  mediaId    String
+  entityType String
+  entityId   String
+
+  media MediaAsset @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([mediaId, entityType, entityId])
+  @@index([entityType, entityId])
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+
+model Menu {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g. "main-nav", "footer-nav"
+  createdAt DateTime @default(now())
+
+  items MenuItem[]
+}
+
+model MenuItem {
+  id        String  @id @default(cuid())
+  menuId    String
+  parentId  String?
+  href      String?
+  sortOrder Int     @default(0)
+  isVisible Boolean @default(true)
+
+  menu     Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  parent   MenuItem?  @relation("MenuItemTree", fields: [parentId], references: [id])
+  children MenuItem[] @relation("MenuItemTree")
+
+  translations MenuItemTranslation[]
+
+  @@index([menuId, sortOrder])
+  @@index([parentId])
+}
+
+model MenuItemTranslation {
+  id           String @id @default(cuid())
+  menuItemId   String
+  languageCode String
+  label        String
+
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageCode], references: [code])
+
+  @@unique([menuItemId, languageCode])
+}
+
+// ============================================================
+// SEO & REDIRECTS
+// ============================================================
+
+// One-to-one with a single content entity via optional FKs — a SeoMetadata
+// row always belongs to exactly one of Page / Product / NewsArticle (enforced
+// at the application layer since Prisma cannot express an XOR constraint).
+model SeoMetadata {
+  id                 String   @id @default(cuid())
+  pageId             String?  @unique
+  productId          String?  @unique
+  newsArticleId      String?  @unique
+  languageCode       String
+  metaTitle          String?
+  metaDescription    String?
+  canonicalUrl       String?
+  robots             String   @default("index,follow")
+  ogTitle            String?
+  ogDescription      String?
+  ogImageId          String?
+  twitterTitle       String?
+  twitterDescription String?
+  structuredData     Json?
+  sitemapInclude     Boolean  @default(true)
+  sitemapPriority    Float    @default(0.5)
+  changeFrequency    String   @default("weekly")
+  updatedAt          DateTime @updatedAt
+
+  page        Page?        @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  product     Product?     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  newsArticle NewsArticle? @relation(fields: [newsArticleId], references: [id], onDelete: Cascade)
+
+  @@index([languageCode])
+}
+
+model Redirect {
+  id          String   @id @default(cuid())
+  fromPath    String   @unique
+  toPath      String
+  statusCode  Int      @default(308)
+  reason      String?  // e.g. "slug-change", "legacy-dc-html-migration"
+  createdById String
+  createdAt   DateTime @default(now())
+  isActive    Boolean  @default(true)
+
+  @@index([fromPath])
+}
+
+// ============================================================
+// SITE SETTINGS
+// ============================================================
+
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  translations SiteSettingTranslation[]
+}
+
+model SiteSettingTranslation {
+  id           String @id @default(cuid())
+  settingKey   String
+  languageCode String
+  value        Json
+
+  setting  SiteSetting @relation(fields: [settingKey], references: [key], onDelete: Cascade)
+  language Language    @relation(fields: [languageCode], references: [code])
+
+  @@unique([settingKey, languageCode])
+}
+
+// ============================================================
+// AUDIT
+// ============================================================
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  actorId      String?  // nullable: failed logins may not resolve to a known user
+  action       String   // e.g. "login", "product.publish", "user.role_change"
+  entityType   String?
+  entityId     String?
+  previousData Json?
+  newData      Json?
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+// Denormalized, fast-read feed for the dashboard "recent activity" widget.
+// Not the audit source of truth — see AuditLog.
+model ActivityLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actorName  String   // cached at write time, survives actor deletion
+  summary    String   // human-readable, e.g. "PVC Spatula ürününü yayınladı"
+  entityType String?
+  entityId   String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation("ActivityActor", fields: [actorId], references: [id])
+
+  @@index([createdAt])
+}

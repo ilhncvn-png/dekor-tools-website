@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import { ThemeProvider, themeInitScript } from '@/lib/theme-provider';
 import { ConditionalShell } from '@/components/layout/ConditionalShell';
 import { ToastProvider } from '@/components/ui/Toast';
+import { getCurrentUser } from '@/lib/auth/session';
 import './globals.css';
 
 // Geist (self-hosted via the official `geist` package, no Google Fonts CDN
@@ -23,7 +24,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Authoritative (DB-backed) session check — see lib/auth/session.ts. Using
+  // cookies() here automatically opts this layout into dynamic rendering,
+  // so the result is never cached/shared across visitors.
+  const user = await getCurrentUser();
+
   return (
     <html lang="tr" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <head>
@@ -33,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-display">
         <ThemeProvider>
           <ToastProvider>
-            <ConditionalShell>{children}</ConditionalShell>
+            <ConditionalShell user={user}>{children}</ConditionalShell>
           </ToastProvider>
         </ThemeProvider>
       </body>

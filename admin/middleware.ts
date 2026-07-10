@@ -1,35 +1,38 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { SESSION_COOKIE_NAME, isValidSessionValue } from '@/lib/auth';
+import { verifyToken } from '@/lib/auth/token';
+import { SESSION_COOKIE_NAME } from '@/lib/auth/constants';
 
 /**
- * Guards every admin route server-side, before any page component runs —
- * this is what prevents protected pages from rendering (even briefly) for
- * an unauthenticated visitor, which a client-only check can never fully
- * achieve. Still just a cookie-presence check (no database, no signed
- * token, no server-verified identity) — temporary staging protection,
- * not real authentication. See lib/auth.ts.
+ * Fast, cheap, Edge-safe gate that runs before any page renders — this is
+ * what prevents protected routes from flashing content for an
+ * unauthenticated visitor. It checks the cookie's HMAC signature and
+ * expiry ONLY (see lib/auth/token.ts): the Edge runtime cannot reach
+ * Prisma/Postgres, so it cannot see session revocation or a disabled user.
  *
- * - "/" (login route): valid session -> redirect to /genel-bakis.
- *                       no/invalid session -> allow (show login only).
- * - every other route: valid session -> allow.
- *                       no/invalid session -> redirect to "/".
+ * That authoritative check happens in lib/auth/session.ts's getCurrentUser(),
+ * which every Server Action and Route Handler calls independently. A user
+ * who is revoked/disabled after this middleware approves a request will
+ * still be rejected the moment they hit any real Server Action — see
+ * requirePermission() in lib/permissions. This two-layer split is
+ * intentional, not a shortcut: it's what the migration spec means by
+ * "Middleware alone is not sufficient."
  *
- * Every response gets Cache-Control: no-store, and app/page.tsx exports
- * dynamic = 'force-dynamic' (from a genuine Server Component — Next.js
- * ignores that config on a 'use client' file, which is why the login form
- * lives in components/auth/LoginForm.tsx instead) — both were required
- * to stop Vercel's edge from caching the "no session" response for "/"
- * and serving it to every visitor regardless of their actual cookie.
- * Verified live with a temporary debug response header before removing
- * it here once confirmed fixed.
+ * - "/" (login route): valid signed cookie -> redirect to /genel-bakis.
+ *                       no/invalid cookie  -> allow (show login only).
+ * - every other route: valid signed cookie -> allow.
+ *                       no/invalid cookie  -> redirect to "/".
  */
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionValue = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-  const hasValidSession = isValidSessionValue(sessionValue);
+  const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+  const authSecret = process.env.AUTH_SECRET;
+
+  // Fail closed: an unconfigured AUTH_SECRET must never be treated as "no
+  // session required" — every route behaves as if no valid session exists.
+  const hasValidSignedToken = Boolean(token && authSecret && (await verifyToken(token, authSecret)));
 
   if (pathname === '/') {
-    if (hasValidSession) {
+    if (hasValidSignedToken) {
       const url = request.nextUrl.clone();
       url.pathname = '/genel-bakis';
       const response = NextResponse.redirect(url);
@@ -41,7 +44,7 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  if (!hasValidSession) {
+  if (!hasValidSignedToken) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
     const response = NextResponse.redirect(url);
@@ -55,7 +58,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // "/" listed explicitly alongside the catch-all pattern for clarity —
-  // both were confirmed live to correctly invoke this middleware.
   matcher: ['/', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|ico)$).*)'],
 };
