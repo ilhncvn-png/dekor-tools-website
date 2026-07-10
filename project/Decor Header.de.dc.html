@@ -23,10 +23,10 @@
   <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
     <a href="{{ logoHref }}" style="display:flex; align-items:center;">
       <sc-if value="{{ dynamicLogo }}">
-        <img src="uploads/decor_logo_white.png" alt="Dekor" style="{{ logoStyle }}">
+        <img src="uploads/decor_logo_white.png" alt="Dekor" width="89" height="100" style="{{ logoStyle }}">
       </sc-if>
       <sc-if value="{{ staticLogo }}">
-        <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
+        <img src="uploads/decor_logo_white.png" alt="Dekor" width="89" height="100" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
       </sc-if>
     </a>
     <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
@@ -114,7 +114,7 @@
 <nav style="position:fixed; top:0; left:0; right:0; z-index:100; padding:{{ navPaddingStatic }}; background:{{ navBgStatic }}; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.08);">
   <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5vw,64px); display:flex; align-items:center; justify-content:space-between;">
     <a href="{{ logoHref }}" style="display:flex; align-items:center;">
-      <img src="uploads/decor_logo_white.png" alt="Dekor" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
+      <img src="uploads/decor_logo_white.png" alt="Dekor" width="89" height="100" style="height:{{ logoHeightStatic }}px; width:auto; display:block;">
     </a>
     <div style="display:flex; align-items:center; gap:22px;" class="dkr-navlinks">
       <a href="Decor Products.de.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeProducts }};">PRODUKTE</a>

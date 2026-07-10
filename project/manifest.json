@@ -1,0 +1,21 @@
+{
+  "name": "Dekor Tools",
+  "short_name": "Dekor",
+  "description": "Dekor — 1964'ten beri profesyonel inşaat el aletleri üreticisi.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0E0F11",
+  "background_color": "#0E0F11",
+  "lang": "tr",
+  "dir": "ltr",
+  "icons": [
+    { "src": "/project/uploads/icons/favicon-16.png", "sizes": "16x16", "type": "image/png" },
+    { "src": "/project/uploads/icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/project/uploads/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/project/uploads/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/project/uploads/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/project/uploads/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

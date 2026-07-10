@@ -2780,6 +2780,10 @@
       "destination": "/project/robots.txt"
     },
     {
+      "source": "/manifest.json",
+      "destination": "/project/manifest.json"
+    },
+    {
       "source": "/admin",
       "destination": "https://dekor-tools-website-un61-eight.vercel.app/admin"
     },
