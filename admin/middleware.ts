@@ -34,10 +34,12 @@ export function middleware(request: NextRequest) {
       url.pathname = '/genel-bakis';
       const response = NextResponse.redirect(url);
       response.headers.set('Cache-Control', 'no-store');
+      response.headers.set('X-Debug-Middleware', 'root-has-session');
       return response;
     }
     const response = NextResponse.next();
     response.headers.set('Cache-Control', 'no-store');
+    response.headers.set('X-Debug-Middleware', 'root-no-session');
     return response;
   }
 
@@ -46,11 +48,13 @@ export function middleware(request: NextRequest) {
     url.pathname = '/';
     const response = NextResponse.redirect(url);
     response.headers.set('Cache-Control', 'no-store');
+    response.headers.set('X-Debug-Middleware', 'protected-no-session');
     return response;
   }
 
   const response = NextResponse.next();
   response.headers.set('Cache-Control', 'no-store');
+  response.headers.set('X-Debug-Middleware', 'protected-has-session');
   return response;
 }
 
