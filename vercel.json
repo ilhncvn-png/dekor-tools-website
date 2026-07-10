@@ -1,16 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/project/Decor%20Home.dc.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/project/Decor Home.dc.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/Decor%20Home.dc.html",
       "destination": "/",
       "permanent": true
@@ -36,6 +26,76 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.en.dc.html",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.en.dc.html",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.de.dc.html",
+      "destination": "/de",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.de.dc.html",
+      "destination": "/de",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.fr.dc.html",
+      "destination": "/fr",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.fr.dc.html",
+      "destination": "/fr",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.ru.dc.html",
+      "destination": "/ru",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.ru.dc.html",
+      "destination": "/ru",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.az.dc.html",
+      "destination": "/az",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.az.dc.html",
+      "destination": "/az",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Home.ar.dc.html",
+      "destination": "/ar",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Home.ar.dc.html",
+      "destination": "/ar",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Products.dc.html",
       "destination": "/urunler",
       "permanent": true
@@ -43,6 +103,66 @@
     {
       "source": "/project/Decor Products.dc.html",
       "destination": "/urunler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.en.dc.html",
+      "destination": "/en/products",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.en.dc.html",
+      "destination": "/en/products",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.de.dc.html",
+      "destination": "/de/produkte",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.de.dc.html",
+      "destination": "/de/produkte",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.fr.dc.html",
+      "destination": "/fr/produits",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.fr.dc.html",
+      "destination": "/fr/produits",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.ru.dc.html",
+      "destination": "/ru/produkty",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.ru.dc.html",
+      "destination": "/ru/produkty",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.az.dc.html",
+      "destination": "/az/mehsullar",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.az.dc.html",
+      "destination": "/az/mehsullar",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Products.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Products.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA",
       "permanent": true
     },
     {
@@ -56,6 +176,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Manufacturing.en.dc.html",
+      "destination": "/en/manufacturing",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.en.dc.html",
+      "destination": "/en/manufacturing",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.de.dc.html",
+      "destination": "/de/fertigung",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.de.dc.html",
+      "destination": "/de/fertigung",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.fr.dc.html",
+      "destination": "/fr/fabrication",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.fr.dc.html",
+      "destination": "/fr/fabrication",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.ru.dc.html",
+      "destination": "/ru/proizvodstvo",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.ru.dc.html",
+      "destination": "/ru/proizvodstvo",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.az.dc.html",
+      "destination": "/az/istehsal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.az.dc.html",
+      "destination": "/az/istehsal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Manufacturing.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Manufacturing.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Export.dc.html",
       "destination": "/ihracat",
       "permanent": true
@@ -63,6 +243,66 @@
     {
       "source": "/project/Decor Export.dc.html",
       "destination": "/ihracat",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.en.dc.html",
+      "destination": "/en/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.en.dc.html",
+      "destination": "/en/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.de.dc.html",
+      "destination": "/de/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.de.dc.html",
+      "destination": "/de/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.fr.dc.html",
+      "destination": "/fr/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.fr.dc.html",
+      "destination": "/fr/export",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.ru.dc.html",
+      "destination": "/ru/eksport",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.ru.dc.html",
+      "destination": "/ru/eksport",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.az.dc.html",
+      "destination": "/az/ixrac",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.az.dc.html",
+      "destination": "/az/ixrac",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Export.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Export.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1",
       "permanent": true
     },
     {
@@ -76,6 +316,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Authorized%20Dealers.en.dc.html",
+      "destination": "/en/authorized-dealers",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.en.dc.html",
+      "destination": "/en/authorized-dealers",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.de.dc.html",
+      "destination": "/de/autorisierte-handler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.de.dc.html",
+      "destination": "/de/autorisierte-handler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.fr.dc.html",
+      "destination": "/fr/revendeurs-agrees",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.fr.dc.html",
+      "destination": "/fr/revendeurs-agrees",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.ru.dc.html",
+      "destination": "/ru/avtorizovannye-dilery",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.ru.dc.html",
+      "destination": "/ru/avtorizovannye-dilery",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.az.dc.html",
+      "destination": "/az/resmi-dilerler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.az.dc.html",
+      "destination": "/az/resmi-dilerler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Authorized%20Dealers.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Authorized Dealers.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Newsroom.dc.html",
       "destination": "/haberler",
       "permanent": true
@@ -83,6 +383,66 @@
     {
       "source": "/project/Decor Newsroom.dc.html",
       "destination": "/haberler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.en.dc.html",
+      "destination": "/en/newsroom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.en.dc.html",
+      "destination": "/en/newsroom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.de.dc.html",
+      "destination": "/de/newsroom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.de.dc.html",
+      "destination": "/de/newsroom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.fr.dc.html",
+      "destination": "/fr/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.fr.dc.html",
+      "destination": "/fr/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.ru.dc.html",
+      "destination": "/ru/novosti",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.ru.dc.html",
+      "destination": "/ru/novosti",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.az.dc.html",
+      "destination": "/az/xeberler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.az.dc.html",
+      "destination": "/az/xeberler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Newsroom.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Newsroom.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1",
       "permanent": true
     },
     {
@@ -96,6 +456,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20About.en.dc.html",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.en.dc.html",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.de.dc.html",
+      "destination": "/de/uber-uns",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.de.dc.html",
+      "destination": "/de/uber-uns",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.fr.dc.html",
+      "destination": "/fr/a-propos",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.fr.dc.html",
+      "destination": "/fr/a-propos",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.ru.dc.html",
+      "destination": "/ru/o-nas",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.ru.dc.html",
+      "destination": "/ru/o-nas",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.az.dc.html",
+      "destination": "/az/haqqimizda",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.az.dc.html",
+      "destination": "/az/haqqimizda",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20About.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor About.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Support.dc.html",
       "destination": "/destek",
       "permanent": true
@@ -103,6 +523,66 @@
     {
       "source": "/project/Decor Support.dc.html",
       "destination": "/destek",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.en.dc.html",
+      "destination": "/en/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.en.dc.html",
+      "destination": "/en/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.de.dc.html",
+      "destination": "/de/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.de.dc.html",
+      "destination": "/de/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.fr.dc.html",
+      "destination": "/fr/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.fr.dc.html",
+      "destination": "/fr/support",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.ru.dc.html",
+      "destination": "/ru/podderzhka",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.ru.dc.html",
+      "destination": "/ru/podderzhka",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.az.dc.html",
+      "destination": "/az/destek",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.az.dc.html",
+      "destination": "/az/destek",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Support.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AF%D8%B9%D9%85",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Support.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AF%D8%B9%D9%85",
       "permanent": true
     },
     {
@@ -116,6 +596,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Contact.en.dc.html",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.en.dc.html",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.de.dc.html",
+      "destination": "/de/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.de.dc.html",
+      "destination": "/de/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.fr.dc.html",
+      "destination": "/fr/contact",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.fr.dc.html",
+      "destination": "/fr/contact",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.ru.dc.html",
+      "destination": "/ru/kontakty",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.ru.dc.html",
+      "destination": "/ru/kontakty",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.az.dc.html",
+      "destination": "/az/elaqe",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.az.dc.html",
+      "destination": "/az/elaqe",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Contact.ar.dc.html",
+      "destination": "/ar/%D8%A7%D8%AA%D8%B5%D9%84-%D8%A8%D9%86%D8%A7",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Contact.ar.dc.html",
+      "destination": "/ar/%D8%A7%D8%AA%D8%B5%D9%84-%D8%A8%D9%86%D8%A7",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Our%20Story.dc.html",
       "destination": "/hikayemiz",
       "permanent": true
@@ -123,6 +663,66 @@
     {
       "source": "/project/Decor Our Story.dc.html",
       "destination": "/hikayemiz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.en.dc.html",
+      "destination": "/en/our-story",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.en.dc.html",
+      "destination": "/en/our-story",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.de.dc.html",
+      "destination": "/de/unsere-geschichte",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.de.dc.html",
+      "destination": "/de/unsere-geschichte",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.fr.dc.html",
+      "destination": "/fr/notre-histoire",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.fr.dc.html",
+      "destination": "/fr/notre-histoire",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.ru.dc.html",
+      "destination": "/ru/nasha-istoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.ru.dc.html",
+      "destination": "/ru/nasha-istoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.az.dc.html",
+      "destination": "/az/bizim-hekayemiz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.az.dc.html",
+      "destination": "/az/bizim-hekayemiz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Our%20Story.ar.dc.html",
+      "destination": "/ar/%D9%82%D8%B5%D8%AA%D9%86%D8%A7",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Our Story.ar.dc.html",
+      "destination": "/ar/%D9%82%D8%B5%D8%AA%D9%86%D8%A7",
       "permanent": true
     },
     {
@@ -136,6 +736,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Vision%20Mission.en.dc.html",
+      "destination": "/en/vision-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.en.dc.html",
+      "destination": "/en/vision-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.de.dc.html",
+      "destination": "/de/vision-und-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.de.dc.html",
+      "destination": "/de/vision-und-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.fr.dc.html",
+      "destination": "/fr/vision-et-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.fr.dc.html",
+      "destination": "/fr/vision-et-mission",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.ru.dc.html",
+      "destination": "/ru/videnie-i-missiya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.ru.dc.html",
+      "destination": "/ru/videnie-i-missiya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.az.dc.html",
+      "destination": "/az/viziya-ve-missiya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.az.dc.html",
+      "destination": "/az/viziya-ve-missiya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Vision%20Mission.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%B1%D8%A4%D9%8A%D8%A9-%D9%88%D8%A7%D9%84%D8%B1%D8%B3%D8%A7%D9%84%D8%A9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Vision Mission.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%B1%D8%A4%D9%8A%D8%A9-%D9%88%D8%A7%D9%84%D8%B1%D8%B3%D8%A7%D9%84%D8%A9",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Quality%20Sustainability.dc.html",
       "destination": "/kalite-surdurulebilirlik",
       "permanent": true
@@ -143,6 +803,66 @@
     {
       "source": "/project/Decor Quality Sustainability.dc.html",
       "destination": "/kalite-surdurulebilirlik",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.en.dc.html",
+      "destination": "/en/quality-sustainability",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.en.dc.html",
+      "destination": "/en/quality-sustainability",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.de.dc.html",
+      "destination": "/de/qualitat-und-nachhaltigkeit",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.de.dc.html",
+      "destination": "/de/qualitat-und-nachhaltigkeit",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.fr.dc.html",
+      "destination": "/fr/qualite-et-durabilite",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.fr.dc.html",
+      "destination": "/fr/qualite-et-durabilite",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.ru.dc.html",
+      "destination": "/ru/kachestvo-i-ustoichivoe-razvitie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.ru.dc.html",
+      "destination": "/ru/kachestvo-i-ustoichivoe-razvitie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.az.dc.html",
+      "destination": "/az/keyfiyyet-ve-davamliliq",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.az.dc.html",
+      "destination": "/az/keyfiyyet-ve-davamliliq",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Quality%20Sustainability.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AF%D8%A7%D9%85%D8%A9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Quality Sustainability.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AF%D8%A7%D9%85%D8%A9",
       "permanent": true
     },
     {
@@ -156,6 +876,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20RD%20Center.en.dc.html",
+      "destination": "/en/rd-center",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.en.dc.html",
+      "destination": "/en/rd-center",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.de.dc.html",
+      "destination": "/de/f-und-e-zentrum",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.de.dc.html",
+      "destination": "/de/f-und-e-zentrum",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.fr.dc.html",
+      "destination": "/fr/centre-r-d",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.fr.dc.html",
+      "destination": "/fr/centre-r-d",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.ru.dc.html",
+      "destination": "/ru/centr-niokr",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.ru.dc.html",
+      "destination": "/ru/centr-niokr",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.az.dc.html",
+      "destination": "/az/ar-ge-merkezi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.az.dc.html",
+      "destination": "/az/ar-ge-merkezi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20RD%20Center.ar.dc.html",
+      "destination": "/ar/%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A8%D8%AD%D8%AB-%D9%88%D8%A7%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor RD Center.ar.dc.html",
+      "destination": "/ar/%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A8%D8%AD%D8%AB-%D9%88%D8%A7%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Career.dc.html",
       "destination": "/kariyer",
       "permanent": true
@@ -163,6 +943,66 @@
     {
       "source": "/project/Decor Career.dc.html",
       "destination": "/kariyer",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.en.dc.html",
+      "destination": "/en/careers",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.en.dc.html",
+      "destination": "/en/careers",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.de.dc.html",
+      "destination": "/de/karriere",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.de.dc.html",
+      "destination": "/de/karriere",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.fr.dc.html",
+      "destination": "/fr/carrieres",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.fr.dc.html",
+      "destination": "/fr/carrieres",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.ru.dc.html",
+      "destination": "/ru/karera",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.ru.dc.html",
+      "destination": "/ru/karera",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.az.dc.html",
+      "destination": "/az/karyera",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.az.dc.html",
+      "destination": "/az/karyera",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Career.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Career.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81",
       "permanent": true
     },
     {
@@ -176,6 +1016,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Idea.en.dc.html",
+      "destination": "/en/have-an-idea",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.en.dc.html",
+      "destination": "/en/have-an-idea",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.de.dc.html",
+      "destination": "/de/ich-habe-eine-idee",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.de.dc.html",
+      "destination": "/de/ich-habe-eine-idee",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.fr.dc.html",
+      "destination": "/fr/jai-une-idee",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.fr.dc.html",
+      "destination": "/fr/jai-une-idee",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.ru.dc.html",
+      "destination": "/ru/u-menya-est-ideya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.ru.dc.html",
+      "destination": "/ru/u-menya-est-ideya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.az.dc.html",
+      "destination": "/az/fikrim-var",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.az.dc.html",
+      "destination": "/az/fikrim-var",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Idea.ar.dc.html",
+      "destination": "/ar/%D9%84%D8%AF%D9%8A-%D9%81%D9%83%D8%B1%D8%A9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Idea.ar.dc.html",
+      "destination": "/ar/%D9%84%D8%AF%D9%8A-%D9%81%D9%83%D8%B1%D8%A9",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Complaint.dc.html",
       "destination": "/sikayet-bildir",
       "permanent": true
@@ -183,6 +1083,66 @@
     {
       "source": "/project/Decor Complaint.dc.html",
       "destination": "/sikayet-bildir",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.en.dc.html",
+      "destination": "/en/submit-a-complaint",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.en.dc.html",
+      "destination": "/en/submit-a-complaint",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.de.dc.html",
+      "destination": "/de/reklamation-einreichen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.de.dc.html",
+      "destination": "/de/reklamation-einreichen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.fr.dc.html",
+      "destination": "/fr/deposer-une-reclamation",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.fr.dc.html",
+      "destination": "/fr/deposer-une-reclamation",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.ru.dc.html",
+      "destination": "/ru/podat-zhalobu",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.ru.dc.html",
+      "destination": "/ru/podat-zhalobu",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.az.dc.html",
+      "destination": "/az/sikayet-bildirin",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.az.dc.html",
+      "destination": "/az/sikayet-bildirin",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Complaint.ar.dc.html",
+      "destination": "/ar/%D8%AA%D9%82%D8%AF%D9%8A%D9%85-%D8%B4%D9%83%D9%88%D9%89",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Complaint.ar.dc.html",
+      "destination": "/ar/%D8%AA%D9%82%D8%AF%D9%8A%D9%85-%D8%B4%D9%83%D9%88%D9%89",
       "permanent": true
     },
     {
@@ -196,6 +1156,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Cookies.en.dc.html",
+      "destination": "/en/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.en.dc.html",
+      "destination": "/en/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.de.dc.html",
+      "destination": "/de/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.de.dc.html",
+      "destination": "/de/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.fr.dc.html",
+      "destination": "/fr/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.fr.dc.html",
+      "destination": "/fr/cookies",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.ru.dc.html",
+      "destination": "/ru/fayly-cookie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.ru.dc.html",
+      "destination": "/ru/fayly-cookie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.az.dc.html",
+      "destination": "/az/kukiler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.az.dc.html",
+      "destination": "/az/kukiler",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Cookies.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%84%D9%81%D8%A7%D8%AA-%D8%AA%D8%B9%D8%B1%D9%8A%D9%81-%D8%A7%D9%84%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Cookies.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%84%D9%81%D8%A7%D8%AA-%D8%AA%D8%B9%D8%B1%D9%8A%D9%81-%D8%A7%D9%84%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Privacy.dc.html",
       "destination": "/gizlilik-politikasi",
       "permanent": true
@@ -203,6 +1223,66 @@
     {
       "source": "/project/Decor Privacy.dc.html",
       "destination": "/gizlilik-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.en.dc.html",
+      "destination": "/en/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.en.dc.html",
+      "destination": "/en/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.de.dc.html",
+      "destination": "/de/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.de.dc.html",
+      "destination": "/de/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.fr.dc.html",
+      "destination": "/fr/confidentialite",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.fr.dc.html",
+      "destination": "/fr/confidentialite",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.ru.dc.html",
+      "destination": "/ru/konfidencialnost",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.ru.dc.html",
+      "destination": "/ru/konfidencialnost",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.az.dc.html",
+      "destination": "/az/mexfilik",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.az.dc.html",
+      "destination": "/az/mexfilik",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Privacy.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Privacy.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9",
       "permanent": true
     },
     {
@@ -216,6 +1296,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Terms.en.dc.html",
+      "destination": "/en/terms-of-use",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.en.dc.html",
+      "destination": "/en/terms-of-use",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.de.dc.html",
+      "destination": "/de/nutzungsbedingungen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.de.dc.html",
+      "destination": "/de/nutzungsbedingungen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.fr.dc.html",
+      "destination": "/fr/conditions-dutilisation",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.fr.dc.html",
+      "destination": "/fr/conditions-dutilisation",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.ru.dc.html",
+      "destination": "/ru/usloviya-ispolzovaniya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.ru.dc.html",
+      "destination": "/ru/usloviya-ispolzovaniya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.az.dc.html",
+      "destination": "/az/istifade-sertleri",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.az.dc.html",
+      "destination": "/az/istifade-sertleri",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Terms.ar.dc.html",
+      "destination": "/ar/%D8%B4%D8%B1%D9%88%D8%B7-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Terms.ar.dc.html",
+      "destination": "/ar/%D8%B4%D8%B1%D9%88%D8%B7-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Sitemap.dc.html",
       "destination": "/site-haritasi",
       "permanent": true
@@ -223,6 +1363,66 @@
     {
       "source": "/project/Decor Sitemap.dc.html",
       "destination": "/site-haritasi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.en.dc.html",
+      "destination": "/en/sitemap",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.en.dc.html",
+      "destination": "/en/sitemap",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.de.dc.html",
+      "destination": "/de/sitemap",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.de.dc.html",
+      "destination": "/de/sitemap",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.fr.dc.html",
+      "destination": "/fr/plan-du-site",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.fr.dc.html",
+      "destination": "/fr/plan-du-site",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.ru.dc.html",
+      "destination": "/ru/karta-sayta",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.ru.dc.html",
+      "destination": "/ru/karta-sayta",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.az.dc.html",
+      "destination": "/az/sayt-xeritesi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.az.dc.html",
+      "destination": "/az/sayt-xeritesi",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Sitemap.ar.dc.html",
+      "destination": "/ar/%D8%AE%D8%B1%D9%8A%D8%B7%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Sitemap.ar.dc.html",
+      "destination": "/ar/%D8%AE%D8%B1%D9%8A%D8%B7%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9",
       "permanent": true
     },
     {
@@ -236,6 +1436,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Become%20a%20Dealer.en.dc.html",
+      "destination": "/en/become-a-dealer",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.en.dc.html",
+      "destination": "/en/become-a-dealer",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.de.dc.html",
+      "destination": "/de/handler-werden",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.de.dc.html",
+      "destination": "/de/handler-werden",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.fr.dc.html",
+      "destination": "/fr/devenir-revendeur",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.fr.dc.html",
+      "destination": "/fr/devenir-revendeur",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.ru.dc.html",
+      "destination": "/ru/stat-dilerom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.ru.dc.html",
+      "destination": "/ru/stat-dilerom",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.az.dc.html",
+      "destination": "/az/diler-olun",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.az.dc.html",
+      "destination": "/az/diler-olun",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Become%20a%20Dealer.ar.dc.html",
+      "destination": "/ar/%D9%83%D9%86-%D9%85%D9%88%D8%B2%D8%B9%D8%A7",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Become a Dealer.ar.dc.html",
+      "destination": "/ar/%D9%83%D9%86-%D9%85%D9%88%D8%B2%D8%B9%D8%A7",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20B2B%20Portal.dc.html",
       "destination": "/b2b-portal",
       "permanent": true
@@ -243,6 +1503,66 @@
     {
       "source": "/project/Decor B2B Portal.dc.html",
       "destination": "/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.en.dc.html",
+      "destination": "/en/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.en.dc.html",
+      "destination": "/en/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.de.dc.html",
+      "destination": "/de/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.de.dc.html",
+      "destination": "/de/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.fr.dc.html",
+      "destination": "/fr/portail-b2b",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.fr.dc.html",
+      "destination": "/fr/portail-b2b",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.ru.dc.html",
+      "destination": "/ru/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.ru.dc.html",
+      "destination": "/ru/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.az.dc.html",
+      "destination": "/az/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.az.dc.html",
+      "destination": "/az/b2b-portal",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20B2B%20Portal.ar.dc.html",
+      "destination": "/ar/%D8%A8%D9%88%D8%A7%D8%A8%D8%A9-%D8%A8%D9%8A-%D8%AA%D9%88-%D8%A8%D9%8A",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor B2B Portal.ar.dc.html",
+      "destination": "/ar/%D8%A8%D9%88%D8%A7%D8%A8%D8%A9-%D8%A8%D9%8A-%D8%AA%D9%88-%D8%A8%D9%8A",
       "permanent": true
     },
     {
@@ -256,6 +1576,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Online%20Payment.en.dc.html",
+      "destination": "/en/online-payment",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.en.dc.html",
+      "destination": "/en/online-payment",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.de.dc.html",
+      "destination": "/de/online-zahlung",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.de.dc.html",
+      "destination": "/de/online-zahlung",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.fr.dc.html",
+      "destination": "/fr/paiement-en-ligne",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.fr.dc.html",
+      "destination": "/fr/paiement-en-ligne",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.ru.dc.html",
+      "destination": "/ru/onlayn-oplata",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.ru.dc.html",
+      "destination": "/ru/onlayn-oplata",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.az.dc.html",
+      "destination": "/az/onlayn-odenis",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.az.dc.html",
+      "destination": "/az/onlayn-odenis",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Online%20Payment.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AF%D9%81%D8%B9-%D8%B9%D8%A8%D8%B1-%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Online Payment.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%AF%D9%81%D8%B9-%D8%B9%D8%A8%D8%B1-%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Partner%20Resources.dc.html",
       "destination": "/bayi-kaynaklari",
       "permanent": true
@@ -263,6 +1643,66 @@
     {
       "source": "/project/Decor Partner Resources.dc.html",
       "destination": "/bayi-kaynaklari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.en.dc.html",
+      "destination": "/en/partner-resources",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.en.dc.html",
+      "destination": "/en/partner-resources",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.de.dc.html",
+      "destination": "/de/partner-ressourcen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.de.dc.html",
+      "destination": "/de/partner-ressourcen",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.fr.dc.html",
+      "destination": "/fr/ressources-partenaires",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.fr.dc.html",
+      "destination": "/fr/ressources-partenaires",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.ru.dc.html",
+      "destination": "/ru/resursy-dlya-partnerov",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.ru.dc.html",
+      "destination": "/ru/resursy-dlya-partnerov",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.az.dc.html",
+      "destination": "/az/terefdas-resurslari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.az.dc.html",
+      "destination": "/az/terefdas-resurslari",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Partner%20Resources.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%88%D8%A7%D8%B1%D8%AF-%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%A1",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Partner Resources.ar.dc.html",
+      "destination": "/ar/%D9%85%D9%88%D8%A7%D8%B1%D8%AF-%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%A1",
       "permanent": true
     },
     {
@@ -276,6 +1716,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Article.en.dc.html",
+      "destination": "/en/newsroom/article",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.en.dc.html",
+      "destination": "/en/newsroom/article",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.de.dc.html",
+      "destination": "/de/newsroom/artikel",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.de.dc.html",
+      "destination": "/de/newsroom/artikel",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.fr.dc.html",
+      "destination": "/fr/actualites/article",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.fr.dc.html",
+      "destination": "/fr/actualites/article",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.ru.dc.html",
+      "destination": "/ru/novosti/statya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.ru.dc.html",
+      "destination": "/ru/novosti/statya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.az.dc.html",
+      "destination": "/az/xeberler/meqale",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.az.dc.html",
+      "destination": "/az/xeberler/meqale",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Article.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%85%D9%82%D8%A7%D9%84",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Article.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%85%D9%82%D8%A7%D9%84",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Category.dc.html",
       "destination": "/urunler/kategori",
       "permanent": true
@@ -283,6 +1783,66 @@
     {
       "source": "/project/Decor Category.dc.html",
       "destination": "/urunler/kategori",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.en.dc.html",
+      "destination": "/en/products/category",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.en.dc.html",
+      "destination": "/en/products/category",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.de.dc.html",
+      "destination": "/de/produkte/kategorie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.de.dc.html",
+      "destination": "/de/produkte/kategorie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.fr.dc.html",
+      "destination": "/fr/produits/categorie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.fr.dc.html",
+      "destination": "/fr/produits/categorie",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.ru.dc.html",
+      "destination": "/ru/produkty/kategoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.ru.dc.html",
+      "destination": "/ru/produkty/kategoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.az.dc.html",
+      "destination": "/az/mehsullar/kateqoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.az.dc.html",
+      "destination": "/az/mehsullar/kateqoriya",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Category.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%81%D8%A6%D8%A9",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Category.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%81%D8%A6%D8%A9",
       "permanent": true
     },
     {
@@ -296,6 +1856,66 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20Product%20Detail.en.dc.html",
+      "destination": "/en/products/product",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.en.dc.html",
+      "destination": "/en/products/product",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.de.dc.html",
+      "destination": "/de/produkte/produkt",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.de.dc.html",
+      "destination": "/de/produkte/produkt",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.fr.dc.html",
+      "destination": "/fr/produits/produit",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.fr.dc.html",
+      "destination": "/fr/produits/produit",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.ru.dc.html",
+      "destination": "/ru/produkty/tovar",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.ru.dc.html",
+      "destination": "/ru/produkty/tovar",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.az.dc.html",
+      "destination": "/az/mehsullar/mehsul",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.az.dc.html",
+      "destination": "/az/mehsullar/mehsul",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Product%20Detail.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Product Detail.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Dealer%20Profile.dc.html",
       "destination": "/satis/bayi-profili",
       "permanent": true
@@ -303,6 +1923,66 @@
     {
       "source": "/project/Decor Dealer Profile.dc.html",
       "destination": "/satis/bayi-profili",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.en.dc.html",
+      "destination": "/en/authorized-dealers/profile",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.en.dc.html",
+      "destination": "/en/authorized-dealers/profile",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.de.dc.html",
+      "destination": "/de/autorisierte-handler/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.de.dc.html",
+      "destination": "/de/autorisierte-handler/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.fr.dc.html",
+      "destination": "/fr/revendeurs-agrees/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.fr.dc.html",
+      "destination": "/fr/revendeurs-agrees/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.ru.dc.html",
+      "destination": "/ru/avtorizovannye-dilery/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.ru.dc.html",
+      "destination": "/ru/avtorizovannye-dilery/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.az.dc.html",
+      "destination": "/az/resmi-dilerler/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.az.dc.html",
+      "destination": "/az/resmi-dilerler/profil",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor%20Dealer%20Profile.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86/%D8%A7%D9%84%D9%85%D9%84%D9%81-%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8A",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor Dealer Profile.ar.dc.html",
+      "destination": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86/%D8%A7%D9%84%D9%85%D9%84%D9%81-%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8A",
       "permanent": true
     }
   ],
@@ -312,144 +1992,792 @@
       "destination": "/project/Decor%20Home.dc.html"
     },
     {
-      "source": "/urunler",
-      "destination": "/project/Decor%20Products.dc.html"
-    },
-    {
-      "source": "/uretim",
-      "destination": "/project/Decor%20Manufacturing.dc.html"
-    },
-    {
-      "source": "/ihracat",
-      "destination": "/project/Decor%20Export.dc.html"
-    },
-    {
-      "source": "/satis",
-      "destination": "/project/Decor%20Authorized%20Dealers.dc.html"
-    },
-    {
-      "source": "/haberler",
-      "destination": "/project/Decor%20Newsroom.dc.html"
-    },
-    {
-      "source": "/hakkimizda",
-      "destination": "/project/Decor%20About.dc.html"
-    },
-    {
-      "source": "/destek",
-      "destination": "/project/Decor%20Support.dc.html"
-    },
-    {
-      "source": "/iletisim",
-      "destination": "/project/Decor%20Contact.dc.html"
-    },
-    {
-      "source": "/hikayemiz",
-      "destination": "/project/Decor%20Our%20Story.dc.html"
-    },
-    {
-      "source": "/vizyon-misyon",
-      "destination": "/project/Decor%20Vision%20Mission.dc.html"
-    },
-    {
-      "source": "/kalite-surdurulebilirlik",
-      "destination": "/project/Decor%20Quality%20Sustainability.dc.html"
-    },
-    {
-      "source": "/ar-ge-merkezi",
-      "destination": "/project/Decor%20RD%20Center.dc.html"
-    },
-    {
-      "source": "/kariyer",
-      "destination": "/project/Decor%20Career.dc.html"
-    },
-    {
-      "source": "/fikrim-var",
-      "destination": "/project/Decor%20Idea.dc.html"
-    },
-    {
-      "source": "/sikayet-bildir",
-      "destination": "/project/Decor%20Complaint.dc.html"
-    },
-    {
-      "source": "/cerez-politikasi",
-      "destination": "/project/Decor%20Cookies.dc.html"
-    },
-    {
-      "source": "/gizlilik-politikasi",
-      "destination": "/project/Decor%20Privacy.dc.html"
-    },
-    {
-      "source": "/kullanim-kosullari",
-      "destination": "/project/Decor%20Terms.dc.html"
-    },
-    {
-      "source": "/site-haritasi",
-      "destination": "/project/Decor%20Sitemap.dc.html"
-    },
-    {
-      "source": "/bayi-ol",
-      "destination": "/project/Decor%20Become%20a%20Dealer.dc.html"
-    },
-    {
-      "source": "/b2b-portal",
-      "destination": "/project/Decor%20B2B%20Portal.dc.html"
-    },
-    {
-      "source": "/online-odeme",
-      "destination": "/project/Decor%20Online%20Payment.dc.html"
-    },
-    {
-      "source": "/bayi-kaynaklari",
-      "destination": "/project/Decor%20Partner%20Resources.dc.html"
-    },
-    {
-      "source": "/haberler/detay",
-      "destination": "/project/Decor%20Article.dc.html"
-    },
-    {
-      "source": "/urunler/kategori",
-      "destination": "/project/Decor%20Category.dc.html"
-    },
-    {
-      "source": "/urunler/urun",
-      "destination": "/project/Decor%20Product%20Detail.dc.html"
-    },
-    {
-      "source": "/satis/bayi-profili",
-      "destination": "/project/Decor%20Dealer%20Profile.dc.html"
-    },
-    {
       "source": "/en",
       "destination": "/project/Decor%20Home.en.dc.html"
+    },
+    {
+      "source": "/de",
+      "destination": "/project/Decor%20Home.de.dc.html"
+    },
+    {
+      "source": "/fr",
+      "destination": "/project/Decor%20Home.fr.dc.html"
+    },
+    {
+      "source": "/ru",
+      "destination": "/project/Decor%20Home.ru.dc.html"
+    },
+    {
+      "source": "/az",
+      "destination": "/project/Decor%20Home.az.dc.html"
+    },
+    {
+      "source": "/ar",
+      "destination": "/project/Decor%20Home.ar.dc.html"
+    },
+    {
+      "source": "/urunler",
+      "destination": "/project/Decor%20Products.dc.html"
     },
     {
       "source": "/en/products",
       "destination": "/project/Decor%20Products.en.dc.html"
     },
     {
+      "source": "/de/produkte",
+      "destination": "/project/Decor%20Products.de.dc.html"
+    },
+    {
+      "source": "/fr/produits",
+      "destination": "/project/Decor%20Products.fr.dc.html"
+    },
+    {
+      "source": "/ru/produkty",
+      "destination": "/project/Decor%20Products.ru.dc.html"
+    },
+    {
+      "source": "/az/mehsullar",
+      "destination": "/project/Decor%20Products.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA",
+      "destination": "/project/Decor%20Products.ar.dc.html"
+    },
+    {
+      "source": "/uretim",
+      "destination": "/project/Decor%20Manufacturing.dc.html"
+    },
+    {
       "source": "/en/manufacturing",
       "destination": "/project/Decor%20Manufacturing.en.dc.html"
+    },
+    {
+      "source": "/de/fertigung",
+      "destination": "/project/Decor%20Manufacturing.de.dc.html"
+    },
+    {
+      "source": "/fr/fabrication",
+      "destination": "/project/Decor%20Manufacturing.fr.dc.html"
+    },
+    {
+      "source": "/ru/proizvodstvo",
+      "destination": "/project/Decor%20Manufacturing.ru.dc.html"
+    },
+    {
+      "source": "/az/istehsal",
+      "destination": "/project/Decor%20Manufacturing.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9",
+      "destination": "/project/Decor%20Manufacturing.ar.dc.html"
+    },
+    {
+      "source": "/ihracat",
+      "destination": "/project/Decor%20Export.dc.html"
     },
     {
       "source": "/en/export",
       "destination": "/project/Decor%20Export.en.dc.html"
     },
     {
-      "source": "/en/sales",
+      "source": "/de/export",
+      "destination": "/project/Decor%20Export.de.dc.html"
+    },
+    {
+      "source": "/fr/export",
+      "destination": "/project/Decor%20Export.fr.dc.html"
+    },
+    {
+      "source": "/ru/eksport",
+      "destination": "/project/Decor%20Export.ru.dc.html"
+    },
+    {
+      "source": "/az/ixrac",
+      "destination": "/project/Decor%20Export.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1",
+      "destination": "/project/Decor%20Export.ar.dc.html"
+    },
+    {
+      "source": "/satis",
+      "destination": "/project/Decor%20Authorized%20Dealers.dc.html"
+    },
+    {
+      "source": "/en/authorized-dealers",
       "destination": "/project/Decor%20Authorized%20Dealers.en.dc.html"
+    },
+    {
+      "source": "/de/autorisierte-handler",
+      "destination": "/project/Decor%20Authorized%20Dealers.de.dc.html"
+    },
+    {
+      "source": "/fr/revendeurs-agrees",
+      "destination": "/project/Decor%20Authorized%20Dealers.fr.dc.html"
+    },
+    {
+      "source": "/ru/avtorizovannye-dilery",
+      "destination": "/project/Decor%20Authorized%20Dealers.ru.dc.html"
+    },
+    {
+      "source": "/az/resmi-dilerler",
+      "destination": "/project/Decor%20Authorized%20Dealers.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86",
+      "destination": "/project/Decor%20Authorized%20Dealers.ar.dc.html"
+    },
+    {
+      "source": "/haberler",
+      "destination": "/project/Decor%20Newsroom.dc.html"
     },
     {
       "source": "/en/newsroom",
       "destination": "/project/Decor%20Newsroom.en.dc.html"
     },
     {
+      "source": "/de/newsroom",
+      "destination": "/project/Decor%20Newsroom.de.dc.html"
+    },
+    {
+      "source": "/fr/actualites",
+      "destination": "/project/Decor%20Newsroom.fr.dc.html"
+    },
+    {
+      "source": "/ru/novosti",
+      "destination": "/project/Decor%20Newsroom.ru.dc.html"
+    },
+    {
+      "source": "/az/xeberler",
+      "destination": "/project/Decor%20Newsroom.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1",
+      "destination": "/project/Decor%20Newsroom.ar.dc.html"
+    },
+    {
+      "source": "/hakkimizda",
+      "destination": "/project/Decor%20About.dc.html"
+    },
+    {
       "source": "/en/about",
       "destination": "/project/Decor%20About.en.dc.html"
     },
     {
+      "source": "/de/uber-uns",
+      "destination": "/project/Decor%20About.de.dc.html"
+    },
+    {
+      "source": "/fr/a-propos",
+      "destination": "/project/Decor%20About.fr.dc.html"
+    },
+    {
+      "source": "/ru/o-nas",
+      "destination": "/project/Decor%20About.ru.dc.html"
+    },
+    {
+      "source": "/az/haqqimizda",
+      "destination": "/project/Decor%20About.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86",
+      "destination": "/project/Decor%20About.ar.dc.html"
+    },
+    {
+      "source": "/destek",
+      "destination": "/project/Decor%20Support.dc.html"
+    },
+    {
+      "source": "/en/support",
+      "destination": "/project/Decor%20Support.en.dc.html"
+    },
+    {
+      "source": "/de/support",
+      "destination": "/project/Decor%20Support.de.dc.html"
+    },
+    {
+      "source": "/fr/support",
+      "destination": "/project/Decor%20Support.fr.dc.html"
+    },
+    {
+      "source": "/ru/podderzhka",
+      "destination": "/project/Decor%20Support.ru.dc.html"
+    },
+    {
+      "source": "/az/destek",
+      "destination": "/project/Decor%20Support.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AF%D8%B9%D9%85",
+      "destination": "/project/Decor%20Support.ar.dc.html"
+    },
+    {
+      "source": "/iletisim",
+      "destination": "/project/Decor%20Contact.dc.html"
+    },
+    {
       "source": "/en/contact",
       "destination": "/project/Decor%20Contact.en.dc.html"
+    },
+    {
+      "source": "/de/kontakt",
+      "destination": "/project/Decor%20Contact.de.dc.html"
+    },
+    {
+      "source": "/fr/contact",
+      "destination": "/project/Decor%20Contact.fr.dc.html"
+    },
+    {
+      "source": "/ru/kontakty",
+      "destination": "/project/Decor%20Contact.ru.dc.html"
+    },
+    {
+      "source": "/az/elaqe",
+      "destination": "/project/Decor%20Contact.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D8%AA%D8%B5%D9%84-%D8%A8%D9%86%D8%A7",
+      "destination": "/project/Decor%20Contact.ar.dc.html"
+    },
+    {
+      "source": "/hikayemiz",
+      "destination": "/project/Decor%20Our%20Story.dc.html"
+    },
+    {
+      "source": "/en/our-story",
+      "destination": "/project/Decor%20Our%20Story.en.dc.html"
+    },
+    {
+      "source": "/de/unsere-geschichte",
+      "destination": "/project/Decor%20Our%20Story.de.dc.html"
+    },
+    {
+      "source": "/fr/notre-histoire",
+      "destination": "/project/Decor%20Our%20Story.fr.dc.html"
+    },
+    {
+      "source": "/ru/nasha-istoriya",
+      "destination": "/project/Decor%20Our%20Story.ru.dc.html"
+    },
+    {
+      "source": "/az/bizim-hekayemiz",
+      "destination": "/project/Decor%20Our%20Story.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%82%D8%B5%D8%AA%D9%86%D8%A7",
+      "destination": "/project/Decor%20Our%20Story.ar.dc.html"
+    },
+    {
+      "source": "/vizyon-misyon",
+      "destination": "/project/Decor%20Vision%20Mission.dc.html"
+    },
+    {
+      "source": "/en/vision-mission",
+      "destination": "/project/Decor%20Vision%20Mission.en.dc.html"
+    },
+    {
+      "source": "/de/vision-und-mission",
+      "destination": "/project/Decor%20Vision%20Mission.de.dc.html"
+    },
+    {
+      "source": "/fr/vision-et-mission",
+      "destination": "/project/Decor%20Vision%20Mission.fr.dc.html"
+    },
+    {
+      "source": "/ru/videnie-i-missiya",
+      "destination": "/project/Decor%20Vision%20Mission.ru.dc.html"
+    },
+    {
+      "source": "/az/viziya-ve-missiya",
+      "destination": "/project/Decor%20Vision%20Mission.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%B1%D8%A4%D9%8A%D8%A9-%D9%88%D8%A7%D9%84%D8%B1%D8%B3%D8%A7%D9%84%D8%A9",
+      "destination": "/project/Decor%20Vision%20Mission.ar.dc.html"
+    },
+    {
+      "source": "/kalite-surdurulebilirlik",
+      "destination": "/project/Decor%20Quality%20Sustainability.dc.html"
+    },
+    {
+      "source": "/en/quality-sustainability",
+      "destination": "/project/Decor%20Quality%20Sustainability.en.dc.html"
+    },
+    {
+      "source": "/de/qualitat-und-nachhaltigkeit",
+      "destination": "/project/Decor%20Quality%20Sustainability.de.dc.html"
+    },
+    {
+      "source": "/fr/qualite-et-durabilite",
+      "destination": "/project/Decor%20Quality%20Sustainability.fr.dc.html"
+    },
+    {
+      "source": "/ru/kachestvo-i-ustoichivoe-razvitie",
+      "destination": "/project/Decor%20Quality%20Sustainability.ru.dc.html"
+    },
+    {
+      "source": "/az/keyfiyyet-ve-davamliliq",
+      "destination": "/project/Decor%20Quality%20Sustainability.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AF%D8%A7%D9%85%D8%A9",
+      "destination": "/project/Decor%20Quality%20Sustainability.ar.dc.html"
+    },
+    {
+      "source": "/ar-ge-merkezi",
+      "destination": "/project/Decor%20RD%20Center.dc.html"
+    },
+    {
+      "source": "/en/rd-center",
+      "destination": "/project/Decor%20RD%20Center.en.dc.html"
+    },
+    {
+      "source": "/de/f-und-e-zentrum",
+      "destination": "/project/Decor%20RD%20Center.de.dc.html"
+    },
+    {
+      "source": "/fr/centre-r-d",
+      "destination": "/project/Decor%20RD%20Center.fr.dc.html"
+    },
+    {
+      "source": "/ru/centr-niokr",
+      "destination": "/project/Decor%20RD%20Center.ru.dc.html"
+    },
+    {
+      "source": "/az/ar-ge-merkezi",
+      "destination": "/project/Decor%20RD%20Center.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A8%D8%AD%D8%AB-%D9%88%D8%A7%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1",
+      "destination": "/project/Decor%20RD%20Center.ar.dc.html"
+    },
+    {
+      "source": "/kariyer",
+      "destination": "/project/Decor%20Career.dc.html"
+    },
+    {
+      "source": "/en/careers",
+      "destination": "/project/Decor%20Career.en.dc.html"
+    },
+    {
+      "source": "/de/karriere",
+      "destination": "/project/Decor%20Career.de.dc.html"
+    },
+    {
+      "source": "/fr/carrieres",
+      "destination": "/project/Decor%20Career.fr.dc.html"
+    },
+    {
+      "source": "/ru/karera",
+      "destination": "/project/Decor%20Career.ru.dc.html"
+    },
+    {
+      "source": "/az/karyera",
+      "destination": "/project/Decor%20Career.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%88%D8%B8%D8%A7%D8%A6%D9%81",
+      "destination": "/project/Decor%20Career.ar.dc.html"
+    },
+    {
+      "source": "/fikrim-var",
+      "destination": "/project/Decor%20Idea.dc.html"
+    },
+    {
+      "source": "/en/have-an-idea",
+      "destination": "/project/Decor%20Idea.en.dc.html"
+    },
+    {
+      "source": "/de/ich-habe-eine-idee",
+      "destination": "/project/Decor%20Idea.de.dc.html"
+    },
+    {
+      "source": "/fr/jai-une-idee",
+      "destination": "/project/Decor%20Idea.fr.dc.html"
+    },
+    {
+      "source": "/ru/u-menya-est-ideya",
+      "destination": "/project/Decor%20Idea.ru.dc.html"
+    },
+    {
+      "source": "/az/fikrim-var",
+      "destination": "/project/Decor%20Idea.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%84%D8%AF%D9%8A-%D9%81%D9%83%D8%B1%D8%A9",
+      "destination": "/project/Decor%20Idea.ar.dc.html"
+    },
+    {
+      "source": "/sikayet-bildir",
+      "destination": "/project/Decor%20Complaint.dc.html"
+    },
+    {
+      "source": "/en/submit-a-complaint",
+      "destination": "/project/Decor%20Complaint.en.dc.html"
+    },
+    {
+      "source": "/de/reklamation-einreichen",
+      "destination": "/project/Decor%20Complaint.de.dc.html"
+    },
+    {
+      "source": "/fr/deposer-une-reclamation",
+      "destination": "/project/Decor%20Complaint.fr.dc.html"
+    },
+    {
+      "source": "/ru/podat-zhalobu",
+      "destination": "/project/Decor%20Complaint.ru.dc.html"
+    },
+    {
+      "source": "/az/sikayet-bildirin",
+      "destination": "/project/Decor%20Complaint.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%AA%D9%82%D8%AF%D9%8A%D9%85-%D8%B4%D9%83%D9%88%D9%89",
+      "destination": "/project/Decor%20Complaint.ar.dc.html"
+    },
+    {
+      "source": "/cerez-politikasi",
+      "destination": "/project/Decor%20Cookies.dc.html"
+    },
+    {
+      "source": "/en/cookies",
+      "destination": "/project/Decor%20Cookies.en.dc.html"
+    },
+    {
+      "source": "/de/cookies",
+      "destination": "/project/Decor%20Cookies.de.dc.html"
+    },
+    {
+      "source": "/fr/cookies",
+      "destination": "/project/Decor%20Cookies.fr.dc.html"
+    },
+    {
+      "source": "/ru/fayly-cookie",
+      "destination": "/project/Decor%20Cookies.ru.dc.html"
+    },
+    {
+      "source": "/az/kukiler",
+      "destination": "/project/Decor%20Cookies.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%85%D9%84%D9%81%D8%A7%D8%AA-%D8%AA%D8%B9%D8%B1%D9%8A%D9%81-%D8%A7%D9%84%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7",
+      "destination": "/project/Decor%20Cookies.ar.dc.html"
+    },
+    {
+      "source": "/gizlilik-politikasi",
+      "destination": "/project/Decor%20Privacy.dc.html"
+    },
+    {
+      "source": "/en/privacy",
+      "destination": "/project/Decor%20Privacy.en.dc.html"
+    },
+    {
+      "source": "/de/datenschutz",
+      "destination": "/project/Decor%20Privacy.de.dc.html"
+    },
+    {
+      "source": "/fr/confidentialite",
+      "destination": "/project/Decor%20Privacy.fr.dc.html"
+    },
+    {
+      "source": "/ru/konfidencialnost",
+      "destination": "/project/Decor%20Privacy.ru.dc.html"
+    },
+    {
+      "source": "/az/mexfilik",
+      "destination": "/project/Decor%20Privacy.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9",
+      "destination": "/project/Decor%20Privacy.ar.dc.html"
+    },
+    {
+      "source": "/kullanim-kosullari",
+      "destination": "/project/Decor%20Terms.dc.html"
+    },
+    {
+      "source": "/en/terms-of-use",
+      "destination": "/project/Decor%20Terms.en.dc.html"
+    },
+    {
+      "source": "/de/nutzungsbedingungen",
+      "destination": "/project/Decor%20Terms.de.dc.html"
+    },
+    {
+      "source": "/fr/conditions-dutilisation",
+      "destination": "/project/Decor%20Terms.fr.dc.html"
+    },
+    {
+      "source": "/ru/usloviya-ispolzovaniya",
+      "destination": "/project/Decor%20Terms.ru.dc.html"
+    },
+    {
+      "source": "/az/istifade-sertleri",
+      "destination": "/project/Decor%20Terms.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%B4%D8%B1%D9%88%D8%B7-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85",
+      "destination": "/project/Decor%20Terms.ar.dc.html"
+    },
+    {
+      "source": "/site-haritasi",
+      "destination": "/project/Decor%20Sitemap.dc.html"
+    },
+    {
+      "source": "/en/sitemap",
+      "destination": "/project/Decor%20Sitemap.en.dc.html"
+    },
+    {
+      "source": "/de/sitemap",
+      "destination": "/project/Decor%20Sitemap.de.dc.html"
+    },
+    {
+      "source": "/fr/plan-du-site",
+      "destination": "/project/Decor%20Sitemap.fr.dc.html"
+    },
+    {
+      "source": "/ru/karta-sayta",
+      "destination": "/project/Decor%20Sitemap.ru.dc.html"
+    },
+    {
+      "source": "/az/sayt-xeritesi",
+      "destination": "/project/Decor%20Sitemap.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%AE%D8%B1%D9%8A%D8%B7%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9",
+      "destination": "/project/Decor%20Sitemap.ar.dc.html"
+    },
+    {
+      "source": "/bayi-ol",
+      "destination": "/project/Decor%20Become%20a%20Dealer.dc.html"
+    },
+    {
+      "source": "/en/become-a-dealer",
+      "destination": "/project/Decor%20Become%20a%20Dealer.en.dc.html"
+    },
+    {
+      "source": "/de/handler-werden",
+      "destination": "/project/Decor%20Become%20a%20Dealer.de.dc.html"
+    },
+    {
+      "source": "/fr/devenir-revendeur",
+      "destination": "/project/Decor%20Become%20a%20Dealer.fr.dc.html"
+    },
+    {
+      "source": "/ru/stat-dilerom",
+      "destination": "/project/Decor%20Become%20a%20Dealer.ru.dc.html"
+    },
+    {
+      "source": "/az/diler-olun",
+      "destination": "/project/Decor%20Become%20a%20Dealer.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%83%D9%86-%D9%85%D9%88%D8%B2%D8%B9%D8%A7",
+      "destination": "/project/Decor%20Become%20a%20Dealer.ar.dc.html"
+    },
+    {
+      "source": "/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.dc.html"
+    },
+    {
+      "source": "/en/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.en.dc.html"
+    },
+    {
+      "source": "/de/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.de.dc.html"
+    },
+    {
+      "source": "/fr/portail-b2b",
+      "destination": "/project/Decor%20B2B%20Portal.fr.dc.html"
+    },
+    {
+      "source": "/ru/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.ru.dc.html"
+    },
+    {
+      "source": "/az/b2b-portal",
+      "destination": "/project/Decor%20B2B%20Portal.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A8%D9%88%D8%A7%D8%A8%D8%A9-%D8%A8%D9%8A-%D8%AA%D9%88-%D8%A8%D9%8A",
+      "destination": "/project/Decor%20B2B%20Portal.ar.dc.html"
+    },
+    {
+      "source": "/online-odeme",
+      "destination": "/project/Decor%20Online%20Payment.dc.html"
+    },
+    {
+      "source": "/en/online-payment",
+      "destination": "/project/Decor%20Online%20Payment.en.dc.html"
+    },
+    {
+      "source": "/de/online-zahlung",
+      "destination": "/project/Decor%20Online%20Payment.de.dc.html"
+    },
+    {
+      "source": "/fr/paiement-en-ligne",
+      "destination": "/project/Decor%20Online%20Payment.fr.dc.html"
+    },
+    {
+      "source": "/ru/onlayn-oplata",
+      "destination": "/project/Decor%20Online%20Payment.ru.dc.html"
+    },
+    {
+      "source": "/az/onlayn-odenis",
+      "destination": "/project/Decor%20Online%20Payment.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%AF%D9%81%D8%B9-%D8%B9%D8%A8%D8%B1-%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA",
+      "destination": "/project/Decor%20Online%20Payment.ar.dc.html"
+    },
+    {
+      "source": "/bayi-kaynaklari",
+      "destination": "/project/Decor%20Partner%20Resources.dc.html"
+    },
+    {
+      "source": "/en/partner-resources",
+      "destination": "/project/Decor%20Partner%20Resources.en.dc.html"
+    },
+    {
+      "source": "/de/partner-ressourcen",
+      "destination": "/project/Decor%20Partner%20Resources.de.dc.html"
+    },
+    {
+      "source": "/fr/ressources-partenaires",
+      "destination": "/project/Decor%20Partner%20Resources.fr.dc.html"
+    },
+    {
+      "source": "/ru/resursy-dlya-partnerov",
+      "destination": "/project/Decor%20Partner%20Resources.ru.dc.html"
+    },
+    {
+      "source": "/az/terefdas-resurslari",
+      "destination": "/project/Decor%20Partner%20Resources.az.dc.html"
+    },
+    {
+      "source": "/ar/%D9%85%D9%88%D8%A7%D8%B1%D8%AF-%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%A1",
+      "destination": "/project/Decor%20Partner%20Resources.ar.dc.html"
+    },
+    {
+      "source": "/haberler/detay",
+      "destination": "/project/Decor%20Article.dc.html"
+    },
+    {
+      "source": "/en/newsroom/article",
+      "destination": "/project/Decor%20Article.en.dc.html"
+    },
+    {
+      "source": "/de/newsroom/artikel",
+      "destination": "/project/Decor%20Article.de.dc.html"
+    },
+    {
+      "source": "/fr/actualites/article",
+      "destination": "/project/Decor%20Article.fr.dc.html"
+    },
+    {
+      "source": "/ru/novosti/statya",
+      "destination": "/project/Decor%20Article.ru.dc.html"
+    },
+    {
+      "source": "/az/xeberler/meqale",
+      "destination": "/project/Decor%20Article.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%85%D9%82%D8%A7%D9%84",
+      "destination": "/project/Decor%20Article.ar.dc.html"
+    },
+    {
+      "source": "/urunler/kategori",
+      "destination": "/project/Decor%20Category.dc.html"
+    },
+    {
+      "source": "/en/products/category",
+      "destination": "/project/Decor%20Category.en.dc.html"
+    },
+    {
+      "source": "/de/produkte/kategorie",
+      "destination": "/project/Decor%20Category.de.dc.html"
+    },
+    {
+      "source": "/fr/produits/categorie",
+      "destination": "/project/Decor%20Category.fr.dc.html"
+    },
+    {
+      "source": "/ru/produkty/kategoriya",
+      "destination": "/project/Decor%20Category.ru.dc.html"
+    },
+    {
+      "source": "/az/mehsullar/kateqoriya",
+      "destination": "/project/Decor%20Category.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%81%D8%A6%D8%A9",
+      "destination": "/project/Decor%20Category.ar.dc.html"
+    },
+    {
+      "source": "/urunler/urun",
+      "destination": "/project/Decor%20Product%20Detail.dc.html"
+    },
+    {
+      "source": "/en/products/product",
+      "destination": "/project/Decor%20Product%20Detail.en.dc.html"
+    },
+    {
+      "source": "/de/produkte/produkt",
+      "destination": "/project/Decor%20Product%20Detail.de.dc.html"
+    },
+    {
+      "source": "/fr/produits/produit",
+      "destination": "/project/Decor%20Product%20Detail.fr.dc.html"
+    },
+    {
+      "source": "/ru/produkty/tovar",
+      "destination": "/project/Decor%20Product%20Detail.ru.dc.html"
+    },
+    {
+      "source": "/az/mehsullar/mehsul",
+      "destination": "/project/Decor%20Product%20Detail.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC",
+      "destination": "/project/Decor%20Product%20Detail.ar.dc.html"
+    },
+    {
+      "source": "/satis/bayi-profili",
+      "destination": "/project/Decor%20Dealer%20Profile.dc.html"
+    },
+    {
+      "source": "/en/authorized-dealers/profile",
+      "destination": "/project/Decor%20Dealer%20Profile.en.dc.html"
+    },
+    {
+      "source": "/de/autorisierte-handler/profil",
+      "destination": "/project/Decor%20Dealer%20Profile.de.dc.html"
+    },
+    {
+      "source": "/fr/revendeurs-agrees/profil",
+      "destination": "/project/Decor%20Dealer%20Profile.fr.dc.html"
+    },
+    {
+      "source": "/ru/avtorizovannye-dilery/profil",
+      "destination": "/project/Decor%20Dealer%20Profile.ru.dc.html"
+    },
+    {
+      "source": "/az/resmi-dilerler/profil",
+      "destination": "/project/Decor%20Dealer%20Profile.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86/%D8%A7%D9%84%D9%85%D9%84%D9%81-%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8A",
+      "destination": "/project/Decor%20Dealer%20Profile.ar.dc.html"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/project/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/project/robots.txt"
     },
     {
       "source": "/admin",

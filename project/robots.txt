@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /project/
+
+Sitemap: https://dekor-tools.com/sitemap.xml
