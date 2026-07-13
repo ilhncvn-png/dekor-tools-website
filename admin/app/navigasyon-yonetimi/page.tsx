@@ -176,7 +176,7 @@ export default function NavigasyonYonetimiPage() {
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Menü öğesini sil"
-        description={deleteTarget ? <>"{deleteTarget.label}" menü öğesini kalıcı olarak silmek üzeresiniz.</> : null}
+        description={deleteTarget ? <>&quot;{deleteTarget.label}&quot; menü öğesini kalıcı olarak silmek üzeresiniz.</> : null}
         confirmLabel="Sil"
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}

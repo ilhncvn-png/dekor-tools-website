@@ -209,7 +209,7 @@ export default function MedyaKutuphanesiPage() {
       <ConfirmDialog
         open={Boolean(singleDeleteTarget)}
         title="Dosyayı sil"
-        description={singleDeleteTarget ? <>"{singleDeleteTarget.name}" dosyasını kalıcı olarak silmek üzeresiniz.</> : null}
+        description={singleDeleteTarget ? <>&quot;{singleDeleteTarget.name}&quot; dosyasını kalıcı olarak silmek üzeresiniz.</> : null}
         consequences={singleDeleteTarget && singleDeleteTarget.usedIn.length > 0 ? singleDeleteTarget.usedIn.map((place) => `${place} bu görselsiz kalacak`) : undefined}
         confirmLabel="Dosyayı Sil"
         onConfirm={confirmSingleDelete}

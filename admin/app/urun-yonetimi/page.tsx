@@ -529,7 +529,7 @@ export default function UrunYonetimiPage() {
                           <FileDown size={13} /> Belge / PDF Ekle
                         </button>
                         <button type="button" onClick={() => openProduct(product, 'seo')} className="flex items-center gap-2 rounded-soft px-2.5 py-1.5 text-left text-[12.5px] text-near-black hover:bg-mist dark:text-white/85 dark:hover:bg-white/5">
-                          <Search size={13} /> SEO'yu Aç
+                          <Search size={13} /> SEO&apos;yu Aç
                         </button>
                         <button
                           type="button"
@@ -583,7 +583,7 @@ export default function UrunYonetimiPage() {
       <ConfirmDialog
         open={Boolean(singleDeleteTarget)}
         title="Ürünü sil"
-        description={singleDeleteTarget ? <>"{singleDeleteTarget.name}" ürününü kalıcı olarak silmek üzeresiniz.</> : null}
+        description={singleDeleteTarget ? <>&quot;{singleDeleteTarget.name}&quot; ürününü kalıcı olarak silmek üzeresiniz.</> : null}
         consequences={
           singleDeleteTarget
             ? products.filter((p) => p.id !== singleDeleteTarget.id && p.relatedProductIds.includes(singleDeleteTarget.id)).map((p) => `"${p.name}" ürününün ilişkili ürünler listesinden çıkarılacak`)

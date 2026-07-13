@@ -508,7 +508,7 @@ export function SectionEditorDrawer({ section, onClose, onUpdate, pageName, page
                             <Input value={btn.href} onChange={(e) => updateButton(i, { href: e.target.value })} onBlur={() => commitHistory()} placeholder="/bağlantı" />
                           </div>
                           {hrefInvalid && (
-                            <p className="mt-1 flex items-center gap-1 text-[11px] text-danger"><AlertCircle size={10} /> Bağlantı "/", "http", "#", "tel:" veya "mailto:" ile başlamalı.</p>
+                            <p className="mt-1 flex items-center gap-1 text-[11px] text-danger"><AlertCircle size={10} /> Bağlantı &quot;/&quot;, &quot;http&quot;, &quot;#&quot;, &quot;tel:&quot; veya &quot;mailto:&quot; ile başlamalı.</p>
                           )}
                           <div className="mt-2 flex items-center justify-between">
                             <Select value={btn.style} onChange={(e) => updateButton(i, { style: e.target.value as SectionButton['style'] })} className="w-32">
@@ -643,7 +643,7 @@ export function SectionEditorDrawer({ section, onClose, onUpdate, pageName, page
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-body-sm font-medium text-near-black dark:text-white">{draft.mediaName || 'Seçilmedi'}</p>
-                      <p className="text-[11px] text-steel dark:text-white/40">Medya Kütüphanesi'nden seçildi</p>
+                      <p className="text-[11px] text-steel dark:text-white/40">Medya Kütüphanesi&apos;nden seçildi</p>
                     </div>
                     <Popover
                       align="end"
@@ -1052,7 +1052,7 @@ export function SectionEditorDrawer({ section, onClose, onUpdate, pageName, page
                   </p>
                   {!seoDraft ? (
                     <p className="rounded-soft border border-border px-3 py-2.5 text-[12.5px] text-steel dark:border-white/[.06] dark:text-white/50">
-                      Bu sayfa için henüz bir SEO kaydı yok — SEO Yönetimi'nden eklenmesi gerekir.
+                      Bu sayfa için henüz bir SEO kaydı yok — SEO Yönetimi&apos;nden eklenmesi gerekir.
                     </p>
                   ) : (
                     <div className="flex flex-col gap-3">
@@ -1098,7 +1098,7 @@ export function SectionEditorDrawer({ section, onClose, onUpdate, pageName, page
                         <span className="text-body-sm text-near-black dark:text-white/85">Arama Motorlarınca İndexlensin (robots)</span>
                         <Switch checked={seoDraft.robotsIndex} onChange={() => updateSeoField({ robotsIndex: !seoDraft.robotsIndex })} label="robots index" />
                       </div>
-                      <Button variant="secondary" size="sm" icon={<Save size={13} />} onClick={saveSeo} className="self-start">SEO'yu Kaydet</Button>
+                      <Button variant="secondary" size="sm" icon={<Save size={13} />} onClick={saveSeo} className="self-start">SEO&apos;yu Kaydet</Button>
                     </div>
                   )}
                 </div>

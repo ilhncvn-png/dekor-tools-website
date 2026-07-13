@@ -98,7 +98,7 @@ export default function FooterYonetimiPage() {
             </div>
           )}
           <p className="mt-3 text-[11.5px] text-steel dark:text-white/40">
-            Sertifikalar modülünde "Ana Sayfada Göster" işaretli olanlar burada listelenir.
+            Sertifikalar modülünde &quot;Ana Sayfada Göster&quot; işaretli olanlar burada listelenir.
           </p>
         </Card>
 

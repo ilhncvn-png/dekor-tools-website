@@ -242,7 +242,7 @@ export default function SayfaYonetimiPage() {
       <ConfirmDialog
         open={Boolean(singleDeleteTarget)}
         title="Sayfayı sil"
-        description={singleDeleteTarget ? <>"{singleDeleteTarget.title}" sayfasını kalıcı olarak silmek üzeresiniz.</> : null}
+        description={singleDeleteTarget ? <>&quot;{singleDeleteTarget.title}&quot; sayfasını kalıcı olarak silmek üzeresiniz.</> : null}
         confirmLabel="Sayfayı Sil"
         onConfirm={confirmSingleDelete}
         onCancel={() => setSingleDeleteTarget(null)}

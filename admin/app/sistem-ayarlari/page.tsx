@@ -106,7 +106,7 @@ function SistemAyarlariContent() {
               <Card className="max-w-2xl p-6">
                 <h2 className="mb-1 font-display text-heading-md text-near-black dark:text-white">Marka Ayarları</h2>
                 <p className="mb-4 text-body-sm text-steel dark:text-white/50">
-                  Bu ayarlar IC Corporate Platform'un beyaz etiketli (white-label) mimarisinin temelidir — logo, renk ve isim gelecekteki her yeni müşteri için buradan değiştirilir.
+                  Bu ayarlar IC Corporate Platform&apos;un beyaz etiketli (white-label) mimarisinin temelidir — logo, renk ve isim gelecekteki her yeni müşteri için buradan değiştirilir.
                 </p>
                 <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2">
                   <Field label="Marka Adı">

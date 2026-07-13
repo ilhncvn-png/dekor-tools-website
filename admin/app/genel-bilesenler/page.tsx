@@ -75,7 +75,7 @@ export default function GenelBilesenlerPage() {
                   <Badge tone={banner.type === 'CTA' ? 'danger' : 'info'}>{banner.type}</Badge>
                 </div>
                 <p className="mt-0.5 truncate text-[12px] text-steel dark:text-white/50">
-                  "{banner.message}" — {banner.buttonLabel} → {banner.buttonHref}
+                  &quot;{banner.message}&quot; — {banner.buttonLabel} → {banner.buttonHref}
                 </p>
                 <div className="mt-1.5 flex flex-wrap gap-1">
                   {banner.placements.map((p) => (

@@ -97,7 +97,7 @@ export default function IhracatHaritasiPage() {
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Ülkeyi kaldır"
-        description={deleteTarget ? <>"{deleteTarget.country}" ülkesini ihracat haritasından kaldırmak üzeresiniz.</> : null}
+        description={deleteTarget ? <>&quot;{deleteTarget.country}&quot; ülkesini ihracat haritasından kaldırmak üzeresiniz.</> : null}
         consequences={['Ana Sayfa ve İhracat sayfasındaki dünya haritasından da kaldırılacak']}
         confirmLabel="Kaldır"
         onConfirm={confirmDelete}

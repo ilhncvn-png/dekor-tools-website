@@ -134,7 +134,7 @@ export default function HaberlerPage() {
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Makaleyi sil"
-        description={deleteTarget ? <>"{deleteTarget.title}" makalesini kalıcı olarak silmek üzeresiniz.</> : null}
+        description={deleteTarget ? <>&quot;{deleteTarget.title}&quot; makalesini kalıcı olarak silmek üzeresiniz.</> : null}
         confirmLabel="Makaleyi Sil"
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}

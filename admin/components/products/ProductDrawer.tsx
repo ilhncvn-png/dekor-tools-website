@@ -343,7 +343,7 @@ export function ProductDrawer({ product, onClose, onUpdate, onDuplicate, initial
                       </span>
                     </button>
                     <p className="mt-1.5 text-[11.5px] text-steel dark:text-white/40">
-                      Teknik çizim ve indirilebilir ürün PDF'i aynı belge alanını kullanır — Dosya Merkezi'nden seçin.
+                      Teknik çizim ve indirilebilir ürün PDF&apos;i aynı belge alanını kullanır — Dosya Merkezi&apos;nden seçin.
                     </p>
                   </div>
 

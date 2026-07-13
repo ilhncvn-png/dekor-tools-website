@@ -423,7 +423,7 @@ export default function GenelBakisPage() {
             ))}
           </div>
           <Link href="/yayin-merkezi" className="mt-3 flex items-center justify-center gap-1 text-[11.5px] font-medium text-red hover:underline dark:text-red-eyebrow">
-            Yayın Merkezi'ni Aç <ArrowRight size={11} />
+            Yayın Merkezi&apos;ni Aç <ArrowRight size={11} />
           </Link>
         </div>
       </div>

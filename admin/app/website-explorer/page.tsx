@@ -511,7 +511,7 @@ export default function WebsiteExplorerPage() {
                       {searchResults.products.map((p) => (
                         <li key={p.id}>
                           <Link href="/urun-yonetimi" className="flex items-center gap-1.5 rounded-soft px-2 py-1.5 text-[12.5px] font-medium text-near-black hover:bg-mist dark:text-white dark:hover:bg-white/[.04]">
-                            <Package size={12} /> {p.name} <span className="text-[11px] font-normal text-steel dark:text-white/40">— Ürün Yönetimi'nde aç</span>
+                            <Package size={12} /> {p.name} <span className="text-[11px] font-normal text-steel dark:text-white/40">— Ürün Yönetimi&apos;nde aç</span>
                           </Link>
                         </li>
                       ))}
@@ -525,7 +525,7 @@ export default function WebsiteExplorerPage() {
                       {searchResults.categories.map((c) => (
                         <li key={c.id}>
                           <Link href="/kategori-yonetimi" className="flex items-center gap-1.5 rounded-soft px-2 py-1.5 text-[12.5px] font-medium text-near-black hover:bg-mist dark:text-white dark:hover:bg-white/[.04]">
-                            <FolderTree size={12} /> {c.name} <span className="text-[11px] font-normal text-steel dark:text-white/40">— Kategori Yönetimi'nde aç</span>
+                            <FolderTree size={12} /> {c.name} <span className="text-[11px] font-normal text-steel dark:text-white/40">— Kategori Yönetimi&apos;nde aç</span>
                           </Link>
                         </li>
                       ))}
@@ -747,7 +747,7 @@ export default function WebsiteExplorerPage() {
                               <button type="button" onClick={() => setSelectedPageId(link.pageId)} className="font-medium text-red hover:underline dark:text-red-eyebrow">
                                 {link.pageName}
                               </button>
-                              <span className="text-steel dark:text-white/40"> — "{link.buttonLabel}" ({link.sectionName})</span>
+                              <span className="text-steel dark:text-white/40"> — &quot;{link.buttonLabel}&quot; ({link.sectionName})</span>
                             </li>
                           ))}
                         </ul>

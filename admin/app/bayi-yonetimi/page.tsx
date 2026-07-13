@@ -250,7 +250,7 @@ export default function BayiYonetimiPage() {
           rejectTarget === 'bulk'
             ? <>Seçili {selected.size} bayi başvurusunu reddetmek üzeresiniz.</>
             : rejectTarget
-              ? <>"{rejectTarget.company}" başvurusunu reddetmek üzeresiniz.</>
+              ? <>&quot;{rejectTarget.company}&quot; başvurusunu reddetmek üzeresiniz.</>
               : null
         }
         confirmLabel="Reddet"
@@ -261,7 +261,7 @@ export default function BayiYonetimiPage() {
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Bayiyi sil"
-        description={deleteTarget ? <>"{deleteTarget.company}" bayi kaydını kalıcı olarak silmek üzeresiniz.</> : null}
+        description={deleteTarget ? <>&quot;{deleteTarget.company}&quot; bayi kaydını kalıcı olarak silmek üzeresiniz.</> : null}
         consequences={deleteTarget?.listedOnWebsite ? ['Web sitesi bayi listesinden de kaldırılacak'] : undefined}
         confirmLabel="Bayiyi Sil"
         onConfirm={confirmDeleteDealer}

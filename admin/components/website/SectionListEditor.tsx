@@ -597,7 +597,7 @@ export function SectionListEditor({ initialSections, addLabel = 'Bölüm Ekle', 
       <ConfirmDialog
         open={Boolean(pendingDelete)}
         title="Bölümü sil"
-        description={pendingDelete ? <>"{pendingDelete.name}" bölümünü kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz.</> : null}
+        description={pendingDelete ? <>&quot;{pendingDelete.name}&quot; bölümünü kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz.</> : null}
         consequences={
           pendingDelete && resolvePublishStatus(pendingDelete) === 'yayinda'
             ? ['Bu bölüm şu anda canlı sitede yayında — silme işlemi yayından da kaldırır.']

@@ -221,7 +221,7 @@ export default function DosyaMerkeziPage() {
       <ConfirmDialog
         open={Boolean(singleDeleteTarget)}
         title="Dosyayı sil"
-        description={singleDeleteTarget ? <>"{singleDeleteTarget.name}" dosyasını kalıcı olarak silmek üzeresiniz.</> : null}
+        description={singleDeleteTarget ? <>&quot;{singleDeleteTarget.name}&quot; dosyasını kalıcı olarak silmek üzeresiniz.</> : null}
         consequences={singleDeleteTarget?.linkedTo ? [`${singleDeleteTarget.linkedTo} bu dosya bağlantısını kaybedecek`] : undefined}
         confirmLabel="Dosyayı Sil"
         onConfirm={confirmSingleDelete}

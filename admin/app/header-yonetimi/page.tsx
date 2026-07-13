@@ -119,7 +119,7 @@ export default function HeaderYonetimiPage() {
             ))}
           </ul>
           <p className="mt-4 text-[11.5px] text-steel dark:text-white/40">
-            Bu önizleme salt okunurdur — menü öğelerini eklemek/kaldırmak için Navigasyon Yönetimi'ni kullanın.
+            Bu önizleme salt okunurdur — menü öğelerini eklemek/kaldırmak için Navigasyon Yönetimi&apos;ni kullanın.
           </p>
         </Card>
       </div>

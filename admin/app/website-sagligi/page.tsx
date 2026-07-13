@@ -248,7 +248,7 @@ export default function WebsiteSagligiPage() {
                                 href="/canli-website"
                                 className="flex items-center gap-1 rounded-soft border border-border px-2 py-1 text-[10.5px] font-medium text-steel transition-colors hover:border-red/30 hover:text-near-black dark:border-white/10 dark:text-white/50 dark:hover:text-white"
                               >
-                                <Eye size={10} /> Canvas'ta Aç
+                                <Eye size={10} /> Canvas&apos;ta Aç
                               </Link>
                             </div>
                           </div>
