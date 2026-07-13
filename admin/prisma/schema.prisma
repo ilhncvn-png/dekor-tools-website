@@ -318,15 +318,23 @@ model PageRevision {
 // ============================================================
 
 model ProductCategory {
-  id        String    @id @default(cuid())
-  key       String    @unique
-  slug      String    @unique
-  parentId  String?
-  sortOrder Int       @default(0)
-  isVisible Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id              String        @id @default(cuid())
+  key             String        @unique
+  slug            String        @unique
+  parentId        String?
+  sortOrder       Int           @default(0)
+  isVisible       Boolean       @default(true)
+  status          ContentStatus @default(DRAFT)
+  publishedAt     DateTime?
+  // Public catalog family code (e.g. "FAM-01"); top-level families only.
+  code            String?
+  // Icon key referenced by the catalog UI (not a bespoke SVG).
+  icon            String?
+  showOnHomepage  Boolean       @default(false)
+  showInNavigation Boolean      @default(true)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
 
   parent   ProductCategory?  @relation("CategoryTree", fields: [parentId], references: [id])
   children ProductCategory[] @relation("CategoryTree")
@@ -335,6 +343,7 @@ model ProductCategory {
   products     Product[]
 
   @@index([parentId])
+  @@index([status])
 }
 
 model ProductCategoryTranslation {
@@ -344,6 +353,12 @@ model ProductCategoryTranslation {
   name              String
   slug              String
   description       String?
+  heroTitle         String?
+  heroDescription   String?
+  cardTitle         String?
+  cardDescription   String?
+  metaTitle         String?
+  metaDescription   String?
   translationStatus TranslationStatus @default(DRAFT)
   updatedAt         DateTime          @updatedAt
 

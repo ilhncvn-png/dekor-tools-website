@@ -5,6 +5,8 @@ import { getCurrentUser } from '@/lib/auth/session';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { categoryInputSchema, type CategoryInput } from '@/lib/validation/category';
+import { toUiCategory } from '@/lib/adapters/category-adapter';
+import type { Category } from '@/lib/mock-data';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export interface ActionResult<T = unknown> {
@@ -67,20 +69,37 @@ export async function saveCategory(categoryId: string | null, input: CategoryInp
         ? await tx.productCategory.findUnique({ where: { id: categoryId }, include: { translations: true } })
         : null;
 
+      const commonData = {
+        parentId: data.parentId ?? null,
+        sortOrder: data.sortOrder,
+        isVisible: data.isVisible,
+        code: data.code ?? null,
+        icon: data.icon ?? null,
+        showOnHomepage: data.showOnHomepage,
+        showInNavigation: data.showInNavigation,
+      };
       const category = categoryId
-        ? await tx.productCategory.update({
-            where: { id: categoryId },
-            data: { parentId: data.parentId ?? null, sortOrder: data.sortOrder, isVisible: data.isVisible },
-          })
+        ? await tx.productCategory.update({ where: { id: categoryId }, data: commonData })
         : await tx.productCategory.create({
-            data: { key: data.key, slug: data.translations.find((t) => t.languageCode === 'tr')!.slug, parentId: data.parentId ?? null, sortOrder: data.sortOrder, isVisible: data.isVisible },
+            data: { key: data.key, slug: data.translations.find((t) => t.languageCode === 'tr')!.slug, ...commonData },
           });
 
       for (const t of data.translations) {
+        const translationData = {
+          name: t.name,
+          slug: t.slug,
+          description: t.description,
+          heroTitle: t.heroTitle,
+          heroDescription: t.heroDescription,
+          cardTitle: t.cardTitle,
+          cardDescription: t.cardDescription,
+          metaTitle: t.metaTitle,
+          metaDescription: t.metaDescription,
+        };
         await tx.productCategoryTranslation.upsert({
           where: { categoryId_languageCode: { categoryId: category.id, languageCode: t.languageCode } },
-          update: { name: t.name, slug: t.slug, description: t.description },
-          create: { categoryId: category.id, languageCode: t.languageCode, name: t.name, slug: t.slug, description: t.description },
+          update: translationData,
+          create: { categoryId: category.id, languageCode: t.languageCode, ...translationData },
         });
       }
 
@@ -198,4 +217,42 @@ export async function listCategories(params: { query?: string; includeDeleted?: 
     include: { translations: true, _count: { select: { products: true, children: true } } },
     orderBy: { sortOrder: 'asc' },
   });
+}
+
+/**
+ * Read categories already mapped to the exact shape the Category Management
+ * UI consumes (lib/mock-data.ts's `Category`). This is the drop-in
+ * replacement for the page's mock `categories` import — same shape, real
+ * PostgreSQL data.
+ */
+export async function getAdminCategories(): Promise<Category[]> {
+  const user = await getCurrentUser();
+  requirePermission(user, 'categories.manage');
+
+  const rows = await prisma.productCategory.findMany({
+    where: { deletedAt: null },
+    include: { translations: true },
+    orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+  });
+  return rows.map(toUiCategory);
+}
+
+/** Persists a new sibling order for reorder controls. */
+export async function reorderCategories(orderedIds: string[]): Promise<ActionResult> {
+  const user = await getCurrentUser();
+  try {
+    requirePermission(user, 'categories.manage');
+  } catch {
+    return { success: false, error: 'Bu işlem için yetkiniz yok.' };
+  }
+
+  await prisma.$transaction(
+    orderedIds.map((id, index) =>
+      prisma.productCategory.update({ where: { id }, data: { sortOrder: index } })
+    )
+  );
+  await recordAuditLog({ actorId: user!.id, action: 'category.reorder', entityType: 'product_category', newData: { orderedIds } });
+  revalidatePath('/kategori-yonetimi');
+  revalidateTag('categories');
+  return { success: true };
 }
