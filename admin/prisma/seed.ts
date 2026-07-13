@@ -152,9 +152,16 @@ async function seedInitialAdmin() {
 
   const passwordHash = await bcrypt.hash(password, 12);
 
+  // Sync the password hash + active status on re-run too, not just on create.
+  // This is what makes the "same user-facing password" transition robust and
+  // idempotent: re-seeding an existing admin re-derives the hash from
+  // INITIAL_ADMIN_PASSWORD (e.g. after switching hash algorithms, or the
+  // recovery -> database auth handover) instead of silently keeping a stale
+  // hash. The initial admin is defined by the env var, so aligning to it on
+  // every run is the intended behavior.
   const user = await prisma.user.upsert({
     where: { email },
-    update: {},
+    update: { passwordHash, status: 'ACTIVE' },
     create: { name: 'Süper Yönetici', email, passwordHash, status: 'ACTIVE' },
   });
 
