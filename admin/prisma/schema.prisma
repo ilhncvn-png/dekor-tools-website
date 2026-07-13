@@ -635,7 +635,10 @@ model DealerDocument {
 model Banner {
   id          String        @id @default(cuid())
   key         String        @unique
-  placement   String        // e.g. "home-hero", "products-top"
+  placement   String        // primary placement (e.g. "home-hero"); kept for the fast published-by-placement query
+  name        String        @default("") // human-facing label shown in the admin list
+  bannerType  String        @default("Banner") // "CTA" | "Banner"
+  placements  String[]      @default([]) // full set of pages this shows on (admin multi-select)
   status      ContentStatus @default(DRAFT)
   publishedAt DateTime?
   createdAt   DateTime      @default(now())

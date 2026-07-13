@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Plus, Component, Pencil, Megaphone } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -12,7 +12,9 @@ import { Button } from '@/components/ui/Button';
 import { Switch } from '@/components/ui/Switch';
 import { BannerDrawer } from '@/components/banners/BannerDrawer';
 import { useToast } from '@/components/ui/Toast';
-import { globalComponents, globalBanners as initialBanners, type GlobalComponent, type GlobalBanner } from '@/lib/mock-data';
+import { globalComponents, type GlobalComponent, type GlobalBanner } from '@/lib/mock-data';
+import { getAdminBanners, saveBanner, setBannerActive } from '@/lib/actions/banner-actions';
+import { toBannerInput } from '@/lib/adapters/banner-adapter';
 
 const typeTone: Record<GlobalComponent['type'], 'danger' | 'info' | 'success' | 'ai'> = {
   'CTA Bloğu': 'danger',
@@ -25,18 +27,52 @@ const typeTone: Record<GlobalComponent['type'], 'danger' | 'info' | 'success' | 
 export default function GenelBilesenlerPage() {
   const { push } = useToast();
   const [type, setType] = useState('all');
-  const [banners, setBanners] = useState<GlobalBanner[]>(initialBanners);
+  // Editable banners come from Neon; globalComponents stays a static catalog.
+  const [banners, setBanners] = useState<GlobalBanner[]>([]);
   const [activeBanner, setActiveBanner] = useState<GlobalBanner | null>(null);
+
+  const loadBanners = useCallback(async () => {
+    try {
+      setBanners(await getAdminBanners());
+    } catch {
+      push({ tone: 'danger', title: 'Bannerlar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadBanners();
+  }, [loadBanners]);
 
   const filtered = useMemo(() => globalComponents.filter((c) => type === 'all' || c.type === type), [type]);
 
-  function toggleActive(id: string) {
-    setBanners((prev) => prev.map((b) => (b.id === id ? { ...b, active: !b.active } : b)));
+  // A never-persisted draft has a synthetic id (gb-...).
+  const isDraftId = (id: string) => id.startsWith('gb-');
+
+  async function toggleActive(id: string) {
+    if (isDraftId(id)) {
+      push({ tone: 'info', title: 'Önce bannerı kaydedin' });
+      return;
+    }
+    const target = banners.find((b) => b.id === id);
+    if (!target) return;
+    setBanners((prev) => prev.map((b) => (b.id === id ? { ...b, active: !b.active } : b))); // optimistic
+    const result = await setBannerActive(id, !target.active);
+    if (!result.success) push({ tone: 'danger', title: 'Durum değiştirilemedi', description: result.error });
+    await loadBanners();
   }
 
-  function updateBanner(updated: GlobalBanner) {
-    setBanners((prev) => prev.map((b) => (b.id === updated.id ? updated : b)));
-    setActiveBanner(updated);
+  async function updateBanner(updated: GlobalBanner) {
+    const isDraft = isDraftId(updated.id);
+    const result = await saveBanner(isDraft ? null : updated.id, toBannerInput(updated));
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
+    // Reconcile the active toggle with publish/unpublish for the saved row.
+    const savedId = (result.data as { id?: string } | undefined)?.id ?? (isDraft ? null : updated.id);
+    if (savedId) await setBannerActive(savedId, updated.active);
+    await loadBanners();
+    setActiveBanner(null);
   }
 
   function createBanner() {

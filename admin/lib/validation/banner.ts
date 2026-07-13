@@ -16,8 +16,11 @@ export const bannerInputSchema = z.object({
     .max(120)
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Anahtar yalnızca küçük harf, rakam ve tire içerebilir.'),
   placement: z.string().min(1, 'Yerleşim zorunludur.').max(120),
+  name: z.string().max(200).default(''),
+  bannerType: z.enum(['CTA', 'Banner']).default('Banner'),
+  placements: z.array(z.string().max(120)).default([]),
   translations: z.array(bannerTranslationSchema).min(1, 'En az bir dil için içerik gereklidir.'),
-  slideMediaIds: z.array(z.string().cuid()).default([]),
+  slideMediaIds: z.array(z.string()).default([]),
 });
 
 export type BannerInput = z.infer<typeof bannerInputSchema>;

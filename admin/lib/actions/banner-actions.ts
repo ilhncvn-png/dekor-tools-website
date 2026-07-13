@@ -5,6 +5,8 @@ import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { bannerInputSchema, type BannerInput } from '@/lib/validation/banner';
+import { toUiBanner } from '@/lib/adapters/banner-adapter';
+import type { GlobalBanner } from '@/lib/mock-data';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
 
@@ -30,9 +32,15 @@ export async function saveBanner(bannerId: string | null, input: BannerInput): P
         ? await tx.banner.findUnique({ where: { id: bannerId }, include: { translations: true, slides: true } })
         : null;
 
+      const bannerData = {
+        placement: data.placement,
+        name: data.name,
+        bannerType: data.bannerType,
+        placements: data.placements,
+      };
       const banner = bannerId
-        ? await tx.banner.update({ where: { id: bannerId }, data: { placement: data.placement } })
-        : await tx.banner.create({ data: { key: data.key, placement: data.placement } });
+        ? await tx.banner.update({ where: { id: bannerId }, data: bannerData })
+        : await tx.banner.create({ data: { key: data.key, ...bannerData } });
 
       for (const t of data.translations) {
         await tx.bannerTranslation.upsert({
@@ -106,7 +114,8 @@ async function transitionBannerStatus(
   if (action === 'PUBLISH') {
     const trTranslation = banner.translations.find((t) => t.languageCode === 'tr');
     if (!trTranslation) return { success: false, error: 'Yayınlamadan önce Türkçe içerik gereklidir.' };
-    if (banner.slides.length === 0) return { success: false, error: 'Yayınlamadan önce en az bir görsel/video eklenmelidir.' };
+    // Global CTA/Banner components on this screen are text+button (no slides);
+    // only image/slideshow banners provisioned with slides need a slide check.
   }
 
   await prisma.$transaction(async (tx) => {
@@ -133,6 +142,26 @@ export async function listBanners(placement?: string) {
     include: { translations: true, slides: { include: { media: true }, orderBy: { sortOrder: 'asc' } } },
     orderBy: { createdAt: 'desc' },
   });
+}
+
+/** UI-shaped read for the Global Components (banners) screen. */
+export async function getAdminBanners(): Promise<GlobalBanner[]> {
+  const user = await resolveCurrentUser();
+  requirePermission(user, 'banners.manage');
+
+  const rows = await prisma.banner.findMany({
+    where: { deletedAt: null },
+    include: { translations: true, slides: { orderBy: { sortOrder: 'asc' } } },
+    orderBy: { createdAt: 'asc' },
+  });
+  return rows.map(toUiBanner);
+}
+
+/** The admin list's simple Aktif/Pasif toggle -> publish / unpublish transition. */
+export async function setBannerActive(bannerId: string, active: boolean): Promise<ActionResult> {
+  return active
+    ? transitionBannerStatus(bannerId, 'PUBLISHED', 'PUBLISH')
+    : transitionBannerStatus(bannerId, 'UNPUBLISHED', 'UNPUBLISH');
 }
 
 /** Published-only read, used by the public-site integration layer - never exposes drafts. */
