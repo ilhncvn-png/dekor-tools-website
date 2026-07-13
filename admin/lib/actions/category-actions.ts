@@ -256,3 +256,43 @@ export async function reorderCategories(orderedIds: string[]): Promise<ActionRes
   revalidateTag('categories');
   return { success: true };
 }
+
+/** Sets visibility (publish/unpublish) without requiring the full edit payload. */
+export async function setCategoryVisibility(categoryId: string, visible: boolean): Promise<ActionResult> {
+  const user = await getCurrentUser();
+  try {
+    requirePermission(user, 'categories.manage');
+  } catch {
+    return { success: false, error: 'Bu işlem için yetkiniz yok.' };
+  }
+  await prisma.$transaction(async (tx) => {
+    await tx.productCategory.update({
+      where: { id: categoryId },
+      data: visible
+        ? { isVisible: true, status: 'PUBLISHED', publishedAt: new Date() }
+        : { isVisible: false, status: 'UNPUBLISHED', showOnHomepage: false, showInNavigation: false },
+    });
+    await tx.contentRevision.create({
+      data: { entityType: 'product_category', entityId: categoryId, action: visible ? 'PUBLISH' : 'UNPUBLISH', authorId: user!.id },
+    });
+  });
+  await recordAuditLog({ actorId: user!.id, action: visible ? 'category.publish' : 'category.unpublish', entityType: 'product_category', entityId: categoryId });
+  revalidatePath('/kategori-yonetimi');
+  revalidateTag('categories');
+  return { success: true };
+}
+
+/** Sets the homepage/navigation promotion flags. */
+export async function setCategoryPromotion(categoryId: string, promoted: boolean): Promise<ActionResult> {
+  const user = await getCurrentUser();
+  try {
+    requirePermission(user, 'categories.manage');
+  } catch {
+    return { success: false, error: 'Bu işlem için yetkiniz yok.' };
+  }
+  await prisma.productCategory.update({ where: { id: categoryId }, data: { showOnHomepage: promoted, showInNavigation: promoted } });
+  await recordAuditLog({ actorId: user!.id, action: 'category.update', entityType: 'product_category', entityId: categoryId, newData: { promoted } });
+  revalidatePath('/kategori-yonetimi');
+  revalidateTag('categories');
+  return { success: true };
+}

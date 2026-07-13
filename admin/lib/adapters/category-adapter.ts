@@ -1,5 +1,5 @@
 import type { Category } from '@/lib/mock-data';
-import { LANGUAGE_CODES } from '@/lib/validation/category';
+import { LANGUAGE_CODES, type CategoryInput } from '@/lib/validation/category';
 
 // Maps a database ProductCategory (with translations) to the exact shape the
 // existing Category Management UI already consumes (lib/mock-data.ts's
@@ -72,5 +72,38 @@ export function toUiCategory(db: DbCategory): Category {
     updatedAt: db.updatedAt.toISOString(),
     metaTitle: tr?.metaTitle ?? undefined,
     metaDescription: tr?.metaDescription ?? undefined,
+  };
+}
+
+// Reverse map: the UI Category (edited in CategoryDrawer, TR-primary + SEO)
+// -> the server CategoryInput saveCategory expects. Only the TR translation
+// is produced here (the drawer edits TR content); saveCategory upserts just
+// the provided translations, so other-language translations already in the
+// database are preserved untouched.
+
+export function toCategoryInput(ui: Category): CategoryInput {
+  return {
+    key: ui.slug || ui.id, // used only when creating; ignored on update
+    parentId: ui.parentId,
+    sortOrder: ui.order ?? 0,
+    isVisible: ui.visible,
+    code: ui.code ?? null,
+    icon: ui.icon ?? null,
+    showOnHomepage: ui.showOnHomepage,
+    showInNavigation: ui.showInNavigation,
+    translations: [
+      {
+        languageCode: 'tr',
+        name: ui.name,
+        slug: ui.slug,
+        description: ui.description || undefined,
+        heroTitle: ui.heroTitle || undefined,
+        heroDescription: ui.heroDescription || undefined,
+        cardTitle: ui.cardTitle || undefined,
+        cardDescription: ui.cardDescription || undefined,
+        metaTitle: ui.metaTitle || undefined,
+        metaDescription: ui.metaDescription || undefined,
+      },
+    ],
   };
 }

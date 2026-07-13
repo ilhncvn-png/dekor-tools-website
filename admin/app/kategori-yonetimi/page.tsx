@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Plus,
   Upload,
@@ -39,7 +39,16 @@ import { Popover } from '@/components/ui/Popover';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
 import { CategoryDrawer } from '@/components/categories/CategoryDrawer';
-import { categories as initialCategories, products as initialProducts, type Category, type Product } from '@/lib/mock-data';
+import { type Category, type Product } from '@/lib/mock-data';
+import { toCategoryInput } from '@/lib/adapters/category-adapter';
+import {
+  getAdminCategories,
+  saveCategory,
+  softDeleteCategory,
+  setCategoryVisibility,
+  setCategoryPromotion,
+  reorderCategories,
+} from '@/lib/actions/category-actions';
 import { getSeoTone } from '@/lib/product-health';
 import {
   buildCategoryTree,
@@ -73,11 +82,30 @@ function csvEscape(value: string | number): string {
 
 export default function KategoriYonetimiPage() {
   const { push } = useToast();
-  const [categories, setCategories] = useState<Category[]>(initialCategories);
-  // Local mirror of the product catalog, exactly like Ürün Yönetimi's own state —
-  // it's what makes the product counts below real instead of a stored fake number,
-  // and it's what the delete-with-reassignment workflow actually mutates.
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  // Real data from Neon PostgreSQL (via getAdminCategories), mapped to the same
+  // Category shape this UI has always consumed — the screen is unchanged, only
+  // the source is real. loadCategories() is the single reconcile point every
+  // mutation calls after persisting, so the list always reflects the database.
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  // Products are not yet migrated to the DB; the count/reassignment workflow
+  // operates on this (currently empty) list until Product Management is wired.
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const loadCategories = useCallback(async () => {
+    try {
+      const rows = await getAdminCategories();
+      setCategories(rows);
+    } catch {
+      push({ tone: 'danger', title: 'Kategoriler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    } finally {
+      setLoading(false);
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
 
   const [query, setQuery] = useState('');
   const [visibilityFilter, setVisibilityFilter] = useState<VisibilityFilter>('all');
@@ -162,9 +190,17 @@ export default function KategoriYonetimiPage() {
     setActiveCategory(category);
   }
 
-  function updateCategory(updated: Category) {
-    setCategories((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
-    setActiveCategory(updated);
+  async function updateCategory(updated: Category) {
+    // A locally-created draft has a synthetic id (new-.../import-...); persist
+    // it as an INSERT, otherwise UPDATE the existing database row.
+    const isDraft = updated.id.startsWith('new-') || updated.id.startsWith('import-') || updated.id.includes('-copy-');
+    const result = await saveCategory(isDraft ? null : updated.id, toCategoryInput(updated));
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
+    await loadCategories();
+    setActiveCategory(null);
   }
 
   function addCategory(parentId: string | null = null) {
@@ -204,14 +240,38 @@ export default function KategoriYonetimiPage() {
     push({ tone: 'success', title: 'Kategori çoğaltıldı', description: `${copy.name} taslak olarak eklendi.` });
   }
 
-  function setVisible(ids: Set<string>, visible: boolean) {
+  async function setVisible(ids: Set<string>, visible: boolean) {
+    // Optimistic UI, then persist each to Neon and reconcile.
     setCategories((prev) =>
       prev.map((c) => (ids.has(c.id) ? { ...c, visible, ...(visible ? {} : { showOnHomepage: false, showInNavigation: false }) } : c))
     );
+    for (const id of ids) {
+      const r = await setCategoryVisibility(id, visible);
+      if (!r.success) push({ tone: 'danger', title: 'İşlem başarısız', description: r.error });
+    }
+    await loadCategories();
   }
 
-  function setPromotion(ids: Set<string>, promoted: boolean) {
+  async function setPromotion(ids: Set<string>, promoted: boolean) {
     setCategories((prev) => prev.map((c) => (ids.has(c.id) ? { ...c, showOnHomepage: promoted, showInNavigation: promoted } : c)));
+    for (const id of ids) {
+      const r = await setCategoryPromotion(id, promoted);
+      if (!r.success) push({ tone: 'danger', title: 'İşlem başarısız', description: r.error });
+    }
+    await loadCategories();
+  }
+
+  async function moveCategory(catId: string, dir: 'up' | 'down') {
+    const next = reorderSibling(categories, catId, dir);
+    setCategories(next);
+    setSortKey('manual');
+    // Persist the new order to Neon (skip synthetic drafts). Global increasing
+    // sortOrder preserves each sibling group's relative order on reload.
+    const ordered = [...next]
+      .sort((a, b) => a.order - b.order)
+      .map((c) => c.id)
+      .filter((id) => !id.startsWith('new-') && !id.startsWith('import-') && !id.includes('-copy-'));
+    await reorderCategories(ordered);
   }
 
   function bulkPublish() {
@@ -340,10 +400,20 @@ export default function KategoriYonetimiPage() {
 
     setCategories((prev) => prev.filter((c) => !ids.has(c.id)));
     setSelected(new Set());
-    push({ tone: 'success', title: ids.size === 1 ? 'Kategori silindi' : `${ids.size} kategori silindi` });
     setSingleDeleteId(null);
     setBulkDeleteOpen(false);
     setPendingDeleteIds(null);
+    // Persist the soft-delete for real database rows (skip synthetic drafts).
+    (async () => {
+      let failed = 0;
+      for (const id of ids) {
+        if (id.startsWith('new-') || id.startsWith('import-') || id.includes('-copy-')) continue;
+        const r = await softDeleteCategory(id);
+        if (!r.success) { failed += 1; push({ tone: 'danger', title: 'Silinemedi', description: r.error }); }
+      }
+      await loadCategories();
+      if (failed === 0) push({ tone: 'success', title: ids.size === 1 ? 'Kategori silindi' : `${ids.size} kategori silindi` });
+    })();
   }
 
   function cancelDelete() {
@@ -459,7 +529,9 @@ export default function KategoriYonetimiPage() {
         <Tbody>
           {treeRows.length === 0 && (
             <TableEmptyRow colSpan={10}>
-              {categories.length === 0 ? (
+              {loading ? (
+                <p>Kategoriler yükleniyor…</p>
+              ) : categories.length === 0 ? (
                 <div className="flex flex-col items-center gap-3">
                   <p>Henüz kategori eklenmedi.</p>
                   <div className="flex items-center gap-2">
@@ -507,7 +579,7 @@ export default function KategoriYonetimiPage() {
                       <button
                         type="button"
                         disabled={siblingIndex <= 0}
-                        onClick={() => { setCategories((prev) => reorderSibling(prev, cat.id, 'up')); setSortKey('manual'); }}
+                        onClick={() => moveCategory(cat.id, 'up')}
                         className="flex h-3.5 w-4 items-center justify-center text-steel/60 hover:text-near-black disabled:opacity-20 dark:text-white/30 dark:hover:text-white"
                         aria-label="Yukarı taşı"
                       >
@@ -516,7 +588,7 @@ export default function KategoriYonetimiPage() {
                       <button
                         type="button"
                         disabled={siblingIndex >= siblings.length - 1}
-                        onClick={() => { setCategories((prev) => reorderSibling(prev, cat.id, 'down')); setSortKey('manual'); }}
+                        onClick={() => moveCategory(cat.id, 'down')}
                         className="flex h-3.5 w-4 items-center justify-center text-steel/60 hover:text-near-black disabled:opacity-20 dark:text-white/30 dark:hover:text-white"
                         aria-label="Aşağı taşı"
                       >

@@ -2,7 +2,7 @@
   "name": "dekor-control-center",
   "version": "0.1.0",
   "private": true,
-  "description": "Dekor Control Center \u2014 admin shell foundation for IC Corporate Platform (Sprint 5). Standalone Next.js app, isolated from the live static site at repo root.",
+  "description": "Dekor Control Center — admin shell foundation for IC Corporate Platform (Sprint 5). Standalone Next.js app, isolated from the live static site at repo root.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -39,6 +39,7 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",
