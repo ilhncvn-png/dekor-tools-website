@@ -70,6 +70,18 @@ export interface UploadResult {
   originalFilename: string;
 }
 
+async function putAdaptiveAccess(pathname: string, buffer: Buffer, mimeType: string) {
+  try {
+    return await put(pathname, buffer, { access: 'public', contentType: mimeType, addRandomSuffix: false });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : '';
+    if (/private (access|store)|public access on a private/i.test(message)) {
+      return await put(pathname, buffer, { access: 'private', contentType: mimeType, addRandomSuffix: false });
+    }
+    throw error;
+  }
+}
+
 export async function uploadFile(
   buffer: Buffer,
   originalFilename: string,
@@ -90,11 +102,11 @@ export async function uploadFile(
   const filename = safeFilename(originalFilename);
   const pathname = `${folder}/${filename}`;
 
-  const blob = await put(pathname, buffer, {
-    access: 'public',
-    contentType: mimeType,
-    addRandomSuffix: false,
-  });
+  // Prefer 'public' (website media needs URL-addressable assets), but fall back
+  // to 'private' when the configured Blob store only allows private access —
+  // this keeps uploads working regardless of how the store was provisioned,
+  // and auto-uses public if the store is later switched, with no code change.
+  const blob = await putAdaptiveAccess(pathname, buffer, mimeType);
 
   return {
     url: blob.url,
