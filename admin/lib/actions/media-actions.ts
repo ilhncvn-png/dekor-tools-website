@@ -7,6 +7,8 @@ import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { uploadFile, deleteFile, ALLOWED_MIME_TYPES, type AllowedMimeType } from '@/lib/storage/blob';
+import { toUiMediaItem } from '@/lib/adapters/media-adapter';
+import type { MediaItem } from '@/lib/mock-data';
 import { revalidatePath } from 'next/cache';
 
 const uploadMetaSchema = z.object({
@@ -179,4 +181,62 @@ export async function listMediaAssets(params: {
   ]);
 
   return { items, total, page, pageSize };
+}
+
+/**
+ * UI-shaped read used by the Media Library screen. Returns every non-deleted
+ * asset mapped to the exact `MediaItem` shape the grid/drawer consume, so the
+ * page renders unchanged while reading real Vercel Blob-backed storage.
+ */
+export async function getAdminMedia(): Promise<MediaItem[]> {
+  const user = await resolveCurrentUser();
+  requirePermission(user, 'media.view');
+
+  const rows = await prisma.mediaAsset.findMany({
+    where: { deletedAt: null },
+    orderBy: { createdAt: 'desc' },
+    include: {
+      folder: { select: { name: true } },
+      uploadedBy: { select: { name: true } },
+      _count: { select: { usages: true, productLinks: true, bannerSlides: true } },
+    },
+  });
+  return rows.map(toUiMediaItem);
+}
+
+const mediaMetaSchema = z.object({
+  fileName: z.string().min(1).max(300).optional(),
+  altText: z.string().max(300).nullable().optional(),
+  caption: z.string().max(500).nullable().optional(),
+});
+
+/** Persist editable metadata (name / alt text / caption) from the Media drawer. */
+export async function updateMediaAsset(
+  mediaId: string,
+  meta: { fileName?: string; altText?: string | null; caption?: string | null }
+): Promise<MediaActionResult> {
+  const user = await resolveCurrentUser();
+  try {
+    requirePermission(user, 'media.upload');
+  } catch {
+    return { success: false, error: 'Bu işlem için yetkiniz yok.' };
+  }
+
+  const parsed = mediaMetaSchema.safeParse(meta);
+  if (!parsed.success) return { success: false, error: 'Geçersiz medya bilgisi.' };
+
+  try {
+    const asset = await prisma.mediaAsset.update({ where: { id: mediaId }, data: parsed.data });
+    await recordAuditLog({
+      actorId: user!.id,
+      action: 'media.update',
+      entityType: 'media_asset',
+      entityId: mediaId,
+      newData: { fileName: asset.fileName, altText: asset.altText },
+    });
+    revalidatePath('/medya-kutuphanesi');
+    return { success: true, data: asset };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Güncelleme başarısız oldu.' };
+  }
 }
