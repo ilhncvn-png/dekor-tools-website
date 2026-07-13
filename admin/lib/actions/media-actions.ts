@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { imageSize } from 'image-size';
 import { prisma } from '@/lib/db/prisma';
-import { getCurrentUser } from '@/lib/auth/session';
+import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { uploadFile, deleteFile, ALLOWED_MIME_TYPES, type AllowedMimeType } from '@/lib/storage/blob';
@@ -22,7 +22,7 @@ export interface MediaActionResult<T = unknown> {
 }
 
 export async function uploadMediaAsset(formData: FormData): Promise<MediaActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'media.upload');
   } catch {
@@ -105,7 +105,7 @@ export async function uploadMediaAsset(formData: FormData): Promise<MediaActionR
 }
 
 export async function deleteMediaAsset(mediaId: string): Promise<MediaActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'media.delete');
   } catch {
@@ -152,7 +152,7 @@ export async function listMediaAssets(params: {
   page?: number;
   pageSize?: number;
 }) {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   requirePermission(user, 'media.view');
 
   const page = params.page ?? 1;

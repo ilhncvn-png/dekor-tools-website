@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db/prisma';
-import { getCurrentUser } from '@/lib/auth/session';
+import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { productInputSchema, type ProductInput } from '@/lib/validation/product';
@@ -9,7 +9,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
 
 export async function saveProduct(productId: string | null, input: ProductInput): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, productId ? 'products.update' : 'products.create');
   } catch {
@@ -132,7 +132,7 @@ async function transitionProductStatus(
   action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE',
   permission: string
 ): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, permission);
   } catch {
@@ -170,7 +170,7 @@ export const unpublishProduct = (id: string) => transitionProductStatus(id, 'UNP
 export const archiveProduct = (id: string) => transitionProductStatus(id, 'ARCHIVED', 'ARCHIVE', 'products.delete');
 
 export async function softDeleteProduct(productId: string): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'products.delete');
   } catch {
@@ -190,7 +190,7 @@ export async function listProducts(params: {
   page?: number;
   pageSize?: number;
 }) {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   requirePermission(user, 'products.view');
 
   const page = params.page ?? 1;

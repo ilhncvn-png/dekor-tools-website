@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db/prisma';
-import { getCurrentUser } from '@/lib/auth/session';
+import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { categoryInputSchema, type CategoryInput } from '@/lib/validation/category';
@@ -34,7 +34,7 @@ async function assertNoParentLoop(categoryId: string | null, parentId: string | 
 }
 
 export async function saveCategory(categoryId: string | null, input: CategoryInput): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -142,7 +142,7 @@ export async function saveCategory(categoryId: string | null, input: CategoryInp
 }
 
 export async function publishCategory(categoryId: string): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -169,7 +169,7 @@ export async function publishCategory(categoryId: string): Promise<ActionResult>
 }
 
 export async function softDeleteCategory(categoryId: string): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -189,7 +189,7 @@ export async function softDeleteCategory(categoryId: string): Promise<ActionResu
 }
 
 export async function restoreCategory(categoryId: string): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -204,7 +204,7 @@ export async function restoreCategory(categoryId: string): Promise<ActionResult>
 }
 
 export async function listCategories(params: { query?: string; includeDeleted?: boolean } = {}) {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   requirePermission(user, 'categories.manage');
 
   return prisma.productCategory.findMany({
@@ -226,7 +226,7 @@ export async function listCategories(params: { query?: string; includeDeleted?: 
  * PostgreSQL data.
  */
 export async function getAdminCategories(): Promise<Category[]> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   requirePermission(user, 'categories.manage');
 
   const rows = await prisma.productCategory.findMany({
@@ -239,7 +239,7 @@ export async function getAdminCategories(): Promise<Category[]> {
 
 /** Persists a new sibling order for reorder controls. */
 export async function reorderCategories(orderedIds: string[]): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -259,7 +259,7 @@ export async function reorderCategories(orderedIds: string[]): Promise<ActionRes
 
 /** Sets visibility (publish/unpublish) without requiring the full edit payload. */
 export async function setCategoryVisibility(categoryId: string, visible: boolean): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {
@@ -284,7 +284,7 @@ export async function setCategoryVisibility(categoryId: string, visible: boolean
 
 /** Sets the homepage/navigation promotion flags. */
 export async function setCategoryPromotion(categoryId: string, promoted: boolean): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'categories.manage');
   } catch {

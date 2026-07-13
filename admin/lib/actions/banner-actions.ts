@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db/prisma';
-import { getCurrentUser } from '@/lib/auth/session';
+import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { bannerInputSchema, type BannerInput } from '@/lib/validation/banner';
@@ -9,7 +9,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
 
 export async function saveBanner(bannerId: string | null, input: BannerInput): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'banners.manage');
   } catch {
@@ -93,7 +93,7 @@ async function transitionBannerStatus(
   status: 'PUBLISHED' | 'UNPUBLISHED' | 'ARCHIVED',
   action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE'
 ): Promise<ActionResult> {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   try {
     requirePermission(user, 'banners.manage');
   } catch {
@@ -125,7 +125,7 @@ export const unpublishBanner = (id: string) => transitionBannerStatus(id, 'UNPUB
 export const archiveBanner = (id: string) => transitionBannerStatus(id, 'ARCHIVED', 'ARCHIVE');
 
 export async function listBanners(placement?: string) {
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
   requirePermission(user, 'banners.manage');
 
   return prisma.banner.findMany({
