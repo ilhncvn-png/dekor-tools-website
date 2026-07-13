@@ -21,8 +21,22 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 // (better for serverless concurrency), otherwise use the direct URL — so this
 // transparently upgrades to pooling the moment DATABASE_URL is provisioned,
 // with no code change.
+// Defensively normalize a connection string that may have been pasted into the
+// hosting provider's env UI as a whole dotenv line — e.g. the value literally
+// being `DIRECT_URL="postgresql://..."` (var name + `=` + surrounding quotes)
+// instead of just `postgresql://...`. Prisma rejects anything that doesn't
+// start with the postgres scheme, so we strip an accidental leading `KEY=`
+// prefix and any wrapping quotes/whitespace before handing it over.
+function normalizeDbUrl(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+  let v = raw.trim();
+  v = v.replace(/^[A-Za-z_][A-Za-z0-9_]*=/, ''); // drop an accidental leading VARNAME=
+  v = v.replace(/^["']+|["']+$/g, '').trim(); // drop wrapping quotes
+  return v || undefined;
+}
+
 function resolveDatabaseUrl(): string | undefined {
-  return process.env.DATABASE_URL || process.env.DIRECT_URL || undefined;
+  return normalizeDbUrl(process.env.DATABASE_URL) || normalizeDbUrl(process.env.DIRECT_URL) || undefined;
 }
 
 function getClient(): PrismaClient {
