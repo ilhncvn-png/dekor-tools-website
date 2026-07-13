@@ -4,7 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import { ThemeProvider, themeInitScript } from '@/lib/theme-provider';
 import { ConditionalShell } from '@/components/layout/ConditionalShell';
 import { ToastProvider } from '@/components/ui/Toast';
-import { getCurrentUser } from '@/lib/auth/session';
+import { resolveCurrentUser } from '@/lib/auth/current-user';
 import './globals.css';
 
 // Geist (self-hosted via the official `geist` package, no Google Fonts CDN
@@ -25,10 +25,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Authoritative (DB-backed) session check — see lib/auth/session.ts. Using
+  // Resolves the current user via whichever auth mode is active (real
+  // database session, or the temporary legacy-recovery session). Using
   // cookies() here automatically opts this layout into dynamic rendering,
   // so the result is never cached/shared across visitors.
-  const user = await getCurrentUser();
+  const user = await resolveCurrentUser();
 
   return (
     <html lang="tr" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>

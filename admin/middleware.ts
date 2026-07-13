@@ -1,35 +1,46 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { verifyToken } from '@/lib/auth/token';
 import { SESSION_COOKIE_NAME } from '@/lib/auth/constants';
+import { isDatabaseAuthEnabled } from '@/lib/auth/flags';
+import { getLegacyRecoveryConfig, verifyLegacyToken } from '@/lib/auth/legacy-recovery';
 
 /**
  * Fast, cheap, Edge-safe gate that runs before any page renders — this is
  * what prevents protected routes from flashing content for an
  * unauthenticated visitor. It checks the cookie's HMAC signature and
- * expiry ONLY (see lib/auth/token.ts): the Edge runtime cannot reach
- * Prisma/Postgres, so it cannot see session revocation or a disabled user.
+ * expiry ONLY: the Edge runtime cannot reach Prisma/Postgres, so it cannot
+ * see session revocation or a disabled user.
  *
- * That authoritative check happens in lib/auth/session.ts's getCurrentUser(),
- * which every Server Action and Route Handler calls independently. A user
- * who is revoked/disabled after this middleware approves a request will
- * still be rejected the moment they hit any real Server Action — see
- * requirePermission() in lib/permissions. This two-layer split is
- * intentional, not a shortcut: it's what the migration spec means by
- * "Middleware alone is not sufficient."
+ * Two modes, selected by CMS_DATABASE_AUTH_ENABLED:
+ *  - false (default, legacy recovery): verify the cookie against the HMAC
+ *    key derived from LEGACY_ADMIN_PASSWORD_HASH. Needs NO AUTH_SECRET /
+ *    DATABASE_URL, so it works on a production deployment that hasn't been
+ *    provisioned with the real CMS variables yet.
+ *  - true (real auth): verify the signed session token with AUTH_SECRET
+ *    (lib/auth/token.ts). The authoritative DB re-check then happens in
+ *    lib/auth/session.ts's getCurrentUser() inside every Server Action —
+ *    middleware alone is intentionally not the security boundary.
  *
- * - "/" (login route): valid signed cookie -> redirect to /genel-bakis.
+ * Either way (fail-closed on missing config):
+ * - "/" (login route): valid cookie -> redirect to /genel-bakis.
  *                       no/invalid cookie  -> allow (show login only).
- * - every other route: valid signed cookie -> allow.
+ * - every other route: valid cookie -> allow.
  *                       no/invalid cookie  -> redirect to "/".
  */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-  const authSecret = process.env.AUTH_SECRET;
 
-  // Fail closed: an unconfigured AUTH_SECRET must never be treated as "no
-  // session required" — every route behaves as if no valid session exists.
-  const hasValidSignedToken = Boolean(token && authSecret && (await verifyToken(token, authSecret)));
+  let hasValidSignedToken: boolean;
+  if (isDatabaseAuthEnabled()) {
+    const authSecret = process.env.AUTH_SECRET;
+    // Fail closed: an unconfigured AUTH_SECRET must never be treated as "no
+    // session required" — every route behaves as if no valid session exists.
+    hasValidSignedToken = Boolean(token && authSecret && (await verifyToken(token, authSecret)));
+  } else {
+    const config = getLegacyRecoveryConfig();
+    hasValidSignedToken = Boolean(config && (await verifyLegacyToken(token, config.passwordHash)));
+  }
 
   if (pathname === '/') {
     if (hasValidSignedToken) {

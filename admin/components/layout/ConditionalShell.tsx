@@ -16,7 +16,7 @@ interface ConditionalShellProps {
  * distinction; AppShell itself is untouched and still owns all shell
  * chrome for the real admin pages.
  *
- * `user` comes from a `getCurrentUser()` call in the Server Component
+ * `user` comes from a `resolveCurrentUser()` call in the Server Component
  * root layout — the authoritative, DB-backed check. middleware.ts already
  * redirects unauthenticated requests away from every non-login route
  * before this ever renders; the client-side redirect below is defense in
