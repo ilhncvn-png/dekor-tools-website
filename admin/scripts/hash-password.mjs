@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generates an Argon2id hash for a password you choose, to set as
+ * Generates a bcrypt hash for a password you choose, to set as
  * LEGACY_ADMIN_PASSWORD_HASH (temporary recovery login) or to seed a real
  * admin later. Contains NO password itself — you supply one at runtime, so
  * nothing sensitive is ever committed.
@@ -13,7 +13,7 @@
  *
  * Paste the printed hash into Vercel as LEGACY_ADMIN_PASSWORD_HASH.
  */
-import argon2 from 'argon2';
+import bcrypt from 'bcryptjs';
 import readline from 'node:readline';
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
@@ -26,7 +26,7 @@ rl.on('line', async (line) => {
     console.error('\nRefusing: password must be at least 16 characters.');
     process.exit(1);
   }
-  const hash = await argon2.hash(password, { type: argon2.argon2id });
+  const hash = await bcrypt.hash(password, 12);
   console.log('\nLEGACY_ADMIN_PASSWORD_HASH=' + hash);
   rl.close();
 });

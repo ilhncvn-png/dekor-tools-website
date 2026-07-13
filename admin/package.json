@@ -2,7 +2,7 @@
   "name": "dekor-control-center",
   "version": "0.1.0",
   "private": true,
-  "description": "Dekor Control Center — admin shell foundation for IC Corporate Platform (Sprint 5). Standalone Next.js app, isolated from the live static site at repo root.",
+  "description": "Dekor Control Center \u2014 admin shell foundation for IC Corporate Platform (Sprint 5). Standalone Next.js app, isolated from the live static site at repo root.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "@vercel/blob": "^2.6.1",
-    "argon2": "^0.44.0",
+    "bcryptjs": "^3.0.3",
     "framer-motion": "^11.2.0",
     "geist": "^1.7.2",
     "image-size": "^2.0.2",
@@ -34,6 +34,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
@@ -46,7 +47,6 @@
     "typescript": "^5.5.0"
   },
   "allowScripts": {
-    "argon2@0.44.0": true,
     "fsevents@2.3.3": true,
     "unrs-resolver@1.12.2": true,
     "@prisma/client@6.19.3": true,

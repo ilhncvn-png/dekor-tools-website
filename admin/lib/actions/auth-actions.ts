@@ -1,7 +1,7 @@
 'use server';
 
 import { headers, cookies } from 'next/headers';
-import argon2 from 'argon2';
+import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/db/prisma';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession, destroySession, getCurrentUser, SESSION_COOKIE_NAME } from '@/lib/auth/session';
@@ -38,10 +38,17 @@ async function getRequestMeta() {
  * flipped the flag.
  */
 export async function login(email: string, password: string): Promise<LoginResult> {
-  if (!isDatabaseAuthEnabled()) {
-    return legacyLogin(email, password);
+  // Defensive wrap: a login endpoint must never surface a raw 500 to the
+  // browser. Any unexpected error (misconfiguration, transient failure)
+  // degrades to the generic invalid-credentials message instead.
+  try {
+    if (!isDatabaseAuthEnabled()) {
+      return await legacyLogin(email, password);
+    }
+    return await databaseLogin(email, password);
+  } catch {
+    return { success: false, error: GENERIC_LOGIN_ERROR };
   }
-  return databaseLogin(email, password);
 }
 
 /**
@@ -62,7 +69,7 @@ async function legacyLogin(email: string, password: string): Promise<LoginResult
   const emailMatches = normalizedEmail === config.email;
   let passwordMatches = false;
   try {
-    passwordMatches = await argon2.verify(config.passwordHash, password);
+    passwordMatches = await bcrypt.compare(password, config.passwordHash);
   } catch {
     passwordMatches = false; // malformed hash env -> treated as no match
   }
