@@ -7,9 +7,20 @@ import { prisma } from '@/lib/db/prisma';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  // Reveal only the scheme portion (before "://") + shape, never credentials.
+  const describe = (v: string | undefined) => {
+    if (!v) return null;
+    const schemeEnd = v.indexOf('://');
+    return {
+      scheme: schemeEnd >= 0 ? v.slice(0, schemeEnd + 3) : `NO_SCHEME:${JSON.stringify(v.slice(0, 12))}`,
+      length: v.length,
+      trimmedDiffers: v !== v.trim(),
+      startsQuote: v[0] === '"' || v[0] === "'",
+    };
+  };
   const env = {
-    DATABASE_URL: Boolean(process.env.DATABASE_URL),
-    DIRECT_URL: Boolean(process.env.DIRECT_URL),
+    DATABASE_URL: describe(process.env.DATABASE_URL),
+    DIRECT_URL: describe(process.env.DIRECT_URL),
     CMS_DATABASE_AUTH_ENABLED: process.env.CMS_DATABASE_AUTH_ENABLED ?? null,
     LEGACY_ADMIN_PASSWORD_HASH: Boolean(process.env.LEGACY_ADMIN_PASSWORD_HASH),
   };
