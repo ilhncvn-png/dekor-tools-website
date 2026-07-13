@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Plus,
   Upload,
@@ -42,7 +42,17 @@ import { Popover } from '@/components/ui/Popover';
 import { ProductDrawer, type ProductDrawerTab } from '@/components/products/ProductDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { products as initialProducts, categories, mediaItems, type Product } from '@/lib/mock-data';
+import { mediaItems, type Product, type Category } from '@/lib/mock-data';
+import {
+  getAdminProducts,
+  saveProduct,
+  publishProduct,
+  unpublishProduct,
+  archiveProduct,
+  softDeleteProduct,
+} from '@/lib/actions/product-actions';
+import { getAdminCategories } from '@/lib/actions/category-actions';
+import { toProductInput, uiStatusToTransition } from '@/lib/adapters/product-adapter';
 import { productStatusTone } from '@/lib/status-tones';
 import { getProductChecks, getWorkflowStage, workflowStageLabel, workflowStageTone, getSeoTone, type WorkflowStage } from '@/lib/product-health';
 
@@ -94,7 +104,31 @@ function csvEscape(value: string | number): string {
 
 export default function UrunYonetimiPage() {
   const { push } = useToast();
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  // Real data from Neon PostgreSQL, mapped to the exact `Product`/`Category`
+  // shapes the UI already consumes. loadProducts() is the single reconcile
+  // point after every mutation.
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadProducts = useCallback(async () => {
+    try {
+      const rows = await getAdminProducts();
+      setProducts(rows);
+    } catch {
+      push({ tone: 'danger', title: 'Ürünler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    } finally {
+      setLoading(false);
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadProducts();
+    getAdminCategories()
+      .then(setCategories)
+      .catch(() => setCategories([]));
+  }, [loadProducts]);
+
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [stageFilter, setStageFilter] = useState('all');
@@ -179,21 +213,48 @@ export default function UrunYonetimiPage() {
     });
   }
 
-  function bulkPublish() {
-    setProducts((prev) => prev.map((p) => (selected.has(p.id) ? { ...p, status: 'yayinda' } : p)));
-    push({ tone: 'success', title: `${selected.size} ürün yayınlandı` });
-    setSelected(new Set());
+  // A locally-created draft has a synthetic id (new-.../import-.../-copy-);
+  // persist it as an INSERT, otherwise UPDATE the existing database row.
+  function isDraftId(id: string): boolean {
+    return id.startsWith('new-') || id.startsWith('import-') || id.includes('-copy-');
   }
 
-  function bulkArchive() {
-    setProducts((prev) => prev.map((p) => (selected.has(p.id) ? { ...p, status: 'arsiv' } : p)));
-    push({ tone: 'success', title: `${selected.size} ürün arşivlendi` });
+  async function bulkPublish() {
+    const ids = [...selected];
+    const results = await Promise.all(ids.filter((id) => !isDraftId(id)).map((id) => publishProduct(id)));
+    const failed = results.filter((r) => !r.success).length;
+    if (failed) push({ tone: 'danger', title: `${failed} ürün yayınlanamadı`, description: results.find((r) => !r.success)?.error });
+    else push({ tone: 'success', title: `${ids.length} ürün yayınlandı` });
     setSelected(new Set());
+    await loadProducts();
   }
 
-  function updateProduct(updated: Product) {
-    setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-    setActiveProduct(updated);
+  async function bulkArchive() {
+    const ids = [...selected];
+    await Promise.all(ids.filter((id) => !isDraftId(id)).map((id) => archiveProduct(id)));
+    push({ tone: 'success', title: `${ids.length} ürün arşivlendi` });
+    setSelected(new Set());
+    await loadProducts();
+  }
+
+  async function updateProduct(updated: Product) {
+    const isDraft = isDraftId(updated.id);
+    const result = await saveProduct(isDraft ? null : updated.id, toProductInput(updated));
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
+    // Reconcile the drawer's status Select with the real workflow transition —
+    // saveProduct never changes status (it's owned by publish/unpublish/archive).
+    const savedId = (result.data as { id?: string } | undefined)?.id ?? (isDraft ? null : updated.id);
+    if (savedId) {
+      const transition = uiStatusToTransition(updated.status);
+      if (transition === 'publish') await publishProduct(savedId);
+      else if (transition === 'archive') await archiveProduct(savedId);
+      else if (!isDraft) await unpublishProduct(savedId);
+    }
+    await loadProducts();
+    setActiveProduct(null);
   }
 
   function duplicateProduct(source: Product) {
@@ -203,16 +264,29 @@ export default function UrunYonetimiPage() {
     setActiveTab(undefined);
   }
 
-  function confirmSingleDelete() {
+  async function confirmSingleDelete() {
     if (!singleDeleteTarget) return;
-    setProducts((prev) => prev.filter((p) => p.id !== singleDeleteTarget.id));
+    const target = singleDeleteTarget;
     setSingleDeleteTarget(null);
+    // A never-persisted draft only exists in local state — just drop it.
+    if (isDraftId(target.id)) {
+      setProducts((prev) => prev.filter((p) => p.id !== target.id));
+      return;
+    }
+    const result = await softDeleteProduct(target.id);
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Silinemedi', description: result.error });
+      return;
+    }
+    await loadProducts();
   }
 
-  function confirmBulkDelete() {
-    setProducts((prev) => prev.filter((p) => !selected.has(p.id)));
+  async function confirmBulkDelete() {
+    const ids = [...selected];
     setSelected(new Set());
     setBulkDeleteOpen(false);
+    await Promise.all(ids.filter((id) => !isDraftId(id)).map((id) => softDeleteProduct(id)));
+    await loadProducts();
   }
 
   // Products referencing a selected product in their relatedProductIds — the
@@ -560,6 +634,8 @@ export default function UrunYonetimiPage() {
 
       <ProductDrawer
         product={activeProduct}
+        categories={categories}
+        products={products}
         initialTab={activeTab}
         onClose={() => setActiveProduct(null)}
         onUpdate={updateProduct}

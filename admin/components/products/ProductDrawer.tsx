@@ -32,7 +32,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Select } from '@/components/ui/Select';
 import { Switch } from '@/components/ui/Switch';
 import { Tabs } from '@/components/ui/Tabs';
-import { products, categories, mediaItems, fileDocs, activityFeed, type Product } from '@/lib/mock-data';
+import { mediaItems, fileDocs, activityFeed, type Product, type Category } from '@/lib/mock-data';
 import { useToast } from '@/components/ui/Toast';
 import { MediaPickerModal } from '@/components/media/MediaPickerModal';
 import { FilePickerModal } from '@/components/files/FilePickerModal';
@@ -77,6 +77,10 @@ export type ProductDrawerTab = (typeof tabItems)[number]['value'];
 
 interface ProductDrawerProps {
   product: Product | null;
+  /** Real categories (from Neon) for the category select — never mock. */
+  categories: Category[];
+  /** Real products (from Neon) for related-product resolution — never mock. */
+  products: Product[];
   onClose: () => void;
   onUpdate?: (updated: Product) => void;
   onDuplicate?: (product: Product) => void;
@@ -85,7 +89,7 @@ interface ProductDrawerProps {
 }
 
 /** Full product editor drawer, organized into tabs so the client always knows which part of the record they're looking at. */
-export function ProductDrawer({ product, onClose, onUpdate, onDuplicate, initialTab }: ProductDrawerProps) {
+export function ProductDrawer({ product, categories, products, onClose, onUpdate, onDuplicate, initialTab }: ProductDrawerProps) {
   const { push } = useToast();
   const [galleryPickerOpen, setGalleryPickerOpen] = useState(false);
   const [ogPickerOpen, setOgPickerOpen] = useState(false);

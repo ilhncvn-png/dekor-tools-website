@@ -177,6 +177,12 @@ enum ContentStatus {
   ARCHIVED
 }
 
+enum StockState {
+  IN_STOCK
+  LOW_STOCK
+  OUT_OF_STOCK
+}
+
 enum RevisionAction {
   CREATE
   UPDATE
@@ -382,6 +388,22 @@ model Product {
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
 
+  // Commerce/display fields — language-neutral attributes the Product Management
+  // drawer edits. Stored on the product row (not per-translation) because they
+  // are the same across locales. Media/document references are plain ids into
+  // the media library / file center (not FK relations) to mirror the existing
+  // "id or null" UI shape without over-constraining the schema.
+  featured          Boolean    @default(false)
+  stockState        StockState @default(IN_STOCK)
+  price             String?
+  weightKg          Float?
+  exportCountries   Int        @default(0)
+  swatch            String?
+  videoMediaId      String?
+  documentId        String?
+  ogImageMediaId    String?
+  relatedProductIds String[]   @default([])
+
   category ProductCategory? @relation(fields: [categoryId], references: [id])
   author   User             @relation("ProductAuthor", fields: [authorId], references: [id])
   editor   User?            @relation("ProductEditor", fields: [editorId], references: [id])
@@ -406,6 +428,8 @@ model ProductTranslation {
   slug              String
   shortDescription  String?
   description       String?
+  metaTitle         String?
+  metaDescription   String?
   translationStatus TranslationStatus @default(DRAFT)
   updatedAt         DateTime          @updatedAt
 

@@ -5,6 +5,8 @@ import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { productInputSchema, type ProductInput } from '@/lib/validation/product';
+import { toUiProduct } from '@/lib/adapters/product-adapter';
+import type { Product } from '@/lib/mock-data';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
 
@@ -44,10 +46,22 @@ export async function saveProduct(productId: string | null, input: ProductInput)
         ? await tx.product.findUnique({ where: { id: productId }, include: { translations: true, features: true, specs: true, media: true } })
         : null;
 
+      const commerce = {
+        featured: data.featured,
+        stockState: data.stockState,
+        price: data.price ?? null,
+        weightKg: data.weightKg ?? null,
+        exportCountries: data.exportCountries,
+        swatch: data.swatch ?? null,
+        videoMediaId: data.videoMediaId ?? null,
+        documentId: data.documentId ?? null,
+        ogImageMediaId: data.ogImageMediaId ?? null,
+        relatedProductIds: data.relatedProductIds,
+      };
       const product = productId
         ? await tx.product.update({
             where: { id: productId },
-            data: { sku: data.sku, categoryId: data.categoryId ?? null, editorId: user!.id },
+            data: { sku: data.sku, categoryId: data.categoryId ?? null, editorId: user!.id, ...commerce },
           })
         : await tx.product.create({
             data: {
@@ -55,14 +69,23 @@ export async function saveProduct(productId: string | null, input: ProductInput)
               slug: data.translations.find((t) => t.languageCode === 'tr')!.slug,
               categoryId: data.categoryId ?? null,
               authorId: user!.id,
+              ...commerce,
             },
           });
 
       for (const t of data.translations) {
+        const trData = {
+          name: t.name,
+          slug: t.slug,
+          shortDescription: t.shortDescription,
+          description: t.description,
+          metaTitle: t.metaTitle,
+          metaDescription: t.metaDescription,
+        };
         await tx.productTranslation.upsert({
           where: { productId_languageCode: { productId: product.id, languageCode: t.languageCode } },
-          update: { name: t.name, slug: t.slug, shortDescription: t.shortDescription, description: t.description },
-          create: { productId: product.id, languageCode: t.languageCode, name: t.name, slug: t.slug, shortDescription: t.shortDescription, description: t.description },
+          update: trData,
+          create: { productId: product.id, languageCode: t.languageCode, ...trData },
         });
       }
 
@@ -215,4 +238,26 @@ export async function listProducts(params: {
   ]);
 
   return { items, total, page, pageSize };
+}
+
+/**
+ * UI-shaped read used by the Product Management screen. Returns every non-deleted
+ * product mapped to the exact `Product` shape the existing table/drawer consume,
+ * so the page renders unchanged while reading real PostgreSQL.
+ */
+export async function getAdminProducts(): Promise<Product[]> {
+  const user = await resolveCurrentUser();
+  requirePermission(user, 'products.view');
+
+  const rows = await prisma.product.findMany({
+    where: { deletedAt: null },
+    include: {
+      translations: true,
+      category: { include: { translations: true } },
+      media: true,
+      specs: true,
+    },
+    orderBy: { updatedAt: 'desc' },
+  });
+  return rows.map(toUiProduct);
 }

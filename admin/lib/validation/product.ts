@@ -13,7 +13,11 @@ export const productTranslationSchema = z.object({
   slug: slugSchema,
   shortDescription: z.string().max(400).optional(),
   description: z.string().max(5000).optional(),
+  metaTitle: z.string().max(200).optional(),
+  metaDescription: z.string().max(400).optional(),
 });
+
+export const STOCK_STATES = ['IN_STOCK', 'LOW_STOCK', 'OUT_OF_STOCK'] as const;
 
 export const productFeatureSchema = z.object({
   languageCode: z.enum(LANGUAGE_CODES),
@@ -35,10 +39,22 @@ export const productInputSchema = z.object({
     .max(60)
     .regex(/^[A-Za-z0-9._-]+$/, 'Ürün kodu yalnızca harf, rakam, nokta ve tire içerebilir.'),
   categoryId: z.string().cuid().nullable().optional(),
+  featured: z.boolean().default(false),
+  stockState: z.enum(STOCK_STATES).default('IN_STOCK'),
+  price: z.string().max(60).nullable().optional(),
+  weightKg: z.number().nonnegative().nullable().optional(),
+  exportCountries: z.number().int().min(0).default(0),
+  swatch: z.string().max(20).nullable().optional(),
+  // Media-library / file-center references: plain ids (app-layer integrity per
+  // schema design note), not necessarily cuid — legacy/imported ids may differ.
+  videoMediaId: z.string().nullable().optional(),
+  documentId: z.string().nullable().optional(),
+  ogImageMediaId: z.string().nullable().optional(),
+  relatedProductIds: z.array(z.string()).default([]),
   translations: z.array(productTranslationSchema).min(1, 'En az bir dil için içerik gereklidir.'),
   features: z.array(productFeatureSchema).default([]),
   specs: z.array(productSpecSchema).default([]),
-  mediaIds: z.array(z.string().cuid()).default([]),
+  mediaIds: z.array(z.string()).default([]),
 });
 
 export type ProductInput = z.infer<typeof productInputSchema>;
