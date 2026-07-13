@@ -12,9 +12,23 @@ import { PrismaClient } from '@prisma/client';
 // exactly like the normal cached singleton.
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
+// Resolve the runtime connection string at construction time rather than
+// relying solely on the schema's `url = env("DATABASE_URL")`. In production
+// only DIRECT_URL is guaranteed present (the pooled DATABASE_URL is optional
+// infra the operator may not have configured yet); without this fallback every
+// query throws PrismaClientInitializationError ("DATABASE_URL resolved to an
+// empty string") and the whole CMS 500s. Prefer the pooled URL when available
+// (better for serverless concurrency), otherwise use the direct URL — so this
+// transparently upgrades to pooling the moment DATABASE_URL is provisioned,
+// with no code change.
+function resolveDatabaseUrl(): string | undefined {
+  return process.env.DATABASE_URL || process.env.DIRECT_URL || undefined;
+}
+
 function getClient(): PrismaClient {
   if (!globalForPrisma.prisma) {
-    globalForPrisma.prisma = new PrismaClient();
+    const url = resolveDatabaseUrl();
+    globalForPrisma.prisma = url ? new PrismaClient({ datasourceUrl: url }) : new PrismaClient();
   }
   return globalForPrisma.prisma;
 }
