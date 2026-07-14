@@ -5,7 +5,7 @@
   "description": "Dekor Control Center — admin shell foundation for IC Corporate Platform (Sprint 5). Standalone Next.js app, isolated from the live static site at repo root.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
