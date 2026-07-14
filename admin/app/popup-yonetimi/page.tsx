@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, MessageSquareText, Pencil } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -9,7 +9,9 @@ import { Badge } from '@/components/ui/Badge';
 import { Switch } from '@/components/ui/Switch';
 import { Button } from '@/components/ui/Button';
 import { PopupDrawer } from '@/components/popups/PopupDrawer';
-import { popups as initialPopups, type PopupRule } from '@/lib/mock-data';
+import { type PopupRule } from '@/lib/mock-data';
+import { getAdminPopups, savePopup } from '@/lib/actions/misc-content-actions';
+import { useToast } from '@/components/ui/Toast';
 
 const typeTone: Record<PopupRule['type'], 'danger' | 'success' | 'info'> = {
   cerez: 'info',
@@ -32,16 +34,36 @@ const triggerLabel: Record<PopupRule['trigger'], string> = {
 
 /** Site-wide overlays — announcement/promo popups and the cookie consent banner, one shared rule engine. */
 export default function PopupYonetimiPage() {
-  const [popups, setPopups] = useState<PopupRule[]>(initialPopups);
+  const { push } = useToast();
+  const [popups, setPopups] = useState<PopupRule[]>([]);
   const [activePopup, setActivePopup] = useState<PopupRule | null>(null);
 
-  function toggleActive(id: string) {
-    setPopups((prev) => prev.map((p) => (p.id === id ? { ...p, active: !p.active } : p)));
+  const loadPopups = useCallback(async () => {
+    try {
+      setPopups(await getAdminPopups());
+    } catch {
+      push({ tone: 'danger', title: 'Popuplar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadPopups();
+  }, [loadPopups]);
+
+  async function toggleActive(id: string) {
+    const target = popups.find((p) => p.id === id);
+    if (!target) return;
+    setPopups((prev) => prev.map((p) => (p.id === id ? { ...p, active: !p.active } : p))); // optimistic
+    const result = await savePopup(id, { ...target, active: !target.active });
+    if (!result.success) { push({ tone: 'danger', title: 'İşlem başarısız', description: result.error }); await loadPopups(); return; }
+    await loadPopups();
   }
 
-  function updatePopup(updated: PopupRule) {
-    setPopups((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-    setActivePopup(updated);
+  async function updatePopup(updated: PopupRule) {
+    const result = await savePopup(updated.id, updated);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    await loadPopups();
+    setActivePopup(null);
   }
 
   function addPopup() {

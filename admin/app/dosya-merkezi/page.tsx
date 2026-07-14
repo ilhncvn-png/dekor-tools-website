@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Upload, FileText, Download, Trash2, Lock, Globe2, X, FolderOpen } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -15,7 +15,8 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/
 import { FileDrawer } from '@/components/files/FileDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { fileDocs as initialFileDocs, type FileDoc } from '@/lib/mock-data';
+import { type FileDoc } from '@/lib/mock-data';
+import { getAdminFiles, saveFile, deleteFileDoc } from '@/lib/actions/misc-content-actions';
 
 const formatTone: Record<string, 'danger' | 'success' | 'info'> = { PDF: 'danger', XLSX: 'success', DOCX: 'info' };
 
@@ -27,13 +28,25 @@ const accessTone: Record<FileDoc['accessLevel'], { tone: 'success' | 'warning' |
 
 export default function DosyaMerkeziPage() {
   const { push } = useToast();
-  const [fileDocs, setFileDocs] = useState<FileDoc[]>(initialFileDocs);
+  const [fileDocs, setFileDocs] = useState<FileDoc[]>([]);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [activeFile, setActiveFile] = useState<FileDoc | null>(null);
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
   const [singleDeleteTarget, setSingleDeleteTarget] = useState<FileDoc | null>(null);
+
+  const loadFiles = useCallback(async () => {
+    try {
+      setFileDocs(await getAdminFiles());
+    } catch {
+      push({ tone: 'danger', title: 'Dosyalar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadFiles();
+  }, [loadFiles]);
 
   const categoryOptions = Array.from(new Set(fileDocs.map((f) => f.category)));
 
@@ -60,51 +73,54 @@ export default function DosyaMerkeziPage() {
     });
   }
 
-  function uploadFile() {
-    const newFile: FileDoc = {
-      id: `new-${Date.now()}`,
-      name: 'Yeni Doküman',
-      category: 'Katalog',
-      format: 'PDF',
-      size: '0 KB',
-      downloads: 0,
-      updatedAt: new Date().toISOString().slice(0, 10),
-      accessLevel: 'herkese-acik',
-      version: 'v1',
-      language: 'TR',
-      linkedTo: null,
-      uploadedBy: 'Selin Arslan',
+  async function uploadFile() {
+    // Create a real FileDoc metadata record (title/format/access editable in the drawer).
+    const draft: FileDoc = {
+      id: `new-${Date.now()}`, name: 'Yeni Doküman', category: 'Katalog', format: 'PDF', size: '0 KB',
+      downloads: 0, updatedAt: new Date().toISOString().slice(0, 10), accessLevel: 'herkese-acik',
+      version: 'v1', language: 'TR', linkedTo: null, uploadedBy: '',
     };
-    setFileDocs((prev) => [newFile, ...prev]);
-    setActiveFile(newFile);
+    const result = await saveFile(null, draft);
+    if (!result.success) { push({ tone: 'danger', title: 'Oluşturulamadı', description: result.error }); return; }
+    await loadFiles();
   }
 
-  function updateFile(updated: FileDoc) {
-    setFileDocs((prev) => prev.map((f) => (f.id === updated.id ? updated : f)));
-    setActiveFile(updated);
+  async function updateFile(updated: FileDoc) {
+    const result = await saveFile(updated.id, updated);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    await loadFiles();
+    setActiveFile(null);
   }
 
   function bulkDownload() {
     push({ tone: 'info', title: `${selected.size} dosya indiriliyor` });
   }
 
-  function confirmBulkDelete() {
-    setFileDocs((prev) => prev.filter((f) => !selected.has(f.id)));
-    push({ tone: 'danger', title: `${selected.size} dosya silindi` });
+  async function confirmBulkDelete() {
+    const ids = [...selected];
     setSelected(new Set());
     setBulkDeleteOpen(false);
+    await Promise.all(ids.filter((id) => !id.includes('-')).map((id) => deleteFileDoc(id)));
+    push({ tone: 'danger', title: `${ids.length} dosya silindi` });
+    await loadFiles();
   }
 
-  function confirmSingleDelete() {
+  async function confirmSingleDelete() {
     if (!singleDeleteTarget) return;
-    setFileDocs((prev) => prev.filter((f) => f.id !== singleDeleteTarget.id));
+    const target = singleDeleteTarget;
     setSingleDeleteTarget(null);
+    if (!target.id.includes('-')) await deleteFileDoc(target.id);
+    await loadFiles();
   }
 
   if (fileDocs.length === 0) {
     return (
       <ContentContainer>
-        <PageHeader title="Dosya Merkezi" description="Kataloglar, fiyat listeleri ve teknik dokümanlar." />
+        <PageHeader
+          title="Dosya Merkezi"
+          description="Kataloglar, fiyat listeleri ve teknik dokümanlar."
+          actions={<Button icon={<Upload size={15} />} onClick={uploadFile}>Dosya Yükle</Button>}
+        />
         <EmptyState icon={FolderOpen} title="Henüz dosya yok" description="İlk kataloğunuzu veya dokümanınızı yükleyerek başlayın." />
       </ContentContainer>
     );

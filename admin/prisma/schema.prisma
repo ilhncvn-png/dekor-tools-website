@@ -937,6 +937,57 @@ model FormSubmission {
   @@index([type])
 }
 
+model Certificate {
+  id                 String    @id @default(cuid())
+  name               String
+  issuer             String    @default("")
+  status             String    @default("gecerli") // gecerli | yenileniyor | suresi-doldu
+  issuedAt           String?
+  validUntil         String?
+  scope              String?
+  reminder           String    @default("yok") // yok | planlandi | gecikti
+  showOnHomepage     Boolean   @default(false)
+  showOnProductPages Boolean   @default(false)
+  fileId             String?
+  sortOrder          Int       @default(0)
+  downloadEnabled    Boolean   @default(true)
+  category           String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+}
+
+model FileDoc {
+  id          String    @id @default(cuid())
+  name        String
+  category    String?
+  format      String    @default("PDF") // PDF | XLSX | DOCX
+  sizeLabel   String?
+  url         String?
+  downloads   Int       @default(0)
+  accessLevel String    @default("herkese-acik") // herkese-acik | sadece-bayi | sadece-yonetici
+  version     String    @default("1.0")
+  language    String    @default("tr")
+  linkedTo    String?
+  uploadedBy  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Popup {
+  id           String    @id @default(cuid())
+  name         String
+  type         String    @default("duyuru") // duyuru | promosyon | cerez
+  trigger      String    @default("sayfa-yuklenince")
+  delaySeconds Int?
+  pages        String[]  @default([])
+  active       Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+}
+
 model AuditLog {
   id           String   @id @default(cuid())
   actorId      String?  // nullable: failed logins may not resolve to a known user

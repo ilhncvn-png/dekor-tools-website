@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, BadgeCheck, Calendar, BellRing, Trash2, X, Home, Package, ChevronUp, ChevronDown, Download, Settings2 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -13,7 +13,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { CertificateDrawer } from '@/components/certificates/CertificateDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { certificates as initialCertificates, type Certificate } from '@/lib/mock-data';
+import { type Certificate } from '@/lib/mock-data';
+import { getAdminCertificates, saveCertificate, deleteCertificate } from '@/lib/actions/misc-content-actions';
 import { certificateStatusTone } from '@/lib/status-tones';
 
 const reminderTone: Record<string, { tone: 'warning' | 'danger'; label: string }> = {
@@ -25,7 +26,19 @@ export default function SertifikalarPage() {
   const { push } = useToast();
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [activeCert, setActiveCert] = useState<Certificate | null>(null);
-  const [items, setItems] = useState<Certificate[]>([...initialCertificates].sort((a, b) => a.order - b.order));
+  const [items, setItems] = useState<Certificate[]>([]);
+
+  const loadCerts = useCallback(async () => {
+    try {
+      setItems(await getAdminCertificates());
+    } catch {
+      push({ tone: 'danger', title: 'Sertifikalar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadCerts();
+  }, [loadCerts]);
   const [badgeStyle, setBadgeStyle] = useState('renkli');
   const [homepageLayout, setHomepageLayout] = useState('serit');
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
@@ -70,22 +83,31 @@ export default function SertifikalarPage() {
     setActiveCert(newCert);
   }
 
-  function updateCertificate(updated: Certificate) {
-    setItems((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
-    setActiveCert(updated);
+  async function updateCertificate(updated: Certificate) {
+    const result = await saveCertificate(updated.id, updated);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    await loadCerts();
+    setActiveCert(null);
   }
 
-  function confirmBulkDelete() {
-    setItems((prev) => prev.filter((c) => !selected.has(c.id)).map((c, i) => ({ ...c, order: i + 1 })));
-    push({ tone: 'danger', title: `${selected.size} sertifika silindi` });
+  async function confirmBulkDelete() {
+    const ids = [...selected];
     setSelected(new Set());
     setBulkDeleteOpen(false);
+    // Only persisted rows (cuid ids, no dash) hit the delete action; unsaved drafts just drop.
+    await Promise.all(ids.filter((id) => !id.includes('-')).map((id) => deleteCertificate(id)));
+    push({ tone: 'danger', title: `${ids.length} sertifika silindi` });
+    await loadCerts();
   }
 
   if (items.length === 0) {
     return (
       <ContentContainer>
-        <PageHeader title="Sertifikalar" description="ISO, CE ve diğer uygunluk belgeleri." />
+        <PageHeader
+          title="Sertifikalar"
+          description="ISO, CE ve diğer uygunluk belgeleri."
+          actions={<Button icon={<Plus size={15} />} onClick={addCertificate}>Sertifika Ekle</Button>}
+        />
         <EmptyState icon={BadgeCheck} title="Henüz sertifika yok" description="İlk uygunluk belgenizi ekleyerek başlayın." />
       </ContentContainer>
     );
