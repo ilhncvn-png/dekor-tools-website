@@ -93,8 +93,8 @@ export default function GenelBilesenlerPage() {
   return (
     <ContentContainer>
       <PageHeader
-        title="Genel Bileşenler"
-        description="Paylaşılan CTA, banner, form ve kart bileşenleri — bir düzenleme tüm kullanıldığı yerlere yansır."
+        title="Bannerlar"
+        description="Paylaşılan banner ve CTA bileşenleri — bir düzenleme tüm kullanıldığı yerlere yansır."
         actions={<Button icon={<Plus size={15} />} onClick={createBanner}>Bileşen Oluştur</Button>}
       />
 

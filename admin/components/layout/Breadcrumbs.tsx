@@ -6,15 +6,18 @@ import { ChevronRight, Home } from 'lucide-react';
 import { primaryNavigation } from '@/lib/navigation';
 
 /**
- * Auto-derives its trail from the current route + the primary navigation
- * list — every module lives one level deep today, so this renders
- * "Genel Bakış / <Modül>". Deeper trails (e.g. a product detail page) can
- * push additional segments once real CRUD pages exist (Sprint 6+); the
- * component already accepts that via nested routes, nothing to change here.
+ * Breadcrumb trail derived from the current route + the primary navigation:
+ * renders "<Grup> / <Modül>" (e.g. "İçerik Yönetimi / Ürünler"), so the parent
+ * segment always matches the sidebar group the active page lives in. No backend
+ * routes or technical slugs are exposed — only human labels.
  */
 export function Breadcrumbs() {
   const pathname = usePathname();
-  const current = primaryNavigation.find((item) => pathname.startsWith(item.href));
+  const current =
+    primaryNavigation.find((item) => item.href === pathname) ??
+    primaryNavigation.find((item) => pathname.startsWith(item.href));
+
+  const isDashboard = !current || current.href === '/genel-bakis';
 
   return (
     <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-steel dark:text-white/40">
@@ -22,8 +25,10 @@ export function Breadcrumbs() {
         <Home size={12} />
         <span>Genel Bakış</span>
       </Link>
-      {current && current.href !== '/genel-bakis' && (
+      {!isDashboard && current && (
         <>
+          <ChevronRight size={12} />
+          <span>{current.section}</span>
           <ChevronRight size={12} />
           <span className="font-medium text-near-black dark:text-white">{current.label}</span>
         </>

@@ -386,8 +386,8 @@ export default function UrunYonetimiPage() {
   return (
     <ContentContainer>
       <PageHeader
-        title="Ürün Yönetimi"
-        description="Ürünlerin oluşturulması, düzenlenmesi ve yayınlanması."
+        title="Ürünler"
+        description="Web sitesinde yayınlanan ürün kayıtlarını buradan ekleyebilir, düzenleyebilir ve yayına alabilirsiniz."
         actions={
           <>
             <input ref={importInputRef} type="file" accept=".csv" className="hidden" onChange={handleImportFile} />

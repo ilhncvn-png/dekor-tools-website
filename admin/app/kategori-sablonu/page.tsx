@@ -10,7 +10,7 @@ export default function KategoriSablonuPage() {
     <ContentContainer>
       <PageHeader
         title="Kategori Sayfası Şablonu"
-        description="Her kategori listeleme sayfasının render edildiği paylaşılan şablon — /urunler/[kategori]. Kategoriye özel veriler Kategori Yönetimi'nden gelir."
+        description="Bu ekran kategori kayıtlarını değil, tüm kategori sayfalarında (/urunler/[kategori]) kullanılan ortak görünümü yönetir."
       />
       <SectionListEditor initialSections={categoryTemplateSections} sitePath="/urunler/siva-alci" page={websitePages.find((p) => p.id === 'wp5')} />
     </ContentContainer>

@@ -10,7 +10,7 @@ export default function UrunDetaySablonuPage() {
     <ContentContainer>
       <PageHeader
         title="Ürün Detay Şablonu"
-        description="Her ürün sayfasının render edildiği paylaşılan şablon — /urunler/[slug]. Buradaki değişiklikler 248 ürünün tamamını etkiler."
+        description="Bu ekran ürün kayıtlarını değil, tüm ürün detay sayfalarında (/urunler/[slug]) kullanılan ortak görünümü yönetir."
       />
       <SectionListEditor initialSections={productDetailSections} sitePath="/urunler/dekor-pro-siva-mastari-120cm" page={websitePages.find((p) => p.id === 'wp6')} />
     </ContentContainer>

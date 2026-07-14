@@ -16,6 +16,19 @@ async function probeBlob(): Promise<'connected' | 'unconfigured'> {
   }
 }
 
+// Read-only reachability check of the live public site — a plain HEAD request,
+// no writes, no public-site code touched. Powers an honest "Public Website"
+// status on the dashboard instead of a hard-coded state.
+async function probePublicSite(): Promise<'reachable' | 'unreachable'> {
+  const base = (process.env.PUBLIC_SITE_URL || 'https://dekor-tools.com').replace(/\/$/, '');
+  try {
+    const res = await fetch(base + '/', { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(4000) });
+    return res.ok ? 'reachable' : 'unreachable';
+  } catch {
+    return 'unreachable';
+  }
+}
+
 export interface DashboardStats {
   products: { total: number; published: number; draft: number; archived: number; featured: number; withMedia: number };
   categories: { total: number; visible: number };
@@ -34,7 +47,7 @@ export interface DashboardStats {
   publishing: { draft: number; inReview: number; scheduled: number; published: number; unpublished: number; archived: number };
   recentActivity: { id: string; action: string; entityType: string; actorName: string | null; at: string }[];
   websiteHealth: number;
-  system: { database: 'operational' | 'degraded'; blob: 'connected' | 'unconfigured'; generatedAt: string };
+  system: { database: 'operational' | 'degraded'; blob: 'connected' | 'unconfigured'; publicSite: 'reachable' | 'unreachable'; generatedAt: string };
   currentUser: { name: string; lastLogin: string | null };
 }
 
@@ -58,7 +71,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     menusTotal, redirectsTotal, seoRows,
     revisionsTotal, revisionsRecent, scheduledPending,
     activity, currentUserRow,
-    pipeline, blobStatus,
+    pipeline, blobStatus, publicSiteStatus,
   ] = await Promise.all([
     prisma.product.count({ where: NOT_DELETED }),
     prisma.product.count({ where: { ...NOT_DELETED, status: 'PUBLISHED' } }),
@@ -95,6 +108,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     user ? prisma.user.findUnique({ where: { id: user.id }, select: { name: true, lastLoginAt: true } }).catch(() => null) : null,
     aggregatePipeline(),
     probeBlob(),
+    probePublicSite(),
   ]);
 
   const websiteHealth = computeWebsiteHealth({
@@ -131,6 +145,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     system: {
       database: 'operational',
       blob: blobStatus,
+      publicSite: publicSiteStatus,
       generatedAt: new Date().toISOString(),
     },
     currentUser: {

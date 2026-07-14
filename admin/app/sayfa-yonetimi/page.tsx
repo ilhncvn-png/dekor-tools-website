@@ -144,8 +144,8 @@ export default function SayfaYonetimiPage() {
     return (
       <ContentContainer>
         <PageHeader
-          title="Sayfa Yönetimi"
-          description="Kurumsal site sayfaları ve içerik blokları."
+          title="Sayfalar"
+          description="Kurumsal sayfaların metin, görsel ve SEO içeriklerini buradan yönetebilirsiniz."
           actions={<Button icon={<Plus size={15} />} onClick={addPage}>Yeni Sayfa</Button>}
         />
         <EmptyState icon={FileText} title="Henüz sayfa yok" description="İlk sayfanızı oluşturarak kurumsal siteyi düzenlemeye başlayın." />
@@ -156,8 +156,8 @@ export default function SayfaYonetimiPage() {
   return (
     <ContentContainer>
       <PageHeader
-        title="Sayfa Yönetimi"
-        description="Kurumsal site sayfaları ve içerik blokları."
+        title="Sayfalar"
+        description="Kurumsal sayfaların metin, görsel ve SEO içeriklerini buradan yönetebilirsiniz."
         actions={<Button icon={<Plus size={15} />} onClick={addPage}>Yeni Sayfa</Button>}
       />
 

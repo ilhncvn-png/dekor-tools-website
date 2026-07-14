@@ -467,8 +467,8 @@ export default function KategoriYonetimiPage() {
   return (
     <ContentContainer>
       <PageHeader
-        title="Kategori Yönetimi"
-        description="Genel kataloğu oluşturan Ürün Aileleri (Product Families) ve alt aileler burada yönetilir — buradaki kayıtlar /urunler sayfasındaki aile kartlarını ve /urunler/[aile] sayfalarını besler."
+        title="Kategoriler"
+        description="Ürün kategorisi (Ürün Aileleri) ve alt kategori kayıtlarını buradan yönetin — bu kayıtlar /urunler sayfasındaki aile kartlarını besler."
         actions={
           <>
             <input ref={importInputRef} type="file" accept=".csv" className="hidden" onChange={handleImportFile} />

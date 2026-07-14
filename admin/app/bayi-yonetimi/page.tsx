@@ -154,8 +154,8 @@ export default function BayiYonetimiPage() {
     return (
       <ContentContainer>
         <PageHeader
-          title="Bayi Yönetimi"
-          description="Bayi başvuruları, onay süreci ve bayi profilleri."
+          title="Bayiler"
+          description="Bayi başvurularını buradan inceleyip onaylayabilir, bayi kayıtlarını ve profillerini yönetebilirsiniz."
           actions={<Button icon={<Plus size={15} />} onClick={addDealer}>Yeni Bayi</Button>}
         />
         <EmptyState icon={Handshake} title="Henüz bayi başvurusu yok" description="Yeni başvurular geldiğinde burada listelenecek." />
