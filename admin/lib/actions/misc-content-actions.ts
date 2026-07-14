@@ -131,3 +131,37 @@ export async function deleteFileDoc(id: string): Promise<ActionResult> {
   revalidatePath('/dosya-merkezi');
   return { success: true };
 }
+
+/* ---------------- Export Map (ExportCountry) ---------------- */
+
+export async function getAdminExportCountries(): Promise<import('@/lib/mock-data').ExportCountry[]> {
+  const user = await resolveCurrentUser();
+  requirePermission(user, 'settings.manage');
+  const rows = await prisma.exportCountry.findMany({ where: { deletedAt: null }, orderBy: { country: 'asc' } });
+  return rows.map((c) => ({
+    id: c.id, country: c.country, region: c.region, dealerCount: c.dealerCount, exportVolume: c.exportVolume, active: c.active,
+  }));
+}
+
+export async function saveExportCountry(id: string | null, c: import('@/lib/mock-data').ExportCountry): Promise<ActionResult> {
+  const user = await resolveCurrentUser();
+  try { requirePermission(user, 'settings.manage'); } catch { return { success: false, error: 'Bu işlem için yetkiniz yok.' }; }
+  if (!c.country?.trim()) return { success: false, error: 'Ülke adı zorunludur.' };
+  const data = { country: c.country, region: c.region, dealerCount: c.dealerCount, exportVolume: c.exportVolume, active: c.active };
+  try {
+    const persist = id && !isDraft(id);
+    const row = persist ? await prisma.exportCountry.update({ where: { id }, data }) : await prisma.exportCountry.create({ data });
+    await recordAuditLog({ actorId: user!.id, action: persist ? 'export_country.update' : 'export_country.create', entityType: 'export_country', entityId: row.id });
+    revalidatePath('/ihracat-haritasi');
+    return { success: true, data: row };
+  } catch (error) { return { success: false, error: error instanceof Error ? error.message : 'Kaydetme başarısız oldu.' }; }
+}
+
+export async function deleteExportCountry(id: string): Promise<ActionResult> {
+  const user = await resolveCurrentUser();
+  try { requirePermission(user, 'settings.manage'); } catch { return { success: false, error: 'Bu işlem için yetkiniz yok.' }; }
+  await prisma.exportCountry.update({ where: { id }, data: { deletedAt: new Date() } });
+  await recordAuditLog({ actorId: user!.id, action: 'export_country.delete', entityType: 'export_country', entityId: id });
+  revalidatePath('/ihracat-haritasi');
+  return { success: true };
+}

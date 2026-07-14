@@ -988,6 +988,18 @@ model Popup {
   deletedAt    DateTime?
 }
 
+model ExportCountry {
+  id           String    @id @default(cuid())
+  country      String
+  region       String    @default("Diğer")
+  dealerCount  Int       @default(0)
+  exportVolume String    @default("$0")
+  active       Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+}
+
 model AuditLog {
   id           String   @id @default(cuid())
   actorId      String?  // nullable: failed logins may not resolve to a known user

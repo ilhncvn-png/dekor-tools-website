@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, Globe2, Trash2 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -12,37 +12,56 @@ import { Switch } from '@/components/ui/Switch';
 import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/Table';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { exportMapCountries as initialCountries, type ExportCountry } from '@/lib/mock-data';
+import { type ExportCountry } from '@/lib/mock-data';
+import { getAdminExportCountries, saveExportCountry, deleteExportCountry } from '@/lib/actions/misc-content-actions';
 
 /** Single source of truth for the interactive world map shown on both Ana Sayfa and İhracat Sayfası export sections. */
 export default function IhracatHaritasiPage() {
   const { push } = useToast();
   const [query, setQuery] = useState('');
-  const [countries, setCountries] = useState<ExportCountry[]>(initialCountries);
+  const [countries, setCountries] = useState<ExportCountry[]>([]);
   const [deleteTarget, setDeleteTarget] = useState<ExportCountry | null>(null);
+
+  const loadCountries = useCallback(async () => {
+    try {
+      setCountries(await getAdminExportCountries());
+    } catch {
+      push({ tone: 'danger', title: 'Ülkeler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadCountries();
+  }, [loadCountries]);
 
   const filtered = countries.filter((c) => c.country.toLowerCase().includes(query.toLowerCase()));
   const activeCount = countries.filter((c) => c.active).length;
 
-  function toggleActive(id: string) {
-    setCountries((prev) => prev.map((c) => (c.id === id ? { ...c, active: !c.active } : c)));
+  async function toggleActive(id: string) {
+    const target = countries.find((c) => c.id === id);
+    if (!target) return;
+    setCountries((prev) => prev.map((c) => (c.id === id ? { ...c, active: !c.active } : c))); // optimistic
+    const result = await saveExportCountry(id, { ...target, active: !target.active });
+    if (!result.success) { push({ tone: 'danger', title: 'İşlem başarısız', description: result.error }); await loadCountries(); }
   }
 
-  function addCountry() {
+  async function addCountry() {
     const name = window.prompt('Eklenecek ülke adı:');
     if (!name || !name.trim()) return;
-    setCountries((prev) => [
-      ...prev,
-      { id: `ec-${Date.now()}`, country: name.trim(), region: 'Diğer', dealerCount: 0, exportVolume: '$0', active: false },
-    ]);
+    const result = await saveExportCountry(null, { id: `ec-${Date.now()}`, country: name.trim(), region: 'Diğer', dealerCount: 0, exportVolume: '$0', active: false });
+    if (!result.success) { push({ tone: 'danger', title: 'Eklenemedi', description: result.error }); return; }
     push({ tone: 'success', title: `${name.trim()} eklendi` });
+    await loadCountries();
   }
 
-  function confirmDelete() {
+  async function confirmDelete() {
     if (!deleteTarget) return;
-    setCountries((prev) => prev.filter((c) => c.id !== deleteTarget.id));
-    push({ tone: 'danger', title: `${deleteTarget.country} kaldırıldı` });
+    const target = deleteTarget;
     setDeleteTarget(null);
+    const result = await deleteExportCountry(target.id);
+    if (!result.success) { push({ tone: 'danger', title: 'Silinemedi', description: result.error }); return; }
+    push({ tone: 'danger', title: `${target.country} kaldırıldı` });
+    await loadCountries();
   }
 
   return (
