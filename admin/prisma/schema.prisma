@@ -245,6 +245,13 @@ model Page {
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
 
+  // Page-management display/config fields the Page admin screen edits.
+  path            String?
+  template        String    @default("standard")
+  showInNavigation Boolean  @default(true)
+  ogImageId       String?
+  scheduledAt     DateTime?
+
   author User  @relation("PageAuthor", fields: [authorId], references: [id])
   editor User? @relation("PageEditor", fields: [editorId], references: [id])
 

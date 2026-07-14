@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Plus, ArrowUpDown, CheckCircle2, Archive, Trash2, X, FileText } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -16,7 +16,8 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/
 import { PageDrawer } from '@/components/pages/PageDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { pages as initialPages, type CmsPage } from '@/lib/mock-data';
+import { type CmsPage } from '@/lib/mock-data';
+import { getAdminPages, savePage, setPageStatus, softDeletePage } from '@/lib/actions/page-actions';
 import { pageStatusTone } from '@/lib/status-tones';
 
 function seoTone(score: number): 'success' | 'warning' | 'danger' {
@@ -38,7 +39,7 @@ function SortHeader({ label, active, onClick }: { label: string; active: boolean
 
 export default function SayfaYonetimiPage() {
   const { push } = useToast();
-  const [pages, setPages] = useState<CmsPage[]>(initialPages);
+  const [pages, setPages] = useState<CmsPage[]>([]);
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -47,6 +48,18 @@ export default function SayfaYonetimiPage() {
   const [activePage, setActivePage] = useState<CmsPage | null>(null);
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
   const [singleDeleteTarget, setSingleDeleteTarget] = useState<CmsPage | null>(null);
+
+  const loadPages = useCallback(async () => {
+    try {
+      setPages(await getAdminPages());
+    } catch {
+      push({ tone: 'danger', title: 'Sayfalar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadPages();
+  }, [loadPages]);
 
   const filtered = useMemo(() => {
     const result = pages.filter((p) => {
@@ -63,53 +76,47 @@ export default function SayfaYonetimiPage() {
     return sorted;
   }, [pages, query, status, sortKey, sortDir]);
 
-  function bulkPublish() {
-    setPages((prev) => prev.map((p) => (selected.has(p.id) ? { ...p, status: 'yayinda' } : p)));
-    push({ tone: 'success', title: `${selected.size} sayfa yayınlandı` });
+  async function bulkPublish() {
+    const ids = [...selected];
+    await Promise.all(ids.map((id) => setPageStatus(id, 'yayinda')));
+    push({ tone: 'success', title: `${ids.length} sayfa yayınlandı` });
     setSelected(new Set());
+    await loadPages();
   }
 
-  function bulkUnpublish() {
-    setPages((prev) => prev.map((p) => (selected.has(p.id) ? { ...p, status: 'taslak' } : p)));
-    push({ tone: 'success', title: `${selected.size} sayfa taslağa alındı` });
+  async function bulkUnpublish() {
+    const ids = [...selected];
+    await Promise.all(ids.map((id) => setPageStatus(id, 'taslak')));
+    push({ tone: 'success', title: `${ids.length} sayfa taslağa alındı` });
     setSelected(new Set());
+    await loadPages();
   }
 
-  function confirmBulkDelete() {
-    setPages((prev) => prev.filter((p) => !selected.has(p.id)));
-    push({ tone: 'danger', title: `${selected.size} sayfa silindi` });
+  async function confirmBulkDelete() {
+    const ids = [...selected];
     setSelected(new Set());
     setBulkDeleteOpen(false);
+    await Promise.all(ids.map((id) => softDeletePage(id)));
+    push({ tone: 'danger', title: `${ids.length} sayfa silindi` });
+    await loadPages();
   }
 
-  function confirmSingleDelete() {
+  async function confirmSingleDelete() {
     if (!singleDeleteTarget) return;
-    setPages((prev) => prev.filter((p) => p.id !== singleDeleteTarget.id));
-    push({ tone: 'danger', title: `"${singleDeleteTarget.title}" silindi` });
+    const target = singleDeleteTarget;
     setSingleDeleteTarget(null);
+    const result = await softDeletePage(target.id);
+    if (!result.success) { push({ tone: 'danger', title: 'Silinemedi', description: result.error }); return; }
+    push({ tone: 'danger', title: `"${target.title}" silindi` });
+    await loadPages();
   }
 
-  function addPage() {
-    const newPage: CmsPage = {
-      id: `new-${Date.now()}`,
-      title: 'Yeni Sayfa',
-      path: '/yeni-sayfa',
-      slug: 'yeni-sayfa',
-      status: 'taslak',
-      author: 'Selin Arslan',
-      updatedAt: new Date().toISOString().slice(0, 10),
-      language: 'TR',
-      template: 'İçerik Sayfası',
-      sectionCount: 0,
-      seoScore: 0,
-      showInNavigation: false,
-      metaComplete: false,
-      revisionCount: 1,
-      ogImage: null,
-      scheduledAt: null,
-    };
-    setPages((prev) => [newPage, ...prev]);
-    setActivePage(newPage);
+  async function addPage() {
+    const slug = `yeni-sayfa-${Date.now().toString(36)}`;
+    const result = await savePage(null, { title: 'Yeni Sayfa', slug, path: `/${slug}`, template: 'standard', showInNavigation: false }, 'taslak');
+    if (!result.success) { push({ tone: 'danger', title: 'Oluşturulamadı', description: result.error }); return; }
+    push({ tone: 'success', title: 'Yeni sayfa oluşturuldu' });
+    await loadPages();
   }
 
   function toggleSort(key: SortKey) {
