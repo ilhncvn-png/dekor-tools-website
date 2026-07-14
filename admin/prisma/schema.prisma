@@ -908,6 +908,26 @@ model SeoEntry {
   updatedAt          DateTime @updatedAt
 }
 
+model FormSubmission {
+  id         String    @id @default(cuid())
+  type       String // iletisim | sikayet | fikir | kariyer | bayi
+  name       String
+  email      String
+  subject    String
+  message    String    @default("")
+  sourceForm String    @default("")
+  sourcePage String    @default("")
+  status     String    @default("yeni") // yeni | yanitlandi | kapatildi
+  priority   String    @default("orta") // yuksek | orta | dusuk
+  assignedTo String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  @@index([status])
+  @@index([type])
+}
+
 model AuditLog {
   id           String   @id @default(cuid())
   actorId      String?  // nullable: failed logins may not resolve to a known user

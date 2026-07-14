@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Inbox, CheckCircle2, Trash2, X, Download } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -16,7 +16,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
 import { SubmissionDrawer } from '@/components/submissions/SubmissionDrawer';
-import { formSubmissions as initialFormSubmissions, type FormSubmission } from '@/lib/mock-data';
+import { type FormSubmission } from '@/lib/mock-data';
+import { getAdminSubmissions, updateSubmission as updateSubmissionAction, deleteSubmission } from '@/lib/actions/form-actions';
 import { submissionStatusTone, submissionTypeLabel } from '@/lib/status-tones';
 
 const priorityTone: Record<string, { tone: 'danger' | 'warning' | 'neutral'; label: string }> = {
@@ -37,12 +38,24 @@ function toCsv(rows: FormSubmission[]): string {
 
 export default function FormTalepleriPage() {
   const { push } = useToast();
-  const [formSubmissions, setFormSubmissions] = useState<FormSubmission[]>(initialFormSubmissions);
+  const [formSubmissions, setFormSubmissions] = useState<FormSubmission[]>([]);
   const [query, setQuery] = useState('');
   const [type, setType] = useState('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [activeSubmission, setActiveSubmission] = useState<FormSubmission | null>(null);
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
+
+  const loadSubmissions = useCallback(async () => {
+    try {
+      setFormSubmissions(await getAdminSubmissions());
+    } catch {
+      push({ tone: 'danger', title: 'Talepler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadSubmissions();
+  }, [loadSubmissions]);
 
   const filtered = useMemo(
     () =>
@@ -63,22 +76,32 @@ export default function FormTalepleriPage() {
     });
   }
 
-  function updateSubmission(updated: FormSubmission) {
-    setFormSubmissions((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
-    setActiveSubmission(updated);
+  async function updateSubmission(updated: FormSubmission) {
+    const result = await updateSubmissionAction(updated.id, {
+      status: updated.status,
+      priority: updated.priority,
+      assignedTo: updated.assignedTo,
+    });
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    await loadSubmissions();
+    setActiveSubmission(null);
   }
 
-  function bulkClose() {
-    setFormSubmissions((prev) => prev.map((s) => (selected.has(s.id) ? { ...s, status: 'kapatildi' } : s)));
-    push({ tone: 'success', title: `${selected.size} talep kapatıldı` });
+  async function bulkClose() {
+    const ids = [...selected];
+    await Promise.all(ids.map((id) => updateSubmissionAction(id, { status: 'kapatildi' })));
+    push({ tone: 'success', title: `${ids.length} talep kapatıldı` });
     setSelected(new Set());
+    await loadSubmissions();
   }
 
-  function confirmBulkDelete() {
-    setFormSubmissions((prev) => prev.filter((s) => !selected.has(s.id)));
-    push({ tone: 'danger', title: `${selected.size} talep silindi` });
+  async function confirmBulkDelete() {
+    const ids = [...selected];
     setSelected(new Set());
     setBulkDeleteOpen(false);
+    await Promise.all(ids.map((id) => deleteSubmission(id)));
+    push({ tone: 'danger', title: `${ids.length} talep silindi` });
+    await loadSubmissions();
   }
 
   function exportCsv() {
