@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, Check, X, ShieldCheck } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Tabs } from '@/components/ui/Tabs';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@/components/ui/Table';
-import { roles as initialRoles, permissionMatrixByRole, type PermissionRow, type Role } from '@/lib/mock-data';
+import { roles as seedRoles, permissionMatrixByRole, type PermissionRow, type Role } from '@/lib/mock-data';
+import { getAdminRoles } from '@/lib/actions/user-actions';
 import { useToast } from '@/components/ui/Toast';
 import { cn } from '@/lib/utils';
 
@@ -32,9 +33,23 @@ function PermCell({ allowed, onToggle }: { allowed: boolean; onToggle: () => voi
 
 export default function RollerVeYetkilerPage() {
   const { push } = useToast();
-  const [roles, setRoles] = useState<Role[]>(initialRoles);
+  const [roles, setRoles] = useState<Role[]>(seedRoles);
   const [activeRole, setActiveRole] = useState('İçerik Editörü');
   const [matrices, setMatrices] = useState(permissionMatrixByRole);
+
+  // Roles list + real user counts from Neon (RBAC is seeded and authoritative).
+  const loadRoles = useCallback(async () => {
+    try {
+      const real = await getAdminRoles();
+      if (real.length > 0) setRoles(real);
+    } catch {
+      /* keep seed list on failure */
+    }
+  }, []);
+
+  useEffect(() => {
+    loadRoles();
+  }, [loadRoles]);
 
   const rows = matrices[activeRole] ?? [];
 

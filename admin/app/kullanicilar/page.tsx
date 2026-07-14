@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UserPlus, Ban } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -12,47 +12,56 @@ import { Avatar } from '@/components/ui/Avatar';
 import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/Table';
 import { UserDrawer } from '@/components/users/UserDrawer';
 import { useToast } from '@/components/ui/Toast';
-import { adminUsers as initialAdminUsers, type AdminUser } from '@/lib/mock-data';
+import { type AdminUser } from '@/lib/mock-data';
+import { getAdminUsers, setUserStatus, inviteUser as inviteUserAction } from '@/lib/actions/user-actions';
 import { userStatusTone } from '@/lib/status-tones';
 
 export default function KullanicilarPage() {
   const { push } = useToast();
-  const [adminUsers, setAdminUsers] = useState<AdminUser[]>(initialAdminUsers);
+  const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
   const [query, setQuery] = useState('');
   const [activeUser, setActiveUser] = useState<AdminUser | null>(null);
+
+  const loadUsers = useCallback(async () => {
+    try {
+      setAdminUsers(await getAdminUsers());
+    } catch {
+      push({ tone: 'danger', title: 'Kullanıcılar yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadUsers();
+  }, [loadUsers]);
 
   const filtered = useMemo(
     () => adminUsers.filter((u) => u.name.toLowerCase().includes(query.toLowerCase()) || u.email.toLowerCase().includes(query.toLowerCase())),
     [adminUsers, query]
   );
 
-  function updateUser(updated: AdminUser) {
-    setAdminUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
-    setActiveUser(updated);
-  }
-
-  function inviteUser() {
+  async function inviteUser() {
     const email = window.prompt('Davet edilecek e-posta adresi:');
     if (!email || !email.trim()) return;
-    const newUser: AdminUser = {
-      id: `u-${Date.now()}`,
-      name: email.split('@')[0],
-      email: email.trim(),
-      role: 'Görüntüleyici',
-      status: 'davet-edildi',
-      lastActive: '—',
-      lastLogin: '—',
-      joinedAt: new Date().toISOString().slice(0, 10),
-      invitedBy: 'Mert Doğan',
-    };
-    setAdminUsers((prev) => [newUser, ...prev]);
-    push({ tone: 'success', title: 'Davet gönderildi', description: `${email.trim()} adresine davet e-postası iletildi.` });
+    const result = await inviteUserAction({ name: email.split('@')[0], email: email.trim(), roleKey: 'VIEWER' });
+    if (!result.success) { push({ tone: 'danger', title: 'Davet başarısız', description: result.error }); return; }
+    push({ tone: 'success', title: 'Davet gönderildi', description: `${email.trim()} kullanıcısı oluşturuldu.` });
+    await loadUsers();
   }
 
-  function toggleDisabled(u: AdminUser) {
-    const updated: AdminUser = { ...u, status: u.status === 'pasif' ? 'aktif' : 'pasif' };
-    updateUser(updated);
-    push({ tone: updated.status === 'pasif' ? 'danger' : 'success', title: updated.status === 'pasif' ? 'Kullanıcı devre dışı bırakıldı' : 'Kullanıcı yeniden etkinleştirildi' });
+  async function updateUser(updated: AdminUser) {
+    // Persist the editable status field from the drawer, then reload from DB.
+    const result = await setUserStatus(updated.id, updated.status);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    await loadUsers();
+    setActiveUser(null);
+  }
+
+  async function toggleDisabled(u: AdminUser) {
+    const nextStatus: AdminUser['status'] = u.status === 'pasif' ? 'aktif' : 'pasif';
+    const result = await setUserStatus(u.id, nextStatus);
+    if (!result.success) { push({ tone: 'danger', title: 'İşlem başarısız', description: result.error }); return; }
+    push({ tone: nextStatus === 'pasif' ? 'danger' : 'success', title: nextStatus === 'pasif' ? 'Kullanıcı devre dışı bırakıldı' : 'Kullanıcı yeniden etkinleştirildi' });
+    await loadUsers();
   }
 
   return (
