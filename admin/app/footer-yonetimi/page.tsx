@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, Trash2, Save, Share2, BadgeCheck, Map } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -11,6 +11,18 @@ import { Switch } from '@/components/ui/Switch';
 import { Badge } from '@/components/ui/Badge';
 import { footerColumns as initialFooterColumns, footerSocial as initialFooterSocial, footerContact, certificates, type FooterColumn } from '@/lib/mock-data';
 import { useToast } from '@/components/ui/Toast';
+import { getSiteSetting, saveSiteSetting } from '@/lib/actions/site-settings-actions';
+
+const FOOTER_KEY = 'footer-config';
+
+type FooterConfig = {
+  footerColumns: FooterColumn[];
+  footerSocial: { platform: string; url: string }[];
+  newsletter: boolean;
+  copyright: string;
+  showCertificates: boolean;
+  showMap: boolean;
+};
 
 /** Footer configuration — columns/links, social channels, certificate badges, map embed, contact block, copyright, newsletter toggle. */
 export default function FooterYonetimiPage() {
@@ -22,6 +34,27 @@ export default function FooterYonetimiPage() {
   const [showCertificates, setShowCertificates] = useState(true);
   const [showMap, setShowMap] = useState(true);
   const homepageCertificates = certificates.filter((c) => c.showOnHomepage);
+
+  // Load saved footer config from the database (falls back to seed defaults).
+  const loadConfig = useCallback(async () => {
+    try {
+      const cfg = await getSiteSetting<FooterConfig>(FOOTER_KEY);
+      if (cfg) {
+        setFooterColumns(cfg.footerColumns ?? initialFooterColumns);
+        setFooterSocial(cfg.footerSocial ?? initialFooterSocial);
+        setNewsletter(cfg.newsletter ?? footerContact.newsletterEnabled);
+        setCopyright(cfg.copyright ?? footerContact.copyright);
+        setShowCertificates(cfg.showCertificates ?? true);
+        setShowMap(cfg.showMap ?? true);
+      }
+    } catch {
+      /* keep seed defaults on failure */
+    }
+  }, []);
+
+  useEffect(() => {
+    loadConfig();
+  }, [loadConfig]);
 
   function addColumn() {
     setFooterColumns((prev) => [...prev, { id: `fc-${Date.now()}`, title: 'Yeni Sütun', links: [] }]);
@@ -41,7 +74,14 @@ export default function FooterYonetimiPage() {
     setFooterSocial((prev) => [...prev, { platform: 'Yeni Kanal', url: '' }]);
   }
 
-  function saveChanges() {
+  async function saveChanges() {
+    const result = await saveSiteSetting(FOOTER_KEY, {
+      footerColumns, footerSocial, newsletter, copyright, showCertificates, showMap,
+    } satisfies FooterConfig);
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
     push({ tone: 'success', title: 'Footer ayarları kaydedildi' });
   }
 

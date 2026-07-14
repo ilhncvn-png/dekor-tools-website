@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Image as ImageIcon, ArrowRight, Save } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
@@ -12,6 +12,13 @@ import { Switch } from '@/components/ui/Switch';
 import { Badge } from '@/components/ui/Badge';
 import { navigationMenu } from '@/lib/mock-data';
 import { useToast } from '@/components/ui/Toast';
+import { getSiteSetting, saveSiteSetting } from '@/lib/actions/site-settings-actions';
+
+const HEADER_KEY = 'header-config';
+type HeaderConfig = {
+  sticky: boolean; languageSwitcher: boolean; ctaLabel: string; ctaHref: string;
+  megaMenu: boolean; topBar: boolean; topBarText: string; announcement: boolean; announcementText: string;
+};
 
 /** Header configuration — logo, CTA, mega menu, top bar, announcement bar, language switcher, sticky behavior; nav items are cross-linked to Navigasyon Yönetimi. */
 export default function HeaderYonetimiPage() {
@@ -25,6 +32,31 @@ export default function HeaderYonetimiPage() {
   const [topBarText, setTopBarText] = useState('60+ ülkeye ihracat · export@dekortools.com · +90 (262) 658 30 10');
   const [announcement, setAnnouncement] = useState(false);
   const [announcementText, setAnnouncementText] = useState('2026 ürün kataloğumuz yayında — hemen indirin.');
+
+  const loadConfig = useCallback(async () => {
+    try {
+      const c = await getSiteSetting<HeaderConfig>(HEADER_KEY);
+      if (c) {
+        setSticky(c.sticky); setLanguageSwitcher(c.languageSwitcher); setCtaLabel(c.ctaLabel);
+        setCtaHref(c.ctaHref); setMegaMenu(c.megaMenu); setTopBar(c.topBar); setTopBarText(c.topBarText);
+        setAnnouncement(c.announcement); setAnnouncementText(c.announcementText);
+      }
+    } catch {
+      /* keep defaults */
+    }
+  }, []);
+
+  useEffect(() => {
+    loadConfig();
+  }, [loadConfig]);
+
+  async function saveChanges() {
+    const result = await saveSiteSetting(HEADER_KEY, {
+      sticky, languageSwitcher, ctaLabel, ctaHref, megaMenu, topBar, topBarText, announcement, announcementText,
+    } satisfies HeaderConfig);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    push({ tone: 'success', title: 'Header ayarları kaydedildi' });
+  }
 
   return (
     <ContentContainer>
@@ -95,7 +127,7 @@ export default function HeaderYonetimiPage() {
           </div>
 
           <div className="mt-5 flex justify-end border-t border-border pt-4 dark:border-white/[.06]">
-            <Button icon={<Save size={14} />} onClick={() => push({ tone: 'success', title: 'Header ayarları kaydedildi' })}>Değişiklikleri Kaydet</Button>
+            <Button icon={<Save size={14} />} onClick={saveChanges}>Değişiklikleri Kaydet</Button>
           </div>
         </Card>
 
