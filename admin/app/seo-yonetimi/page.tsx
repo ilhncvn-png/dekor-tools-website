@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
 import { StatCard } from '@/components/ui/StatCard';
@@ -11,8 +11,10 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/Table';
 import { Gauge, AlertTriangle, FileWarning, ImageOff } from 'lucide-react';
 import { SeoDrawer } from '@/components/seo/SeoDrawer';
-import { seoRows as initialSeoRows, type SeoRow } from '@/lib/mock-data';
+import { type SeoRow } from '@/lib/mock-data';
 import { seoStatusTone } from '@/lib/status-tones';
+import { getAdminSeo, saveSeoEntry } from '@/lib/actions/seo-actions';
+import { useToast } from '@/components/ui/Toast';
 
 function scoreTone(score: number): 'success' | 'warning' | 'danger' {
   if (score >= 80) return 'success';
@@ -21,19 +23,47 @@ function scoreTone(score: number): 'success' | 'warning' | 'danger' {
 }
 
 export default function SeoYonetimiPage() {
-  const [seoRows, setSeoRows] = useState<SeoRow[]>(initialSeoRows);
+  const { push } = useToast();
+  const [seoRows, setSeoRows] = useState<SeoRow[]>([]);
   const [query, setQuery] = useState('');
   const [activeRow, setActiveRow] = useState<SeoRow | null>(null);
 
+  const loadSeo = useCallback(async () => {
+    try {
+      setSeoRows(await getAdminSeo());
+    } catch {
+      push({ tone: 'danger', title: 'SEO verileri yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadSeo();
+  }, [loadSeo]);
+
   const filtered = useMemo(() => seoRows.filter((r) => r.page.toLowerCase().includes(query.toLowerCase())), [seoRows, query]);
-  const avg = Math.round(seoRows.reduce((sum, r) => sum + r.score, 0) / seoRows.length);
+  const avg = seoRows.length > 0 ? Math.round(seoRows.reduce((sum, r) => sum + r.score, 0) / seoRows.length) : 0;
   const warnings = seoRows.filter((r) => r.status === 'uyari').length;
   const missing = seoRows.filter((r) => r.status === 'eksik').length;
   const totalMissingAlt = seoRows.reduce((sum, r) => sum + r.altMissingCount, 0);
 
-  function applyUpdate(updated: SeoRow) {
-    setSeoRows((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
-    setActiveRow(updated);
+  async function applyUpdate(updated: SeoRow) {
+    const result = await saveSeoEntry({
+      path: updated.id,
+      title: updated.title || null,
+      metaDescription: updated.metaDescription || null,
+      canonicalUrl: updated.canonicalUrl || null,
+      ogImageId: updated.ogImage ?? null,
+      robotsIndex: updated.robotsIndex,
+      twitterCardEnabled: updated.twitterCardEnabled,
+      schemaPresent: updated.schemaPresent,
+      keywords: updated.keywords,
+    });
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
+    await loadSeo();
+    setActiveRow(null);
   }
 
   return (

@@ -893,6 +893,21 @@ model SiteSettingTranslation {
 // AUDIT
 // ============================================================
 
+model SeoEntry {
+  id                 String   @id @default(cuid())
+  path               String   @unique // public route, e.g. "/urunler"
+  title              String?
+  metaDescription    String?
+  canonicalUrl       String?
+  ogImageId          String?
+  robotsIndex        Boolean  @default(true)
+  twitterCardEnabled Boolean  @default(true)
+  schemaPresent      Boolean  @default(false)
+  keywords           String[] @default([])
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
 model AuditLog {
   id           String   @id @default(cuid())
   actorId      String?  // nullable: failed logins may not resolve to a known user
