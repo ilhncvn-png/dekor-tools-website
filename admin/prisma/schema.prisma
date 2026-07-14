@@ -531,6 +531,14 @@ model NewsArticle {
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
 
+  // Admin display/editorial fields the Newsroom screen edits — language-neutral.
+  featured        Boolean  @default(false)
+  categoryKey     String   @default("News") // News | Trade Shows | Training Academy | Company Life
+  tags            String[] @default([])
+  readingTime     String?
+  displayDate     DateTime?
+  galleryMediaIds String[] @default([])
+
   category NewsCategory? @relation(fields: [categoryId], references: [id])
 
   translations NewsArticleTranslation[]
@@ -549,6 +557,8 @@ model NewsArticleTranslation {
   slug              String
   excerpt           String?
   body              String?
+  metaTitle         String?
+  metaDescription   String?
   translationStatus TranslationStatus @default(DRAFT)
   updatedAt         DateTime          @updatedAt
 

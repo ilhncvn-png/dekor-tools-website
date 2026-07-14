@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Plus, Trash2, Star, Images } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -12,7 +12,10 @@ import { Badge } from '@/components/ui/Badge';
 import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/Table';
 import { NewsArticleDrawer } from '@/components/news/NewsArticleDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
-import { newsArticles as initialNewsArticles, newsCategoryTone, type NewsArticle } from '@/lib/mock-data';
+import { newsCategoryTone, type NewsArticle } from '@/lib/mock-data';
+import { getAdminNews, saveNews, publishNews, unpublishNews, softDeleteNews } from '@/lib/actions/news-actions';
+import { toNewsInput } from '@/lib/adapters/news-adapter';
+import { useToast } from '@/components/ui/Toast';
 
 const statusTone: Record<NewsArticle['status'], { tone: 'success' | 'warning'; label: string }> = {
   yayinda: { tone: 'success', label: 'Yayında' },
@@ -21,11 +24,26 @@ const statusTone: Record<NewsArticle['status'], { tone: 'success' | 'warning'; l
 
 /** News content management — real Newsroom articles (title, category, gallery, tags), grounded in project/news-data.js. */
 export default function HaberlerPage() {
-  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>(initialNewsArticles);
+  const { push } = useToast();
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [activeArticle, setActiveArticle] = useState<NewsArticle | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<NewsArticle | null>(null);
+
+  const loadNews = useCallback(async () => {
+    try {
+      setNewsArticles(await getAdminNews());
+    } catch {
+      push({ tone: 'danger', title: 'Haberler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadNews();
+  }, [loadNews]);
+
+  const isDraftId = (id: string) => id.startsWith('new-');
 
   const filtered = useMemo(() => {
     return newsArticles.filter((a) => {
@@ -53,15 +71,37 @@ export default function HaberlerPage() {
     setActiveArticle(newArticle);
   }
 
-  function updateArticle(updated: NewsArticle) {
-    setNewsArticles((prev) => prev.map((a) => (a.id === updated.id ? updated : a)));
-    setActiveArticle(updated);
+  async function updateArticle(updated: NewsArticle) {
+    const isDraft = isDraftId(updated.id);
+    const result = await saveNews(isDraft ? null : updated.id, toNewsInput(updated));
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+      return;
+    }
+    // Reconcile the drawer's status with the real publish/unpublish transition.
+    const savedId = (result.data as { id?: string } | undefined)?.id ?? (isDraft ? null : updated.id);
+    if (savedId) {
+      if (updated.status === 'yayinda') await publishNews(savedId);
+      else if (!isDraft) await unpublishNews(savedId);
+    }
+    await loadNews();
+    setActiveArticle(null);
   }
 
-  function confirmDelete() {
+  async function confirmDelete() {
     if (!deleteTarget) return;
-    setNewsArticles((prev) => prev.filter((a) => a.id !== deleteTarget.id));
+    const target = deleteTarget;
     setDeleteTarget(null);
+    if (isDraftId(target.id)) {
+      setNewsArticles((prev) => prev.filter((a) => a.id !== target.id));
+      return;
+    }
+    const result = await softDeleteNews(target.id);
+    if (!result.success) {
+      push({ tone: 'danger', title: 'Silinemedi', description: result.error });
+      return;
+    }
+    await loadNews();
   }
 
   return (
