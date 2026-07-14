@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Save, Type, MousePointerClick, Shapes } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -10,6 +10,10 @@ import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { themeSettings } from '@/lib/mock-data';
 import { useToast } from '@/components/ui/Toast';
+import { getSiteSetting, saveSiteSetting } from '@/lib/actions/site-settings-actions';
+
+const THEME_KEY = 'theme-config';
+type ThemeConfig = { headingWeight: string; primaryStyle: string; secondaryStyle: string; iconStyle: string };
 
 /** Site-wide brand tokens — the design system every page builder and section editor ultimately renders through. */
 export default function TemaAyarlariPage() {
@@ -19,7 +23,27 @@ export default function TemaAyarlariPage() {
   const [iconStyle, setIconStyle] = useState(themeSettings.iconStyle);
   const { push } = useToast();
 
-  function saveChanges() {
+  const loadConfig = useCallback(async () => {
+    try {
+      const c = await getSiteSetting<ThemeConfig>(THEME_KEY);
+      if (c) {
+        setHeadingWeight(c.headingWeight); setPrimaryStyle(c.primaryStyle);
+        setSecondaryStyle(c.secondaryStyle); setIconStyle(c.iconStyle);
+      }
+    } catch {
+      /* keep defaults */
+    }
+  }, []);
+
+  useEffect(() => {
+    loadConfig();
+  }, [loadConfig]);
+
+  async function saveChanges() {
+    // Brand colors are frozen (design-system rule) and never persisted from here —
+    // only editable typography/button/icon preferences are saved.
+    const result = await saveSiteSetting(THEME_KEY, { headingWeight, primaryStyle, secondaryStyle, iconStyle } satisfies ThemeConfig);
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
     push({ tone: 'success', title: 'Tema ayarları kaydedildi', description: 'Değişiklikler tüm sayfa oluşturucularına yansıtıldı.' });
   }
 
