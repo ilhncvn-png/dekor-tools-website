@@ -603,6 +603,20 @@ model Dealer {
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
 
+  // Application/directory management fields the Dealer admin screen edits.
+  region          String?
+  contactName     String?
+  volume          String?
+  assignedTo      String?
+  listedOnWebsite Boolean  @default(false)
+  contractSigned  Boolean  @default(false)
+  notes           String?
+  logoMediaId     String?
+  source          String   @default("manuel") // basvuru | manuel
+  categories      String[] @default([])
+  partnerSince    String?
+  directoryStatus String? // Premium Partner | Authorized
+
   translations DealerTranslation[]
   documents    DealerDocument[]
 

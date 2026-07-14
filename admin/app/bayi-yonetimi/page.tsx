@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Check, X, Trash2, Handshake, Globe2, Plus } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -16,18 +16,34 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/
 import { DealerDrawer } from '@/components/dealers/DealerDrawer';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useToast } from '@/components/ui/Toast';
-import { dealers as initialDealers, type Dealer } from '@/lib/mock-data';
+import { type Dealer } from '@/lib/mock-data';
+import { getAdminDealers, saveDealer, setDealerStatus, softDeleteDealer } from '@/lib/actions/dealer-actions';
+import { toDealerInput } from '@/lib/adapters/dealer-adapter';
 import { dealerStatusTone } from '@/lib/status-tones';
 
 export default function BayiYonetimiPage() {
   const { push } = useToast();
-  const [dealers, setDealers] = useState<Dealer[]>(initialDealers);
+  const [dealers, setDealers] = useState<Dealer[]>([]);
   const [query, setQuery] = useState('');
   const [tab, setTab] = useState('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [activeDealer, setActiveDealer] = useState<Dealer | null>(null);
   const [rejectTarget, setRejectTarget] = useState<Dealer | 'bulk' | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Dealer | null>(null);
+
+  const loadDealers = useCallback(async () => {
+    try {
+      setDealers(await getAdminDealers());
+    } catch {
+      push({ tone: 'danger', title: 'Bayiler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadDealers();
+  }, [loadDealers]);
+
+  const isDraftId = (id: string) => id.startsWith('new-');
 
   const counts = {
     all: dealers.length,
@@ -55,41 +71,58 @@ export default function BayiYonetimiPage() {
     });
   }
 
-  function approveDealer(id: string) {
-    setDealers((prev) => prev.map((d) => (d.id === id ? { ...d, status: 'onaylandi', listedOnWebsite: true } : d)));
-    setActiveDealer((prev) => (prev?.id === id ? { ...prev, status: 'onaylandi', listedOnWebsite: true } : prev));
+  async function approveDealer(id: string) {
+    if (isDraftId(id)) return;
+    const result = await setDealerStatus(id, 'onaylandi');
+    if (!result.success) { push({ tone: 'danger', title: 'İşlem başarısız', description: result.error }); return; }
     push({ tone: 'success', title: 'Bayi onaylandı', description: 'Web sitesi bayi listesine eklendi.' });
+    setActiveDealer(null);
+    await loadDealers();
   }
 
-  function updateDealer(updated: Dealer) {
-    setDealers((prev) => prev.map((d) => (d.id === updated.id ? updated : d)));
-    setActiveDealer(updated);
+  async function updateDealer(updated: Dealer) {
+    const isDraft = isDraftId(updated.id);
+    const result = await saveDealer(isDraft ? null : updated.id, toDealerInput(updated));
+    if (!result.success) { push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error }); return; }
+    // Reconcile the drawer's status selection with the workflow transition.
+    const savedId = (result.data as { id?: string } | undefined)?.id ?? (isDraft ? null : updated.id);
+    if (savedId) await setDealerStatus(savedId, updated.status);
+    await loadDealers();
+    setActiveDealer(null);
   }
 
-  function approveBulk() {
-    setDealers((prev) => prev.map((d) => (selected.has(d.id) ? { ...d, status: 'onaylandi', listedOnWebsite: true } : d)));
-    push({ tone: 'success', title: `${selected.size} bayi onaylandı` });
+  async function approveBulk() {
+    const ids = [...selected].filter((id) => !isDraftId(id));
+    await Promise.all(ids.map((id) => setDealerStatus(id, 'onaylandi')));
+    push({ tone: 'success', title: `${ids.length} bayi onaylandı` });
     setSelected(new Set());
+    await loadDealers();
   }
 
-  function confirmReject() {
+  async function confirmReject() {
     if (rejectTarget === 'bulk') {
-      setDealers((prev) => prev.map((d) => (selected.has(d.id) ? { ...d, status: 'reddedildi' } : d)));
-      push({ tone: 'danger', title: `${selected.size} başvuru reddedildi` });
+      const ids = [...selected].filter((id) => !isDraftId(id));
+      await Promise.all(ids.map((id) => setDealerStatus(id, 'reddedildi')));
+      push({ tone: 'danger', title: `${ids.length} başvuru reddedildi` });
       setSelected(new Set());
-    } else if (rejectTarget) {
-      setDealers((prev) => prev.map((d) => (d.id === rejectTarget.id ? { ...d, status: 'reddedildi' } : d)));
-      setActiveDealer((prev) => (prev?.id === rejectTarget.id ? { ...prev, status: 'reddedildi' } : prev));
+    } else if (rejectTarget && !isDraftId(rejectTarget.id)) {
+      await setDealerStatus(rejectTarget.id, 'reddedildi');
       push({ tone: 'danger', title: 'Başvuru reddedildi' });
+      setActiveDealer(null);
     }
     setRejectTarget(null);
+    await loadDealers();
   }
 
-  function confirmDeleteDealer() {
+  async function confirmDeleteDealer() {
     if (!deleteTarget) return;
-    setDealers((prev) => prev.filter((d) => d.id !== deleteTarget.id));
-    push({ tone: 'danger', title: `${deleteTarget.company} silindi` });
+    const target = deleteTarget;
     setDeleteTarget(null);
+    if (isDraftId(target.id)) { setDealers((prev) => prev.filter((d) => d.id !== target.id)); return; }
+    const result = await softDeleteDealer(target.id);
+    if (!result.success) { push({ tone: 'danger', title: 'Silinemedi', description: result.error }); return; }
+    push({ tone: 'danger', title: `${target.company} silindi` });
+    await loadDealers();
   }
 
   function addDealer() {
