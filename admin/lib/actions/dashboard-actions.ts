@@ -1,8 +1,20 @@
 'use server';
 
+import { list } from '@vercel/blob';
 import { prisma } from '@/lib/db/prisma';
 import { resolveCurrentUser } from '@/lib/auth/current-user';
 import { requirePermission } from '@/lib/permissions';
+
+// Ground-truth Blob connectivity: a 1-item list succeeds only when the store
+// and token are actually reachable — more honest than guessing from env names.
+async function probeBlob(): Promise<'connected' | 'unconfigured'> {
+  try {
+    await list({ limit: 1 });
+    return 'connected';
+  } catch {
+    return 'unconfigured';
+  }
+}
 
 export interface DashboardStats {
   products: { total: number; published: number; draft: number; archived: number; featured: number; withMedia: number };
@@ -46,7 +58,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     menusTotal, redirectsTotal, seoRows,
     revisionsTotal, revisionsRecent, scheduledPending,
     activity, currentUserRow,
-    pipeline,
+    pipeline, blobStatus,
   ] = await Promise.all([
     prisma.product.count({ where: NOT_DELETED }),
     prisma.product.count({ where: { ...NOT_DELETED, status: 'PUBLISHED' } }),
@@ -82,6 +94,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     prisma.auditLog.findMany({ orderBy: { createdAt: 'desc' }, take: 12, include: { actor: { select: { name: true } } } }),
     user ? prisma.user.findUnique({ where: { id: user.id }, select: { name: true, lastLoginAt: true } }).catch(() => null) : null,
     aggregatePipeline(),
+    probeBlob(),
   ]);
 
   const websiteHealth = computeWebsiteHealth({
@@ -117,7 +130,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     websiteHealth,
     system: {
       database: 'operational',
-      blob: process.env.BLOB_READ_WRITE_TOKEN ? 'connected' : 'unconfigured',
+      blob: blobStatus,
       generatedAt: new Date().toISOString(),
     },
     currentUser: {
