@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { getProductWizard } from '@/lib/actions/product-wizard-actions';
 
 // TEMPORARY diagnostic — runs each getProductWizard query in isolation so the
 // real failing query/model surfaces (digest-hidden 500s). Removed after use.
@@ -19,5 +20,8 @@ export async function GET(req: Request) {
   await run('video', () => prisma.productVideo.findMany({ where: { productId: id } }));
   await run('drawing', () => prisma.productTechnicalDrawing.findFirst({ where: { productId: id } }));
   await run('media', () => prisma.productMedia.findMany({ where: { productId: id } }));
-  return NextResponse.json({ steps });
+  let wizard = 'not-run';
+  try { const w = await getProductWizard(id); wizard = `ok(variants=${w.variants.length},langs=${Object.keys(w.translations).length})`; }
+  catch (e) { wizard = 'ERR: ' + (e instanceof Error ? `${e.name}: ${e.message.slice(0, 200)}` : String(e)); }
+  return NextResponse.json({ steps, wizard });
 }
