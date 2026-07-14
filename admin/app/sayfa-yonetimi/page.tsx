@@ -143,7 +143,11 @@ export default function SayfaYonetimiPage() {
   if (pages.length === 0) {
     return (
       <ContentContainer>
-        <PageHeader title="Sayfa Yönetimi" description="Kurumsal site sayfaları ve içerik blokları." />
+        <PageHeader
+          title="Sayfa Yönetimi"
+          description="Kurumsal site sayfaları ve içerik blokları."
+          actions={<Button icon={<Plus size={15} />} onClick={addPage}>Yeni Sayfa</Button>}
+        />
         <EmptyState icon={FileText} title="Henüz sayfa yok" description="İlk sayfanızı oluşturarak kurumsal siteyi düzenlemeye başlayın." />
       </ContentContainer>
     );
