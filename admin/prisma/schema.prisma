@@ -345,6 +345,7 @@ model ProductCategory {
   icon            String?
   showOnHomepage  Boolean       @default(false)
   showInNavigation Boolean      @default(true)
+  importSource     String?       // "LIVE_IMPORTED" when seeded from the existing public site
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   deletedAt       DateTime?
@@ -410,6 +411,7 @@ model Product {
   documentId        String?
   ogImageMediaId    String?
   relatedProductIds String[]   @default([])
+  importSource      String?    // "LIVE_IMPORTED" when seeded from the existing public site
 
   category ProductCategory? @relation(fields: [categoryId], references: [id])
   author   User             @relation("ProductAuthor", fields: [authorId], references: [id])
