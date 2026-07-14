@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, Route, AlertTriangle, Trash2 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -11,27 +11,43 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Table, Thead, Tbody, Tr, Th, Td, TableEmptyRow } from '@/components/ui/Table';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { redirectRules as initialRedirects, slugConflicts, type RedirectRule } from '@/lib/mock-data';
+import { slugConflicts, type RedirectRule } from '@/lib/mock-data';
+import { getAdminRedirects, addRedirect as addRedirectAction, deleteRedirect } from '@/lib/actions/redirect-actions';
+import { useToast } from '@/components/ui/Toast';
 
 /** URL integrity — 301/302 redirects and slug conflict detection, so no link ever 404s after a page/product/category rename. */
 export default function YonlendirmeYonetimiPage() {
-  const [redirects, setRedirects] = useState<RedirectRule[]>(initialRedirects);
+  const { push } = useToast();
+  const [redirects, setRedirects] = useState<RedirectRule[]>([]);
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [type, setType] = useState<'301' | '302'>('301');
 
-  function addRedirect() {
+  const loadRedirects = useCallback(async () => {
+    try {
+      setRedirects(await getAdminRedirects());
+    } catch {
+      push({ tone: 'danger', title: 'Yönlendirmeler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadRedirects();
+  }, [loadRedirects]);
+
+  async function addRedirect() {
     if (!from || !to) return;
-    setRedirects((prev) => [
-      { id: `rd-${Date.now()}`, from, to, type, hits: 0, createdAt: new Date().toISOString().slice(0, 10) },
-      ...prev,
-    ]);
+    const result = await addRedirectAction({ from, to, type });
+    if (!result.success) { push({ tone: 'danger', title: 'Eklenemedi', description: result.error }); return; }
     setFrom('');
     setTo('');
+    await loadRedirects();
   }
 
-  function remove(id: string) {
-    setRedirects((prev) => prev.filter((r) => r.id !== id));
+  async function remove(id: string) {
+    const result = await deleteRedirect(id);
+    if (!result.success) { push({ tone: 'danger', title: 'Silinemedi', description: result.error }); return; }
+    await loadRedirects();
   }
 
   return (

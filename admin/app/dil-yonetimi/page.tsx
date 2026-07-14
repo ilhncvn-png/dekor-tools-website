@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -11,7 +11,8 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Switch } from '@/components/ui/Switch';
 import { LanguageDrawer } from '@/components/languages/LanguageDrawer';
 import { useToast } from '@/components/ui/Toast';
-import { languageRows as initialLanguageRows, type LanguageRow } from '@/lib/mock-data';
+import { type LanguageRow } from '@/lib/mock-data';
+import { getAdminLanguages, setLanguageActive } from '@/lib/actions/language-actions';
 
 function tone(completion: number): 'success' | 'warning' | 'danger' {
   if (completion >= 80) return 'success';
@@ -28,11 +29,32 @@ const AVAILABLE_LANGUAGES = [
 
 export default function DilYonetimiPage() {
   const { push } = useToast();
-  const [languageRows, setLanguageRows] = useState<LanguageRow[]>(initialLanguageRows);
-  const [activeMap, setActiveMap] = useState<Record<string, boolean>>(
-    Object.fromEntries(initialLanguageRows.map((l) => [l.id, l.active]))
-  );
+  const [languageRows, setLanguageRows] = useState<LanguageRow[]>([]);
+  const [activeMap, setActiveMap] = useState<Record<string, boolean>>({});
   const [activeLang, setActiveLang] = useState<LanguageRow | null>(null);
+
+  const loadLanguages = useCallback(async () => {
+    try {
+      const rows = await getAdminLanguages();
+      setLanguageRows(rows);
+      setActiveMap(Object.fromEntries(rows.map((l) => [l.id, l.active])));
+    } catch {
+      push({ tone: 'danger', title: 'Diller yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadLanguages();
+  }, [loadLanguages]);
+
+  async function toggleLanguage(code: string, checked: boolean) {
+    setActiveMap((prev) => ({ ...prev, [code]: checked })); // optimistic
+    const result = await setLanguageActive(code, checked);
+    if (!result.success) {
+      push({ tone: 'danger', title: 'İşlem başarısız', description: result.error });
+      await loadLanguages();
+    }
+  }
 
   function addLanguage() {
     const existingCodes = new Set(languageRows.map((l) => l.code));
@@ -91,7 +113,7 @@ export default function DilYonetimiPage() {
               <span onClick={(e) => e.stopPropagation()} className="shrink-0">
                 <Switch
                   checked={activeMap[lang.id]}
-                  onChange={(checked) => setActiveMap((prev) => ({ ...prev, [lang.id]: checked }))}
+                  onChange={(checked) => toggleLanguage(lang.id, checked)}
                   label={`${lang.name} yayında`}
                   disabled={lang.isDefault}
                 />
