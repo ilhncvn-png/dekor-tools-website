@@ -1,10 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useMemo } from 'react';
 import {
-  ShieldAlert, ImageOff, FileWarning, BadgeAlert, FileX, Images, Newspaper,
-  ChevronRight, HeartPulse, CalendarClock, AlertOctagon, AlertTriangle, Info, Wrench, Eye,
+  Search, Image as ImageIcon, Link2, Gauge, Database, RefreshCw,
+  CheckCircle2, AlertTriangle, XCircle, ExternalLink,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PageHeader } from '@/components/layout/PageHeader';
@@ -13,410 +13,235 @@ import { Card } from '@/components/ui/Card';
 import { StatCard } from '@/components/ui/StatCard';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Badge } from '@/components/ui/Badge';
-import {
-  products, newsArticles, certificates, seoRows, mediaItems, dealers,
-  homepageSections, exportSections, careerSections, aboutSections, manufacturingSections,
-  dealerPageSections, supportSections, newsroomSections, productDetailSections,
-  categoryTemplateSections, newsDetailSections, contactPageSections, websitePages,
-} from '@/lib/mock-data';
-import { resolvePublishStatus } from '@/lib/publishing-api';
-import { getAllFlatSections, siteWideHealthFlags, findOrphanPages, findEmptySections, type FlatSection } from '@/lib/website-graph';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { analyzeWebsiteHealth, type WebsiteHealthReport } from '@/lib/actions/website-health-actions';
 
-/** Maps each real health-flag tone to the Critical/Warning/Info severity tiers Website Sağlığı groups issues by. */
-const severityFromTone: Record<string, 'kritik' | 'uyari' | 'bilgi'> = {
-  danger: 'kritik',
-  warning: 'uyari',
-  neutral: 'bilgi',
-};
-
-/** Every section-backed page — the source list for the scheduled-publishing queue below. */
-const ALL_SECTION_SOURCES = [
-  { sections: homepageSections, route: '/ana-sayfa-olusturucu', page: 'Ana Sayfa' },
-  { sections: manufacturingSections, route: '/uretim-sayfasi', page: 'Üretim' },
-  { sections: aboutSections, route: '/hakkimizda-sayfasi', page: 'Hakkımızda' },
-  { sections: exportSections, route: '/ihracat-sayfasi', page: 'İhracat' },
-  { sections: dealerPageSections, route: '/bayi-sayfasi', page: 'Bayi Sayfası' },
-  { sections: supportSections, route: '/destek-sayfasi', page: 'Destek' },
-  { sections: newsroomSections, route: '/haberler-sayfasi', page: 'Newsroom' },
-  { sections: careerSections, route: '/kariyer-sayfasi', page: 'Kariyer' },
-  { sections: productDetailSections, route: '/urun-detay-sablonu', page: 'Ürün Detay Şablonu' },
-  { sections: categoryTemplateSections, route: '/kategori-sablonu', page: 'Kategori Şablonu' },
-  { sections: newsDetailSections, route: '/haber-detay-sablonu', page: 'Haber Detay Şablonu' },
-  { sections: contactPageSections, route: '/iletisim-sayfasi', page: 'İletişim' },
-];
-
-interface EntityHealth {
-  label: string;
-  href: string;
-  score: number;
-  missing: string[];
+function scoreTone(n: number): 'success' | 'warning' | 'red' {
+  return n >= 85 ? 'success' : n >= 60 ? 'warning' : 'red';
 }
 
-function pct(done: number, total: number): number {
-  if (total === 0) return 100;
-  return Math.round((done / total) * 100);
+function formatBytes(bytes: number): string {
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
-/** Site-wide inspection — not just editing, but detecting what's missing across every real module, with one-click navigation to fix it. */
 export default function WebsiteSagligiPage() {
-  const entities = useMemo<EntityHealth[]>(() => {
-    const homepageMissing = homepageSections.filter((s) => s.publicationStatus !== 'yayinda').map((s) => `${s.name} taslak durumda`);
-    const homepageScore = pct(homepageSections.length - homepageMissing.length, homepageSections.length);
+  const [report, setReport] = useState<WebsiteHealthReport | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-    const productIssues: string[] = [];
-    products.forEach((p) => {
-      if (p.gallery.length === 0) productIssues.push(`${p.name} — galeri görseli yok`);
-      if (!p.ogImage) productIssues.push(`${p.name} — Open Graph görseli eksik`);
-      if (p.specifications.length === 0) productIssues.push(`${p.name} — teknik özellik tanımlanmamış`);
-    });
-    const productChecks = products.length * 3;
-    const productScore = pct(productChecks - productIssues.length, productChecks);
-
-    const exportMissing = exportSections.filter((s) => s.publicationStatus !== 'yayinda').map((s) => `${s.name} taslak durumda`);
-    const exportScore = pct(exportSections.length - exportMissing.length, exportSections.length);
-
-    const careerMissing = careerSections.filter((s) => s.publicationStatus !== 'yayinda').map((s) => `${s.name} taslak durumda`);
-    const careerScore = pct(careerSections.length - careerMissing.length, careerSections.length);
-
-    const aboutMissing = aboutSections.filter((s) => s.publicationStatus !== 'yayinda').map((s) => `${s.name} taslak durumda`);
-    const aboutScore = pct(aboutSections.length - aboutMissing.length, aboutSections.length);
-
-    const manufacturingMissing = manufacturingSections.filter((s) => s.publicationStatus !== 'yayinda').map((s) => `${s.name} taslak durumda`);
-    const manufacturingScore = pct(manufacturingSections.length - manufacturingMissing.length, manufacturingSections.length);
-
-    const newsIssues: string[] = [];
-    newsArticles.forEach((a) => {
-      if (a.status === 'taslak') newsIssues.push(`"${a.title}" taslak durumda`);
-      if (a.gallery.length === 0) newsIssues.push(`"${a.title}" — galeri görseli yok`);
-    });
-    const newsChecks = newsArticles.length * 2;
-    const newsScore = pct(newsChecks - newsIssues.length, newsChecks);
-
-    const seoIssues = seoRows.filter((r) => r.status !== 'iyi').map((r) => `${r.page} — SEO skoru ${r.score}`);
-    const seoScore = pct(seoRows.length - seoIssues.length, seoRows.length);
-
-    return [
-      { label: 'Ana Sayfa', href: '/ana-sayfa-olusturucu', score: homepageScore, missing: homepageMissing },
-      { label: 'Ürünler', href: '/urun-yonetimi', score: productScore, missing: productIssues },
-      { label: 'İhracat', href: '/ihracat-sayfasi', score: exportScore, missing: exportMissing },
-      { label: 'Hakkımızda', href: '/hakkimizda-sayfasi', score: aboutScore, missing: aboutMissing },
-      { label: 'Üretim', href: '/uretim-sayfasi', score: manufacturingScore, missing: manufacturingMissing },
-      { label: 'Kariyer', href: '/kariyer-sayfasi', score: careerScore, missing: careerMissing },
-      { label: 'Haberler', href: '/haberler', score: newsScore, missing: newsIssues },
-      { label: 'SEO', href: '/seo-yonetimi', score: seoScore, missing: seoIssues },
-    ];
-  }, []);
-
-  const missingAlt = mediaItems.filter((m) => m.type === 'image' && !m.altText);
-  const unusedMedia = mediaItems.filter((m) => m.usageCount === 0);
-  const expiredCerts = certificates.filter((c) => c.status === 'suresi-doldu' || c.status === 'yenileniyor');
-  const duplicateSeoTitles = (() => {
-    const counts = new Map<string, number>();
-    seoRows.forEach((r) => counts.set(r.title, (counts.get(r.title) ?? 0) + 1));
-    return seoRows.filter((r) => (counts.get(r.title) ?? 0) > 1);
-  })();
-  const draftProducts = products.filter((p) => p.status === 'taslak');
-  const draftNews = newsArticles.filter((a) => a.status === 'taslak');
-  const dealersMissingLogo = dealers.filter((d) => d.listedOnWebsite && !d.logo);
-  const seoCritical = seoRows.filter((r) => r.status === 'eksik');
-
-  const scheduledQueue = ALL_SECTION_SOURCES.flatMap(({ sections, route, page }) =>
-    sections
-      .filter((s) => resolvePublishStatus(s) === 'zamanlandi')
-      .map((s) => ({ id: s.id, name: s.name, page, route, scheduledAt: s.scheduledAt ?? '—' }))
-  ).sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt));
-
-  const totalScore = Math.round(entities.reduce((sum, e) => sum + e.score, 0) / entities.length);
-  const totalWarnings = missingAlt.length + expiredCerts.length + draftProducts.length + draftNews.length + dealersMissingLogo.length + seoCritical.length + unusedMedia.length + duplicateSeoTitles.length;
-
-  // Section-level issues grouped by real severity (Critical/Warning/Info) — reuses the
-  // same health-flag engine every other Website Control screen is built on, extended
-  // here with two new checks (Orphan Pages, Empty Sections) that only make sense site-wide.
-  const flatSections = useMemo<FlatSection[]>(() => getAllFlatSections(), []);
-  const siteFlags = useMemo(() => siteWideHealthFlags(flatSections), [flatSections]);
-  const orphanPages = useMemo(() => findOrphanPages(flatSections, websitePages), [flatSections]);
-  const emptySections = useMemo(() => findEmptySections(flatSections), [flatSections]);
-
-  const severityGroups = {
-    kritik: siteFlags.filter((e) => severityFromTone[e.flag.tone] === 'kritik'),
-    uyari: siteFlags.filter((e) => severityFromTone[e.flag.tone] === 'uyari'),
-    bilgi: siteFlags.filter((e) => severityFromTone[e.flag.tone] === 'bilgi'),
-  };
-
-  function scoreTone(score: number): 'success' | 'warning' | 'danger' {
-    if (score >= 90) return 'success';
-    if (score >= 70) return 'warning';
-    return 'danger';
+  async function run() {
+    setLoading(true);
+    setError(false);
+    try {
+      setReport(await analyzeWebsiteHealth());
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }
+
+  useEffect(() => {
+    run();
+  }, []);
 
   return (
     <ContentContainer>
       <PageHeader
         title="Website Sağlığı"
-        description="Tüm site üzerinde eksik, yayında olmayan veya tamamlanmamış içerikleri tarayan otomatik denetim — her uyarı ilgili modüle bağlıdır."
+        description="Canlı yayındaki web sitesinin gerçek zamanlı analizi."
+        actions={
+          <button
+            type="button"
+            onClick={run}
+            disabled={loading}
+            className="flex items-center gap-1.5 rounded-soft border border-border bg-white px-3 py-1.5 text-[12.5px] font-medium text-near-black transition-colors hover:border-red/40 disabled:opacity-50 dark:border-white/[.08] dark:bg-surface-dark-raised dark:text-white"
+          >
+            <RefreshCw size={13} className={loading ? 'animate-spin' : ''} /> {loading ? 'Analiz ediliyor…' : 'Yeniden Tara'}
+          </button>
+        }
       />
 
-      {/* Hero score — the one number that answers "how healthy is the site right now?" */}
-      <div
-        className="relative overflow-hidden rounded-lg border border-white/10 p-6 tablet:p-8"
-        style={{ background: 'radial-gradient(120% 140% at 92% 0%, #241417 0%, #14100f 45%, #0a0b0c 100%)' }}
-      >
-        <div className="relative flex flex-col gap-6 laptop:flex-row laptop:items-center laptop:justify-between">
-          <div className="flex items-center gap-5">
-            <div
-              className={cn(
-                'flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-4 font-display text-heading-lg font-bold tabular-nums text-white',
-                totalScore >= 90 ? 'border-success/60' : totalScore >= 70 ? 'border-warning/60' : 'border-danger/60'
-              )}
-            >
-              %{totalScore}
-            </div>
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-white/40">Genel Site Sağlığı</p>
-              <p className="mt-1 font-display text-heading-lg font-bold text-white">
-                {severityGroups.kritik.length > 0 ? `${severityGroups.kritik.length} kritik sorun acil düzeltme bekliyor.` : 'Kritik sorun yok.'}
-              </p>
-              <p className="mt-1.5 text-[13px] text-white/50">{totalWarnings} uyarı · {severityGroups.uyari.length} bölüm düzeyinde bulgu</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-soft border border-danger/25 bg-danger/[.08] px-4 py-3 text-center">
-              <p className="font-display text-heading-md font-bold text-white">{severityGroups.kritik.length}</p>
-              <p className="mt-0.5 text-[10.5px] uppercase tracking-[0.04em] text-danger">Kritik</p>
-            </div>
-            <div className="rounded-soft border border-warning/25 bg-warning/[.08] px-4 py-3 text-center">
-              <p className="font-display text-heading-md font-bold text-white">{severityGroups.uyari.length}</p>
-              <p className="mt-0.5 text-[10.5px] uppercase tracking-[0.04em] text-warning">Uyarı</p>
-            </div>
-            <div className="rounded-soft border border-white/10 bg-white/[.03] px-4 py-3 text-center">
-              <p className="font-display text-heading-md font-bold text-white">{severityGroups.bilgi.length}</p>
-              <p className="mt-0.5 text-[10.5px] uppercase tracking-[0.04em] text-white/50">Bilgi</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
-        <StatCard label="Toplam Uyarı" value={String(totalWarnings)} icon={ShieldAlert} tone="warning" />
-        <StatCard label="Eksik ALT Metni" value={String(missingAlt.length)} icon={ImageOff} tone="neutral" />
-        <StatCard label="Kritik SEO Sorunu" value={String(seoCritical.length)} icon={FileWarning} tone="red" />
-        <StatCard label="Boş Bölüm" value={String(emptySections.length)} icon={AlertTriangle} tone="warning" />
-      </div>
-
-      <Card className="mt-6 p-5">
-        <h2 className="mb-4 font-display text-heading-md text-near-black dark:text-white">Bölüm Düzeyinde Bulgular — Önem Sırasına Göre</h2>
-        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-3">
-          {(
-            [
-              { key: 'kritik' as const, label: 'Kritik', icon: AlertOctagon, tone: 'danger' as const },
-              { key: 'uyari' as const, label: 'Uyarı', icon: AlertTriangle, tone: 'warning' as const },
-              { key: 'bilgi' as const, label: 'Bilgi', icon: Info, tone: 'neutral' as const },
-            ]
-          ).map(({ key, label, icon: Icon, tone }) => {
-            const items = severityGroups[key];
-            return (
-              <div
-                key={key}
-                className={cn(
-                  'rounded-soft border p-3.5',
-                  tone === 'danger' ? 'border-danger/25 bg-danger/[.03]' : tone === 'warning' ? 'border-warning/25 bg-warning/[.03]' : 'border-border dark:border-white/[.06]'
-                )}
-              >
-                <p className="mb-2 flex items-center gap-1.5 text-body-sm font-medium text-near-black dark:text-white/85">
-                  <Icon size={14} className={tone === 'danger' ? 'text-danger' : tone === 'warning' ? 'text-warning' : 'text-steel dark:text-white/40'} />
-                  {label} <Badge tone={tone}>{items.length}</Badge>
-                </p>
-                {items.length === 0 ? (
-                  <p className="text-[12px] text-steel dark:text-white/40">Bu seviyede bulgu yok.</p>
-                ) : (
-                  <ul className="flex max-h-64 flex-col gap-1.5 overflow-y-auto">
-                    {items.slice(0, 20).map(({ row, flag }, i) => {
-                      const targetPage = websitePages.find((p) => p.id === row.pageId);
-                      return (
-                        <li key={`${row.section.id}-${flag.code}-${i}`} className="rounded-soft border border-border/60 px-2 py-1.5 dark:border-white/[.06]">
-                          <p className="truncate text-[12px] text-near-black dark:text-white/80">{row.pageName} → {row.section.name}</p>
-                          <div className="mt-1 flex items-center justify-between gap-2">
-                            <span className="text-[11px] text-steel dark:text-white/40">{flag.label}</span>
-                            <div className="flex items-center gap-1">
-                              <Link
-                                href={targetPage?.linkedHref ?? '#'}
-                                className="flex items-center gap-1 rounded-soft bg-red px-2 py-1 text-[10.5px] font-medium text-white transition-opacity hover:opacity-90"
-                              >
-                                <Wrench size={10} /> Şimdi Düzelt
-                              </Link>
-                              <Link
-                                href="/canli-website"
-                                className="flex items-center gap-1 rounded-soft border border-border px-2 py-1 text-[10.5px] font-medium text-steel transition-colors hover:border-red/30 hover:text-near-black dark:border-white/10 dark:text-white/50 dark:hover:text-white"
-                              >
-                                <Eye size={10} /> Canvas&apos;ta Aç
-                              </Link>
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {(orphanPages.length > 0 || emptySections.length > 0) && (
-          <div className="mt-4 grid grid-cols-1 gap-3 tablet:grid-cols-2 border-t border-border pt-4 dark:border-white/[.06]">
-            {orphanPages.length > 0 && (
-              <div>
-                <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.05em] text-steel dark:text-white/40">Yetim Sayfalar ({orphanPages.length})</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {orphanPages.map((p) => (
-                    <Link key={p.id} href={p.linkedHref} className="rounded-soft border border-border bg-mist/60 px-2 py-1 text-[11.5px] text-near-black hover:border-red hover:text-red dark:border-white/10 dark:bg-white/[.04] dark:text-white/70">
-                      {p.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            {emptySections.length > 0 && (
-              <div>
-                <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.05em] text-steel dark:text-white/40">Boş Bölümler ({emptySections.length})</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {emptySections.map((row) => {
-                    const targetPage = websitePages.find((p) => p.id === row.pageId);
-                    return (
-                      <Link key={row.section.id} href={targetPage?.linkedHref ?? '#'} className="rounded-soft border border-border bg-mist/60 px-2 py-1 text-[11.5px] text-near-black hover:border-red hover:text-red dark:border-white/10 dark:bg-white/[.04] dark:text-white/70">
-                        {row.pageName} → {row.section.name}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </Card>
-
-      {/* Health heatmap — every page as one colored cell, darkest/reddest cells need attention first */}
-      <Card className="mt-4 p-5">
-        <h2 className="mb-4 font-display text-heading-md text-near-black dark:text-white">Sayfa Sağlık Isı Haritası</h2>
-        <div className="grid grid-cols-4 gap-2.5 tablet:grid-cols-8">
-          {entities.map((e) => (
-            <Link
-              key={`heat-${e.label}`}
-              href={e.href}
-              className="group flex aspect-square flex-col items-center justify-center gap-1 rounded-soft text-center transition-transform hover:scale-[1.04]"
-              style={{
-                backgroundColor: e.score >= 90 ? 'rgba(34,197,94,0.16)' : e.score >= 70 ? 'rgba(234,179,8,0.18)' : 'rgba(239,68,68,0.2)',
-                border: `1px solid ${e.score >= 90 ? 'rgba(34,197,94,0.4)' : e.score >= 70 ? 'rgba(234,179,8,0.4)' : 'rgba(239,68,68,0.45)'}`,
-              }}
-              title={`${e.label}: %${e.score}`}
-            >
-              <span className={cn('font-display text-heading-sm font-bold', e.score >= 90 ? 'text-success' : e.score >= 70 ? 'text-warning' : 'text-danger')}>%{e.score}</span>
-              <span className="truncate px-1 text-[10px] text-near-black/70 dark:text-white/60">{e.label}</span>
-            </Link>
+      {loading && !report ? (
+        <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} variant="block" className="h-[130px]" />
           ))}
         </div>
-      </Card>
-
-      <div className="mt-4 grid grid-cols-1 gap-4 laptop:grid-cols-2">
-        <Card className="p-5">
-          <h2 className="mb-4 font-display text-heading-md text-near-black dark:text-white">İçerik Tamamlanma Durumu</h2>
-          <div className="flex flex-col gap-4">
-            {entities.map((e) => (
-              <Link key={e.label} href={e.href} className="group block rounded-soft border border-border px-3.5 py-3 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-body-sm font-medium text-near-black dark:text-white">
-                    {e.label}
-                    <ChevronRight size={13} className="text-steel opacity-0 transition-opacity group-hover:opacity-100 dark:text-white/40" />
-                  </span>
-                  <span className="tabular-nums text-body-sm font-medium text-near-black dark:text-white">%{e.score}</span>
+      ) : error || !report ? (
+        <Card className="p-6">
+          <p className="flex items-center gap-2 text-[13px] text-danger"><XCircle size={15} /> Analiz başarısız oldu. Lütfen tekrar deneyin.</p>
+        </Card>
+      ) : (
+        <>
+          {/* Hero score */}
+          <div
+            className="relative overflow-hidden rounded-lg border border-white/10 p-6 tablet:p-8"
+            style={{ background: 'radial-gradient(120% 140% at 8% 0%, #1d2126 0%, #121417 45%, #0a0b0c 100%)' }}
+          >
+            <div className="relative flex flex-col gap-6 laptop:flex-row laptop:items-center laptop:justify-between">
+              <div className="flex items-center gap-5">
+                <div
+                  className={cn(
+                    'flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-4 font-display text-heading-lg font-bold tabular-nums text-white',
+                    report.overallScore >= 85 ? 'border-success/60' : report.overallScore >= 60 ? 'border-warning/60' : 'border-danger/60'
+                  )}
+                >
+                  %{report.overallScore}
                 </div>
-                <ProgressBar value={e.score} tone={scoreTone(e.score)} className="mt-2" />
-                {e.missing.length > 0 && (
-                  <p className="mt-1.5 text-[11.5px] text-steel dark:text-white/40">{e.missing.length} eksik alan bulundu</p>
-                )}
-              </Link>
-            ))}
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-white/40">Genel Site Sağlığı</p>
+                  <p className="mt-1 font-display text-heading-lg font-bold text-white">
+                    {report.pagesWithErrors === 0 ? 'Tüm sayfalar erişilebilir.' : `${report.pagesWithErrors} sayfa erişilemiyor.`}
+                  </p>
+                  <p className="mt-1.5 text-[13px] text-white/50">
+                    {report.pagesChecked} sayfa tarandı · ort. {report.avgResponseMs}ms · {formatBytes(report.totalBytes)}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </Card>
 
-        <Card className="p-5">
-          <h2 className="mb-4 font-display text-heading-md text-near-black dark:text-white">Eyleme Geçirilebilir Uyarılar</h2>
-          <div className="flex flex-col gap-2">
-            <Link href="/medya-kutuphanesi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <ImageOff size={13} className="text-warning" /> {missingAlt.length} görselde ALT metni eksik
-              </span>
-              <Badge tone="warning">{missingAlt.length}</Badge>
-            </Link>
-            <Link href="/medya-kutuphanesi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <Images size={13} className="text-steel dark:text-white/40" /> {unusedMedia.length} kullanılmayan medya dosyası
-              </span>
-              <Badge tone="neutral">{unusedMedia.length}</Badge>
-            </Link>
-            <Link href="/sertifikalar" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <BadgeAlert size={13} className="text-danger" /> {expiredCerts.length} sertifika süresi doldu / yenileniyor
-              </span>
-              <Badge tone="danger">{expiredCerts.length}</Badge>
-            </Link>
-            <Link href="/urun-yonetimi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <FileX size={13} className="text-warning" /> {draftProducts.length} ürün taslak durumda
-              </span>
-              <Badge tone="warning">{draftProducts.length}</Badge>
-            </Link>
-            <Link href="/haberler" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <Newspaper size={13} className="text-warning" /> {draftNews.length} haber makalesi taslak durumda
-              </span>
-              <Badge tone="warning">{draftNews.length}</Badge>
-            </Link>
-            <Link href="/bayi-yonetimi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <BadgeAlert size={13} className="text-warning" /> {dealersMissingLogo.length} listelenen bayinin logosu eksik
-              </span>
-              <Badge tone="warning">{dealersMissingLogo.length}</Badge>
-            </Link>
-            <Link href="/seo-yonetimi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <FileWarning size={13} className="text-danger" /> {seoCritical.length} sayfada kritik SEO eksikliği
-              </span>
-              <Badge tone="danger">{seoCritical.length}</Badge>
-            </Link>
-            <Link href="/seo-yonetimi" className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30">
-              <span className="flex items-center gap-2 text-[12.5px] text-near-black dark:text-white/85">
-                <FileWarning size={13} className="text-warning" /> {duplicateSeoTitles.length} sayfa aynı meta başlığı paylaşıyor
-              </span>
-              <Badge tone="warning">{duplicateSeoTitles.length}</Badge>
-            </Link>
+          {/* KPI row */}
+          <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
+            <StatCard label="Erişilebilir Sayfa" value={`${report.pagesOk}/${report.pagesChecked}`} icon={CheckCircle2} tone={report.pagesWithErrors === 0 ? 'success' : 'warning'} />
+            <StatCard label="Ortalama SEO" value={`%${report.seo.avgScore}`} icon={Search} tone={scoreTone(report.seo.avgScore)} />
+            <StatCard label="Eksik ALT Metni" value={String(report.images.missingAlt)} icon={ImageIcon} tone={report.images.missingAlt === 0 ? 'success' : 'warning'} />
+            <StatCard label="Kırık Bağlantı" value={String(report.links.broken)} icon={Link2} tone={report.links.broken === 0 ? 'success' : 'red'} />
           </div>
-        </Card>
-      </div>
 
-      <Card className="mt-4 p-5">
-        <h2 className="mb-4 flex items-center gap-1.5 font-display text-heading-md text-near-black dark:text-white">
-          <CalendarClock size={16} /> Zamanlanmış Yayınlar
-        </h2>
-        {scheduledQueue.length === 0 ? (
-          <p className="text-body-sm text-steel dark:text-white/50">Şu anda zamanlanmış bir bölüm yok.</p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {scheduledQueue.map((item) => (
-              <Link
-                key={item.id}
-                href={item.route}
-                className="flex items-center justify-between rounded-soft border border-border px-3.5 py-2.5 transition-colors hover:border-red/30 dark:border-white/[.06] dark:hover:border-red-eyebrow/30"
-              >
-                <span className="min-w-0 flex-1 truncate text-[12.5px] text-near-black dark:text-white/85">
-                  {item.name} — <span className="text-steel dark:text-white/40">{item.page}</span>
-                </span>
-                <Badge tone="info">{item.scheduledAt}</Badge>
-              </Link>
-            ))}
+          {/* SEO + Images + Performance */}
+          <div className="mt-4 grid grid-cols-1 gap-4 laptop:grid-cols-3">
+            <Card className="p-5">
+              <p className="mb-3 flex items-center gap-1.5 font-display text-heading-sm font-bold text-near-black dark:text-white"><Search size={15} /> SEO Durumu</p>
+              <div className="mb-3"><ProgressBar value={report.seo.avgScore} tone={scoreTone(report.seo.avgScore)} /></div>
+              <ul className="flex flex-col gap-1.5 text-[12.5px]">
+                <IssueRow label="Başlık eksik" count={report.seo.missingTitle} />
+                <IssueRow label="Açıklama eksik" count={report.seo.missingDescription} />
+                <IssueRow label="Canonical eksik" count={report.seo.missingCanonical} />
+                <IssueRow label="JSON-LD eksik" count={report.seo.missingJsonLd} />
+              </ul>
+            </Card>
+
+            <Card className="p-5">
+              <p className="mb-3 flex items-center gap-1.5 font-display text-heading-sm font-bold text-near-black dark:text-white"><ImageIcon size={15} /> Görseller</p>
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-heading-lg font-bold text-near-black dark:text-white">{report.images.total}</span>
+                <span className="text-[12px] text-steel dark:text-white/40">toplam görsel</span>
+              </div>
+              <ul className="mt-3 flex flex-col gap-1.5 text-[12.5px]">
+                <IssueRow label="ALT metni eksik" count={report.images.missingAlt} />
+              </ul>
+            </Card>
+
+            <Card className="p-5">
+              <p className="mb-3 flex items-center gap-1.5 font-display text-heading-sm font-bold text-near-black dark:text-white"><Gauge size={15} /> Performans</p>
+              <ul className="flex flex-col gap-2 text-[12.5px]">
+                <li className="flex items-center justify-between"><span className="text-steel dark:text-white/50">Ort. yanıt süresi</span><Badge tone={report.avgResponseMs < 800 ? 'success' : 'warning'}>{report.avgResponseMs}ms</Badge></li>
+                <li className="flex items-center justify-between"><span className="text-steel dark:text-white/50">Toplam boyut</span><Badge tone="neutral">{formatBytes(report.totalBytes)}</Badge></li>
+                <li className="flex items-center justify-between"><span className="text-steel dark:text-white/50">Bağlantı kontrolü</span><Badge tone="neutral">{report.links.checked}</Badge></li>
+              </ul>
+            </Card>
           </div>
-        )}
-      </Card>
+
+          {/* CMS Integrity */}
+          <div className="mt-4">
+            <Card className="p-5">
+              <p className="mb-3 flex items-center gap-1.5 font-display text-heading-sm font-bold text-near-black dark:text-white"><Database size={15} /> CMS Bütünlüğü</p>
+              <div className="grid grid-cols-2 gap-2.5 tablet:grid-cols-3 laptop:grid-cols-6">
+                <IntegrityTile label="Medyasız yayın ürün" value={report.cmsIntegrity.publishedProductsWithoutMedia} />
+                <IntegrityTile label="SEO'suz ürün" value={report.cmsIntegrity.productsWithoutSeo} />
+                <IntegrityTile label="TR çevirisiz kategori" value={report.cmsIntegrity.categoriesWithoutTr} />
+                <IntegrityTile label="Boş kategori" value={report.cmsIntegrity.emptyCategories} />
+                <IntegrityTile label="Hatalı yönlendirme" value={report.cmsIntegrity.orphanRedirects} />
+                <IntegrityTile label="Yayındaki içerik" value={report.cmsIntegrity.totalPublished} good />
+              </div>
+            </Card>
+          </div>
+
+          {/* Broken links */}
+          {report.links.brokenList.length > 0 && (
+            <div className="mt-4">
+              <Card className="p-5">
+                <p className="mb-3 flex items-center gap-1.5 font-display text-heading-sm font-bold text-danger"><Link2 size={15} /> Kırık Bağlantılar</p>
+                <ul className="flex flex-col gap-1.5">
+                  {report.links.brokenList.map((l) => (
+                    <li key={l.url} className="flex items-center justify-between gap-2 rounded-soft border border-danger/20 px-2.5 py-2 text-[12.5px]">
+                      <span className="truncate font-mono text-near-black dark:text-white/85">{l.url}</span>
+                      <Badge tone="danger">{l.status || 'erişilemedi'}</Badge>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </div>
+          )}
+
+          {/* Per-page table */}
+          <div className="mt-4">
+            <Card className="p-5">
+              <p className="mb-3 font-display text-heading-sm font-bold text-near-black dark:text-white">Sayfa Bazında Analiz</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-[12.5px]">
+                  <thead>
+                    <tr className="border-b border-border text-left text-steel dark:border-white/[.06] dark:text-white/40">
+                      <th className="py-2 pr-3 font-medium">Sayfa</th>
+                      <th className="px-2 py-2 font-medium">Durum</th>
+                      <th className="px-2 py-2 font-medium">SEO</th>
+                      <th className="px-2 py-2 font-medium">Görsel</th>
+                      <th className="px-2 py-2 font-medium">OG</th>
+                      <th className="px-2 py-2 font-medium">JSON-LD</th>
+                      <th className="px-2 py-2 font-medium">Süre</th>
+                      <th className="px-2 py-2 font-medium"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {report.pages.map((p) => (
+                      <tr key={p.path} className="border-b border-border/60 dark:border-white/[.04]">
+                        <td className="py-2 pr-3 text-near-black dark:text-white/85">{p.name}</td>
+                        <td className="px-2 py-2"><Badge tone={p.ok ? 'success' : 'danger'} dot>{p.status || '—'}</Badge></td>
+                        <td className={cn('px-2 py-2 font-medium', p.seoScore >= 85 ? 'text-success' : p.seoScore >= 60 ? 'text-warning' : 'text-danger')}>%{p.seoScore}</td>
+                        <td className="px-2 py-2 text-steel dark:text-white/50">{p.images}{p.imagesMissingAlt > 0 ? ` (${p.imagesMissingAlt}!)` : ''}</td>
+                        <td className="px-2 py-2 text-steel dark:text-white/50">{p.ogTags}</td>
+                        <td className="px-2 py-2 text-steel dark:text-white/50">{p.jsonLd}</td>
+                        <td className="px-2 py-2 text-steel dark:text-white/50">{p.ms}ms</td>
+                        <td className="px-2 py-2">
+                          <Link href={`https://dekor-tools.com${p.path}`} target="_blank" rel="noopener noreferrer" className="text-steel transition-colors hover:text-red dark:text-white/40">
+                            <ExternalLink size={13} />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          </div>
+        </>
+      )}
     </ContentContainer>
+  );
+}
+
+function IssueRow({ label, count }: { label: string; count: number }) {
+  return (
+    <li className="flex items-center justify-between">
+      <span className="text-steel dark:text-white/50">{label}</span>
+      {count === 0 ? (
+        <span className="flex items-center gap-1 text-success"><CheckCircle2 size={12} /> 0</span>
+      ) : (
+        <span className="flex items-center gap-1 text-warning"><AlertTriangle size={12} /> {count}</span>
+      )}
+    </li>
+  );
+}
+
+function IntegrityTile({ label, value, good }: { label: string; value: number; good?: boolean }) {
+  const tone = good ? 'text-success' : value === 0 ? 'text-success' : 'text-warning';
+  return (
+    <div className="flex flex-col gap-1 rounded-soft border border-border p-3 dark:border-white/[.06]">
+      <span className="text-[10.5px] uppercase tracking-[0.04em] text-steel dark:text-white/40">{label}</span>
+      <span className={cn('font-display text-heading-sm font-bold', tone)}>{value}</span>
+    </div>
   );
 }
