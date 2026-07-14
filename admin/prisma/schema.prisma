@@ -788,12 +788,14 @@ model Menu {
 }
 
 model MenuItem {
-  id        String  @id @default(cuid())
-  menuId    String
-  parentId  String?
-  href      String?
-  sortOrder Int     @default(0)
-  isVisible Boolean @default(true)
+  id         String  @id @default(cuid())
+  menuId     String
+  parentId   String?
+  href       String?
+  icon       String?
+  isExternal Boolean @default(false)
+  sortOrder  Int     @default(0)
+  isVisible  Boolean @default(true)
 
   menu     Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
   parent   MenuItem?  @relation("MenuItemTree", fields: [parentId], references: [id])

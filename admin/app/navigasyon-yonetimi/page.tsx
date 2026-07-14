@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ChevronUp, ChevronDown, ChevronRight, Pencil, Plus, ExternalLink, Trash2, EyeOff } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -9,7 +9,9 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { NavItemDrawer } from '@/components/navigation/NavItemDrawer';
-import { navigationMenu as initialNavigationMenu, type NavMenuItem } from '@/lib/mock-data';
+import { navigationMenu as seedNavigationMenu, type NavMenuItem } from '@/lib/mock-data';
+import { getNavigationMenu, saveNavigationMenu } from '@/lib/actions/navigation-actions';
+import { useToast } from '@/components/ui/Toast';
 import { cn } from '@/lib/utils';
 
 function reorder(items: NavMenuItem[], index: number, direction: -1 | 1): NavMenuItem[] {
@@ -22,22 +24,48 @@ function reorder(items: NavMenuItem[], index: number, direction: -1 | 1): NavMen
 
 /** Menu hierarchy editor — nested items, external-link flags, real reordering, visibility, add/edit/delete. */
 export default function NavigasyonYonetimiPage() {
-  const [menu, setMenu] = useState<NavMenuItem[]>(initialNavigationMenu);
+  const { push } = useToast();
+  const [menu, setMenu] = useState<NavMenuItem[]>([]);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ nm1: true });
   const [activeItem, setActiveItem] = useState<NavMenuItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<NavMenuItem | null>(null);
 
+  const loadMenu = useCallback(async () => {
+    try {
+      const rows = await getNavigationMenu();
+      if (rows.length === 0) {
+        // First run: seed the real current navigation into the CMS, then use it.
+        await saveNavigationMenu(seedNavigationMenu);
+        setMenu(seedNavigationMenu);
+      } else {
+        setMenu(rows);
+      }
+    } catch {
+      push({ tone: 'danger', title: 'Menü yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
+    }
+  }, [push]);
+
+  useEffect(() => {
+    loadMenu();
+  }, [loadMenu]);
+
+  // Persist the whole tree after every mutation (optimistic local + DB write).
+  const persist = useCallback(async (next: NavMenuItem[]) => {
+    setMenu(next);
+    const result = await saveNavigationMenu(next);
+    if (!result.success) push({ tone: 'danger', title: 'Kaydedilemedi', description: result.error });
+  }, [push]);
+
   function updateItem(updated: NavMenuItem) {
-    setMenu((prev) =>
-      prev.map((it) => {
-        if (it.id === updated.id) return updated;
-        if (it.children?.some((c) => c.id === updated.id)) {
-          return { ...it, children: it.children.map((c) => (c.id === updated.id ? updated : c)) };
-        }
-        return it;
-      })
-    );
+    const next = menu.map((it) => {
+      if (it.id === updated.id) return updated;
+      if (it.children?.some((c) => c.id === updated.id)) {
+        return { ...it, children: it.children.map((c) => (c.id === updated.id ? updated : c)) };
+      }
+      return it;
+    });
     setActiveItem(updated);
+    void persist(next);
   }
 
   function addRootItem() {
@@ -56,23 +84,20 @@ export default function NavigasyonYonetimiPage() {
   }
 
   function moveRoot(index: number, direction: -1 | 1) {
-    setMenu((prev) => reorder(prev, index, direction));
+    void persist(reorder(menu, index, direction));
   }
 
   function moveChild(parentId: string, index: number, direction: -1 | 1) {
-    setMenu((prev) =>
-      prev.map((it) => (it.id === parentId && it.children ? { ...it, children: reorder(it.children, index, direction) } : it))
-    );
+    void persist(menu.map((it) => (it.id === parentId && it.children ? { ...it, children: reorder(it.children, index, direction) } : it)));
   }
 
   function confirmDelete() {
     if (!deleteTarget) return;
-    setMenu((prev) =>
-      prev
-        .filter((it) => it.id !== deleteTarget.id)
-        .map((it) => (it.children ? { ...it, children: it.children.filter((c) => c.id !== deleteTarget.id) } : it))
-    );
+    const next = menu
+      .filter((it) => it.id !== deleteTarget.id)
+      .map((it) => (it.children ? { ...it, children: it.children.filter((c) => c.id !== deleteTarget.id) } : it));
     setDeleteTarget(null);
+    void persist(next);
   }
 
   return (
