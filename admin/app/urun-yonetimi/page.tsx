@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Plus,
   Upload,
@@ -104,6 +105,7 @@ function csvEscape(value: string | number): string {
 
 export default function UrunYonetimiPage() {
   const { push } = useToast();
+  const router = useRouter();
   // Real data from Neon PostgreSQL, mapped to the exact `Product`/`Category`
   // shapes the UI already consumes. loadProducts() is the single reconcile
   // point after every mutation.
@@ -257,11 +259,9 @@ export default function UrunYonetimiPage() {
     setActiveProduct(null);
   }
 
-  function duplicateProduct(source: Product) {
-    const copy: Product = { ...source, id: `${source.id}-copy-${Date.now()}`, name: `${source.name} (Kopya)`, sku: `${source.sku}-COPY`, status: 'taslak', updatedAt: new Date().toISOString().slice(0, 10) };
-    setProducts((prev) => [copy, ...prev]);
-    setActiveProduct(copy);
-    setActiveTab(undefined);
+  function duplicateProduct(_source: Product) {
+    // Duplication starts a fresh wizard draft (copy-from is a later enhancement).
+    router.push('/urun-sihirbazi?id=new');
   }
 
   async function confirmSingleDelete() {
@@ -293,37 +293,13 @@ export default function UrunYonetimiPage() {
   // dependency-map consequence surfaced before an actual delete happens.
   const affectedByBulkDelete = products.filter((p) => !selected.has(p.id) && p.relatedProductIds.some((id) => selected.has(id)));
 
-  function openProduct(product: Product, tab?: ProductDrawerTab) {
-    setActiveProduct(product);
-    setActiveTab(tab);
+  // The shallow drawer is replaced by the full 12-step wizard route.
+  function openProduct(product: Product, _tab?: ProductDrawerTab) {
+    router.push(`/urun-sihirbazi?id=${product.id}`);
   }
 
   function addProduct() {
-    const newProduct: Product = {
-      id: `new-${Date.now()}`,
-      name: 'Yeni Ürün',
-      sku: 'DKR-YENI',
-      category: categories[0]?.name ?? '',
-      categoryId: categories[0]?.id,
-      status: 'taslak',
-      countries: 0,
-      updatedAt: new Date().toISOString().slice(0, 10),
-      seoScore: 0,
-      stock: 'stokta',
-      price: '',
-      description: '',
-      weightKg: 0,
-      swatch: '#8A9097',
-      featured: false,
-      relatedProductIds: [],
-      gallery: [],
-      video: null,
-      document: null,
-      ogImage: null,
-      specifications: [],
-    };
-    setProducts((prev) => [newProduct, ...prev]);
-    openProduct(newProduct, 'genel');
+    router.push('/urun-sihirbazi?id=new');
   }
 
   function exportList() {

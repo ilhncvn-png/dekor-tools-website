@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Search, Image as ImageIcon, PlayCircle, Check } from 'lucide-react';
-import { mediaItems, type MediaItem } from '@/lib/mock-data';
+import { type MediaItem } from '@/lib/mock-data';
+import { getAdminMedia } from '@/lib/actions/media-actions';
 
 interface MediaPickerModalProps {
   open: boolean;
@@ -21,6 +22,12 @@ interface MediaPickerModalProps {
  */
 export function MediaPickerModal({ open, onClose, onSelect, filterType }: MediaPickerModalProps) {
   const [query, setQuery] = useState('');
+  const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
+
+  // Load the real media library when the picker opens (Blob-backed assets).
+  useEffect(() => {
+    if (open) getAdminMedia().then(setMediaItems).catch(() => setMediaItems([]));
+  }, [open]);
 
   const filtered = mediaItems.filter((m) => {
     if (filterType && m.type !== filterType) return false;

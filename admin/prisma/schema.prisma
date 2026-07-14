@@ -412,6 +412,9 @@ model Product {
   ogImageMediaId    String?
   relatedProductIds String[]   @default([])
   importSource      String?    // "LIVE_IMPORTED" when seeded from the existing public site
+  sortOrder         Int        @default(0)
+  materialSummary   String?
+  flags             String[]   @default([]) // new | bestseller | professional
 
   category ProductCategory? @relation(fields: [categoryId], references: [id])
   author   User             @relation("ProductAuthor", fields: [authorId], references: [id])
@@ -439,6 +442,12 @@ model ProductTranslation {
   description       String?
   metaTitle         String?
   metaDescription   String?
+  eyebrow           String?
+  heroSubtitle      String?
+  materialLabel     String?
+  badgeText         String?
+  ogTitle           String?
+  ogDescription     String?
   translationStatus TranslationStatus @default(DRAFT)
   updatedAt         DateTime          @updatedAt
 
@@ -450,6 +459,9 @@ model ProductTranslation {
 }
 
 model ProductMedia {
+  altText   String?
+  caption   String?
+  itemType  String?  // MAIN | CLOSE_UP | HANDLE_DETAIL | APPLICATION | PACKAGING | TECHNICAL | CUSTOM
   id        String @id @default(cuid())
   productId String
   mediaId   String
@@ -1000,6 +1012,102 @@ model ExportCountry {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?
+}
+
+// ── Category detail collections (Phase 5 wizard) ──
+model CategoryStat {
+  id         String   @id @default(cuid())
+  categoryId String
+  value      String
+  label      String
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  @@index([categoryId])
+}
+
+model CategoryFilterGroup {
+  id         String   @id @default(cuid())
+  categoryId String
+  key        String
+  label      String
+  type       String   @default("checkbox")
+  sortOrder  Int      @default(0)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([categoryId])
+}
+
+model CategoryFilterOption {
+  id            String @id @default(cuid())
+  filterGroupId String
+  value         String
+  label         String
+  sortOrder     Int    @default(0)
+
+  @@index([filterGroupId])
+}
+
+// ── Product detail collections (Phase 4/6 wizard) ──
+model ProductApplicationArea {
+  id           String   @id @default(cuid())
+  productId    String
+  languageCode String   @default("tr")
+  slotIndex    Int      @default(0)
+  title        String
+  description  String?
+  eyebrow      String?
+  iconMediaId  String?
+  mediaId      String?
+  sortOrder    Int      @default(0)
+
+  @@index([productId])
+}
+
+model ProductDocument {
+  id            String   @id @default(cuid())
+  productId     String
+  mediaId       String?
+  type          String   @default("OTHER")
+  title         String
+  fileSizeLabel String?
+  languageCode  String   @default("tr")
+  isActive      Boolean  @default(true)
+  sortOrder     Int      @default(0)
+
+  @@index([productId])
+}
+
+model ProductVideo {
+  id            String   @id @default(cuid())
+  productId     String
+  provider      String   @default("youtube")
+  url           String?
+  blobMediaId   String?
+  posterMediaId String?
+  durationLabel String?
+  title         String?
+  description   String?
+  isPrimary     Boolean  @default(false)
+  sortOrder     Int      @default(0)
+
+  @@index([productId])
+}
+
+model ProductTechnicalDrawing {
+  id           String   @id @default(cuid())
+  productId    String
+  mediaId      String?
+  title        String?
+  drawingCode  String?
+  revisionCode String?
+  widthLabel   String?
+  heightLabel  String?
+  notes        String?
+  sortOrder    Int      @default(0)
+
+  @@index([productId])
 }
 
 model AuditLog {
