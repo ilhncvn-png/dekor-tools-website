@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Plus,
   Upload,
@@ -82,6 +83,7 @@ function csvEscape(value: string | number): string {
 
 export default function KategoriYonetimiPage() {
   const { push } = useToast();
+  const router = useRouter();
   // Real data from Neon PostgreSQL (via getAdminCategories), mapped to the same
   // Category shape this UI has always consumed — the screen is unchanged, only
   // the source is real. loadCategories() is the single reconcile point every
@@ -186,8 +188,9 @@ export default function KategoriYonetimiPage() {
     setVisibilityFilter('all');
   }
 
+  // The shallow drawer is replaced by the full multi-step Category wizard route.
   function openCategory(category: Category) {
-    setActiveCategory(category);
+    router.push(`/kategori-sihirbazi?id=${category.id}`);
   }
 
   async function updateCategory(updated: Category) {
@@ -204,40 +207,11 @@ export default function KategoriYonetimiPage() {
   }
 
   function addCategory(parentId: string | null = null) {
-    const siblingCount = getChildren(categories, parentId).length;
-    const newCategory: Category = {
-      id: `new-${Date.now()}`,
-      name: 'Yeni Kategori',
-      slug: `yeni-kategori-${Date.now()}`,
-      description: '',
-      parentId,
-      order: siblingCount + 1,
-      visible: false,
-      showOnHomepage: false,
-      showInNavigation: false,
-      seoScore: 0,
-      languageStatus: [{ code: 'TR', complete: false }, { code: 'EN', complete: false }, { code: 'DE', complete: false }],
-      updatedAt: new Date().toISOString().slice(0, 10),
-    };
-    setCategories((prev) => [...prev, newCategory]);
-    if (parentId) setExpanded((prev) => ({ ...prev, [parentId]: true }));
-    setActiveCategory(newCategory);
+    router.push(`/kategori-sihirbazi?id=new${parentId ? `&parent=${parentId}` : ''}`);
   }
 
-  function duplicateCategory(source: Category) {
-    const siblingCount = getChildren(categories, source.parentId).length;
-    const copy: Category = {
-      ...source,
-      id: `${source.id}-copy-${Date.now()}`,
-      name: `${source.name} (Kopya)`,
-      slug: `${source.slug}-kopya-${Date.now()}`,
-      order: siblingCount + 1,
-      visible: false,
-      updatedAt: new Date().toISOString().slice(0, 10),
-    };
-    setCategories((prev) => [...prev, copy]);
-    setActiveCategory(copy);
-    push({ tone: 'success', title: 'Kategori çoğaltıldı', description: `${copy.name} taslak olarak eklendi.` });
+  function duplicateCategory(_source: Category) {
+    router.push('/kategori-sihirbazi?id=new');
   }
 
   async function setVisible(ids: Set<string>, visible: boolean) {
