@@ -16,10 +16,8 @@ import { Badge } from '@/components/ui/Badge';
 import { useToast } from '@/components/ui/Toast';
 import { MediaPickerModal } from '@/components/media/MediaPickerModal';
 import { cn } from '@/lib/utils';
-import {
-  getProductWizard, saveProductWizard, WIZARD_LANGUAGES,
-  type WizardProduct, type WizardVariant,
-} from '@/lib/actions/product-wizard-actions';
+import { getProductWizard, saveProductWizard } from '@/lib/actions/product-wizard-actions';
+import { WIZARD_LANGUAGES, type WizardProduct, type WizardVariant } from '@/lib/wizard/product-wizard-types';
 import { getAdminCategories } from '@/lib/actions/category-actions';
 import { getAdminProducts } from '@/lib/actions/product-actions';
 import type { Category, Product } from '@/lib/mock-data';
