@@ -79,6 +79,17 @@
   .mhit{cursor:pointer;}
   .mping{transform-box:fill-box;transform-origin:center;animation:mapPing 2.6s ease-out infinite;}
 
+  /* geo export-route overlay (over the real map images) */
+  @keyframes rtDraw{0%{opacity:0;stroke-dashoffset:55}100%{opacity:.72;stroke-dashoffset:0}}
+  @keyframes rtDot{0%{opacity:0;transform:scale(.2)}100%{opacity:1;transform:scale(1)}}
+  @keyframes rtPulse{0%{transform:scale(.7);opacity:.6}80%,100%{transform:scale(2.6);opacity:0}}
+  .rt-route{d:var(--d);fill:none;stroke:#0095DA;stroke-width:1.2;stroke-dasharray:5 5;stroke-linecap:round;opacity:0;animation:rtDraw 1.3s ease-out forwards;}
+  .rt-dot{cx:var(--x);cy:var(--y);r:var(--r,7px);fill:#0095DA;transform-box:fill-box;transform-origin:center;opacity:0;animation:rtDot .55s ease-out forwards;}
+  .rt-origin{cx:var(--x);cy:var(--y);r:var(--r,9px);fill:#0095DA;}
+  .rt-ring{cx:var(--x);cy:var(--y);r:var(--r,12px);fill:none;stroke:#0095DA;stroke-width:1.4;opacity:.35;}
+  .rt-ping{cx:var(--x);cy:var(--y);r:var(--r,9px);fill:none;stroke:#0095DA;stroke-width:1.6;transform-box:fill-box;transform-origin:center;animation:rtPulse 2.6s ease-out infinite;}
+  @media(prefers-reduced-motion:reduce){.rt-route{opacity:.72!important;stroke-dashoffset:0!important;animation:none!important;}.rt-dot{opacity:1!important;transform:none!important;animation:none!important;}.rt-ping{animation:none!important;opacity:0!important;}}
+
   /* engineering feature cards */
   .why-card{transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .4s ease;}
   .why-card:hover{transform:translateY(-7px);border-color:#0095DA !important;}
@@ -340,7 +351,16 @@
       <!-- map -->
       <div style="position:relative;">
         <div style="position:absolute; top:-6px; left:0; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.5px; color:rgba(0,149,218,.7);">İHRACAT AĞI · CANLI HARİTA</div>
-        <img src="uploads/harita_001.png" alt="Dekor ihracat ağı — dünya haritası" width="1400" height="770" style="width:100%; height:auto; display:block; margin-top:14px; object-fit:contain;">
+        <div style="position:relative; margin-top:14px;">
+          <img src="uploads/harita_001.png" alt="Dekor ihracat ağı — dünya haritası" width="1400" height="770" style="width:100%; height:auto; display:block; object-fit:contain;">
+          <svg class="rt-ov" viewBox="0 0 1000 550" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible;" aria-hidden="true">
+            <sc-for list="{{ heroOverlay.routes }}" as="r" hint-placeholder-count="12"><path class="rt-route" vector-effect="non-scaling-stroke" style="{{ r.routeStyle }}"></path></sc-for>
+            <sc-for list="{{ heroOverlay.routes }}" as="r" hint-placeholder-count="12"><circle class="rt-dot" style="{{ r.dotStyle }}"></circle></sc-for>
+            <circle class="rt-ring" vector-effect="non-scaling-stroke" style="{{ heroOverlay.ringStyle }}"></circle>
+            <circle class="rt-ping" vector-effect="non-scaling-stroke" style="{{ heroOverlay.pingStyle }}"></circle>
+            <circle class="rt-origin" style="{{ heroOverlay.originStyle }}"></circle>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -358,7 +378,16 @@
       <!-- interactive map -->
       <div data-reveal style="position:relative; background:linear-gradient(155deg,#12161b,#0c0e12); border:1px solid rgba(0,149,218,.2); border-radius:3px; padding:clamp(12px,2vw,22px); overflow:hidden;">
         <div style="position:absolute; top:12px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.5px; color:rgba(0,149,218,.7);">DİSTRİBÜTÖR HARİTASI · BİR NOKTAYA GELİN</div>
-        <img src="uploads/harita_002.png" alt="Dekor distribütör dünya haritası" loading="lazy" width="1400" height="933" style="width:100%; height:auto; display:block; margin-top:16px; object-fit:contain;">
+        <div style="position:relative; margin-top:16px;">
+          <img src="uploads/harita_002.png" alt="Dekor distribütör dünya haritası" loading="lazy" width="1400" height="933" style="width:100%; height:auto; display:block; object-fit:contain;">
+          <svg class="rt-ov" viewBox="0 0 1000 666" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible;" aria-hidden="true">
+            <sc-for list="{{ globalOverlay.routes }}" as="r" hint-placeholder-count="12"><path class="rt-route" vector-effect="non-scaling-stroke" style="{{ r.routeStyle }}"></path></sc-for>
+            <sc-for list="{{ globalOverlay.routes }}" as="r" hint-placeholder-count="12"><circle class="rt-dot" style="{{ r.dotStyle }}"></circle></sc-for>
+            <circle class="rt-ring" vector-effect="non-scaling-stroke" style="{{ globalOverlay.ringStyle }}"></circle>
+            <circle class="rt-ping" vector-effect="non-scaling-stroke" style="{{ globalOverlay.pingStyle }}"></circle>
+            <circle class="rt-origin" style="{{ globalOverlay.originStyle }}"></circle>
+          </svg>
+        </div>
       </div>
       <!-- detail panel + stats -->
       <div data-reveal style="display:flex; flex-direction:column; gap:16px;">
@@ -656,6 +685,58 @@ class Component extends DCLogic {
     }));
     const active = nodeData.find(n=>n.iso===activeIso) || origin;
 
+    // ── GEO EXPORT-ROUTE OVERLAY (equirectangular projection over the real maps) ──
+    // One reusable builder; each map supplies its own calibrated bounds so the
+    // same 12 destinations project onto geographically correct pixels. Istanbul
+    // (29°E, 41°N) is the origin. up=1 => upward arc (Europe / N.Asia), else down.
+    const geoOrigin = { lon:29.0, lat:41.0 };
+    const geoCities = [
+      { n:'Berlin',    lon:13.4,  lat:52.5,  up:1 },
+      { n:'Paris',     lon:2.35,  lat:48.85, up:1 },
+      { n:'London',    lon:-0.13, lat:51.5,  up:1 },
+      { n:'Warsaw',    lon:21.0,  lat:52.23, up:1 },
+      { n:'Casablanca',lon:-7.6,  lat:33.57, up:0 },
+      { n:'Cairo',     lon:31.24, lat:30.04, up:0 },
+      { n:'Lagos',     lon:3.38,  lat:6.52,  up:0 },
+      { n:'Riyadh',    lon:46.72, lat:24.63, up:0 },
+      { n:'Dubai',     lon:55.27, lat:25.2,  up:0 },
+      { n:'Mumbai',    lon:72.87, lat:19.07, up:0 },
+      { n:'Almaty',    lon:76.9,  lat:43.25, up:1 },
+      { n:'Singapore', lon:103.82,lat:1.35,  up:0 },
+    ];
+    // Geometry is bound via CSS custom properties in `style` (cx/cy/r/d driven by
+    // CSS geometry props) instead of literal cx/cy/d attributes — the template engine
+    // binds `style` after hydration, and an unresolved `{{ }}` in a style attribute is
+    // silently dropped by the browser (no console error), unlike an invalid cx/d attr.
+    const mkOverlay = (b, vbW, vbH, r)=>{
+      const X = lon => (b.lon0x + lon*b.degx)/100*vbW;
+      const Y = lat => (b.yTop + (b.latTop-lat)/(b.latTop-b.latBot)*(b.yBot-b.yTop))/100*vbH;
+      const ox=X(geoOrigin.lon), oy=Y(geoOrigin.lat);
+      const routes = geoCities.map((c,i)=>{
+        const dx=X(c.lon), dy=Y(c.lat);
+        const mx=(ox+dx)/2, my=(oy+dy)/2;
+        const dist=Math.hypot(dx-ox, dy-oy);
+        const lift=Math.max(16, Math.min(vbH*0.24, dist*0.30)) * (1 + (i%3)*0.07);
+        const cy = my + (c.up ? -lift : lift);
+        const delay=(i*0.11).toFixed(2);
+        const d=`M ${ox.toFixed(1)} ${oy.toFixed(1)} Q ${mx.toFixed(1)} ${cy.toFixed(1)} ${dx.toFixed(1)} ${dy.toFixed(1)}`;
+        return {
+          routeStyle:`--d:path('${d}');animation-delay:${delay}s`,
+          dotStyle:`--x:${dx.toFixed(1)}px;--y:${dy.toFixed(1)}px;--r:${r.dot}px;animation-delay:${(i*0.11+0.95).toFixed(2)}s`,
+        };
+      });
+      const oc=`--x:${ox.toFixed(1)}px;--y:${oy.toFixed(1)}px`;
+      return {
+        routes,
+        originStyle:`${oc};--r:${r.origin}px`,
+        ringStyle:`${oc};--r:${r.ring}px`,
+        pingStyle:`${oc};--r:${r.ping}px`,
+      };
+    };
+    // harita_001 fills its frame; harita_002 has baked-in top/bottom black bars.
+    const heroOverlay   = mkOverlay({lon0x:50,   degx:100/360, latTop:83, latBot:-56, yTop:0,  yBot:100}, 1000, 550, {dot:7, origin:9,  ring:12, ping:9 });
+    const globalOverlay = mkOverlay({lon0x:49.5, degx:100/360, latTop:83, latBot:-56, yTop:10, yBot:83 }, 1000, 666, {dot:8, origin:10, ring:13, ping:10});
+
     // ── KPIs ──
     const kpis = [
       { target:60,    plus:'+', unit:'',   hasUnit:false, sep:'0', numCls:'kpi-num',    label:'ÜLKE' },
@@ -728,7 +809,7 @@ class Component extends DCLogic {
       { region:'KÜRESEL', tagColor:red, title:'Yollarda: 2025 ticaret heyetleri', excerpt:'Körfez’den Orta Asya’ya — pazar pazar ilişkiler kuruyoruz.', meta:'KÜRESEL · 2025', img:'TİCARET · HEYET' },
     ];
 
-    return { routes, nodes, origin, active, kpis, credentials, why, process, documents, oem, logistics, stories };
+    return { routes, nodes, origin, active, heroOverlay, globalOverlay, kpis, credentials, why, process, documents, oem, logistics, stories };
   }
 }
 </script>
