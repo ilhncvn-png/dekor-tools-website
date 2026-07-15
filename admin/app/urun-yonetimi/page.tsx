@@ -432,6 +432,23 @@ export default function UrunYonetimiPage() {
         }
       />
 
+      {/* Published-snapshot status — what the public product pages are reading right now. */}
+      <div data-publish-status className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-[3px] border border-border bg-mist px-4 py-2.5 text-[12px] text-steel dark:border-white/10 dark:bg-white/5 dark:text-white/50">
+        <span className="font-medium text-ink dark:text-white/80">Yayınlı katalog anlık görüntüsü</span>
+        {publishStatus?.current ? (
+          <>
+            <span data-snap-version>Sürüm: {publishStatus.current.version} · {publishStatus.current.count} ürün</span>
+            {publishStatus.currentUrl && (
+              <a data-snap-url href={publishStatus.currentUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2 hover:text-accent">
+                current.json
+              </a>
+            )}
+          </>
+        ) : (
+          <span data-snap-empty>Henüz yayınlanmadı — “Siteye Yayınla” ile ilk anlık görüntüyü oluşturun.</span>
+        )}
+      </div>
+
       {/* Primary — things that need attention today. */}
       <div className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
         <StatCard
