@@ -31,7 +31,7 @@ export interface PublishActionResult {
 export async function publishSiteProducts(): Promise<PublishActionResult> {
   const user = await resolveCurrentUser();
   try {
-    requirePermission(user, 'products.manage');
+    requirePermission(user, 'products.publish');
   } catch {
     return { success: false, error: 'Bu işlem için yetkiniz yok.' };
   }
@@ -68,7 +68,7 @@ export async function publishSiteProducts(): Promise<PublishActionResult> {
 export async function rollbackSiteProducts(): Promise<PublishActionResult> {
   const user = await resolveCurrentUser();
   try {
-    requirePermission(user, 'products.manage');
+    requirePermission(user, 'products.publish');
   } catch {
     return { success: false, error: 'Bu işlem için yetkiniz yok.' };
   }
