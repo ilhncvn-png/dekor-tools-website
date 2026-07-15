@@ -10,22 +10,20 @@ import {
   promoteProductSnapshot,
   rollbackProductSnapshot,
   getSnapshotMeta,
-  getCurrentSnapshotUrl,
 } from '@/lib/publish/snapshot-store';
 
 export interface PublishActionResult {
   success: boolean;
   error?: string;
   version?: string;
-  currentUrl?: string;
   count?: number;
   previousVersion?: string | null;
 }
 
 /**
  * Generate a fresh snapshot from the currently-PUBLISHED products in Neon and
- * atomically promote it to the live pointer the public pages read. This is the
- * ONLY thing that changes public product content — saving a draft does not
+ * atomically promote it to the live pointer the public endpoint reads. This is
+ * the ONLY thing that changes public product content — saving a draft does not
  * touch the snapshot, so drafts stay private until this runs.
  */
 export async function publishSiteProducts(): Promise<PublishActionResult> {
@@ -38,7 +36,7 @@ export async function publishSiteProducts(): Promise<PublishActionResult> {
 
   try {
     const manifest = await buildProductSnapshot(prisma);
-    const result = await promoteProductSnapshot(manifest);
+    const result = await promoteProductSnapshot(prisma, manifest, user!.id === 'legacy-recovery' ? null : user!.id);
 
     await recordAuditLog({
       actorId: user!.id,
@@ -57,14 +55,13 @@ export async function publishSiteProducts(): Promise<PublishActionResult> {
 
     revalidatePath('/urun-yonetimi');
     revalidateTag('products');
-    return { success: true, version: result.version, currentUrl: result.currentUrl, count: result.count, previousVersion: result.previousVersion };
+    return { success: true, version: result.version, count: result.count, previousVersion: result.previousVersion };
   } catch (error) {
     return { success: false, error: error instanceof Error ? error.message : 'Yayınlama başarısız oldu.' };
   }
 }
 
-/** Restore the previously-published snapshot (atomic). Reversible: rollback
- * itself becomes the new current, with the rolled-back version as previous. */
+/** Restore the previously-published snapshot (atomic pointer swap). Reversible. */
 export async function rollbackSiteProducts(): Promise<PublishActionResult> {
   const user = await resolveCurrentUser();
   try {
@@ -74,7 +71,7 @@ export async function rollbackSiteProducts(): Promise<PublishActionResult> {
   }
 
   try {
-    const result = await rollbackProductSnapshot();
+    const result = await rollbackProductSnapshot(prisma, user!.id === 'legacy-recovery' ? null : user!.id);
     await recordAuditLog({
       actorId: user!.id,
       action: 'site.rollback_products',
@@ -91,7 +88,7 @@ export async function rollbackSiteProducts(): Promise<PublishActionResult> {
     });
     revalidatePath('/urun-yonetimi');
     revalidateTag('products');
-    return { success: true, version: result.restoredVersion, currentUrl: result.currentUrl, count: result.count };
+    return { success: true, version: result.restoredVersion, count: result.count };
   } catch (error) {
     return { success: false, error: error instanceof Error ? error.message : 'Geri alma başarısız oldu.' };
   }
@@ -107,11 +104,14 @@ export interface PublishStatus {
 export async function getPublishStatus(): Promise<PublishStatus> {
   const user = await resolveCurrentUser();
   requirePermission(user, 'products.view');
-  const [meta, currentUrl] = await Promise.all([getSnapshotMeta(), getCurrentSnapshotUrl()]);
+  const meta = await getSnapshotMeta(prisma);
+  // Public, unauthenticated read endpoint the static pages consume. It lives
+  // under the admin basePath, so the full URL is <site>/admin/api/public/products.
+  const base = (process.env.PUBLIC_SITE_URL || process.env.APP_URL || '').replace(/\/$/, '');
   return {
-    currentUrl,
-    current: meta.current ? { version: meta.current.version, promotedAt: meta.current.promotedAt, count: meta.current.count } : null,
-    previous: meta.previous ? { version: meta.previous.version, promotedAt: meta.previous.promotedAt, count: meta.previous.count } : null,
-    historyCount: meta.history.length,
+    currentUrl: meta.current ? `${base}/admin/api/public/products` : null,
+    current: meta.current,
+    previous: meta.previous,
+    historyCount: meta.historyCount,
   };
 }

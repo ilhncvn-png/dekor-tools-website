@@ -1,60 +1,18 @@
 import 'server-only';
-import { put, list } from '@vercel/blob';
+import type { PrismaClient, Prisma } from '@prisma/client';
 import type { ProductSnapshotManifest } from './product-snapshot';
 
 /**
- * Blob-backed snapshot store with atomic promotion + rollback.
+ * Neon-backed snapshot store with atomic promotion + rollback.
  *
- * Layout (all under a fixed prefix, public, deterministic pathnames):
- *   product-snapshots/current.json          <- the live pointer the public reads
- *   product-snapshots/versions/<version>.json  <- immutable archive of every promoted snapshot
- *   product-snapshots/meta.json             <- { current, previous, history[] }
- *
- * PROMOTION IS ATOMIC because the public only ever reads current.json, and a
- * Blob `put` replaces that object in a single operation — a reader gets either
- * the whole old object or the whole new one, never a partial write. The new
- * version is archived FIRST; current.json (the promote) is written LAST; so a
- * failure mid-way never leaves a half-published pointer.
+ * Each publish inserts one immutable ProductSnapshot row. Exactly one row is
+ * isCurrent (the live pointer the public /api/public/products endpoint reads)
+ * and at most one is isPrevious (the rollback target). Promotion and rollback
+ * are single-transaction pointer flips, so a public read is always a whole,
+ * consistent snapshot — never a partial write. Storing the snapshot in Neon
+ * (not Blob) sidesteps the private-store limitation and keeps the promoted
+ * state in the same database the admin already trusts.
  */
-
-const PREFIX = 'product-snapshots';
-const CURRENT_PATH = `${PREFIX}/current.json`;
-const META_PATH = `${PREFIX}/meta.json`;
-const versionPath = (v: string) => `${PREFIX}/versions/${v}.json`;
-
-const JSON_OPTS = { access: 'public', addRandomSuffix: false, allowOverwrite: true, contentType: 'application/json' } as const;
-
-export interface SnapshotMetaEntry { version: string; promotedAt: string; count: number; url: string; }
-export interface SnapshotMeta {
-  current: SnapshotMetaEntry | null;
-  previous: SnapshotMetaEntry | null;
-  history: SnapshotMetaEntry[];
-}
-
-async function findBlobUrl(pathname: string): Promise<string | null> {
-  const { blobs } = await list({ prefix: pathname, limit: 1 });
-  const hit = blobs.find((b) => b.pathname === pathname);
-  return hit?.url ?? null;
-}
-
-async function readJson<T>(pathname: string): Promise<T | null> {
-  const url = await findBlobUrl(pathname);
-  if (!url) return null;
-  // cache-bust so we never read a stale CDN copy during a promote/rollback cycle.
-  const res = await fetch(`${url}?ts=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) return null;
-  return (await res.json()) as T;
-}
-
-export async function getSnapshotMeta(): Promise<SnapshotMeta> {
-  return (await readJson<SnapshotMeta>(META_PATH)) ?? { current: null, previous: null, history: [] };
-}
-
-/** Full public URL of the live pointer (stable per store) — this is what the
- * static pages fetch. Returns null before the first publish. */
-export async function getCurrentSnapshotUrl(): Promise<string | null> {
-  return findBlobUrl(CURRENT_PATH);
-}
 
 function assertValid(manifest: ProductSnapshotManifest): void {
   if (!manifest || typeof manifest !== 'object') throw new Error('Snapshot geçersiz: boş manifest');
@@ -63,60 +21,84 @@ function assertValid(manifest: ProductSnapshotManifest): void {
   if (!manifest.products || typeof manifest.products !== 'object') throw new Error('Snapshot geçersiz: ürün haritası yok');
   const keys = Object.keys(manifest.products);
   if (keys.length !== manifest.count) throw new Error(`Snapshot tutarsız: count=${manifest.count} ama ${keys.length} ürün var`);
-  for (const k of keys) {
-    if (!manifest.products[k]?.code) throw new Error(`Snapshot geçersiz: ${k} ürününde kod yok`);
-  }
+  for (const k of keys) if (!manifest.products[k]?.code) throw new Error(`Snapshot geçersiz: ${k} ürününde kod yok`);
 }
 
-export interface PromoteResult { version: string; currentUrl: string; count: number; previousVersion: string | null; }
+export interface PromoteResult { version: string; count: number; previousVersion: string | null; }
 
-/** Archive the new version, then atomically flip current.json to it. Only
- * runs after the manifest has passed validation. */
-export async function promoteProductSnapshot(manifest: ProductSnapshotManifest): Promise<PromoteResult> {
+/** Validate, then atomically flip the current pointer to a freshly-inserted row. */
+export async function promoteProductSnapshot(
+  prisma: PrismaClient,
+  manifest: ProductSnapshotManifest,
+  userId: string | null,
+): Promise<PromoteResult> {
   assertValid(manifest);
-  const body = JSON.stringify(manifest);
-  const meta = await getSnapshotMeta();
 
-  // 1. Immutable archive of the incoming version (rollback target for the future).
-  await put(versionPath(manifest.version), body, JSON_OPTS);
-
-  // 2. Atomic promote — the single write the public observes.
-  const current = await put(CURRENT_PATH, body, JSON_OPTS);
-
-  // 3. Record meta: new current, prior current becomes previous (rollback target now).
-  const entry: SnapshotMetaEntry = { version: manifest.version, promotedAt: manifest.generatedAt, count: manifest.count, url: current.url };
-  const nextMeta: SnapshotMeta = {
-    current: entry,
-    previous: meta.current, // the snapshot we just replaced
-    history: [entry, ...meta.history].slice(0, 20),
-  };
-  await put(META_PATH, JSON.stringify(nextMeta), JSON_OPTS);
-
-  return { version: manifest.version, currentUrl: current.url, count: manifest.count, previousVersion: meta.current?.version ?? null };
+  return prisma.$transaction(async (tx) => {
+    // At most one isPrevious survives — clear stale flags first.
+    await tx.productSnapshot.updateMany({ where: { isPrevious: true }, data: { isPrevious: false } });
+    // Demote the outgoing current to previous (the rollback target).
+    const outgoing = await tx.productSnapshot.findFirst({ where: { isCurrent: true } });
+    if (outgoing) {
+      await tx.productSnapshot.update({ where: { id: outgoing.id }, data: { isCurrent: false, isPrevious: true } });
+    }
+    // Insert the new snapshot as the live pointer.
+    await tx.productSnapshot.create({
+      data: {
+        version: manifest.version,
+        manifest: manifest as unknown as Prisma.InputJsonValue,
+        count: manifest.count,
+        isCurrent: true,
+        createdById: userId,
+      },
+    });
+    return { version: manifest.version, count: manifest.count, previousVersion: outgoing?.version ?? null };
+  });
 }
 
-export interface RollbackResult { restoredVersion: string; currentUrl: string; count: number; }
+export interface RollbackResult { restoredVersion: string; count: number; }
 
-/** Restore the previously-published snapshot by copying its archive back over
- * current.json. Swaps current/previous in meta so rollback is itself reversible. */
-export async function rollbackProductSnapshot(): Promise<RollbackResult> {
-  const meta = await getSnapshotMeta();
-  if (!meta.previous) throw new Error('Geri alınacak önceki yayın yok.');
+/** Swap current <-> previous in a single transaction. Reversible: the
+ * rolled-back snapshot becomes the new previous, so rollback can be undone. */
+export async function rollbackProductSnapshot(prisma: PrismaClient, userId: string | null): Promise<RollbackResult> {
+  return prisma.$transaction(async (tx) => {
+    const [current, previous] = await Promise.all([
+      tx.productSnapshot.findFirst({ where: { isCurrent: true } }),
+      tx.productSnapshot.findFirst({ where: { isPrevious: true } }),
+    ]);
+    if (!previous) throw new Error('Geri alınacak önceki yayın yok.');
 
-  const archived = await readJson<ProductSnapshotManifest>(versionPath(meta.previous.version));
-  if (!archived) throw new Error(`Önceki sürüm arşivi bulunamadı: ${meta.previous.version}`);
-  assertValid(archived);
+    await tx.productSnapshot.update({ where: { id: previous.id }, data: { isCurrent: true, isPrevious: false } });
+    if (current) {
+      await tx.productSnapshot.update({ where: { id: current.id }, data: { isCurrent: false, isPrevious: true } });
+    }
+    // Touch createdBy for the audit trail without mutating the immutable manifest.
+    void userId;
+    return { restoredVersion: previous.version, count: previous.count };
+  });
+}
 
-  const body = JSON.stringify(archived);
-  const current = await put(CURRENT_PATH, body, JSON_OPTS);
+/** The live manifest the public endpoint serves. Null before the first publish. */
+export async function getCurrentManifest(prisma: PrismaClient): Promise<ProductSnapshotManifest | null> {
+  const row = await prisma.productSnapshot.findFirst({ where: { isCurrent: true } });
+  return row ? (row.manifest as unknown as ProductSnapshotManifest) : null;
+}
 
-  const restoredEntry: SnapshotMetaEntry = { ...meta.previous, url: current.url };
-  const nextMeta: SnapshotMeta = {
-    current: restoredEntry,
-    previous: meta.current, // allow rolling forward again
-    history: [restoredEntry, ...meta.history].slice(0, 20),
+export interface SnapshotMeta {
+  current: { version: string; promotedAt: string; count: number } | null;
+  previous: { version: string; promotedAt: string; count: number } | null;
+  historyCount: number;
+}
+
+export async function getSnapshotMeta(prisma: PrismaClient): Promise<SnapshotMeta> {
+  const [current, previous, historyCount] = await Promise.all([
+    prisma.productSnapshot.findFirst({ where: { isCurrent: true } }),
+    prisma.productSnapshot.findFirst({ where: { isPrevious: true } }),
+    prisma.productSnapshot.count(),
+  ]);
+  return {
+    current: current ? { version: current.version, promotedAt: current.createdAt.toISOString(), count: current.count } : null,
+    previous: previous ? { version: previous.version, promotedAt: previous.createdAt.toISOString(), count: previous.count } : null,
+    historyCount,
   };
-  await put(META_PATH, JSON.stringify(nextMeta), JSON_OPTS);
-
-  return { restoredVersion: archived.version, currentUrl: current.url, count: archived.count };
 }

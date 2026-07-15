@@ -29,6 +29,15 @@ import { getLegacyRecoveryConfig, verifyLegacyToken } from '@/lib/auth/legacy-re
  */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Read-only public content API (app/api/public/*) is intentionally
+  // unauthenticated — it serves only the promoted, PUBLISHED product snapshot
+  // to the static public site, like a headless-CMS content endpoint. It is the
+  // ONLY bypass; every other route below keeps its exact auth behaviour.
+  if (pathname.startsWith('/api/public/')) {
+    return NextResponse.next();
+  }
+
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
 
   let hasValidSignedToken: boolean;

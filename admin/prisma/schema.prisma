@@ -1129,6 +1129,28 @@ model AuditLog {
   @@index([createdAt])
 }
 
+// Immutable, versioned projection of the PUBLISHED product catalogue that the
+// static public product pages read (via the read-only /api/public/products
+// endpoint). Each publish inserts one row; exactly one row is isCurrent (the
+// live pointer) and at most one is isPrevious (the rollback target). Promotion
+// and rollback are single-transaction pointer flips, so the public read is
+// always a whole, consistent snapshot — never a partial write. Drafts never
+// enter here because the manifest is built from status=PUBLISHED only.
+model ProductSnapshot {
+  id         String   @id @default(cuid())
+  version    String   @unique
+  manifest   Json
+  count      Int
+  isCurrent  Boolean  @default(false)
+  isPrevious Boolean  @default(false)
+  createdById String?
+  createdAt  DateTime @default(now())
+
+  @@index([isCurrent])
+  @@index([isPrevious])
+  @@index([createdAt])
+}
+
 // Denormalized, fast-read feed for the dashboard "recent activity" widget.
 // Not the audit source of truth — see AuditLog.
 model ActivityLog {
