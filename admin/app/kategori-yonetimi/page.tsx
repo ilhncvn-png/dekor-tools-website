@@ -50,6 +50,7 @@ import {
   setCategoryPromotion,
   reorderCategories,
 } from '@/lib/actions/category-actions';
+import { getAdminProducts } from '@/lib/actions/product-actions';
 import { getSeoTone } from '@/lib/product-health';
 import {
   buildCategoryTree,
@@ -90,14 +91,16 @@ export default function KategoriYonetimiPage() {
   // mutation calls after persisting, so the list always reflects the database.
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  // Products are not yet migrated to the DB; the count/reassignment workflow
-  // operates on this (currently empty) list until Product Management is wired.
+  // Real products from Neon (via getAdminProducts) — this drives the per-category
+  // product counts. getCategoryProductStats already counts descendants, so a
+  // family row shows the total across all of its subcategories.
   const [products, setProducts] = useState<Product[]>([]);
 
   const loadCategories = useCallback(async () => {
     try {
-      const rows = await getAdminCategories();
-      setCategories(rows);
+      const [catRows, productRows] = await Promise.all([getAdminCategories(), getAdminProducts()]);
+      setCategories(catRows);
+      setProducts(productRows);
     } catch {
       push({ tone: 'danger', title: 'Kategoriler yüklenemedi', description: 'Veritabanına bağlanılamadı.' });
     } finally {
