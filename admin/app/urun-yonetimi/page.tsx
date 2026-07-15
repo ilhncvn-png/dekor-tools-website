@@ -27,6 +27,8 @@ import {
   AlertTriangle,
   FileWarning,
   FilterX,
+  UploadCloud,
+  Undo2,
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentContainer } from '@/components/layout/ContentContainer';
@@ -53,6 +55,7 @@ import {
   softDeleteProduct,
 } from '@/lib/actions/product-actions';
 import { getAdminCategories } from '@/lib/actions/category-actions';
+import { publishSiteProducts, rollbackSiteProducts, getPublishStatus, type PublishStatus } from '@/lib/actions/publish-actions';
 import { toProductInput, uiStatusToTransition } from '@/lib/adapters/product-adapter';
 import { productStatusTone } from '@/lib/status-tones';
 import { getProductChecks, getWorkflowStage, workflowStageLabel, workflowStageTone, getSeoTone, type WorkflowStage } from '@/lib/product-health';
@@ -130,6 +133,53 @@ export default function UrunYonetimiPage() {
       .then(setCategories)
       .catch(() => setCategories([]));
   }, [loadProducts]);
+
+  // Site publish (JSON snapshot) — the ONLY action that changes public product
+  // content. Saving a draft never touches the snapshot, so drafts stay private.
+  const [publishStatus, setPublishStatus] = useState<PublishStatus | null>(null);
+  const [publishing, setPublishing] = useState(false);
+  const [rollingBack, setRollingBack] = useState(false);
+
+  const loadPublishStatus = useCallback(async () => {
+    try {
+      setPublishStatus(await getPublishStatus());
+    } catch {
+      /* status is best-effort; ignore */
+    }
+  }, []);
+  useEffect(() => {
+    loadPublishStatus();
+  }, [loadPublishStatus]);
+
+  async function handlePublishSite() {
+    setPublishing(true);
+    try {
+      const res = await publishSiteProducts();
+      if (res.success) {
+        push({ tone: 'success', title: 'Siteye yayınlandı', description: `${res.count} yayınlı ürün · ${res.version}` });
+        await loadPublishStatus();
+      } else {
+        push({ tone: 'danger', title: 'Yayınlama başarısız', description: res.error ?? 'Bilinmeyen hata.' });
+      }
+    } finally {
+      setPublishing(false);
+    }
+  }
+
+  async function handleRollbackSite() {
+    setRollingBack(true);
+    try {
+      const res = await rollbackSiteProducts();
+      if (res.success) {
+        push({ tone: 'success', title: 'Yayın geri alındı', description: `${res.version} sürümüne dönüldü.` });
+        await loadPublishStatus();
+      } else {
+        push({ tone: 'danger', title: 'Geri alma başarısız', description: res.error ?? 'Bilinmeyen hata.' });
+      }
+    } finally {
+      setRollingBack(false);
+    }
+  }
 
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
@@ -367,8 +417,16 @@ export default function UrunYonetimiPage() {
         actions={
           <>
             <input ref={importInputRef} type="file" accept=".csv" className="hidden" onChange={handleImportFile} />
+            {publishStatus?.previous && (
+              <Button variant="secondary" icon={<Undo2 size={15} />} onClick={handleRollbackSite} disabled={rollingBack || publishing}>
+                {rollingBack ? 'Geri Alınıyor…' : 'Yayını Geri Al'}
+              </Button>
+            )}
             <Button variant="secondary" icon={<Upload size={15} />} onClick={() => importInputRef.current?.click()}>İçe Aktar</Button>
             <Button variant="secondary" icon={<Download size={15} />} onClick={exportList}>Dışa Aktar</Button>
+            <Button variant="secondary" icon={<UploadCloud size={15} />} onClick={handlePublishSite} disabled={publishing || rollingBack}>
+              {publishing ? 'Yayınlanıyor…' : 'Siteye Yayınla'}
+            </Button>
             <Button icon={<Plus size={15} />} onClick={addProduct}>Yeni Ürün</Button>
           </>
         }
