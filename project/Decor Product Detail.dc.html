@@ -371,7 +371,7 @@
     <div class="ghero-grid" style="display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,64px); align-items:center;">
       <!-- main image viewer -->
       <div class="pd-visual" style="position:relative; aspect-ratio:4/3; background:linear-gradient(155deg,#1c2025,#101216); border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-        <sc-if value="{{ heroHasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ heroImg }}" alt="{{ heroName }}" loading="eager" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
+        <sc-for list="{{ heroImgList }}" as="h" hint-placeholder-count="0"><img src="{{ h.url }}" alt="{{ heroName }}" loading="eager" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-for>
         <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:40px 40px;"></div>
         <div style="position:absolute; top:0; left:0; width:38px; height:38px; border-top:2px solid #0095DA; border-left:2px solid #0095DA;"></div>
         <div style="position:absolute; bottom:0; right:0; width:38px; height:38px; border-bottom:2px solid #0095DA; border-right:2px solid #0095DA;"></div>
@@ -1229,7 +1229,7 @@ class Component extends DCLogic {
       zoomIn:()=>this.zoomBy(0.25), zoomOut:()=>this.zoomBy(-0.25), fitPreview:()=>this.fitPreview(),
       onWheelZoom:(e)=>this.onWheelZoom(e), onTouchStart:(e)=>this._touchStart(e), onTouchEnd:(e)=>this._touchEnd(e),
       stopProp:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
-      gal: gallery[gi], thumbs, heroImg, heroHasImg, heroNoImg,
+      gal: gallery[gi], thumbs, heroImg, heroHasImg, heroNoImg, heroImgList: (heroHasImg ? [{ url: heroImg }] : []),
       features, specs, related, relTabs, relatedVideos,
       overview, applications, downloads,
       playing: this.state.playing,
