@@ -342,13 +342,15 @@
       </div>
     </div>
 
-    <!-- filter chips -->
-    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; position:sticky; top:96px; z-index:6; padding:6px 0;">
-      <sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
-        <button type="button" onClick="{{ s.onClick }}" class="{{ s.cls }}">{{ s.label }} <span style="opacity:.55; font-size:10px;">{{ s.count }}</span></button>
-      </sc-for>
+    <!-- filter chips (left) + result count (right) — shared responsive row -->
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-bottom:30px; position:sticky; top:96px; z-index:6; padding:6px 0;">
+      <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; min-width:0;">
+        <sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
+          <button type="button" onClick="{{ s.onClick }}" class="{{ s.cls }}">{{ s.label }} <span style="opacity:.55; font-size:10px;">{{ s.count }}</span></button>
+        </sc-for>
+      </div>
+      <div style="margin-left:auto; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#8A9097;">{{ resultLabel }}</div>
     </div>
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#8A9097; margin-bottom:30px;">{{ resultLabel }}</div>
 
     <!-- GRID VIEW -->
     <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
