@@ -17,11 +17,13 @@ export const SNAPSHOT_SCHEMA_VERSION = 1;
 
 export interface SnapshotSpec { code: string; material: string; a: string; b: string; c: string; pack: string; }
 export interface SnapshotFeature { num: string; title: string; desc: string; code: string; }
-export interface SnapshotApplication { title: string; line: string; imgLabel: string; }
-export interface SnapshotGalleryItem { code: string; label: string; caption: string; short: string; }
-export interface SnapshotDocument { title: string; fmt: string; size: string; }
+export interface SnapshotApplication { title: string; line: string; imgLabel: string; imgUrl: string }
+export interface SnapshotGalleryItem { code: string; label: string; caption: string; short: string; url: string; thumbUrl: string }
+export interface SnapshotDocument { title: string; fmt: string; size: string; url: string }
 export interface SnapshotOverview { label: string; paras: string[]; points: string[]; }
 export interface SnapshotCrumb { label: string; href: string; }
+export interface SnapshotVideo { provider: string; url: string; embedUrl: string; title: string; description: string; durationLabel: string }
+export interface SnapshotDrawing { title: string; drawingCode: string; revisionCode: string; widthLabel: string; heightLabel: string; notes: string; url: string }
 
 export interface SnapshotProduct {
   code: string;
@@ -34,11 +36,14 @@ export interface SnapshotProduct {
   heroDescription: string;
   materialSummary: string;
   gallery: SnapshotGalleryItem[];
+  applicationGallery: SnapshotGalleryItem[];
   features: SnapshotFeature[];
   specs: SnapshotSpec[];
   applications: SnapshotApplication[];
   overview: SnapshotOverview[];
   documents: SnapshotDocument[];
+  video: SnapshotVideo | null;
+  drawing: SnapshotDrawing | null;
   seoTitle: string;
   seoDescription: string;
   canonical: string;
@@ -56,6 +61,7 @@ export interface SnapshotIndexCard {
   dim: string;
   tag: string;
   link: string;         // unique product route
+  img: string;          // primary product photo URL ('' = placeholder)
 }
 
 export interface SnapshotCategory {
@@ -119,13 +125,28 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
   });
 
   const ids = products.map((p) => p.id);
-  const [variants, features, specs, apps, docs] = await Promise.all([
+  const [variants, features, specs, apps, docs, media, videos, drawings] = await Promise.all([
     prisma.productVariant.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
     prisma.productFeature.findMany({ where: { productId: { in: ids }, languageCode: LANG }, orderBy: { sortOrder: 'asc' } }),
     prisma.productTechnicalSpecification.findMany({ where: { productId: { in: ids }, languageCode: LANG }, orderBy: { sortOrder: 'asc' } }),
     prisma.productApplicationArea.findMany({ where: { productId: { in: ids }, languageCode: LANG }, orderBy: { sortOrder: 'asc' } }),
     prisma.productDocument.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
+    prisma.productMedia.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
+    prisma.productVideo.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
+    prisma.productTechnicalDrawing.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
   ]);
+
+  // Resolve every referenced MediaAsset id -> public URL once.
+  const mediaAssetIds = Array.from(new Set([
+    ...media.map((m) => m.mediaId),
+    ...apps.map((a) => a.mediaId).filter((x): x is string => Boolean(x)),
+    ...docs.map((d) => d.mediaId).filter((x): x is string => Boolean(x)),
+    ...drawings.map((d) => d.mediaId).filter((x): x is string => Boolean(x)),
+  ]));
+  const assets = mediaAssetIds.length
+    ? await prisma.mediaAsset.findMany({ where: { id: { in: mediaAssetIds }, deletedAt: null }, select: { id: true, url: true, fileName: true } })
+    : [];
+  const urlOf = (id: string | null | undefined): string => (id ? assets.find((a) => a.id === id)?.url ?? '' : '');
 
   const by = <T extends { productId: string }>(rows: T[], pid: string) => rows.filter((r) => r.productId === pid);
 
@@ -173,7 +194,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const snapSpecs: SnapshotSpec[] = pVariants.map((v) => {
       const a = (v.attributes ?? {}) as Record<string, string>;
       return {
-        code: v.sku,
+        code: a.code ?? v.sku, // display code (attributes.code) decouples from the globally-unique sku
         material: a.material ?? '',
         a: a.width ?? '',
         b: a.length ?? '',
@@ -182,22 +203,53 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       };
     });
 
-    const snapFeatures: SnapshotFeature[] = by(features, p.id).map((f, i) => ({
-      num: String(i + 1).padStart(2, '0'),
-      title: f.label,
-      desc: '',
-      code: 'ÖZELLİK',
-    }));
+    const snapFeatures: SnapshotFeature[] = by(features, p.id).map((f, i) => {
+      const [head, ...restParts] = f.label.split(' — ');
+      return {
+        num: String(i + 1).padStart(2, '0'),
+        title: restParts.length ? head : f.label,
+        desc: restParts.length ? restParts.join(' — ') : '',
+        code: 'ÖZELLİK',
+      };
+    });
 
     const snapApps: SnapshotApplication[] = by(apps, p.id).map((a) => ({
       title: a.title,
       line: a.description ?? '',
       imgLabel: trUpper(a.eyebrow ?? a.title ?? ''),
+      imgUrl: urlOf(a.mediaId),
     }));
 
     const snapDocs: SnapshotDocument[] = by(docs, p.id)
       .filter((d) => d.isActive)
-      .map((d) => ({ title: d.title, fmt: (d.type ?? 'PDF').toUpperCase(), size: d.fileSizeLabel ?? '' }));
+      .map((d) => ({ title: d.title, fmt: (d.type ?? 'PDF').toUpperCase(), size: d.fileSizeLabel ?? '', url: urlOf(d.mediaId) }));
+
+    // Real gallery from ProductMedia: product photos (non-APPLICATION) drive the
+    // main gallery; APPLICATION items drive the "Her detayı yakından" section.
+    const pMedia = by(media, p.id);
+    const mediaToItem = (m: (typeof media)[number]): SnapshotGalleryItem => {
+      const url = urlOf(m.mediaId);
+      return { code: p.sku, label: (m.itemType ?? 'GÖRSEL').replace(/_/g, ' '), caption: m.caption ?? name, short: (m.itemType ?? 'GÖRSEL').replace(/_/g, '\n'), url, thumbUrl: url };
+    };
+    const productPhotos = pMedia.filter((m) => (m.itemType ?? '') !== 'APPLICATION').map(mediaToItem).filter((g) => g.url);
+    const applicationGallery = pMedia.filter((m) => (m.itemType ?? '') === 'APPLICATION').map(mediaToItem).filter((g) => g.url);
+
+    const pVideo = by(videos, p.id)[0];
+    const ytId = pVideo?.url ? (pVideo.url.match(/[?&]v=([^&]+)/)?.[1] ?? pVideo.url.match(/youtu\.be\/([^?]+)/)?.[1] ?? '') : '';
+    const snapVideo: SnapshotVideo | null = pVideo ? {
+      provider: pVideo.provider ?? 'youtube',
+      url: pVideo.url ?? '',
+      embedUrl: ytId ? `https://www.youtube.com/embed/${ytId}` : (pVideo.url ?? ''),
+      title: pVideo.title ?? '',
+      description: pVideo.description ?? '',
+      durationLabel: pVideo.durationLabel ?? '',
+    } : null;
+
+    const pDraw = by(drawings, p.id)[0];
+    const snapDrawing: SnapshotDrawing | null = pDraw ? {
+      title: pDraw.title ?? '', drawingCode: pDraw.drawingCode ?? '', revisionCode: pDraw.revisionCode ?? '',
+      widthLabel: pDraw.widthLabel ?? '', heightLabel: pDraw.heightLabel ?? '', notes: pDraw.notes ?? '', url: urlOf(pDraw.mediaId),
+    } : null;
 
     const pSpecs = by(specs, p.id);
     const overview: SnapshotOverview[] = [];
@@ -211,10 +263,10 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const route = productRoute(slug, p.sku);
     const canonical = `https://dekor-tools.com${route}`;
 
-    // Neutral, product-specific gallery placeholder until real media is wired —
-    // an honest empty state that never leaks another product's imagery.
-    const gallery: SnapshotGalleryItem[] = [
-      { code: p.sku, label: 'ÜRÜN GÖRSELİ', caption: name, short: 'ÜRÜN\nGÖRSELİ' },
+    // Real product photos when present; otherwise a neutral, product-specific
+    // placeholder (honest empty state that never leaks another product's imagery).
+    const gallery: SnapshotGalleryItem[] = productPhotos.length ? productPhotos : [
+      { code: p.sku, label: 'ÜRÜN GÖRSELİ', caption: name, short: 'ÜRÜN\nGÖRSELİ', url: '', thumbUrl: '' },
     ];
 
     productMap[p.sku] = {
@@ -233,11 +285,14 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       heroDescription,
       materialSummary,
       gallery,
+      applicationGallery,
       features: snapFeatures,
       specs: snapSpecs,
       applications: snapApps,
       overview,
       documents: snapDocs,
+      video: snapVideo,
+      drawing: snapDrawing,
       seoTitle: tr?.metaTitle || `${name} — Dekor`,
       seoDescription: tr?.metaDescription || heroDescription,
       canonical,
@@ -258,6 +313,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       dim: defAttr.width ?? '',
       tag: trUpper(tr?.badgeText || ''),
       link: route,
+      img: gallery[0]?.url ?? '',
     });
   }
 

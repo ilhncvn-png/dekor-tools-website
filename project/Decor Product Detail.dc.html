@@ -371,12 +371,13 @@
     <div class="ghero-grid" style="display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,64px); align-items:center;">
       <!-- main image viewer -->
       <div class="pd-visual" style="position:relative; aspect-ratio:4/3; background:linear-gradient(155deg,#1c2025,#101216); border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+        <sc-if value="{{ heroHasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ heroImg }}" alt="{{ heroName }}" loading="eager" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
         <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:40px 40px;"></div>
         <div style="position:absolute; top:0; left:0; width:38px; height:38px; border-top:2px solid #0095DA; border-left:2px solid #0095DA;"></div>
         <div style="position:absolute; bottom:0; right:0; width:38px; height:38px; border-bottom:2px solid #0095DA; border-right:2px solid #0095DA;"></div>
         <div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0095DA; border:1px solid rgba(0,149,218,.4); padding:4px 9px;">{{ code }}</div>
         <div style="position:absolute; top:16px; right:16px; display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.2); padding:4px 9px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:12px; height:12px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg>YAKINLAŞTIRMAK İÇİN ÜZERİNE GELİN</div>
-        <div style="text-align:center; position:relative;"><div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#aab1b8;">{{ heroNameUpper }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:#565c63; margin-top:8px;">STÜDYO ÜRÜN GÖRSELİ · GÖRSEL ALANI</div></div>
+        <sc-if value="{{ heroNoImg }}" hint-placeholder-val="{{ true }}"><div style="text-align:center; position:relative;"><div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#aab1b8;">{{ heroNameUpper }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:#565c63; margin-top:8px;">STÜDYO ÜRÜN GÖRSELİ · GÖRSEL ALANI</div></div></sc-if>
       </div>
       <!-- info -->
       <div>
@@ -418,20 +419,22 @@
     <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>ÜRÜNÜ İNCELEYİN</div>
     <h2 data-reveal style="font-size:clamp(26px,3.4vw,44px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:16px 0 clamp(28px,3.5vw,44px);">Her detay, yakından.</h2>
     <!-- large viewer -->
-    <div data-reveal style="position:relative; aspect-ratio:16/8; background:linear-gradient(155deg,#E6E8EB,#D9DCE0); border:1px solid #E2E5E9; border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+    <a href="{{ gal.url }}" target="_blank" rel="noopener noreferrer" data-reveal style="position:relative; display:block; aspect-ratio:16/8; background:linear-gradient(155deg,#E6E8EB,#D9DCE0); border:1px solid #E2E5E9; border-radius:3px; overflow:hidden;">
+      <sc-if value="{{ gal.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ gal.url }}" alt="{{ gal.caption }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
       <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:34px 34px;"></div>
       <div style="position:absolute; top:0; left:0; width:34px; height:34px; border-top:2px solid rgba(14,15,17,.2); border-left:2px solid rgba(14,15,17,.2);"></div>
       <div style="position:absolute; bottom:0; right:0; width:34px; height:34px; border-bottom:2px solid rgba(0,149,218,.5); border-right:2px solid rgba(0,149,218,.5);"></div>
       <div style="position:absolute; top:18px; left:18px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:5px 10px; border:1px solid #E2E5E9;">{{ gal.code }}</div>
       <div style="position:absolute; top:18px; right:18px; display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:#5A6066; border:1px solid #C7CCD1; padding:5px 10px; background:rgba(255,255,255,.6);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:12px; height:12px;"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>TAM EKRAN</div>
-      <div style="text-align:center; position:relative; padding:20px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,2vw,17px); letter-spacing:3px; color:#5A6066; font-weight:600;">{{ gal.label }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#9aa1a8; margin-top:10px;">{{ gal.caption }}</div></div>
-    </div>
+      <sc-if value="{{ gal.noImg }}" hint-placeholder-val="{{ true }}"><div style="text-align:center; position:relative; padding:20px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,2vw,17px); letter-spacing:3px; color:#5A6066; font-weight:600;">{{ gal.label }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#9aa1a8; margin-top:10px;">{{ gal.caption }}</div></div></sc-if>
+    </a>
     <!-- thumbnails -->
     <div data-reveal style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:14px;">
       <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="5">
         <button type="button" onClick="{{ t.onClick }}" class="{{ t.cls }}">
+          <sc-if value="{{ t.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ t.url }}" alt="" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
           <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.06) 1px,transparent 1px); background-size:18px 18px;"></div>
-          <span style="position:relative; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.8px; color:#6b7178; text-align:center; line-height:1.4; padding:6px;">{{ t.short }}</span>
+          <sc-if value="{{ t.noImg }}" hint-placeholder-val="{{ true }}"><span style="position:relative; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.8px; color:#6b7178; text-align:center; line-height:1.4; padding:6px;">{{ t.short }}</span></sc-if>
         </button>
       </sc-for>
     </div>
@@ -493,10 +496,11 @@
       <sc-for list="{{ applications }}" as="a" hint-placeholder-count="6">
         <div data-reveal class="appcard" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; overflow:hidden; display:flex; flex-direction:column;">
           <div style="position:relative; height:180px; background:#EAECEF; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+            <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ a.imgUrl }}" alt="{{ a.title }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
             <div class="aimg" style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:24px 24px;"></div>
             <div style="position:absolute; top:0; left:0; width:22px; height:22px; border-top:2px solid rgba(14,15,17,.16); border-left:2px solid rgba(14,15,17,.16);"></div>
             <div style="position:absolute; bottom:0; right:0; width:22px; height:22px; border-bottom:2px solid rgba(0,149,218,.4); border-right:2px solid rgba(0,149,218,.4);"></div>
-            <div class="aimg" style="position:relative; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#9aa1a8;">{{ a.imgLabel }}</div>
+            <sc-if value="{{ a.noImg }}" hint-placeholder-val="{{ true }}"><div class="aimg" style="position:relative; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#9aa1a8;">{{ a.imgLabel }}</div></sc-if>
           </div>
           <div style="padding:20px 20px 22px;">
             <h3 style="font-size:18px; font-weight:800; letter-spacing:-0.01em; color:#0E0F11; margin:0;">{{ a.title }}</h3>
@@ -644,7 +648,7 @@
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px;">
       <sc-for list="{{ downloads }}" as="d" hint-placeholder-count="6">
-        <a href="/destek#downloads" data-reveal class="dlcard" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:22px; display:flex; align-items:center; gap:16px;">
+        <a href="{{ d.url }}" target="_blank" rel="noopener noreferrer" data-reveal class="dlcard" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; padding:22px; display:flex; align-items:center; gap:16px;">
           <div class="dlico" style="flex:0 0 auto; width:50px; height:50px; border-radius:2px; border:1px solid #E2E5E9; background:#F4F5F6; color:#0095DA; display:flex; align-items:center; justify-content:center;">{{ d.icon }}</div>
           <div style="flex:1; min-width:0;">
             <div style="font-size:16px; font-weight:800; letter-spacing:-0.01em; color:#0E0F11;">{{ d.title }}</div>
@@ -666,13 +670,14 @@
       <!-- main video -->
       <div data-reveal onClick="{{ togglePlay }}" class="vid-card" style="position:relative; aspect-ratio:16/9; background:linear-gradient(150deg,#23272d,#101216); border:1px solid rgba(255,255,255,.1); border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
         <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.06) 1px,transparent 1px); background-size:42px 42px;"></div>
+        <sc-if value="{{ playingVideo }}" hint-placeholder-val="{{ false }}">
+          <iframe src="{{ videoEmbedAuto }}" title="{{ videoTitle }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0; z-index:6;"></iframe>
+        </sc-if>
         <div style="position:absolute; top:18px; left:18px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">{{ videoTag }}</div>
-        <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ playingNoVideo }}" hint-placeholder-val="{{ false }}">
           <div style="text-align:center; position:relative;">
             <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:#0095DA;">ŞİMDİ OYNATILIYOR</div>
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.4); margin-top:8px;">0:12 / 3:40</div>
           </div>
-          <div style="position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.14);"><div style="width:34%; height:100%; background:#0095DA;"></div></div>
         </sc-if>
         <sc-if value="{{ notPlaying }}" hint-placeholder-val="{{ true }}">
           <div style="text-align:center; position:relative;">
@@ -945,8 +950,34 @@ class Component extends DCLogic {
     if(p && !p.__notfound){
       try{ if(p.seoTitle) document.title = p.seoTitle; }catch(e){}
       try{ if(p.canonical){ const l=document.querySelector('link[rel="canonical"]'); if(l) l.setAttribute('href', p.canonical); } }catch(e){}
+      try{ this._setSeo(p); }catch(e){}
     }
     this.setState({ _snap: Date.now() });
+  }
+  _setSeo(p){
+    const setMeta=(sel,attr,val)=>{ let el=document.head.querySelector(sel); if(!el){ el=document.createElement('meta'); const m=sel.match(/\[(property|name)="([^"]+)"\]/); if(m) el.setAttribute(m[1],m[2]); document.head.appendChild(el); } el.setAttribute('content',val); };
+    const img=(p.gallery&&p.gallery[0]&&p.gallery[0].url)||'';
+    const desc=p.seoDescription||p.heroDescription||'';
+    setMeta('meta[property="og:type"]','content','product');
+    setMeta('meta[property="og:title"]','content',p.seoTitle||p.name);
+    setMeta('meta[property="og:description"]','content',desc);
+    setMeta('meta[property="og:url"]','content',p.canonical||'');
+    if(img) setMeta('meta[property="og:image"]','content',img);
+    setMeta('meta[name="twitter:card"]','content','summary_large_image');
+    setMeta('meta[name="twitter:title"]','content',p.seoTitle||p.name);
+    setMeta('meta[name="twitter:description"]','content',desc);
+    if(img) setMeta('meta[name="twitter:image"]','content',img);
+    setMeta('meta[name="description"]','content',desc);
+    // schema.org Product JSON-LD
+    try{
+      const ld={ '@context':'https://schema.org','@type':'Product', name:p.name, description:desc, sku:p.code,
+        brand:{'@type':'Brand',name:'Dekor'}, manufacturer:{'@type':'Organization',name:'Dekor Tools'},
+        category:(p.familyLabel||''), url:p.canonical||'' };
+      if(img) ld.image=[img];
+      let s=document.getElementById('dkr-product-schema');
+      if(!s){ s=document.createElement('script'); s.type='application/ld+json'; s.id='dkr-product-schema'; document.head.appendChild(s); }
+      s.textContent=JSON.stringify(ld);
+    }catch(e){}
   }
 
   _ico(children){
@@ -992,19 +1023,23 @@ class Component extends DCLogic {
     const crumbName = _nf ? 'BULUNAMADI' : (_bc[3] ? _bc[3].label : 'PROFESYONEL SPATULA');
     const heroNameUpper = crumbName;
 
-    const gallery = _nf ? [ { code:code, label:'—', caption:'', short:'—' } ] : (_snap ? _snap.gallery.map(g=>({ code:g.code, label:g.label, caption:g.caption, short:g.short })) : [
+    const gallery = _nf ? [ { code:code, label:'—', caption:'', short:'—', url:'', hasImg:false, noImg:true } ] : (_snap ? _snap.gallery.map(g=>({ code:g.code, label:g.label, caption:g.caption, short:g.short, url:g.url||'', hasImg:!!g.url, noImg:!g.url })) : [
       { code:'DKR-3017', label:'ANA GÖRSEL', caption:'Tam alet · stüdyo ürün görseli', short:'ANA\nGÖRSEL' },
       { code:'DKR-3017-A', label:'BIÇAK YAKIN ÇEKİM', caption:'Konik yay çeliği kesim kenarı', short:'BIÇAK\nYAKIN ÇEKİM' },
       { code:'DKR-3017-B', label:'SAP DETAYI', caption:'Perçinli yumuşak tutuş, elde dengeli', short:'SAP\nDETAYI' },
       { code:'DKR-3017-C', label:'KULLANIMDA', caption:'Sıva duvarda ince sıva bitirme işlemi', short:'KULLANIMDA' },
       { code:'DKR-3017-P', label:'AMBALAJ', caption:'Perakende blister ve katalog sunumu', short:'AMBALAJ' },
     ]);
-    const gi = this.state.gal;
+    gallery.forEach(g=>{ if(g.hasImg===undefined){ g.hasImg=!!g.url; g.noImg=!g.url; } });
+    const gi = Math.min(this.state.gal, gallery.length-1);
     const thumbs = gallery.map((g, i)=>({
       short: g.short,
+      url: g.url||'', hasImg: !!g.url, noImg: !g.url,
       cls: i===gi ? 'gthumb on' : 'gthumb',
       onClick: ()=>this.setState({ gal:i }),
     }));
+    const heroImg = (gallery[gi]&&gallery[gi].url) || (gallery[0]&&gallery[0].url) || '';
+    const heroHasImg = !!heroImg; const heroNoImg = !heroImg;
 
     const _featIcon = this._ico([R('path',{key:0,d:'M3 12l5-2 4 4 9-9'}),R('path',{key:1,d:'M3 18l5-2 4 4 9-9'})]);
     const features = _nf ? [] : (_snap ? _snap.features.map((f)=>({ num:f.num, title:f.title, desc:f.desc, code:f.code, bar:'#0095DA', icon:_featIcon })) : [
@@ -1108,7 +1143,7 @@ class Component extends DCLogic {
     ])).map(o=>({ ...o, hasParas:o.paras.length>0, hasPoints:o.points.length>0 }));
 
     // ── APPLICATIONS cards (CMS: image + title + line) ──
-    const applications = _nf ? [] : (_snap ? _snap.applications : [
+    const applications = _nf ? [] : (_snap ? _snap.applications.map(a=>({ title:a.title, line:a.line, imgLabel:a.imgLabel, imgUrl:a.imgUrl||'', hasImg:!!a.imgUrl, noImg:!a.imgUrl })) : [
       { title:'İç Mekan Sıva', line:'İç duvar ve tavanlarda pürüzsüz ince sıva ve düzeltme.', imgLabel:'İÇ MEKAN · SIVA' },
       { title:'Dış Cephe Sıvası', line:'Cephe ve alt zeminlerde çimento ve kireç sıvalarının bitirilmesi.', imgLabel:'DIŞ MEKAN · SIVA' },
       { title:'Derz Doldurma', line:'Dekorasyon öncesi derzlerin doldurulması ve inceltilmesi.', imgLabel:'DERZ · DOLGU' },
@@ -1116,10 +1151,11 @@ class Component extends DCLogic {
       { title:'Fayans Montajı', line:'Fayans zeminlerde yapıştırıcı yayma ve arka sıvama.', imgLabel:'FAYANS · YAPIŞTIRICI' },
       { title:'Yüzey Onarımı', line:'Duvarcılık, sıva ve hasarlı alçıyı hızlıca yamama.', imgLabel:'YÜZEY · ONARIM' },
     ]);
+    applications.forEach(a=>{ if(a.hasImg===undefined){ a.hasImg=!!a.imgUrl; a.noImg=!a.imgUrl; } });
 
     // ── DOWNLOADS (CMS file records) ──
     const di = (c)=>R('svg',{width:22,height:22,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.6,strokeLinecap:'round',strokeLinejoin:'round'},c);
-    const downloads = _nf ? [] : (_snap ? _snap.documents.map((d)=>({ title:d.title, fmt:d.fmt, size:d.size, icon:di([R('path',{key:0,d:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'}),R('path',{key:1,d:'M14 3v5h5M9 13h6M9 17h6'})]) })) : [
+    const downloads = _nf ? [] : (_snap ? _snap.documents.map((d)=>({ title:d.title, fmt:'PDF', size:d.size, url:d.url||'#', icon:di([R('path',{key:0,d:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'}),R('path',{key:1,d:'M14 3v5h5M9 13h6M9 17h6'})]) })) : [
       { title:'Teknik Föy', fmt:'PDF', size:'2.4 MB', icon:di([R('path',{key:0,d:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'}),R('path',{key:1,d:'M14 3v5h5M9 13h6M9 17h6'})]) },
       { title:'Ürün Kataloğu', fmt:'PDF', size:'18.6 MB', icon:di([R('path',{key:0,d:'M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z'}),R('path',{key:1,d:'M8 3v18'})]) },
       { title:'Sertifikalar', fmt:'ZIP', size:'4.1 MB', icon:di([R('circle',{key:0,cx:12,cy:9,r:6}),R('path',{key:1,d:'M9 14l-2 7 5-3 5 3-2-7'})]) },
@@ -1193,15 +1229,21 @@ class Component extends DCLogic {
       zoomIn:()=>this.zoomBy(0.25), zoomOut:()=>this.zoomBy(-0.25), fitPreview:()=>this.fitPreview(),
       onWheelZoom:(e)=>this.onWheelZoom(e), onTouchStart:(e)=>this._touchStart(e), onTouchEnd:(e)=>this._touchEnd(e),
       stopProp:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
-      gal: gallery[gi], thumbs,
+      gal: gallery[gi], thumbs, heroImg, heroHasImg, heroNoImg,
       features, specs, related, relTabs, relatedVideos,
       overview, applications, downloads,
       playing: this.state.playing,
       notPlaying: !this.state.playing,
+      playingVideo: this.state.playing && !!(_snap && _snap.video && _snap.video.embedUrl),
+      playingNoVideo: this.state.playing && !(_snap && _snap.video && _snap.video.embedUrl),
       togglePlay: ()=>this.setState(s=>({ playing:!s.playing })),
-      videoTitle: 'Profesyonel Spatula — Kullanım Kılavuzu',
-      videoContext: 'Esnek yay çeliği bıçağın gerçek bir sıva ince sıva bitirme işlemi sırasında nasıl yüklenip salındığını izleyin.',
-      videoTag: 'DKR-3017 · 3:40 · HD',
+      videoEmbed: (_snap && _snap.video && _snap.video.embedUrl) ? (_snap.video.embedUrl + '?rel=0&modestbranding=1') : '',
+      videoEmbedAuto: (_snap && _snap.video && _snap.video.embedUrl) ? (_snap.video.embedUrl + '?rel=0&modestbranding=1&autoplay=1') : '',
+      hasVideo: !!(_snap && _snap.video && _snap.video.embedUrl),
+      noVideo: !(_snap && _snap.video && _snap.video.embedUrl),
+      videoTitle: _snap ? (_snap.video ? (_snap.video.title||heroName) : heroName+' — Ürün') : 'Profesyonel Spatula — Kullanım Kılavuzu',
+      videoContext: _snap ? (_snap.video ? (_snap.video.description||'') : '') : 'Esnek yay çeliği bıçağın gerçek bir sıva ince sıva bitirme işlemi sırasında nasıl yüklenip salındığını izleyin.',
+      videoTag: _snap ? (code + (_snap.video&&_snap.video.durationLabel ? ' · '+_snap.video.durationLabel : '')) : 'DKR-3017 · 3:40 · HD',
       shareOpen: this.state.shareOpen,
       openShare: ()=>this.setState({ shareOpen:true }),
       closeShare: ()=>this.setState({ shareOpen:false, copied:false }),
