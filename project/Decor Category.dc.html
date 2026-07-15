@@ -444,6 +444,11 @@ class Component extends DCLogic {
     const red = '#0095DA';
     const dark = '#1A1C1F';
     const detail = 'Decor Product Detail.dc.html';
+    // Unique product route: /urunler/urun/<slug>-<code>. The detail page reads
+    // the product code from the path, so each card opens its own published
+    // record. Kept slug in sync with the CMS snapshot generator's slugify.
+    const _slugTr = (s)=>{ const map={'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','İ':'i'}; return (s||'').trim().replace(/[çğıöşüİ]/g,c=>map[c]||c).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'urun'; };
+    const _route = (p)=>'/urunler/urun/'+_slugTr(p.name)+'-'+String(p.code).toLowerCase();
 
     const products = [
       { code:'DKR-4200', sub:'Rulolar', name:'Pro Rulo İskeleti 240mm', material:'Kromlu çelik', sizes:'180 · 240 · 280', dim:'240 mm', tag:'ÇOK SATAN', accent:red },
@@ -458,7 +463,7 @@ class Component extends DCLogic {
       { code:'DKR-4135', sub:'Uzatma', name:'Sap Adaptör Dişi', material:'İşlenmiş pirinç', sizes:'Üniversal', dim:'M12', tag:'', accent:dark },
       { code:'DKR-4410', sub:'Aksesuarlar', name:'Maskeleme Bandı Aparatı', material:'ABS + çelik', sizes:'25 – 50 mm', dim:'50 mm', tag:'', accent:dark },
       { code:'DKR-4420', sub:'Aksesuarlar', name:'Boya Filtre Ağı', material:'Naylon ağ', sizes:'190 mikron', dim:'Ø 200', tag:'', accent:dark },
-    ].map(p=>({ ...p, link: detail }));
+    ].map(p=>({ ...p, link: _route(p) }));
 
     const order = ['Rulolar','Fırçalar','Tepsiler','Uzatma','Aksesuarlar'];
     const q = this.state.query.trim().toLowerCase();

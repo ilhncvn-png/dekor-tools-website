@@ -2720,6 +2720,30 @@
       "destination": "/project/Decor%20Product%20Detail.dc.html"
     },
     {
+      "source": "/urunler/urun/:slug",
+      "destination": "/project/Decor%20Product%20Detail.dc.html"
+    },
+    {
+      "source": "/en/products/product/:slug",
+      "destination": "/project/Decor%20Product%20Detail.en.dc.html"
+    },
+    {
+      "source": "/de/produkte/produkt/:slug",
+      "destination": "/project/Decor%20Product%20Detail.de.dc.html"
+    },
+    {
+      "source": "/fr/produits/produit/:slug",
+      "destination": "/project/Decor%20Product%20Detail.fr.dc.html"
+    },
+    {
+      "source": "/ru/produkty/tovar/:slug",
+      "destination": "/project/Decor%20Product%20Detail.ru.dc.html"
+    },
+    {
+      "source": "/az/mehsullar/mehsul/:slug",
+      "destination": "/project/Decor%20Product%20Detail.az.dc.html"
+    },
+    {
       "source": "/en/products/product",
       "destination": "/project/Decor%20Product%20Detail.en.dc.html"
     },

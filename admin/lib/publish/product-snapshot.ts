@@ -83,6 +83,11 @@ function slugify(input: string): string {
     .replace(/^-+|-+$/g, '') || 'urun';
 }
 
+/** Turkish-aware uppercase so "aletleri" -> "ALETLERİ" (dotted İ), not "ALETLERI". */
+function trUpper(input: string): string {
+  return (input || '').replace(/i/g, 'İ').replace(/ı/g, 'I').toUpperCase();
+}
+
 /** Clean product route: /urunler/urun/<slug>-<lowercased-code>. Additive; the
  * bare /urunler/urun route is preserved as the static-fallback default. */
 export function productRoute(slug: string, code: string): string {
@@ -154,7 +159,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const snapApps: SnapshotApplication[] = by(apps, p.id).map((a) => ({
       title: a.title,
       line: a.description ?? '',
-      imgLabel: (a.eyebrow ?? a.title ?? '').toUpperCase(),
+      imgLabel: trUpper(a.eyebrow ?? a.title ?? ''),
     }));
 
     const snapDocs: SnapshotDocument[] = by(docs, p.id)
@@ -173,22 +178,28 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const route = productRoute(slug, p.sku);
     const canonical = `https://dekor-tools.com${route}`;
 
+    // Neutral, product-specific gallery placeholder until real media is wired —
+    // an honest empty state that never leaks another product's imagery.
+    const gallery: SnapshotGalleryItem[] = [
+      { code: p.sku, label: 'ÜRÜN GÖRSELİ', caption: name, short: 'ÜRÜN\nGÖRSELİ' },
+    ];
+
     productMap[p.sku] = {
       code: p.sku,
       slug,
       name,
-      eyebrow: (tr?.eyebrow || familyLabel || '').toUpperCase(),
+      eyebrow: trUpper(tr?.eyebrow || familyLabel || ''),
       familyLabel,
       subLabel: subLabel || familyLabel,
       breadcrumb: [
         { label: 'ANA SAYFA', href: '/' },
         { label: 'ÜRÜNLER', href: '/urunler' },
-        { label: (subLabel || familyLabel || 'ÜRÜNLER').toUpperCase(), href: '/urunler/kategori' },
-        { label: name.toUpperCase(), href: route },
+        { label: trUpper(subLabel || familyLabel || 'ÜRÜNLER'), href: '/urunler/kategori' },
+        { label: trUpper(name), href: route },
       ],
       heroDescription,
       materialSummary,
-      gallery: [], // ProductMedia gallery wiring lands with the media pipeline; honest empty state until then.
+      gallery,
       features: snapFeatures,
       specs: snapSpecs,
       applications: snapApps,
@@ -212,7 +223,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       material: materialSummary || defAttr.material || '',
       sizes: pVariants.map((v) => ((v.attributes ?? {}) as Record<string, string>).width).filter(Boolean).join(' · ') || (defAttr.width ?? ''),
       dim: defAttr.width ?? '',
-      tag: (tr?.badgeText || '').toUpperCase(),
+      tag: trUpper(tr?.badgeText || ''),
       link: route,
     });
   }
