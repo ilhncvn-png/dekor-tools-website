@@ -919,21 +919,25 @@ class Component extends DCLogic {
   // product's data.
   async _loadSnapshot(){
     try{
-      const code = this._productCode();
-      if(!code) return;
-      const res = await fetch('/admin/api/public/products?code=' + encodeURIComponent(code), { cache:'no-store' });
-      if(res.status === 404){ this._applyProduct({ __notfound:true, code:code }); return; }
+      const key = this._productKey();
+      if(!key) return;
+      const qs = key.type === 'slug' ? ('slug=' + encodeURIComponent(key.value)) : ('code=' + encodeURIComponent(key.value));
+      const res = await fetch('/admin/api/public/products?' + qs, { cache:'no-store' });
+      if(res.status === 404){ this._applyProduct({ __notfound:true, code:(key.value||'').toUpperCase() }); return; }
       if(!res.ok) return;
       const data = await res.json();
       if(data && data.product){ this._applyProduct(data.product); }
     }catch(e){ /* network/parse error -> keep static fallback */ }
   }
-  _productCode(){
+  _productKey(){
     try{
-      let m = (window.location.pathname||'').match(/(DKR-\d+)/i);
-      if(m) return m[1].toUpperCase();
-      m = (window.location.search||'').match(/[?&]p=([^&]+)/i);
-      return m ? decodeURIComponent(m[1]).toUpperCase() : null;
+      // Unique clean route: /urunler/urun/<slug>-<code>. Resolve by the full
+      // last segment (slug) so any code format works (DKR-####, LEGACY-BOYACI-###, ...).
+      const mm = (window.location.pathname||'').match(/\/urunler\/urun\/([^/?#]+)/i);
+      if(mm && mm[1]) return { type:'slug', value: decodeURIComponent(mm[1]).toLowerCase() };
+      const mp = (window.location.search||'').match(/[?&]p=([^&]+)/i);
+      if(mp) return { type:'code', value: decodeURIComponent(mp[1]).toUpperCase() };
+      return null;
     }catch(e){ return null; }
   }
   _applyProduct(p){

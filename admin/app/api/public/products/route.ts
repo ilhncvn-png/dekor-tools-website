@@ -33,7 +33,12 @@ export function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
-  const code = request.nextUrl.searchParams.get('code')?.trim().toUpperCase();
+  const params = request.nextUrl.searchParams;
+  const code = params.get('code')?.trim().toUpperCase();
+  // slug = the unique route's last segment, e.g. "profesyonel-ispatula-legacy-boyaci-001".
+  // Product codes can contain hyphens, so slug resolution (not code-regex) is the
+  // robust way for the static detail page to identify any product.
+  const slug = params.get('slug')?.trim().toLowerCase();
 
   let manifest;
   try {
@@ -47,6 +52,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ published: false, products: {}, index: [] }, { status: 200, headers: CORS });
   }
 
+  if (slug) {
+    const card = (manifest.index ?? []).find((c) => c.link === `/urunler/urun/${slug}` || c.link.endsWith(`/${slug}`));
+    const product = card ? manifest.products?.[card.code] : undefined;
+    if (!product) {
+      return NextResponse.json({ published: true, error: 'not_found', slug }, { status: 404, headers: CORS });
+    }
+    return NextResponse.json({ published: true, version: manifest.version, product }, { status: 200, headers: CORS });
+  }
+
   if (code) {
     const product = manifest.products?.[code];
     if (!product) {
@@ -56,7 +70,7 @@ export async function GET(request: NextRequest) {
   }
 
   return NextResponse.json(
-    { published: true, version: manifest.version, generatedAt: manifest.generatedAt, count: manifest.count, products: manifest.products, index: manifest.index },
+    { published: true, version: manifest.version, generatedAt: manifest.generatedAt, count: manifest.count, products: manifest.products, index: manifest.index, categories: manifest.categories ?? {} },
     { status: 200, headers: CORS },
   );
 }

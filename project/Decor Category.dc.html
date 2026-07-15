@@ -300,13 +300,13 @@
   <div class="bp-glint" style="left:30%; top:46%;"></div>
   <div class="bp-glint" style="left:66%; top:28%; animation-delay:2.6s;"></div>
   <div style="position:relative; max-width:1280px; margin:0 auto;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/urunler" class="dkr-link" style="color:rgba(255,255,255,.55);">ÜRÜNLER</a> &nbsp;/&nbsp; <span style="color:#D32027;">BOYA ALETLERİ</span></div>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/urunler" class="dkr-link" style="color:rgba(255,255,255,.55);">ÜRÜNLER</a> &nbsp;/&nbsp; <span style="color:#D32027;">{{ catTitleUpper }}</span></div>
     <div style="display:flex; align-items:center; gap:12px; margin-top:26px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>AİLE · FAM-01</div>
-    <h1 style="font-size:clamp(44px,7vw,96px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">Boya<br>Aletleri<span style="color:#0095DA;">.</span></h1>
-    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Rulolar, fırçalar, tepsiler ve uzatma sistemleri — temiz kaplama, keskin kenar çizgileri ve kusursuz profesyonel bitiş için tasarlanmıştır.</p>
+    <h1 style="font-size:clamp(44px,7vw,96px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">{{ catTitle }}<span style="color:#0095DA;">.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">{{ catDesc }}</p>
     <div style="display:flex; flex-wrap:wrap; gap:clamp(24px,4vw,56px); margin-top:50px; border-top:1px solid rgba(255,255,255,.14); padding-top:26px;">
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">96</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">ÜRÜN</div></div>
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">5</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">ALT AİLE</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">{{ catCount }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">ÜRÜN</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">{{ catSubCount }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">ALT AİLE</div></div>
       <div><div style="font-size:30px; font-weight:900; color:#fff;">ISO</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027;">9001 SERTİFİKALI</div></div>
     </div>
   </div>
@@ -429,6 +429,7 @@ class Component extends DCLogic {
   state = { sub:'All', query:'', sort:'code', view:'grid' };
 
   componentDidMount(){
+    this._loadCatalog();
     const reveal = (el)=>{ el.classList.add('in'); };
     if('IntersectionObserver' in window){
       const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
@@ -438,6 +439,24 @@ class Component extends DCLogic {
     window.addEventListener('scroll',check,{passive:true,capture:true}); window.addEventListener('resize',check,{passive:true});
     requestAnimationFrame(check);
     setTimeout(()=>{ document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
+  }
+
+  // This page is the Boyacı Aletleri (fam-01) category page. Load the published
+  // snapshot and bind title/description/count/filters/cards to that family's
+  // published dataset; if nothing is published the built-in static data stays.
+  async _loadCatalog(){
+    try{
+      const res = await fetch('/admin/api/public/products', { cache:'no-store' });
+      if(!res.ok) return;
+      const data = await res.json();
+      if(!data || data.published===false) return;
+      const FAMILY_KEY='fam-01';
+      const cat = data.categories && data.categories[FAMILY_KEY];
+      const cards = (data.index||[]).filter(c=>c.familyKey===FAMILY_KEY);
+      if(!cat || !cards.length) return;
+      window.__DKR_CATALOG__ = { category:cat, products:cards };
+      this.setState({ _cat: Date.now() });
+    }catch(e){ /* keep static fallback */ }
   }
 
   renderVals(){
@@ -450,7 +469,17 @@ class Component extends DCLogic {
     const _slugTr = (s)=>{ const map={'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','İ':'i'}; return (s||'').trim().replace(/[çğıöşüİ]/g,c=>map[c]||c).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'urun'; };
     const _route = (p)=>'/urunler/urun/'+_slugTr(p.name)+'-'+String(p.code).toLowerCase();
 
-    const products = [
+    // Published-snapshot binding for this category (fam-01). When present, the
+    // title, description, hero counts, filters and cards all come from the
+    // promoted dataset; otherwise the built-in static data below is the fallback.
+    const _cat = (typeof window!=='undefined' && window.__DKR_CATALOG__) || null;
+    const catTitle = _cat ? _cat.category.name : 'Boya Aletleri';
+    const catTitleUpper = _cat ? (_cat.category.eyebrow || (_cat.category.name||'').toLocaleUpperCase('tr')) : 'BOYA ALETLERİ';
+    const catDesc = _cat ? (_cat.category.description || '') : 'Rulolar, fırçalar, tepsiler ve uzatma sistemleri — temiz kaplama, keskin kenar çizgileri ve kusursuz profesyonel bitiş için tasarlanmıştır.';
+    const catCount = _cat ? String(_cat.category.productCount) : '96';
+    const catSubCount = _cat ? String((_cat.category.subs||[]).length) : '5';
+
+    const products = (_cat ? _cat.products.map(c=>({ code:c.code, sub:c.sub, name:c.name, material:c.material||'', sizes:c.sizes||'', dim:c.dim||'', tag:c.tag||'', accent:(c.tag?red:dark), link:c.link })) : [
       { code:'DKR-4200', sub:'Rulolar', name:'Pro Rulo İskeleti 240mm', material:'Kromlu çelik', sizes:'180 · 240 · 280', dim:'240 mm', tag:'ÇOK SATAN', accent:red },
       { code:'DKR-4215', sub:'Rulolar', name:'Mini Rulo Seti 100mm', material:'Mikrofiber', sizes:'100 mm', dim:'100 mm', tag:'', accent:dark },
       { code:'DKR-4232', sub:'Rulolar', name:'Kalorifer Rulosu 60mm', material:'Yüksek yoğunluklu sünger', sizes:'60 mm', dim:'60 mm', tag:'', accent:dark },
@@ -463,9 +492,9 @@ class Component extends DCLogic {
       { code:'DKR-4135', sub:'Uzatma', name:'Sap Adaptör Dişi', material:'İşlenmiş pirinç', sizes:'Üniversal', dim:'M12', tag:'', accent:dark },
       { code:'DKR-4410', sub:'Aksesuarlar', name:'Maskeleme Bandı Aparatı', material:'ABS + çelik', sizes:'25 – 50 mm', dim:'50 mm', tag:'', accent:dark },
       { code:'DKR-4420', sub:'Aksesuarlar', name:'Boya Filtre Ağı', material:'Naylon ağ', sizes:'190 mikron', dim:'Ø 200', tag:'', accent:dark },
-    ].map(p=>({ ...p, link: _route(p) }));
+    ].map(p=>({ ...p, link: _route(p) })));
 
-    const order = ['Rulolar','Fırçalar','Tepsiler','Uzatma','Aksesuarlar'];
+    const order = _cat ? (_cat.category.subs||[]) : ['Rulolar','Fırçalar','Tepsiler','Uzatma','Aksesuarlar'];
     const q = this.state.query.trim().toLowerCase();
     const subFilter = this.state.sub;
 
@@ -497,6 +526,7 @@ class Component extends DCLogic {
 
     const isGrid = this.state.view==='grid';
     return {
+      catTitle, catTitleUpper, catDesc, catCount, catSubCount,
       subs, shown, resultLabel,
       query: this.state.query,
       onQuery: (e)=>this.setState({ query:e.target.value }),

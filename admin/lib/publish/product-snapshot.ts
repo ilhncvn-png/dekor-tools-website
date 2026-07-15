@@ -58,6 +58,16 @@ export interface SnapshotIndexCard {
   link: string;         // unique product route
 }
 
+export interface SnapshotCategory {
+  key: string;
+  name: string;
+  slug: string;
+  eyebrow: string;
+  description: string;
+  subs: string[];       // real published subcategory labels (empty = no public subcategory filters)
+  productCount: number;
+}
+
 export interface ProductSnapshotManifest {
   schema: number;
   version: string;
@@ -65,6 +75,7 @@ export interface ProductSnapshotManifest {
   count: number;
   products: Record<string, SnapshotProduct>;
   index: SnapshotIndexCard[];
+  categories: Record<string, SnapshotCategory>;
 }
 
 const LANG = 'tr';
@@ -120,6 +131,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
 
   const productMap: Record<string, SnapshotProduct> = {};
   const index: SnapshotIndexCard[] = [];
+  const categoryMap: Record<string, SnapshotCategory> = {};
 
   for (const p of products) {
     const tr = firstTr(p.translations);
@@ -134,6 +146,27 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const familyKey = (isSubcategory ? parent?.key : cat?.key) ?? '';
     const subLabel = isSubcategory ? (catTr?.name ?? '') : '';
     const name = tr?.name ?? p.sku;
+
+    // Accumulate per-family metadata for the public category listing (title,
+    // description, count, and the real subcategory filters — empty when the
+    // family's products sit directly under it, which removes stale filters).
+    if (familyKey) {
+      const famCat = isSubcategory ? parent : cat;
+      const famTr = isSubcategory ? parentTr : catTr;
+      if (!categoryMap[familyKey]) {
+        categoryMap[familyKey] = {
+          key: familyKey,
+          name: familyLabel,
+          slug: famCat?.slug ?? slugify(familyLabel),
+          eyebrow: trUpper(famTr?.name ?? familyLabel),
+          description: famTr?.description ?? famTr?.cardDescription ?? '',
+          subs: [],
+          productCount: 0,
+        };
+      }
+      categoryMap[familyKey].productCount += 1;
+      if (subLabel && !categoryMap[familyKey].subs.includes(subLabel)) categoryMap[familyKey].subs.push(subLabel);
+    }
     const slug = tr?.slug || slugify(name);
 
     const pVariants = by(variants, p.id);
@@ -235,5 +268,6 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     count: products.length,
     products: productMap,
     index,
+    categories: categoryMap,
   };
 }
