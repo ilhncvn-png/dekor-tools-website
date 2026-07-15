@@ -478,13 +478,20 @@ class Component extends DCLogic {
         desc:'2025’in en yeni ürünleri — yeni geometri, yeni malzemeler ve mühendislik geliştirmeleri.' },
     ];
 
-    // Targeted: override ONLY the Boyacı Aletleri (fam-01) card's live name +
-    // count from the snapshot. All other families keep their built-in display
-    // so this task never affects unrelated categories.
+    // Bind every family card to the published snapshot: real name, real product
+    // count, and a link to its own category route (/urunler/kategori/<slug>).
+    // Families absent from the snapshot keep their built-in display + default link.
     const _fam = (typeof window!=='undefined' && window.__DKR_FAMILIES__) || null;
-    if(_fam && _fam['fam-01']){
-      const c = categories.find(x=>(x.code||'').toLowerCase()==='fam-01');
-      if(c){ c.name = _fam['fam-01'].name; c.count = _fam['fam-01'].productCount; if(_fam['fam-01'].description) c.desc = _fam['fam-01'].description; }
+    if(_fam){
+      for(const c of categories){
+        const f = _fam[(c.code||'').toLowerCase()];
+        if(f){
+          c.name = f.name;
+          c.count = f.productCount;
+          if(f.description) c.desc = f.description;
+          if(f.slug) c.link = '/urunler/kategori/' + f.slug;
+        }
+      }
     }
 
     return { categories };

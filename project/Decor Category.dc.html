@@ -330,6 +330,7 @@
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
         <select class="nf-select" value="{{ sort }}" onChange="{{ onSort }}" aria-label="Sırala">
+          <option value="katalog">SIRALA · KATALOG</option>
           <option value="code">SIRALA · KOD</option>
           <option value="name">SIRALA · İSİM A–Z</option>
           <option value="sub">SIRALA · ALT AİLE</option>
@@ -427,7 +428,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
 class Component extends DCLogic {
-  state = { sub:'All', query:'', sort:'code', view:'grid' };
+  state = { sub:'All', query:'', sort:'katalog', view:'grid' };
 
   componentDidMount(){
     this._loadCatalog();
@@ -450,11 +451,16 @@ class Component extends DCLogic {
       const res = await fetch('/admin/api/public/products', { cache:'no-store' });
       if(!res.ok) return;
       const data = await res.json();
-      if(!data || data.published===false) return;
-      const FAMILY_KEY='fam-01';
-      const cat = data.categories && data.categories[FAMILY_KEY];
-      const cards = (data.index||[]).filter(c=>c.familyKey===FAMILY_KEY);
-      if(!cat || !cards.length) return;
+      if(!data || data.published===false || !data.categories) return;
+      // Which family? /urunler/kategori/<slug> selects it; bare /urunler/kategori defaults to fam-01.
+      let key = 'fam-01';
+      const mm = (window.location.pathname||'').match(/\/kategori\/([^/?#]+)/i);
+      if(mm && mm[1]){ const slug = decodeURIComponent(mm[1]).toLowerCase(); const found = Object.keys(data.categories).map(k=>data.categories[k]).filter(Boolean).find(c=>c.slug===slug); if(found) key = found.key; }
+      const cat = data.categories[key];
+      if(!cat) return;
+      const idx = {}; (data.index||[]).forEach(c=>{ idx[c.code]=c; });
+      const cards = (cat.productCodes||[]).map(code=>idx[code]).filter(Boolean);
+      if(!cards.length) return;
       window.__DKR_CATALOG__ = { category:cat, products:cards };
       this.setState({ _cat: Date.now() });
     }catch(e){ /* keep static fallback */ }
@@ -507,11 +513,10 @@ class Component extends DCLogic {
     });
 
     const sort = this.state.sort;
-    shown = shown.slice().sort((a,b)=>{
-      if(sort==='name') return a.name.localeCompare(b.name);
-      if(sort==='sub') return order.indexOf(a.sub)-order.indexOf(b.sub) || a.code.localeCompare(b.code);
-      return a.code.localeCompare(b.code);
-    });
+    if(sort==='name') shown = shown.slice().sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+    else if(sort==='sub') shown = shown.slice().sort((a,b)=>(order.indexOf(a.sub)-order.indexOf(b.sub)) || a.code.localeCompare(b.code));
+    else if(sort==='code') shown = shown.slice().sort((a,b)=>a.code.localeCompare(b.code));
+    // default 'katalog' -> preserve the authoritative published catalogue order (productCodes).
 
     const subs = ['All', ...order].map(name=>{
       const active = subFilter===name;

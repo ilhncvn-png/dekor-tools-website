@@ -72,6 +72,7 @@ export interface SnapshotCategory {
   description: string;
   subs: string[];       // real published subcategory labels (empty = no public subcategory filters)
   productCount: number;
+  productCodes: string[]; // ordered product codes for this listing (primary + collection members)
 }
 
 export interface ProductSnapshotManifest {
@@ -136,6 +137,13 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     prisma.productTechnicalDrawing.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } }),
   ]);
 
+  // Collection memberships: a canonical product shown in an additional listing
+  // (Yeni Ürünler / DKR) beyond its primary category, with a per-collection order.
+  const collections = await prisma.productCollection.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } });
+  const idToSku = new Map(products.map((p) => [p.id, p.sku]));
+  // familyKey -> [{ code, order }] accumulated during the primary loop.
+  const famPrimary: Record<string, { code: string; order: number }[]> = {};
+
   // Resolve every referenced MediaAsset id -> public URL once.
   const mediaAssetIds = Array.from(new Set([
     ...media.map((m) => m.mediaId),
@@ -183,9 +191,10 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
           description: famTr?.description ?? famTr?.cardDescription ?? '',
           subs: [],
           productCount: 0,
+          productCodes: [],
         };
       }
-      categoryMap[familyKey].productCount += 1;
+      (famPrimary[familyKey] ??= []).push({ code: p.sku, order: p.sortOrder });
       if (subLabel && !categoryMap[familyKey].subs.includes(subLabel)) categoryMap[familyKey].subs.push(subLabel);
     }
     const slug = tr?.slug || slugify(name);
@@ -315,6 +324,36 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       link: route,
       img: gallery[0]?.url ?? '',
     });
+  }
+
+  // Build each family's ordered listing = primary products + collection members.
+  // Collection-only families (e.g. Yeni Ürünler) get created here too.
+  const allFamilyKeys = new Set<string>([...Object.keys(famPrimary), ...collections.map((c) => c.collectionKey)]);
+  const famCats = allFamilyKeys.size
+    ? await prisma.productCategory.findMany({ where: { key: { in: [...allFamilyKeys] }, deletedAt: null }, include: { translations: { where: { languageCode: LANG } } } })
+    : [];
+  const famCatByKey = new Map(famCats.map((c) => [c.key, c]));
+  for (const key of allFamilyKeys) {
+    const fc = famCatByKey.get(key);
+    const ftr = fc ? firstTr(fc.translations) : undefined;
+    if (!categoryMap[key]) {
+      categoryMap[key] = { key, name: ftr?.name ?? key, slug: fc?.slug ?? key, eyebrow: trUpper(ftr?.name ?? key), description: ftr?.description ?? ftr?.cardDescription ?? '', subs: [], productCount: 0, productCodes: [] };
+    } else if (ftr) {
+      categoryMap[key].name = ftr.name; // keep the authoritative (renamed) family name
+      categoryMap[key].eyebrow = trUpper(ftr.name);
+    }
+    // primary products use their product sortOrder; collection members use the
+    // collection sortOrder — for a pure collection both are the list position, so
+    // a single sort by order yields the correct listing.
+    const merged = [
+      ...(famPrimary[key] ?? []),
+      ...collections.filter((c) => c.collectionKey === key).map((c) => ({ code: idToSku.get(c.productId) ?? '', order: c.sortOrder })),
+    ].filter((e) => e.code).sort((a, b) => a.order - b.order);
+    const seen = new Set<string>();
+    const codes: string[] = [];
+    for (const e of merged) { if (!seen.has(e.code)) { seen.add(e.code); codes.push(e.code); } }
+    categoryMap[key].productCodes = codes;
+    categoryMap[key].productCount = codes.length;
   }
 
   return {

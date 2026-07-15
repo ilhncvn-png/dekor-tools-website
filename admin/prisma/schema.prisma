@@ -1151,6 +1151,21 @@ model ProductSnapshot {
   @@index([createdAt])
 }
 
+// Collection membership: a canonical Product can appear in additional listings
+// (e.g. "Yeni Ürünler", "DKR") beyond its one primary category, WITHOUT
+// duplicating the record. Each row is one (product, collection) pairing with a
+// per-collection sort order. The product keeps its single canonical route.
+model ProductCollection {
+  id            String   @id @default(cuid())
+  productId     String
+  collectionKey String   // family key of the collection category, e.g. 'fam-11' (Yeni Ürünler), 'fam-09' (DKR)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  @@unique([productId, collectionKey])
+  @@index([collectionKey])
+}
+
 // Denormalized, fast-read feed for the dashboard "recent activity" widget.
 // Not the audit source of truth — see AuditLog.
 model ActivityLog {

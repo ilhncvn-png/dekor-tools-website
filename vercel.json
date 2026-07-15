@@ -2692,6 +2692,10 @@
       "destination": "/project/Decor%20Category.dc.html"
     },
     {
+      "source": "/urunler/kategori/:slug",
+      "destination": "/project/Decor%20Category.dc.html"
+    },
+    {
       "source": "/en/products/category",
       "destination": "/project/Decor%20Category.en.dc.html"
     },
