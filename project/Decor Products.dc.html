@@ -360,6 +360,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
 class Component extends DCLogic {
   componentDidMount(){
+    this._loadFamilies();
     const reveal = (el)=>{ el.classList.add('in'); };
     if('IntersectionObserver' in window){
       const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
@@ -374,6 +375,19 @@ class Component extends DCLogic {
     setTimeout(()=>{ if(!this._scrolled) document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
   }
   componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
+
+  // Pull only the published families' live name+count from the snapshot (targeted:
+  // unrelated families keep their built-in display). Static data is the fallback.
+  async _loadFamilies(){
+    try{
+      const res = await fetch('/admin/api/public/products', { cache:'no-store' });
+      if(!res.ok) return;
+      const data = await res.json();
+      if(!data || data.published===false || !data.categories) return;
+      window.__DKR_FAMILIES__ = data.categories;
+      this.setState({ _fam: Date.now() });
+    }catch(e){ /* keep static fallback */ }
+  }
 
   _ico(children, size){
     const R = React.createElement;
@@ -463,6 +477,15 @@ class Component extends DCLogic {
       { name:'Yeni Ürünler', code:'FAM-11', count:15, accent:red, link:link, icon:icoNew,
         desc:'2025’in en yeni ürünleri — yeni geometri, yeni malzemeler ve mühendislik geliştirmeleri.' },
     ];
+
+    // Targeted: override ONLY the Boyacı Aletleri (fam-01) card's live name +
+    // count from the snapshot. All other families keep their built-in display
+    // so this task never affects unrelated categories.
+    const _fam = (typeof window!=='undefined' && window.__DKR_FAMILIES__) || null;
+    if(_fam && _fam['fam-01']){
+      const c = categories.find(x=>(x.code||'').toLowerCase()==='fam-01');
+      if(c){ c.name = _fam['fam-01'].name; c.count = _fam['fam-01'].productCount; if(_fam['fam-01'].description) c.desc = _fam['fam-01'].description; }
+    }
 
     return { categories };
   }
