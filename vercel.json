@@ -2800,6 +2800,34 @@
       "destination": "/project/Decor%20Dealer%20Profile.ar.dc.html"
     },
     {
+      "source": "/satis/bayi/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.dc.html"
+    },
+    {
+      "source": "/en/authorized-dealers/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.en.dc.html"
+    },
+    {
+      "source": "/de/autorisierte-handler/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.de.dc.html"
+    },
+    {
+      "source": "/fr/revendeurs-agrees/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.fr.dc.html"
+    },
+    {
+      "source": "/ru/avtorizovannye-dilery/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.ru.dc.html"
+    },
+    {
+      "source": "/az/resmi-dilerler/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%88%D8%B2%D8%B9%D9%88%D9%86-%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF%D9%88%D9%86/:slug",
+      "destination": "/project/Decor%20Dealer%20Profile.ar.dc.html"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/project/sitemap.xml"
     },
