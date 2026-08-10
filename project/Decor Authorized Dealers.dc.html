@@ -312,15 +312,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); width:20px; height:20px; pointer-events:none;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
       <input class="dl-search" type="text" value="{{ query }}" onInput="{{ onQuery }}" placeholder="Bayi adı veya şehir arayın…" aria-label="Bayilerde ara">
     </div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+    <div style="display:grid; grid-template-columns:1fr; gap:14px;">
       <select class="f-select" value="{{ province }}" onChange="{{ onProvince }}" aria-label="İle göre filtrele">
         <sc-for list="{{ provinceOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-      </select>
-      <select class="f-select" value="{{ city }}" onChange="{{ onCity }}" aria-label="Şehre göre filtrele">
-        <sc-for list="{{ cityOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-      </select>
-      <select class="f-select" value="{{ category }}" onChange="{{ onCategory }}" aria-label="Ürün kategorisine göre filtrele">
-        <sc-for list="{{ categoryOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
       </select>
     </div>
   </div>
@@ -342,36 +336,26 @@
     <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
       <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px;">
         <sc-for list="{{ dealers }}" as="d" hint-placeholder-count="9">
-          <a href="{{ d.href }}" data-reveal class="dl-card">
+          <div data-reveal class="dl-card">
             <div class="dl-card-acc"></div>
             <div class="dl-bp"></div>
             <!-- logo slot -->
             <div style="position:relative; height:128px; background:#0E0F11; display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid #E2E5E9;">
               <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.1) 1px,transparent 1px); background-size:22px 22px; opacity:.5;"></div>
-              <div class="dl-logo" style="position:relative; display:flex; flex-direction:column; align-items:center; gap:7px;">
-                <div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:30px; letter-spacing:-0.02em; color:#fff; line-height:1;">{{ d.initials }}</div>
-                <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.5px; color:rgba(255,255,255,.4);">LOGO ALANI</div>
-              </div>
+              <img class="dl-logo" src="{{ d.logo }}" alt="{{ d.name }}" loading="lazy" decoding="async" width="240" height="96" style="position:relative; width:auto; height:auto; max-width:74%; max-height:78px; object-fit:contain;">
               <span style="position:absolute; top:12px; right:12px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.35);">{{ d.code }}</span>
             </div>
             <div style="padding:22px; display:flex; flex-direction:column; flex:1;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
-                <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; font-weight:600; color:{{ d.statusColor }}; border:1px solid {{ d.statusBorder }}; background:{{ d.statusBg }}; padding:4px 8px; border-radius:2px;">{{ d.status }}</span>
                 <span style="display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.8px; color:#5A6066;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px; height:13px;"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
-                  {{ d.city }}
+                  {{ d.province }}
                 </span>
               </div>
               <h3 style="font-size:19px; font-weight:800; color:#0E0F11; margin:0; letter-spacing:-0.01em; line-height:1.2;">{{ d.name }}</h3>
-              <div style="display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 18px;">
-                <sc-for list="{{ d.cats }}" as="c" hint-placeholder-count="3"><span class="dl-chip">{{ c }}</span></sc-for>
-              </div>
-              <div style="margin-top:auto; padding-top:14px; border-top:1px solid #EEF0F2; display:flex; align-items:center; justify-content:space-between;">
-                <span class="dl-view">Bayiyi Görüntüle →</span>
-                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.6px; color:#8A9097;">{{ d.years }}</span>
-              </div>
+              <p style="margin:14px 0 0; padding-top:14px; border-top:1px solid #EEF0F2; font-size:13.5px; line-height:1.65; color:#5A6066;">{{ d.address }}</p>
             </div>
-          </a>
+          </div>
         </sc-for>
       </div>
     </sc-if>
@@ -391,9 +375,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { solid:false, menu:false, province:'All', city:'All', category:'All', query:'' };
+  state = { solid:false, menu:false, province:'All', dealerData:null, query:'' };
 
   componentDidMount(){
+    import('./dealers-data.js').then(m=>{ this.setState({ dealerData: m.DEALERS }); }).catch(()=>{ this.setState({ dealerData: [] }); });
     this._onScroll = ()=>{ const y = window.scrollY || 0; const s = y > 40; if(s !== this.state.solid) this.setState({ solid:s }); };
     window.addEventListener('scroll', this._onScroll, { passive:true });
     this._onScroll();
@@ -413,68 +398,35 @@ class Component extends DCLogic {
   componentWillUnmount(){ if(this._onScroll) window.removeEventListener('scroll', this._onScroll); }
 
   renderVals(){
-    const red='#0095DA';
-    const ALL=[
-      { name:'Başkent Yapı Market', city:'Ankara', province:'Ankara', status:'Premium Ortak', cats:['Boya','Ölçüm'], years:'2009\u2019dan beri ortak', slug:'baskent-yapi' },
-      { name:'Teknik Yapı Center', city:'İzmir', province:'İzmir', status:'Premium Ortak', cats:['Ölçüm','Spatulalar'], years:'2012\u2019den beri ortak', slug:'teknik-yapi' },
-      { name:'Mega Hırdavat', city:'İstanbul', province:'İstanbul', status:'Yetkili', cats:['Boya','Sıva ve Alçı','Yalıtım'], years:'2015\u2019ten beri ortak', slug:'mega-hirdavat' },
-      { name:'Anadolu Boya', city:'Bursa', province:'Bursa', status:'Yetkili', cats:['Boya','Yüzey Hazırlama'], years:'2017\u2019den beri ortak', slug:'anadolu-boya' },
-      { name:'Akdeniz Yapı', city:'Antalya', province:'Antalya', status:'Premium Ortak', cats:['Sıva ve Alçı','Yalıtım'], years:'2011\u2019den beri ortak', slug:'akdeniz-yapi' },
-      { name:'Karadeniz Tools', city:'Trabzon', province:'Trabzon', status:'Yetkili', cats:['Ölçüm','Boya'], years:'2019\u2019dan beri ortak', slug:'karadeniz-tools' },
-      { name:'Güneydoğu Hırdavat', city:'Gaziantep', province:'Gaziantep', status:'Yetkili', cats:['Spatulalar','Sıva ve Alçı'], years:'2016\u2019dan beri ortak', slug:'guneydogu-hirdavat' },
-      { name:'Marmara Boya Market', city:'Kocaeli', province:'Kocaeli', status:'Premium Ortak', cats:['Boya','Sıva ve Alçı','Ölçüm'], years:'2008\u2019den beri ortak', slug:'marmara-boya' },
-      { name:'Ege Yapı Merkezi', city:'İzmir', province:'İzmir', status:'Yetkili', cats:['Yalıtım','Yüzey Hazırlama'], years:'2018\u2019den beri ortak', slug:'ege-yapi' },
-      { name:'Çukurova Yapı', city:'Adana', province:'Adana', status:'Yetkili', cats:['Sıva ve Alçı','Spatulalar'], years:'2020\u2019den beri ortak', slug:'cukurova-yapi' },
-      { name:'Doğu Hırdavat', city:'Erzurum', province:'Erzurum', status:'Yetkili', cats:['Boya','Yalıtım'], years:'2021\u2019den beri ortak', slug:'dogu-hirdavat' },
-      { name:'Yıldız Yapı Market', city:'Ankara', province:'Ankara', status:'Yetkili', cats:['Spatulalar','Yüzey Hazırlama'], years:'2014\u2019ten beri ortak', slug:'yildiz-yapi' },
-    ];
+    const ALL = this.state.dealerData || [];
+    const loading = this.state.dealerData === null;
 
-    const provinces = ['All', ...Array.from(new Set(ALL.map(d=>d.province))).sort()];
-    const cats = ['All', ...Array.from(new Set(ALL.flatMap(d=>d.cats))).sort()];
-    const citiesForProvince = this.state.province==='All' ? ['All', ...Array.from(new Set(ALL.map(d=>d.city))).sort()] : ['All', ...Array.from(new Set(ALL.filter(d=>d.province===this.state.province).map(d=>d.city))).sort()];
+    const provinces = Array.from(new Set(ALL.map(d=>d.province).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'tr'));
 
-    const q = (this.state.query||'').trim().toLowerCase();
+    const q = (this.state.query||'').trim().toLocaleLowerCase('tr');
     const filtered = ALL.filter(d=>{
       if(this.state.province!=='All' && d.province!==this.state.province) return false;
-      if(this.state.city!=='All' && d.city!==this.state.city) return false;
-      if(this.state.category!=='All' && !d.cats.includes(this.state.category)) return false;
-      if(q && !(d.name.toLowerCase().includes(q) || d.city.toLowerCase().includes(q) || d.province.toLowerCase().includes(q))) return false;
+      if(q && !((d.name||'').toLocaleLowerCase('tr').includes(q) || (d.address||'').toLocaleLowerCase('tr').includes(q) || (d.province||'').toLocaleLowerCase('tr').includes(q))) return false;
       return true;
     });
 
-    const dealers = filtered.map((d,i)=>{
-      const premium = d.status==='Premium Ortak';
-      const initials = d.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
-      return {
-        ...d, initials,
-        code:'DLR·'+String(ALL.indexOf(d)+1).padStart(3,'0'),
-        href:'Decor Dealer Profile.dc.html#'+d.slug,
-        statusColor: premium ? red : '#0a6aa8',
-        statusBorder: premium ? 'rgba(0,149,218,.4)' : 'rgba(0,149,218,.4)',
-        statusBg: premium ? 'rgba(0,149,218,.07)' : 'rgba(0,149,218,.07)',
-      };
-    });
+    const dealers = filtered;
 
-    const opt = (arr)=>arr.map(v=>({ value:v, label: v==='All' ? (v) : v }));
-    const provinceOpts = [{value:'All',label:'Tüm İller'}, ...provinces.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
-    const cityOpts = [{value:'All',label:'Tüm Şehirler'}, ...citiesForProvince.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
-    const categoryOpts = [{value:'All',label:'Tüm Ürün Kategorileri'}, ...cats.filter(p=>p!=='All').map(v=>({value:v,label:v}))];
+    const provinceOpts = [{value:'All',label:'Tüm İller'}, ...provinces.map(v=>({value:v,label:v}))];
 
     const n = filtered.length;
     return {
       navClass: this.state.solid ? 'solid' : '',
       menu: this.state.menu,
       toggleMenu: ()=>this.setState({ menu: !this.state.menu }),
-      province:this.state.province, city:this.state.city, category:this.state.category, query:this.state.query,
-      provinceOpts, cityOpts, categoryOpts,
-      onProvince:(e)=>this.setState({ province:e.target.value, city:'All' }),
-      onCity:(e)=>this.setState({ city:e.target.value }),
-      onCategory:(e)=>this.setState({ category:e.target.value }),
+      province:this.state.province, query:this.state.query,
+      provinceOpts,
+      onProvince:(e)=>this.setState({ province:e.target.value }),
       onQuery:(e)=>this.setState({ query:e.target.value }),
-      resetFilters:()=>this.setState({ province:'All', city:'All', category:'All', query:'' }),
+      resetFilters:()=>this.setState({ province:'All', query:'' }),
       dealers,
       hasResults: n>0,
-      noResults: n===0,
+      noResults: !loading && n===0,
       resultLabel: n + ' yetkili bayi',
     };
   }
