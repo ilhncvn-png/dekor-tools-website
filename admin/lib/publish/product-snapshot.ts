@@ -175,6 +175,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const isSubcategory = Boolean(parent);
     const familyLabel = (isSubcategory ? parentTr?.name : catTr?.name) ?? '';
     const familyKey = (isSubcategory ? parent?.key : cat?.key) ?? '';
+    const familySlug = (isSubcategory ? parent?.slug : cat?.slug) ?? '';
     const subLabel = isSubcategory ? (catTr?.name ?? '') : '';
     const name = tr?.name ?? p.sku;
 
@@ -290,7 +291,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       breadcrumb: [
         { label: 'ANA SAYFA', href: '/' },
         { label: 'ÜRÜNLER', href: '/urunler' },
-        { label: trUpper(subLabel || familyLabel || 'ÜRÜNLER'), href: '/urunler/kategori' },
+        { label: trUpper(subLabel || familyLabel || 'ÜRÜNLER'), href: familySlug ? `/urunler/kategori/${familySlug}` : '/urunler' },
         { label: trUpper(name), href: route },
       ],
       heroDescription,

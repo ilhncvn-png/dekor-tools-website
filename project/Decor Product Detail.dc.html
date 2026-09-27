@@ -371,7 +371,7 @@
   <div class="bp-scan"></div>
   <div class="bp-glint" style="left:44%; top:60%;"></div>
   <div style="position:relative; max-width:1280px; margin:0 auto;">
-    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.5); margin-bottom:clamp(30px,4vw,52px);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.5);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/urunler" class="dkr-link" style="color:rgba(255,255,255,.5);">ÜRÜNLER</a> &nbsp;/&nbsp; <a href="/urunler/kategori" class="dkr-link" style="color:rgba(255,255,255,.5);">{{ crumbCat }}</a> &nbsp;/&nbsp; <span style="color:#D32027;">{{ crumbName }}</span></div>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.5); margin-bottom:clamp(30px,4vw,52px);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.5);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/urunler" class="dkr-link" style="color:rgba(255,255,255,.5);">ÜRÜNLER</a> &nbsp;/&nbsp; <a href="{{ crumbCatHref }}" class="dkr-link" style="color:rgba(255,255,255,.5);">{{ crumbCat }}</a> &nbsp;/&nbsp; <span style="color:#D32027;">{{ crumbName }}</span></div>
     <div class="ghero-grid" style="display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,64px); align-items:start;">
       <!-- main image viewer + thumbnails (click a thumbnail to swap the main image) -->
       <div style="min-width:0;">
@@ -642,7 +642,7 @@
         <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>İHTİYACINIZ OLABİLİR</div>
         <h2 style="font-size:clamp(28px,3.8vw,50px); font-weight:900; letter-spacing:-0.035em; color:#0E0F11; line-height:1; margin:16px 0 0;">İlgili ürünler.</h2>
       </div>
-      <a href="/urunler/kategori" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.4px; color:#0095DA; font-weight:600;">TÜM ALÇI ALETLERİNİ GÖRÜNTÜLE →</a>
+      <a href="{{ crumbCatHref }}" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.4px; color:#0095DA; font-weight:600;">ÜRÜN GRUBUNU GÖRÜNTÜLE →</a>
     </div>
     <div data-reveal style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:clamp(24px,3vw,34px);">
       <sc-for list="{{ relTabs }}" as="t" hint-placeholder-count="4">
@@ -943,6 +943,7 @@ class Component extends DCLogic {
     const eyebrow = _nf ? 'ÜRÜN' : (_snap ? _snap.eyebrow : 'ALÇI ALETLERİ');
     const heroDesc = _nf ? 'Aradığınız ürün bulunamadı veya yayından kaldırılmış olabilir. Lütfen ürünler sayfasına dönün.' : (_snap ? _snap.heroDescription : _defDesc);
     const crumbCat = _nf ? 'ÜRÜNLER' : (_bc[2] ? _bc[2].label : 'ALÇI ALETLERİ');
+    const crumbCatHref = _nf ? '/urunler' : ((_bc[2] && _bc[2].href) || '/urunler/kategori/alci-aletleri');
     const crumbName = _nf ? 'BULUNAMADI' : (_bc[3] ? _bc[3].label : 'PROFESYONEL SPATULA');
     const heroNameUpper = crumbName;
 
@@ -1177,7 +1178,7 @@ class Component extends DCLogic {
     const popular=['Şerit Metreler','Maket Bıçakları','Su Teraziler','Pense'].map(p=>({ label:p, go:()=>this.onSearch(p) }));
     const quickLinks=[ {label:'Bayi Ol',href:'Decor Become a Dealer.dc.html'}, {label:'Katalog İndir',href:'Decor Support.dc.html#downloads'}, {label:'Üretim',href:'Decor Manufacturing.dc.html'}, {label:'İhracat',href:'Decor Export.dc.html'}, {label:'İletişim',href:'Decor Contact.dc.html'} ];
     return {
-      heroName, code, eyebrow, heroDesc, crumbCat, crumbName, heroNameUpper,
+      heroName, code, eyebrow, heroDesc, crumbCat, crumbCatHref, crumbName, heroNameUpper,
       searchOpen:this.state.searchOpen, query:this.state.query,
       openSearch:()=>this.openSearch(), closeSearch:()=>this.closeSearch(), onQuery:(e)=>this.onSearch(e.target.value),
       groups, hasResults:(_sq.length>0&&_flat.length>0), noResults:(_sq.length>0&&_flat.length===0), isEmpty:(_sq.length===0),

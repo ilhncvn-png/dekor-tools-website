@@ -23,19 +23,19 @@ export interface CatalogFamily {
   showOnHomepage: boolean;
 }
 
-/** 11 product families — Decor Products.dc.html `const categories`. */
+/** 11 product families — approved names/descriptions (Kalite Yönetim Müdürlüğü revision). */
 export const FAMILIES: CatalogFamily[] = [
-  { code: 'FAM-01', name: 'Boya Aletleri', productCount: 96, showOnHomepage: true, description: 'Temiz, profesyonel kaplama için tasarlanmış rulolar, fırçalar, tepsiler ve uzatma sistemleri.' },
-  { code: 'FAM-02', name: 'Sıva Aletleri', productCount: 72, showOnHomepage: true, description: 'Kusursuz duvar yüzeyleri için parlatılmış paslanmaz mala, perdah ve sıva bıçakları.' },
-  { code: 'FAM-03', name: 'Fayans Aletleri', productCount: 54, showOnHomepage: true, description: 'Hassas kesim geometrisine sahip dişli yapıştırıcı malaları, aralayıcılar ve derz perdahları.' },
-  { code: 'FAM-04', name: 'Alçı / Spatula Aletleri', productCount: 63, showOnHomepage: true, description: 'Doldurma, düzeltme ve yüzey sıyırma için yaylı çelik spatulalar, macun bıçakları ve kazıyıcılar.' },
-  { code: 'FAM-05', name: 'Yalıtım Aletleri', productCount: 38, showOnHomepage: false, description: 'Taş yünü ve strafor levha işleri için uzun bıçaklı kesiciler, rendeler ve EPS sistemleri.' },
-  { code: 'FAM-06', name: 'Ölçüm Aletleri', productCount: 41, showOnHomepage: false, description: 'Şantiyede doğruluğunu koruyan freze işlemeli su terazileri, gönyeler ve boya ipleri.' },
-  { code: 'FAM-07', name: 'Güvenlik Ekipmanları', productCount: 29, showOnHomepage: false, description: 'Profesyonel güvenlik standartlarını karşılayan eldivenler, gözlükler ve şantiye koruma ekipmanları.' },
-  { code: 'FAM-08', name: 'Teşhir Standları', productCount: 18, showOnHomepage: false, description: 'Dekor ürün yelpazesini etkileyici şekilde sunan perakende teşhir ve satış noktası sistemleri.' },
-  { code: 'FAM-09', name: 'DKR', productCount: 24, showOnHomepage: true, description: 'Profesyonel amiral gemisi hattı — en yüksek beklentili ustalar için premium aletler.' },
-  { code: 'FAM-10', name: 'Özel Tasarımlar', productCount: 12, showOnHomepage: false, description: 'Belirli pazarlar için ortaklarla geliştirilen özel ve özel markalı aletler.' },
-  { code: 'FAM-11', name: 'Yeni Ürünler', productCount: 15, showOnHomepage: true, description: '2025’in en yeni ürünleri — yeni geometri, yeni malzemeler ve mühendislik geliştirmeleri.' },
+  { code: 'FAM-01', name: 'Boya Aletleri', productCount: 96, showOnHomepage: true, description: 'Boya uygulamalarında temiz ve profesyonel sonuç için tasarlanan aletler.' },
+  { code: 'FAM-02', name: 'Sıva Aletleri', productCount: 72, showOnHomepage: true, description: 'Sıva uygulamalarında düzgün ve dayanıklı yüzeyler için profesyonel aletler.' },
+  { code: 'FAM-03', name: 'Fayans Aletleri', productCount: 54, showOnHomepage: true, description: 'Fayans ve seramik uygulamaları için hassas ve dayanıklı aletler.' },
+  { code: 'FAM-04', name: 'Alçı Aletleri', productCount: 63, showOnHomepage: true, description: 'Alçı, macun ve yüzey hazırlama işleri için profesyonel aletler.' },
+  { code: 'FAM-05', name: 'İzolasyon Aletleri', productCount: 38, showOnHomepage: false, description: 'Isı ve ses yalıtımı uygulamaları için tasarlanan aletler.' },
+  { code: 'FAM-06', name: 'Ölçü Aletleri', productCount: 41, showOnHomepage: false, description: 'Şantiyede doğru ölçüm ve hizalama için profesyonel ölçü aletleri.' },
+  { code: 'FAM-07', name: 'İş Güvenliği Ekipmanları', productCount: 29, showOnHomepage: false, description: 'Şantiyede kullanıcıyı korumaya yönelik iş güvenliği ekipmanları.' },
+  { code: 'FAM-08', name: 'Tanıtım Teşhir Standları', productCount: 18, showOnHomepage: false, description: 'Dekor ürünlerini satış noktalarında sergilemek için tanıtım ve teşhir çözümleri.' },
+  { code: 'FAM-09', name: 'dkr Marka Ürünler', productCount: 24, showOnHomepage: true, description: 'dkr markası altında sunulan profesyonel ürünler.' },
+  { code: 'FAM-10', name: 'Özel Tasarımlar', productCount: 12, showOnHomepage: false, description: 'Standart ürün gamı dışında; ihracat ve iç piyasa talepleri doğrultusunda üretilen özel ürünler ve promosyon ürünleri.' },
+  { code: 'FAM-11', name: 'Yeni Ürünler', productCount: 15, showOnHomepage: true, description: 'Ürün gruplarımıza yeni eklenen ürünlere tek noktadan hızlı erişim.' },
 ];
 
 /** Subcategories under FAM-01 (Boya Aletleri) — Decor Category.dc.html `const order`. */

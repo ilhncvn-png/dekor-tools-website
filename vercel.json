@@ -1,6 +1,26 @@
 {
   "redirects": [
     {
+      "source": "/urunler/kategori/boyaci-aletleri",
+      "destination": "/urunler/kategori/boya-aletleri",
+      "permanent": true
+    },
+    {
+      "source": "/urunler/kategori/sivaci-aletleri",
+      "destination": "/urunler/kategori/siva-aletleri",
+      "permanent": true
+    },
+    {
+      "source": "/urunler/kategori/tanitim-ve-teshir-standlari",
+      "destination": "/urunler/kategori/tanitim-teshir-standlari",
+      "permanent": true
+    },
+    {
+      "source": "/urunler/kategori/dkr",
+      "destination": "/urunler/kategori/dkr-marka-urunler",
+      "permanent": true
+    },
+    {
       "source": "/Decor%20Home.dc.html",
       "destination": "/",
       "permanent": true
