@@ -332,7 +332,8 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
       family: familyLabel,
       familyKey,
       material: materialSummary || defAttr.material || '',
-      sizes: pVariants.map((v) => ((v.attributes ?? {}) as Record<string, string>).width).filter(Boolean).join(' · ') || (defAttr.width ?? ''),
+      // Distinct sizes only: variants often share a width (e.g. spring vs stainless steel).
+      sizes: [...new Set(pVariants.map((v) => ((v.attributes ?? {}) as Record<string, string>).width).filter((w) => w && w !== '-'))].join(' · ') || (defAttr.width ?? ''),
       dim: defAttr.width ?? '',
       tag: trUpper(tr?.badgeText || ''),
       link: route,
