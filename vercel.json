@@ -946,6 +946,16 @@
       "permanent": true
     },
     {
+      "source": "/project/Decor%20KVKK.dc.html",
+      "destination": "/kvkk",
+      "permanent": true
+    },
+    {
+      "source": "/project/Decor KVKK.dc.html",
+      "destination": "/kvkk",
+      "permanent": true
+    },
+    {
       "source": "/project/Decor%20Career.en.dc.html",
       "destination": "/en/careers",
       "permanent": true
@@ -2354,6 +2364,10 @@
     {
       "source": "/kariyer",
       "destination": "/project/Decor%20Career.dc.html"
+    },
+    {
+      "source": "/kvkk",
+      "destination": "/project/Decor%20KVKK.dc.html"
     },
     {
       "source": "/en/careers",

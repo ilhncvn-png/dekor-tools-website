@@ -38,6 +38,7 @@
                               'rgba(255,255,255,.7)' by default, '#fff' on the page it represents
     activeCareerItem         string       color for the CAREER item inside the ABOUT dropdown
                               ('rgba(255,255,255,.85)' normally, '#fff' only on Career)
+    activeHr                 string       color for the top-level İK link ('rgba(255,255,255,.7)' normally, '#fff' on Career)
     menu / toggleMenu        bool / fn    host page's own mobile-menu state + handler
 
   Required only when dynamicNav is true (Home/Newsroom/Support/Become a Dealer):
@@ -98,6 +99,7 @@
           <a href="/fikrim-var" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BİR FİKRİM VAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ekibimizle paylaşın</span></span></a>
         </div>
       </div>
+      <a href="/kariyer" class="dkr-link" data-nav-ik style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeHr }};">İK</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
         <a href="/destek" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSupport }};">DESTEK <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
@@ -186,6 +188,7 @@
           <a href="/fikrim-var" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BİR FİKRİM VAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ekibimizle paylaşın</span></span></a>
         </div>
       </div>
+      <a href="/kariyer" class="dkr-link" data-nav-ik style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:{{ activeHr }};">İK</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
         <a href="/destek" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:{{ activeSupport }};">DESTEK <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
