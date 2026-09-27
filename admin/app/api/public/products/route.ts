@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
   }
 
   return NextResponse.json(
-    { published: true, version: manifest.version, generatedAt: manifest.generatedAt, count: manifest.count, products: manifest.products, index: manifest.index, categories: manifest.categories ?? {} },
+    { published: true, version: manifest.version, generatedAt: manifest.generatedAt, count: manifest.count, products: manifest.products, index: manifest.index, categories: manifest.categories ?? {}, featured: manifest.featured ?? [] },
     { status: 200, headers: CORS },
   );
 }
