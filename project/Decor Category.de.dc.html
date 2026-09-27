@@ -246,13 +246,13 @@
   <div class="bp-glint" style="left:30%; top:46%;"></div>
   <div class="bp-glint" style="left:66%; top:28%; animation-delay:2.6s;"></div>
   <div style="position:relative; max-width:1280px; margin:0 auto;">
-    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.de.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">STARTSEITE</a> &nbsp;/&nbsp; <a href="Decor Products.de.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">PRODUKTE</a> &nbsp;/&nbsp; <span style="color:#D32027;">MALERWERKZEUGE</span></div>
-    <div style="display:flex; align-items:center; gap:12px; margin-top:26px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>FAMILIE · FAM-01</div>
-    <h1 style="font-size:clamp(44px,7vw,96px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">Malerwerkzeuge<span style="color:#0095DA;">.</span></h1>
-    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Werkzeuge für saubere, professionelle Ergebnisse bei Malerarbeiten.</p>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.de.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">STARTSEITE</a> &nbsp;/&nbsp; <a href="Decor Products.de.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">PRODUKTE</a> &nbsp;/&nbsp; <span style="color:#D32027;">{{ catTitleUpper }}</span></div>
+    <div style="display:flex; align-items:center; gap:12px; margin-top:26px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>FAMILIE · {{ famCode }}</div>
+    <h1 style="font-size:clamp(44px,7vw,96px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:22px 0 0;">{{ catTitle }}<span style="color:#0095DA;">.</span></h1>
+    <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">{{ catDesc }}</p>
     <div style="display:flex; flex-wrap:wrap; gap:clamp(24px,4vw,56px); margin-top:50px; border-top:1px solid rgba(255,255,255,.14); padding-top:26px;">
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">12</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027;">PRODUKTE</div></div>
-      <div><div style="font-size:30px; font-weight:900; color:#fff;">5</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027;">UNTERFAMILIEN</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">{{ catCount }}</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027;">PRODUKTE</div></div>
+      <div><div style="font-size:30px; font-weight:900; color:#fff;">{{ catSubCount }}</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027;">UNTERFAMILIEN</div></div>
       <div><div style="font-size:30px; font-weight:900; color:#fff;">ISO</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027;">9001:2015</div></div>
     </div>
   </div>
@@ -264,7 +264,7 @@
     <div style="position:absolute; left:16%; top:-66px; width:1px; height:150px; background:rgba(0,149,218,.18);"></div>
     <div style="position:absolute; left:50%; top:-84px; width:1px; height:182px; background:rgba(0,149,218,.26);"></div>
     <div style="position:absolute; left:84%; top:-66px; width:1px; height:150px; background:rgba(0,149,218,.18);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(12px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · FAM-01</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(12px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · {{ famCode }}</div>
   </div>
   <div style="max-width:1280px; margin:0 auto;">
 
@@ -276,6 +276,7 @@
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
         <select class="nf-select" value="{{ sort }}" onChange="{{ onSort }}" aria-label="Sortieren">
+          <option value="katalog">SORTIEREN · KATALOG</option>
           <option value="code">SORTIEREN · CODE</option>
           <option value="name">SORTIEREN · NAME A–Z</option>
           <option value="sub">SORTIEREN · UNTERFAMILIE</option>
@@ -287,13 +288,15 @@
       </div>
     </div>
 
-    <!-- filter chips -->
-    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; position:sticky; top:96px; z-index:6; padding:6px 0;">
-      <sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
-        <button type="button" onClick="{{ s.onClick }}" class="{{ s.cls }}">{{ s.label }} <span style="opacity:.55; font-size:10px;">{{ s.count }}</span></button>
-      </sc-for>
+    <!-- filter chips (left) + result count (right) — shared responsive row -->
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-bottom:30px; position:sticky; top:96px; z-index:6; padding:6px 0;">
+      <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; min-width:0;">
+        <sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
+          <button type="button" onClick="{{ s.onClick }}" class="{{ s.cls }}">{{ s.label }} <span style="opacity:.55; font-size:10px;">{{ s.count }}</span></button>
+        </sc-for>
+      </div>
+      <div style="margin-left:auto; text-align:right; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1px; color:#8A9097;">{{ resultLabel }}</div>
     </div>
-    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1px; color:#8A9097; margin-bottom:30px;">{{ resultLabel }}</div>
 
     <!-- GRID VIEW -->
     <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
@@ -302,6 +305,7 @@
           <a href="{{ p.link }}" class="pcard" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; overflow:hidden; display:flex; flex-direction:column;">
             <div style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ p.accent }}; z-index:4;"></div>
             <div style="position:relative; height:290px; background:#EAECEF; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+              <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;"></sc-if>
               <div class="pimg" style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:26px 26px;"></div>
               <!-- measurement overlays -->
               <div class="pmeas" style="position:absolute; left:12%; right:12%; bottom:42px; height:1px; background:#0095DA;"></div>
@@ -313,7 +317,7 @@
               <div style="position:absolute; bottom:0; right:0; width:24px; height:24px; border-bottom:2px solid rgba(0,149,218,.4); border-right:2px solid rgba(0,149,218,.4);"></div>
               <div class="pcode" style="position:absolute; top:15px; left:15px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:5px 10px; border:1px solid #E2E5E9; z-index:3;">{{ p.code }}</div>
               <sc-if value="{{ p.tag }}" hint-placeholder-val="x"><div style="position:absolute; top:15px; right:15px; font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1px; color:#fff; background:#0095DA; padding:5px 10px; z-index:3;">{{ p.tag }}</div></sc-if>
-              <div class="pimg" style="position:relative; font-family:'Archivo',sans-serif; font-size:11px; color:#9aa1a8; letter-spacing:1px;">PRODUKTFOTO</div>
+              <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}"><div class="pimg" style="position:relative; font-family:'Archivo',sans-serif; font-size:11px; color:#9aa1a8; letter-spacing:1px;">PRODUKTFOTO</div></sc-if>
               <div class="pcta" style="position:absolute; left:0; right:0; bottom:0; transform:translateY(101%); background:#0E0F11; color:#fff; padding:13px 18px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; font-weight:600; display:flex; align-items:center; justify-content:space-between; z-index:5;">PRODUKT ANSEHEN <span>→</span></div>
             </div>
             <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
@@ -372,9 +376,29 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
 class Component extends DCLogic {
-  state = { sub:'All', query:'', sort:'code', view:'grid' };
+  state = { sub:'All', query:'', sort:'katalog', view:'grid' };
+
+  // Own-language routes. The published snapshot carries TR routes
+  // (/urunler/urun/…, /urunler/kategori/…); _loc() maps them onto this language.
+  LOC = { cat:"/de/produkte/kategorie", prod:"/de/produkte/produkt", products:"/de/produkte" };
+  _loc(h){
+    h = String(h||'');
+    if(h.indexOf('/urunler/urun')===0) return this.LOC.prod + h.slice('/urunler/urun'.length);
+    if(h.indexOf('/urunler/kategori')===0) return this.LOC.cat + h.slice('/urunler/kategori'.length);
+    if(h==='/urunler') return this.LOC.products;
+    return h;
+  }
+  _locUrl(u){ const m = String(u||'').match(/^(https?:\/\/[^/]+)(\/.*)?$/); return m ? m[1] + this._loc(m[2]||'/') : this._loc(u); }
+  _pathSlug(base){
+    let path = '';
+    try{ path = decodeURIComponent(window.location.pathname||''); }catch(e){ path = window.location.pathname||''; }
+    const i = path.indexOf(base + '/');
+    if(i<0) return '';
+    return (path.slice(i + base.length + 1).split(/[/?#]/)[0] || '').toLowerCase();
+  }
 
   componentDidMount(){
+    this._loadCatalog();
     const reveal = (el)=>{ el.classList.add('in'); };
     if('IntersectionObserver' in window){
       const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } }); }, { threshold:0.12 });
@@ -386,12 +410,52 @@ class Component extends DCLogic {
     setTimeout(()=>{ document.querySelectorAll('[data-reveal]:not(.in)').forEach(reveal); }, 2200);
   }
 
+  // Category page (fam-01 by default; <category route>/<slug> selects the family). Load the published
+  // snapshot and bind title/description/count/filters/cards to that family's
+  // published dataset; if nothing is published the built-in static data stays.
+  async _loadCatalog(){
+    try{
+      const res = await fetch('/admin/api/public/products', { cache:'no-store' });
+      if(!res.ok) return;
+      const data = await res.json();
+      if(!data || data.published===false || !data.categories) return;
+      // Which family? <category route>/<slug> selects it; the bare route defaults to fam-01.
+      let key = 'fam-01';
+      const slug = this._pathSlug(this.LOC.cat);
+      if(slug){ const found = Object.keys(data.categories).map(k=>data.categories[k]).filter(Boolean).find(c=>c.slug===slug); if(found) key = found.key; }
+      const cat = data.categories[key];
+      if(!cat) return;
+      const idx = {}; (data.index||[]).forEach(c=>{ idx[c.code]=c; });
+      let codes = Array.isArray(cat.productCodes) ? cat.productCodes : [];
+      // Yeni Ürünler (fam-11): drop products whose optional newUntil date has passed.
+      const expiring = key==='fam-11' && cat.newUntil && typeof cat.newUntil==='object';
+      if(expiring){ const now = Date.now(); codes = codes.filter(code=>{ const v=cat.newUntil[code]; return !(v && Date.parse(v) < now); }); }
+      const cards = codes.map(code=>idx[code]).filter(Boolean);
+      if(!cards.length) return;
+      const category = expiring ? Object.assign({}, cat, { productCodes:codes, productCount:cards.length }) : cat;
+      window.__DKR_CATALOG__ = { key, category, products:cards };
+      this.setState({ _cat: Date.now() });
+    }catch(e){ /* keep static fallback */ }
+  }
+
   renderVals(){
     const red = '#0095DA';
     const dark = '#1A1C1F';
-    const detail = 'Decor Product Detail.dc.html';
+    const detail = this.LOC.prod;
 
-    const products = [
+    // Published-snapshot binding for this category. When present, the title,
+    // description, hero counts, filters and cards all come from the promoted
+    // dataset (product names/data are published in Turkish and shown as-is);
+    // otherwise the built-in static data below is the fallback.
+    const _cat = (typeof window!=='undefined' && window.__DKR_CATALOG__) || null;
+    const catTitle = _cat ? _cat.category.name : "Malerwerkzeuge";
+    const catTitleUpper = _cat ? (_cat.category.eyebrow || (_cat.category.name||'').toLocaleUpperCase('tr')) : "MALERWERKZEUGE";
+    const catDesc = _cat ? (_cat.category.description || '') : "Werkzeuge für saubere, professionelle Ergebnisse bei Malerarbeiten.";
+    const famCode = _cat ? String(_cat.key || _cat.category.key || 'fam-01').toUpperCase() : 'FAM-01';
+    const _catCount = _cat ? String(_cat.category.productCount) : '';
+    const catSubCount = _cat ? String((_cat.category.subs||[]).length) : '5';
+
+    const products = (_cat ? _cat.products.map(c=>({ code:c.code, sub:c.sub, name:c.name, material:c.material||'', sizes:c.sizes||'', dim:c.dim||'', tag:c.tag||'', accent:(c.tag?red:dark), link:this._loc(c.link), img:c.img||'', hasImg:!!c.img, noImg:!c.img })) : [
       { code:'DKR-4200', sub:'Walzen', name:'Pro-Walzengestell 240mm', material:'Verchromter Stahl', sizes:'180 · 240 · 280', dim:'240 mm', tag:'BESTSELLER', accent:red },
       { code:'DKR-4215', sub:'Walzen', name:'Mini-Walzenset 100mm', material:'Mikrofaser', sizes:'100 mm', dim:'100 mm', tag:'', accent:dark },
       { code:'DKR-4232', sub:'Walzen', name:'Heizkörperwalze 60mm', material:'Hochdichter Schaumstoff', sizes:'60 mm', dim:'60 mm', tag:'', accent:dark },
@@ -404,9 +468,10 @@ class Component extends DCLogic {
       { code:'DKR-4135', sub:'Verlängerung', name:'Stiel-Adaptergewinde', material:'Bearbeitetes Messing', sizes:'Universal', dim:'M12', tag:'', accent:dark },
       { code:'DKR-4410', sub:'Zubehör', name:'Abklebeband-Halterung', material:'ABS + Stahl', sizes:'25 – 50 mm', dim:'50 mm', tag:'', accent:dark },
       { code:'DKR-4420', sub:'Zubehör', name:'Farbfiltersieb', material:'Nylonnetz', sizes:'190 Mikron', dim:'Ø 200', tag:'', accent:dark },
-    ].map(p=>({ ...p, link: detail }));
+    ].map(p=>({ ...p, link: detail })));
+    products.forEach(p=>{ if(p.hasImg===undefined){ p.hasImg=!!p.img; p.noImg=!p.img; } });
 
-    const order = ['Walzen','Pinsel','Wannen','Verlängerung','Zubehör'];
+    const order = _cat ? (_cat.category.subs||[]) : ['Walzen','Pinsel','Wannen','Verlängerung','Zubehör'];
     const q = this.state.query.trim().toLowerCase();
     const subFilter = this.state.sub;
 
@@ -417,11 +482,10 @@ class Component extends DCLogic {
     });
 
     const sort = this.state.sort;
-    shown = shown.slice().sort((a,b)=>{
-      if(sort==='name') return a.name.localeCompare(b.name);
-      if(sort==='sub') return order.indexOf(a.sub)-order.indexOf(b.sub) || a.code.localeCompare(b.code);
-      return a.code.localeCompare(b.code);
-    });
+    if(sort==='name') shown = shown.slice().sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+    else if(sort==='sub') shown = shown.slice().sort((a,b)=>(order.indexOf(a.sub)-order.indexOf(b.sub)) || a.code.localeCompare(b.code));
+    else if(sort==='code') shown = shown.slice().sort((a,b)=>a.code.localeCompare(b.code));
+    // default 'katalog' -> preserve the authoritative published catalogue order (productCodes).
 
     const subs = ['All', ...order].map(name=>{
       const active = subFilter===name;
@@ -438,6 +502,8 @@ class Component extends DCLogic {
 
     const isGrid = this.state.view==='grid';
     return {
+      catTitle, catTitleUpper, catDesc, catSubCount, famCode,
+      catCount: _catCount || String(products.length),
       subs, shown, resultLabel,
       query: this.state.query,
       onQuery: (e)=>this.setState({ query:e.target.value }),

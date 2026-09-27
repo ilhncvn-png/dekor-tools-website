@@ -2734,7 +2734,15 @@
       "destination": "/project/Decor%20Category.en.dc.html"
     },
     {
+      "source": "/en/products/category/:slug",
+      "destination": "/project/Decor%20Category.en.dc.html"
+    },
+    {
       "source": "/de/produkte/kategorie",
+      "destination": "/project/Decor%20Category.de.dc.html"
+    },
+    {
+      "source": "/de/produkte/kategorie/:slug",
       "destination": "/project/Decor%20Category.de.dc.html"
     },
     {
@@ -2742,7 +2750,15 @@
       "destination": "/project/Decor%20Category.fr.dc.html"
     },
     {
+      "source": "/fr/produits/categorie/:slug",
+      "destination": "/project/Decor%20Category.fr.dc.html"
+    },
+    {
       "source": "/ru/produkty/kategoriya",
+      "destination": "/project/Decor%20Category.ru.dc.html"
+    },
+    {
+      "source": "/ru/produkty/kategoriya/:slug",
       "destination": "/project/Decor%20Category.ru.dc.html"
     },
     {
@@ -2750,7 +2766,15 @@
       "destination": "/project/Decor%20Category.az.dc.html"
     },
     {
+      "source": "/az/mehsullar/kateqoriya/:slug",
+      "destination": "/project/Decor%20Category.az.dc.html"
+    },
+    {
       "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%81%D8%A6%D8%A9",
+      "destination": "/project/Decor%20Category.ar.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%81%D8%A6%D8%A9/:slug",
       "destination": "/project/Decor%20Category.ar.dc.html"
     },
     {
@@ -2800,6 +2824,10 @@
     {
       "source": "/az/mehsullar/mehsul",
       "destination": "/project/Decor%20Product%20Detail.az.dc.html"
+    },
+    {
+      "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC/:slug",
+      "destination": "/project/Decor%20Product%20Detail.ar.dc.html"
     },
     {
       "source": "/ar/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC",
