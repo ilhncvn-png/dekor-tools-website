@@ -15,7 +15,21 @@ export interface WizardTranslation {
   description: string; materialLabel: string; badgeText: string; metaTitle: string;
   metaDescription: string; ogTitle: string; ogDescription: string;
 }
-export interface WizardVariant { sku: string; material: string; width: string; length: string; thickness: string; pack: string; isDefault: boolean; sortOrder: number; }
+/**
+ * One variant row. `sku` is the globally-unique row key; `code` is the display
+ * code shown on the site (falls back to sku when empty). Catalogue columns map as
+ * Kod=code, Malzeme=material, Tip=type, A=width, B=length, C=thickness, D=d, E=e,
+ * Koli Adedi=pack — all stored verbatim in ProductVariant.attributes.
+ */
+export interface WizardVariant { sku: string; code: string; material: string; type: string; width: string; length: string; thickness: string; d: string; e: string; pack: string; isDefault: boolean; sortOrder: number; }
+
+/** Attribute keys persisted in ProductVariant.attributes (order = table column order). */
+export const VARIANT_ATTR_KEYS = ['code', 'material', 'type', 'width', 'length', 'thickness', 'd', 'e', 'pack'] as const;
+export type VariantAttrKey = (typeof VARIANT_ATTR_KEYS)[number];
+
+export const emptyVariant = (sortOrder: number): WizardVariant => ({
+  sku: '', code: '', material: '', type: '', width: '', length: '', thickness: '', d: '', e: '', pack: '', isDefault: false, sortOrder,
+});
 export interface WizardKV { label: string; value: string; sortOrder: number; }
 export interface WizardFeature { label: string; sortOrder: number; }
 export interface WizardApplication { title: string; description: string; eyebrow: string; iconMediaId: string | null; mediaId: string | null; sortOrder: number; }

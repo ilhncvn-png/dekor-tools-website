@@ -17,7 +17,7 @@ import { useToast } from '@/components/ui/Toast';
 import { MediaPickerModal } from '@/components/media/MediaPickerModal';
 import { cn } from '@/lib/utils';
 import { getProductWizard, saveProductWizard } from '@/lib/actions/product-wizard-actions';
-import { WIZARD_LANGUAGES, type WizardProduct, type WizardVariant } from '@/lib/wizard/product-wizard-types';
+import { WIZARD_LANGUAGES, emptyVariant, type WizardProduct, type WizardVariant } from '@/lib/wizard/product-wizard-types';
 import { getAdminCategories } from '@/lib/actions/category-actions';
 import { getAdminProducts } from '@/lib/actions/product-actions';
 import type { Category, Product } from '@/lib/mock-data';
@@ -373,53 +373,109 @@ function Repeater<T>({ title, addLabel, items, onAdd, onChange, render }: { titl
   );
 }
 
+type VariantCol = { key: Exclude<keyof WizardVariant, 'isDefault' | 'sortOrder'>; label: string; aliases: string[]; width: string };
+/** Table/CSV column order. SKU is the unique row key; Kod is the display code (falls back to SKU). */
+const VARIANT_COLS: VariantCol[] = [
+  { key: 'sku', label: 'SKU', aliases: ['sku', 'stok kodu'], width: 'min-w-[120px]' },
+  { key: 'code', label: 'Kod', aliases: ['kod', 'code', 'ürün kodu', 'urun kodu'], width: 'min-w-[100px]' },
+  { key: 'material', label: 'Malzeme', aliases: ['malzeme', 'material'], width: 'min-w-[110px]' },
+  { key: 'type', label: 'Tip', aliases: ['tip', 'type', 'tür', 'tur'], width: 'min-w-[120px]' },
+  { key: 'width', label: 'A', aliases: ['a', 'genişlik', 'genislik', 'width'], width: 'min-w-[70px]' },
+  { key: 'length', label: 'B', aliases: ['b', 'uzunluk', 'length'], width: 'min-w-[70px]' },
+  { key: 'thickness', label: 'C', aliases: ['c', 'kalınlık', 'kalinlik', 'thickness'], width: 'min-w-[70px]' },
+  { key: 'd', label: 'D', aliases: ['d'], width: 'min-w-[70px]' },
+  { key: 'e', label: 'E', aliases: ['e'], width: 'min-w-[70px]' },
+  { key: 'pack', label: 'Koli Adedi', aliases: ['koli adedi', 'koli', 'paket', 'pack', 'adet'], width: 'min-w-[80px]' },
+];
+
+const normHeader = (h: string) => h.trim().toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ');
+
+function splitRow(line: string, sep: string): string[] {
+  if (sep === '\t') return line.split('\t').map((c) => c.trim());
+  return (line.match(/("([^"]|"")*"|[^,]*)/g)?.filter((_, k) => k % 2 === 0) ?? []).map((c) => c.replace(/^"|"$/g, '').replace(/""/g, '"').trim());
+}
+
+/**
+ * Parse CSV or spreadsheet-pasted (tab-separated) variant rows. A header row is
+ * matched by label (Kod/Malzeme/Tip/A..E/Koli Adedi, legacy Genişlik/Uzunluk/
+ * Kalınlık/Paket also accepted); without a recognisable header, cells are read
+ * positionally in VARIANT_COLS order. When only "Kod" is present it doubles as SKU.
+ */
+function parseVariantTable(text: string): WizardVariant[] {
+  const lines = text.split(/\r?\n/).filter((l) => l.trim());
+  if (!lines.length) return [];
+  const sep = lines[0].includes('\t') ? '\t' : ',';
+  const head = splitRow(lines[0], sep).map(normHeader);
+  const mapped = head.map((h) => VARIANT_COLS.find((c) => c.aliases.includes(h))?.key ?? null);
+  const hasHeader = mapped.filter(Boolean).length >= 2;
+  const keys = hasHeader ? mapped : VARIANT_COLS.map((c) => c.key);
+  const body = hasHeader ? lines.slice(1) : lines;
+  return body.map((line, i) => {
+    const cells = splitRow(line, sep);
+    const row = emptyVariant(i);
+    const filled = keys.reduce<WizardVariant>((acc, key, k) => (key ? { ...acc, [key]: cells[k] ?? '' } : acc), row);
+    return filled.sku.trim() ? filled : { ...filled, sku: filled.code };
+  }).filter((v) => v.sku.trim());
+}
+
 function VariantsStep({ w, update, push }: { w: WizardProduct; update: (p: Partial<WizardProduct>) => void; push: ReturnType<typeof useToast>['push'] }) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const cols: { key: keyof WizardVariant; label: string }[] = [
-    { key: 'sku', label: 'Kod' }, { key: 'material', label: 'Malzeme' }, { key: 'width', label: 'Genişlik' },
-    { key: 'length', label: 'Uzunluk' }, { key: 'thickness', label: 'Kalınlık' }, { key: 'pack', label: 'Paket' },
-  ];
+  const [pasteOpen, setPasteOpen] = useState(false);
+  const [pasteText, setPasteText] = useState('');
+  const cols = VARIANT_COLS;
   const setRow = (i: number, v: WizardVariant) => update({ variants: w.variants.map((x, j) => (j === i ? v : x)) });
+  const applyParsed = (parsed: WizardVariant[]) => {
+    if (!parsed.length) { push({ tone: 'danger', title: 'İçe aktarılacak satır bulunamadı' }); return false; }
+    update({ variants: parsed });
+    push({ tone: 'success', title: `${parsed.length} varyant içe aktarıldı` });
+    return true;
+  };
   const exportCsv = () => {
     const head = cols.map((c) => c.label).join(',');
-    const rows = w.variants.map((v) => cols.map((c) => `"${String(v[c.key]).replace(/"/g, '""')}"`).join(','));
+    const rows = w.variants.map((v) => cols.map((c) => `"${String(v[c.key] ?? '').replace(/"/g, '""')}"`).join(','));
     const blob = new Blob([[head, ...rows].join('\n')], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${w.sku || 'varyantlar'}.csv`; a.click();
   };
   const importCsv = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; e.target.value = ''; if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => {
-      const lines = String(reader.result).split(/\r?\n/).filter(Boolean);
-      const parsed: WizardVariant[] = lines.slice(1).map((line, i) => {
-        const cells = line.match(/("([^"]|"")*"|[^,]*)/g)?.filter((_, k) => k % 2 === 0).map((c) => c.replace(/^"|"$/g, '').replace(/""/g, '"')) ?? [];
-        return { sku: cells[0] ?? '', material: cells[1] ?? '', width: cells[2] ?? '', length: cells[3] ?? '', thickness: cells[4] ?? '', pack: cells[5] ?? '', isDefault: false, sortOrder: i };
-      }).filter((v) => v.sku.trim());
-      if (parsed.length) { update({ variants: parsed }); push({ tone: 'success', title: `${parsed.length} varyant içe aktarıldı` }); }
-    };
+    reader.onload = () => { applyParsed(parseVariantTable(String(reader.result))); };
+    reader.onerror = () => push({ tone: 'danger', title: 'CSV okunamadı' });
     reader.readAsText(file);
   };
+  const importPaste = () => { if (applyParsed(parseVariantTable(pasteText))) { setPasteText(''); setPasteOpen(false); } };
   return (
     <div>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="font-display text-heading-sm font-bold text-near-black dark:text-white">Varyantlar & Teknik Tablo</p>
-        <div className="flex gap-2">
-          <input ref={fileRef} type="file" accept=".csv" className="hidden" onChange={importCsv} />
+        <div className="flex flex-wrap gap-2">
+          <input ref={fileRef} type="file" accept=".csv,.tsv,.txt" className="hidden" onChange={importCsv} />
+          <Button size="sm" variant="secondary" onClick={() => setPasteOpen((o) => !o)}>Tablo Yapıştır</Button>
           <Button size="sm" variant="secondary" onClick={() => fileRef.current?.click()}>CSV İçe Aktar</Button>
           <Button size="sm" variant="secondary" onClick={exportCsv} disabled={!w.variants.length}>CSV Dışa Aktar</Button>
-          <Button size="sm" icon={<Plus size={13} />} onClick={() => update({ variants: [...w.variants, { sku: '', material: '', width: '', length: '', thickness: '', pack: '', isDefault: false, sortOrder: w.variants.length }] })}>Satır Ekle</Button>
+          <Button size="sm" icon={<Plus size={13} />} onClick={() => update({ variants: [...w.variants, emptyVariant(w.variants.length)] })}>Satır Ekle</Button>
         </div>
       </div>
+      {pasteOpen && (
+        <div className="mb-3 rounded-soft border border-border p-3 dark:border-white/10">
+          <p className="mb-2 text-[11.5px] text-steel dark:text-white/45">Excel/katalog tablosundan başlık satırıyla birlikte kopyalayıp yapıştırın. Tanınan başlıklar: SKU, Kod, Malzeme, Tip, A, B, C, D, E, Koli Adedi. SKU yoksa Kod benzersiz satır anahtarı olarak kullanılır. Mevcut varyantların yerini alır.</p>
+          <Textarea value={pasteText} onChange={(e) => setPasteText(e.target.value)} rows={6} className="font-mono text-[11px]" placeholder={'Kod\tMalzeme\tTip\tA\tB\tC\tKoli Adedi'} />
+          <div className="mt-2 flex justify-end gap-2">
+            <Button size="sm" variant="ghost" onClick={() => { setPasteOpen(false); setPasteText(''); }}>Vazgeç</Button>
+            <Button size="sm" onClick={importPaste} disabled={!pasteText.trim()}>İçe Aktar</Button>
+          </div>
+        </div>
+      )}
       {w.variants.length === 0 ? (
-        <p className="rounded-soft border border-dashed border-border py-8 text-center text-[12.5px] text-steel dark:border-white/10 dark:text-white/40">Varyant yok — satır ekleyin veya CSV içe aktarın.</p>
+        <p className="rounded-soft border border-dashed border-border py-8 text-center text-[12.5px] text-steel dark:border-white/10 dark:text-white/40">Varyant yok — satır ekleyin, tablo yapıştırın veya CSV içe aktarın.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-[12px]">
-            <thead><tr className="text-left text-steel dark:text-white/40">{cols.map((c) => <th key={c.key} className="px-1.5 py-1 font-medium">{c.label}</th>)}<th className="px-1.5 py-1"></th></tr></thead>
+            <thead><tr className="text-left text-steel dark:text-white/40">{cols.map((c) => <th key={c.key} className={cn('px-1.5 py-1 font-medium', c.width)} title={c.key === 'sku' ? 'Benzersiz satır anahtarı' : c.key === 'code' ? 'Sitede görünen kod (boşsa SKU)' : undefined}>{c.label}</th>)}<th className="px-1.5 py-1"></th></tr></thead>
             <tbody>
               {w.variants.map((v, i) => (
                 <tr key={i}>
-                  {cols.map((c) => <td key={c.key} className="px-1 py-1"><Input value={String(v[c.key])} onChange={(e) => setRow(i, { ...v, [c.key]: e.target.value })} className={c.key === 'sku' ? 'font-mono text-[11px]' : 'text-[11px]'} /></td>)}
+                  {cols.map((c) => <td key={c.key} className="px-1 py-1"><Input value={String(v[c.key] ?? '')} placeholder={c.key === 'code' ? v.sku : undefined} aria-label={`${c.label} (satır ${i + 1})`} onChange={(e) => setRow(i, { ...v, [c.key]: e.target.value })} className={c.key === 'sku' || c.key === 'code' ? 'font-mono text-[11px]' : 'text-[11px]'} /></td>)}
                   <td className="whitespace-nowrap px-1 py-1">
                     <button type="button" onClick={() => update({ variants: [...w.variants.slice(0, i + 1), { ...v, sku: v.sku + '-KOPYA' }, ...w.variants.slice(i + 1)] })} className="mr-1 text-steel hover:text-near-black dark:text-white/40" aria-label="Çoğalt"><Copy size={13} /></button>
                     <button type="button" onClick={() => update({ variants: w.variants.filter((_, j) => j !== i) })} className="text-steel hover:text-danger dark:text-white/40" aria-label="Sil"><Trash2 size={13} /></button>

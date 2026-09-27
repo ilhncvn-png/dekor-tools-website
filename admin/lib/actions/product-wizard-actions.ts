@@ -6,7 +6,8 @@ import { requirePermission } from '@/lib/permissions';
 import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
-import { WIZARD_LANGUAGES, type WizardTranslation, type WizardProduct } from '@/lib/wizard/product-wizard-types';
+import { WIZARD_LANGUAGES, VARIANT_ATTR_KEYS, type VariantAttrKey, type WizardTranslation, type WizardProduct } from '@/lib/wizard/product-wizard-types';
+import type { Prisma } from '@prisma/client';
 import { NEW_FLAG, NEW_PRODUCTS_KEY } from '@/lib/catalog/new-products';
 
 const emptyTr = (): WizardTranslation => ({
@@ -62,7 +63,12 @@ export async function getProductWizard(id: string): Promise<WizardProduct> {
     translations,
     variants: variants.map((v, i) => {
       const a = (v.attributes ?? {}) as Record<string, string>;
-      return { sku: v.sku, material: a.material ?? '', width: a.width ?? '', length: a.length ?? '', thickness: a.thickness ?? '', pack: a.pack ?? '', isDefault: v.isDefault, sortOrder: v.sortOrder || i };
+      const attr = (k: VariantAttrKey) => (typeof a[k] === 'string' ? a[k] : a[k] == null ? '' : String(a[k]));
+      return {
+        sku: v.sku, code: attr('code'), material: attr('material'), type: attr('type'),
+        width: attr('width'), length: attr('length'), thickness: attr('thickness'), d: attr('d'), e: attr('e'), pack: attr('pack'),
+        isDefault: v.isDefault, sortOrder: v.sortOrder || i,
+      };
     }),
     features: features.map((f, i) => ({ label: f.label, sortOrder: f.sortOrder || i })),
     specs: specs.map((s, i) => ({ label: s.label, value: s.value, sortOrder: s.sortOrder || i })),
@@ -137,11 +143,18 @@ export async function saveProductWizard(w: WizardProduct): Promise<ActionResult>
       }
 
       // Replace child collections in place (idempotent).
+      // Keep any attribute keys the wizard does not edit (e.g. set by an importer)
+      // so a save never silently drops data; wizard-edited keys always win.
+      const prevVariants = await tx.productVariant.findMany({ where: { productId: product.id }, select: { sku: true, attributes: true } });
+      const prevAttrs = new Map(prevVariants.map((pv) => [pv.sku, (pv.attributes && typeof pv.attributes === 'object' && !Array.isArray(pv.attributes) ? pv.attributes : {}) as Record<string, unknown>]));
       await tx.productVariant.deleteMany({ where: { productId: product.id } });
       for (let i = 0; i < w.variants.length; i++) {
         const v = w.variants[i];
         if (!v.sku.trim()) continue;
-        await tx.productVariant.create({ data: { productId: product.id, sku: v.sku, isDefault: v.isDefault, sortOrder: i, attributes: { material: v.material, width: v.width, length: v.length, thickness: v.thickness, pack: v.pack } } });
+        const edited = Object.fromEntries(VARIANT_ATTR_KEYS.map((k) => [k, (v[k] ?? '').trim()]));
+        // Display code falls back to the unique sku so the public table never shows an empty Kod.
+        const attributes = { ...(prevAttrs.get(v.sku) ?? {}), ...edited, code: edited.code || v.sku.trim() } as Prisma.InputJsonObject;
+        await tx.productVariant.create({ data: { productId: product.id, sku: v.sku.trim(), isDefault: v.isDefault, sortOrder: i, attributes } });
       }
       await tx.productFeature.deleteMany({ where: { productId: product.id } });
       if (w.features.length) await tx.productFeature.createMany({ data: w.features.filter((f) => f.label.trim()).map((f, i) => ({ productId: product.id, languageCode: 'tr', label: f.label, sortOrder: i })) });

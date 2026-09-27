@@ -16,7 +16,9 @@ import { NEW_PRODUCTS_KEY, newUntil } from '@/lib/catalog/new-products';
 
 export const SNAPSHOT_SCHEMA_VERSION = 1;
 
-export interface SnapshotSpec { code: string; material: string; a: string; b: string; c: string; pack: string; }
+/** One variant row of the spec table. Catalogue columns: Kod, Malzeme, Tip, A, B, C, D, E, Koli Adedi.
+ * Values are stored verbatim (e.g. "65 MM"); '' when the variant has no value. */
+export interface SnapshotSpec { code: string; material: string; type: string; a: string; b: string; c: string; d: string; e: string; pack: string; qty: string; }
 export interface SnapshotFeature { num: string; title: string; desc: string; code: string; }
 export interface SnapshotApplication { title: string; line: string; imgLabel: string; imgUrl: string }
 export interface SnapshotGalleryItem { code: string; label: string; caption: string; short: string; url: string; thumbUrl: string }
@@ -206,12 +208,16 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     const snapSpecs: SnapshotSpec[] = pVariants.map((v) => {
       const a = (v.attributes ?? {}) as Record<string, string>;
       return {
-        code: a.code ?? v.sku, // display code (attributes.code) decouples from the globally-unique sku
+        code: a.code || v.sku, // display code (attributes.code) decouples from the globally-unique sku
         material: a.material ?? '',
+        type: a.type ?? '',
         a: a.width ?? '',
         b: a.length ?? '',
         c: a.thickness ?? '',
+        d: a.d ?? '',
+        e: a.e ?? '',
         pack: a.pack ?? '',
+        qty: a.qty ?? '', // pieces per set/stand (not carton quantity)
       };
     });
 
