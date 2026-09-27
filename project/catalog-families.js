@@ -30,6 +30,11 @@ export const CATEGORY_ROUTE = {
   ru:'/ru/produkty/kategoriya', az:'/az/mehsullar/kateqoriya', ar:'/ar/المنتجات/الفئة',
 };
 
+export const DETAIL_ROUTE = {
+  tr:'/urunler/urun', en:'/en/products/product', de:'/de/produkte/produkt', fr:'/fr/produits/produit',
+  ru:'/ru/produkty/tovar', az:'/az/mehsullar/mehsul', ar:'/ar/المنتجات/المنتج',
+};
+
 /** Per-language family name + description (static fallback; TR is replaced by live data). */
 const TEXT = {
   "tr": {
@@ -378,12 +383,14 @@ export function countLabel(n, lang){
 }
 
 let _pending = null;
-/** Published snapshot categories + total product count (memoised; null when unavailable). */
+/** Published snapshot: categories, total count, products, index, home showcase (memoised; null when unavailable). */
 export function loadCatalog(){
   if(!_pending){
     _pending = fetch('/admin/api/public/products', { cache:'no-store' })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => (d && d.published !== false && d.categories ? { categories:d.categories, total:d.count } : null))
+      .then((d) => (d && d.published !== false && d.categories
+        ? { categories:d.categories, total:d.count, products:d.products || {}, index:d.index || [], featured:Array.isArray(d.featured) ? d.featured : [] }
+        : null))
       .catch(() => null);
   }
   return _pending;
@@ -422,4 +429,86 @@ export function buildFamilies(lang, catalog){
       link: f && f.slug ? CATEGORY_ROUTE[lang] + '/' + f.slug : CATEGORY_ROUTE[lang],
     };
   });
+}
+
+/** Internal database identifiers (LEGACY-…) are never shown as product codes. */
+function isVerifiedCode(code){
+  return Boolean(code) && !/^LEGACY-/i.test(String(code));
+}
+
+function uniq(values){
+  return values.filter((v, i, a) => v && a.indexOf(v) === i);
+}
+
+/** "255 · 256" for short lists; "058 · 059 +26" for long ones (codes are not a range). */
+function compactCodes(values){
+  return values.length <= 3 ? values.join(' · ') : values.slice(0, 2).join(' · ') + ' +' + (values.length - 2);
+}
+
+/** Smallest–largest of the catalogue "A" values when they share one unit, else first–last. */
+function sizeRange(values){
+  if(values.length < 2) return values[0] || '';
+  const parsed = values.map((v) => v.match(/^(\d+(?:[.,]\d+)?)\s*([A-Za-z]*)$/));
+  const unit = parsed[0] && parsed[0][2].toUpperCase();
+  if(parsed.every((m) => m && m[2].toUpperCase() === unit)){
+    const nums = parsed.map((m) => parseFloat(m[1].replace(',', '.')));
+    const lo = values[nums.indexOf(Math.min(...nums))], hi = values[nums.indexOf(Math.max(...nums))];
+    return lo === hi ? lo : lo + ' – ' + hi;
+  }
+  return values[0] + ' – ' + values[values.length - 1];
+}
+
+/**
+ * Home showcase cards from the published snapshot, in the admin-defined order
+ * (manifest.featured). Only real catalogue data: a product without a photo is
+ * skipped; codes, material, size and variant count appear only when present.
+ * Returns { code, familyCode, family, name, description, img, link, codes, material, size, variants, tag, pdf }.
+ */
+export function buildFeatured(lang, catalog){
+  if(!catalog || !catalog.featured || !catalog.featured.length) return [];
+  const families = buildFamilies(lang, catalog);
+  const famName = (key) => { const f = families.find((x) => x.code === String(key || '').toUpperCase()); return f ? f.name : ''; };
+  const byCode = new Map((catalog.index || []).map((c) => [c.code, c]));
+  const route = DETAIL_ROUTE[lang] || DETAIL_ROUTE.tr;
+  return catalog.featured.map((code) => {
+    const p = catalog.products[code];
+    const card = byCode.get(code);
+    if(!p || !card) return null;
+    const img = card.img || (p.gallery && p.gallery[0] && p.gallery[0].url) || '';
+    if(!img) return null;
+    const specs = Array.isArray(p.specs) ? p.specs : [];
+    const codes = uniq(specs.map((s) => String(s.code || '').trim()).filter(isVerifiedCode));
+    const materials = uniq(specs.map((s) => String(s.material || '').trim()).filter((m) => m && m !== '-'));
+    const sizes = uniq(specs.map((s) => String(s.a || '').trim()).filter((v) => v && v !== '-'));
+    const slug = String(card.link || '').split('/').pop();
+    const doc = (p.documents || []).find((d) => d && d.url);
+    return {
+      code,
+      familyCode: String(card.familyKey || '').toUpperCase(),
+      family: famName(card.familyKey) || card.family || '',
+      name: p.name,
+      description: p.heroDescription || '',
+      img,
+      link: slug ? route + '/' + slug : route,
+      codes: compactCodes(codes),
+      material: materials.slice(0, 2).join(' / '),
+      size: sizeRange(sizes),
+      variants: specs.length,
+      tag: card.tag || '',
+      pdf: '',                       // set only after verifyPdfs() confirms the file exists
+      pdfCandidate: doc ? doc.url : '',
+    };
+  }).filter(Boolean);
+}
+
+/** Keep a card's PDF link only when the document really exists and is a PDF. */
+export async function verifyPdfs(cards){
+  const checks = await Promise.all(cards.map(async (c) => {
+    if(!c.pdfCandidate) return '';
+    try{
+      const r = await fetch(c.pdfCandidate, { method:'HEAD' });
+      return r.ok && /pdf/i.test(r.headers.get('content-type') || '') ? c.pdfCandidate : '';
+    }catch(e){ return ''; }
+  }));
+  return cards.map((c, i) => (checks[i] ? Object.assign({}, c, { pdf:checks[i] }) : c));
 }
