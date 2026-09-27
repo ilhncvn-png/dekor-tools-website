@@ -18,7 +18,7 @@
 <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0E0F11"><link rel="icon" type="image/png" sizes="32x32" href="uploads/icons/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="uploads/icons/favicon-16.png"><link rel="apple-touch-icon" href="uploads/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dekor"><meta name="mobile-web-app-capable" content="yes"><script src="./support.js"></script>
 </head>
 <body>
-<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
+<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,7 +87,7 @@
   .sup-search::placeholder{color:rgba(255,255,255,.4);}
   .sup-search:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.22);background:rgba(255,255,255,.07);}
   /* popular searches */
-  .sup-pop{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.55);border-bottom:1px solid transparent;transition:color .25s ease,border-color .25s ease;padding-bottom:2px;}
+  .sup-pop{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.55);border-bottom:1px solid transparent;transition:color .25s ease,border-color .25s ease;padding-bottom:2px;}
   .sup-pop:hover{color:#fff;border-color:#0095DA;}
   /* quick category tiles */
   .sup-tile{position:relative;display:block;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:26px 22px 22px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
@@ -137,18 +137,18 @@
     [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
     [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
     [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
-  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  }  .mnav-link{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;}
   .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
   .mnav-toggle{display:none;}
-  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
   .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
   .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
   .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
   .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
   .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
-  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-sub a{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
   .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
-  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
   .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
   .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
   .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
@@ -204,7 +204,7 @@
       <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
       <label for="mnav-haberler" class="mnav-parent">الأخبار<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Newsroom.ar.dc.html#news">آخر الأخبار</a>
+        <a href="Decor Newsroom.ar.dc.html#news">الصحافة والإعلام</a>
         <a href="Decor Newsroom.ar.dc.html#trade-shows">المعارض التجارية</a>
         <a href="Decor Newsroom.ar.dc.html#training-academy">أكاديمية التدريب</a>
         <a href="Decor Newsroom.ar.dc.html#company-life">حياة الشركة</a>
@@ -228,11 +228,8 @@
       <label for="mnav-destek" class="mnav-parent">الدعم<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="Decor Support.ar.dc.html">مركز الدعم</a>
-        <a href="Decor Support.ar.dc.html#downloads">التنزيلات</a>
-        <a href="Decor Support.ar.dc.html#faq">الأسئلة الشائعة</a>
-        <a href="Decor Support.ar.dc.html#downloads">الشهادات</a>
         <a href="Decor Support.ar.dc.html#downloads">الكتالوجات</a>
-        <a href="Decor Support.ar.dc.html#categories">الضمان</a>
+        <a href="Decor Complaint.ar.dc.html">الضمان</a>
         <a href="Decor Support.ar.dc.html#faq">الأسئلة الشائعة</a>
       </div>
     </div>
@@ -241,7 +238,7 @@
       <label for="mnav-iletisim" class="mnav-parent">التواصل<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="Decor Contact.ar.dc.html">التواصل</a>
-        <a href="Decor Complaint.ar.dc.html">تقديم شكوى</a>
+        <a href="Decor Complaint.ar.dc.html">طلب دعم</a>
       </div>
     </div>
     <div class="mnav-langs">
@@ -267,9 +264,9 @@
   <div class="bp-particle" style="left:30%; top:80%;"></div>
   <div class="bp-particle" style="left:58%; top:72%; animation-delay:3s;"></div>
   <div class="hero-diagonal" style="position:absolute; top:-120px; right:-120px; width:300px; height:1100px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
-  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">الدعم · القسم 01 · 41.0082°N · 28.9784°E</div>
+  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">الدعم · القسم 01 · 41.0082°N · 28.9784°E</div>
   <div style="position:relative; z-index:2; max-width:880px; margin:0 auto; text-align:center;">
-    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>مركز الدعم</div>
+    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>مركز الدعم</div>
     <h1 data-reveal style="font-size:clamp(40px,6.4vw,86px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:24px 0 0;">كل ما تحتاجه للعمل مع <span style="color:#0095DA;">ديكور.</span></h1>
     <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px auto 0; max-width:540px;">الوثائق والشهادات والملفات القابلة للتنزيل والإجابات لكل منتج، وبرنامج التصدير وOEM والتصنيع بعلامة خاصة، وطلبات التوزيع، والطلبات بعد البيع — كل ذلك في مكان واحد.</p>
     <!-- SEARCH (design only) -->
@@ -279,7 +276,7 @@
     </div>
     <!-- POPULAR SEARCHES -->
     <div data-reveal style="display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content:center; margin-top:24px;">
-      <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.35);">الأكثر بحثًا</span>
+      <span style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.35);">الأكثر بحثًا</span>
       <sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
         <a href="{{ p.href }}" class="sup-pop">{{ p.label }}</a>
       </sc-for>
@@ -293,7 +290,7 @@
 <section id="categories" style="background:#F4F5F6; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="margin-bottom:44px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>فئات سريعة</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>فئات سريعة</div>
       <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">إلى أين تريد الذهاب؟</h2>
     </div>
     <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:16px;">
@@ -303,7 +300,7 @@
           <div class="sup-bp"></div>
           <div style="display:flex; align-items:flex-start; justify-content:space-between;">
             <div class="sup-tile-icon" style="width:30px; height:30px;" dangerouslySetInnerHTML="{{ c.icon }}"></div>
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#B7BDC4;">{{ c.num }}</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1px; color:#B7BDC4;">{{ c.num }}</span>
           </div>
           <h3 style="font-size:18px; font-weight:800; color:#0E0F11; margin:18px 0 0; letter-spacing:-0.01em;">{{ c.title }}</h3>
           <p style="font-size:13px; line-height:1.55; color:#5A6066; margin:8px 0 16px;">{{ c.desc }}</p>
@@ -323,7 +320,7 @@
   <div class="bp-glint" style="left:8%; top:66%; animation-delay:3s;"></div>
   <div style="position:relative; max-width:920px; margin:0 auto;">
     <div data-reveal style="margin-bottom:40px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>الأسئلة الشائعة</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>الأسئلة الشائعة</div>
       <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:16px 0 0;">إجابات للمحترفين.</h2>
     </div>
     <div data-reveal>
@@ -332,7 +329,7 @@
           <span class="faq-edge"></span>
           <div class="faq-bp"></div>
           <button onClick="{{ q.onClick }}" style="position:relative; width:100%; display:flex; align-items:center; gap:20px; background:none; border:none; cursor:pointer; padding:22px 22px; text-align:left;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:#0095DA; flex:0 0 auto; width:34px;">{{ q.num }}</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1px; color:#0095DA; flex:0 0 auto; width:34px;">{{ q.num }}</span>
             <span style="flex:1; font-size:clamp(16px,2vw,20px); font-weight:700; color:#fff; letter-spacing:-0.01em;">{{ q.q }}</span>
             <span class="faq-sign" style="flex:0 0 auto; width:34px; height:34px; border:1.5px solid {{ q.signBorder }}; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:600; color:{{ q.signColor }};">{{ q.sign }}</span>
           </button>
@@ -351,7 +348,7 @@
 <section id="downloads" style="background:#F4F5F6; padding:clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="margin-bottom:44px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>مركز التنزيلات</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>مركز التنزيلات</div>
       <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">مستندات وملفات قابلة للتنزيل.</h2>
     </div>
     <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:16px;">
@@ -361,7 +358,7 @@
           <div class="sup-bp"></div>
           <div style="display:flex; align-items:flex-start; justify-content:space-between;">
             <div class="sup-card-icon" style="width:30px; height:30px;" dangerouslySetInnerHTML="{{ d.icon }}"></div>
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; color:#8A9097; border:1px solid #E2E5E9; padding:4px 8px;">{{ d.meta }}</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1px; color:#8A9097; border:1px solid #E2E5E9; padding:4px 8px;">{{ d.meta }}</span>
           </div>
           <h3 style="font-size:18px; font-weight:800; color:#0E0F11; margin:18px 0 0; letter-spacing:-0.01em;">{{ d.title }}</h3>
           <p style="font-size:13px; line-height:1.55; color:#5A6066; margin:8px 0 18px;">{{ d.desc }}</p>
@@ -381,14 +378,14 @@
   <div class="bp-glint" style="left:28%; top:36%;"></div>
   <div class="bp-glint" style="left:72%; top:58%; animation-delay:2.6s;"></div>
   <div style="position:relative; max-width:760px; margin:0 auto;">
-    <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">ما زلت بحاجة إلى مساعدة؟</div>
+    <div data-reveal style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;">ما زلت بحاجة إلى مساعدة؟</div>
     <h2 data-reveal style="font-size:clamp(32px,5vw,62px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.96; margin:18px 0 0;">هل تحتاج إلى مساعدة شخصية؟</h2>
-    <p data-reveal style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.62); margin:18px auto 0; max-width:520px;">فريقنا جاهز للمساعدة. يقوم خبراء التصدير والفنيون لدينا بالرد مباشرة على طلبات التوزيع وOEM والاعتماد والوثائق — عادةً خلال بضعة أيام عمل.</p>
+    <p data-reveal style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.62); margin:18px auto 0; max-width:520px;">فريقنا جاهز للمساعدة. يقوم خبراء التصدير والفنيون لدينا بالرد مباشرة على طلبات التوزيع وOEM والاعتماد والوثائق.</p>
     <div data-reveal style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:34px;">
       <a href="Decor Contact.ar.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px; box-shadow:0 12px 34px rgba(0,149,218,.4);">تواصل معنا →</a>
-      <a href="Decor Complaint.ar.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px;">تقديم شكوى</a>
+      <a href="Decor Complaint.ar.dc.html" class="dkr-btn dkr-btn-ghost" style="border:1.5px solid rgba(255,255,255,.4); color:#fff; padding:17px 32px; font-weight:700; font-size:16px; border-radius:2px;">طلب دعم</a>
     </div>
-    <div data-reveal style="margin-top:34px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.6);">+90 262 658 30 10 · export@dekor-tools.com</div>
+    <div data-reveal style="margin-top:34px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.6);">+90 262 658 30 10 · export@dekor-tools.com</div>
   </div>
 </section>
 
@@ -421,27 +418,28 @@ class Component extends DCLogic {
     const ic = (p)=>({ __html:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;">${p}</svg>` });
 
     const popular = [
-      { label:'كتالوج المنتجات', href:'#downloads' },
-      { label:'كن موزعًا', href:'Decor Become a Dealer.dc.html' },
-      { label:'الشهادات', href:'#downloads' },
-      { label:'شروط الضمان', href:'#faq' },
-      { label:'برنامج OEM', href:'#categories' },
+      { label:"كتالوج المنتجات", href:"#downloads" },
+      { label:"طلب دعم", href:"Decor Complaint.ar.dc.html" },
+      { label:"الأسئلة الشائعة", href:"#faq" },
+      { label:"الشهادات", href:"#downloads" },
+      { label:"اتصل بنا", href:"Decor Contact.ar.dc.html" },
+      { label:"كن موزعًا", href:"Decor Become a Dealer.ar.dc.html" },
     ];
 
     const categories = [
-      { title:'دعم الموزعين', desc:'طلبات الشراكة والتسعير وإدارة العمليات للموزعين.', href:'Decor Become a Dealer.dc.html', icon: ic('<path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v6l9 4 9-4V7"></path>') },
-      { title:'المنتجات', desc:'تصفح ست فئات منتجات تضم أكثر من 400 أداة احترافية.', href:'Decor Products.dc.html', icon: ic('<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>') },
-      { title:'الملفات القابلة للتنزيل', desc:'كتالوجات، منشورات، مواد العلامة التجارية وملفات PDF تقنية.', href:'#downloads', icon: ic('<path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 21h16"></path>') },
-      { title:'الشهادات', desc:'وثائق مطابقة ISO وCE وTSE وREACH.', href:'#downloads', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
-      { title:'الضمان', desc:'شروط ضمان بمستوى احترافي وخدمة ما بعد البيع.', href:'#faq', icon: ic('<path d="M12 3l8 4v5c0 4.5-3.2 7.3-8 9-4.8-1.7-8-4.5-8-9V7l8-4z"></path><path d="M9 12l2 2 4-4"></path>') },
-      { title:'التصنيع OEM / بعلامة خاصة', desc:'تصنيع مخصص حسب علامتك التجارية ومواصفاتك التقنية.', href:'Decor Contact.dc.html', icon: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4h8a2 2 0 0 1 1.4.6l8.2 8.2a1.4 1.4 0 0 1 0 .6z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>') },
-      { title:'التصدير', desc:'توزيع عالمي إلى 60 دولة في 4 قارات.', href:'Decor Export.dc.html', icon: ic('<circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"></path>') },
-      { title:'الوثائق التقنية', desc:'نشرات تقنية وبيانات المواد ومخططات الأبعاد.', href:'#downloads', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
+      { title:'دعم الموزعين', desc:'طلبات الشراكة والتسعير وإدارة العمليات للموزعين.', href:'Decor Become a Dealer.ar.dc.html', icon: ic('<path d="M3 7l9-4 9 4-9 4-9-4z"></path><path d="M3 7v6l9 4 9-4V7"></path>') },
+      { title:'المنتجات', desc:'تصفح 11 فئة منتجات تضم أكثر من 700 أداة احترافية.', href:'Decor Products.ar.dc.html', icon: ic('<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>') },
+      { title:'الكتالوجات', desc:'كتالوجات المنتجات والمنشورات وملفات PDF التقنية.', href:'#downloads', icon: ic('<path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 21h16"></path>') },
+      { title:'الشهادات', desc:'شهادة ISO 9001:2015 ووثائق مطابقة CE للمنتجات المعنية.', href:'#downloads', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
+      { title:'الضمان', desc:'استخدم نموذج طلب الدعم لطلبات الضمان وخدمة ما بعد البيع.', href:'Decor Complaint.ar.dc.html', icon: ic('<path d="M12 3l8 4v5c0 4.5-3.2 7.3-8 9-4.8-1.7-8-4.5-8-9V7l8-4z"></path><path d="M9 12l2 2 4-4"></path>') },
+      { title:'التصنيع OEM / بعلامة خاصة', desc:'تصنيع مخصص حسب علامتك التجارية ومواصفاتك التقنية.', href:'Decor Contact.ar.dc.html', icon: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4h8a2 2 0 0 1 1.4.6l8.2 8.2a1.4 1.4 0 0 1 0 .6z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>') },
+      { title:'التصدير', desc:'توزيع عالمي إلى 60 دولة في 4 قارات.', href:'Decor Export.ar.dc.html', icon: ic('<circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"></path>') },
+      { title:'طلب دعم', desc:'أرسل طلباتك وبلاغاتك المتعلقة بالمنتجات أو الخدمات أو الجودة.', href:'Decor Complaint.ar.dc.html', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
     ].map((c,i)=>({ ...c, num:String(i+1).padStart(2,'0') }));
 
     const downloads = [
-      { title:'كتالوج المنتجات', meta:'PDF · 24 MB', action:'تنزيل', desc:'جميع المنتجات في فئاتنا الست، بما يزيد عن 400 منتج، مع الأكواد والمواصفات التقنية.', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
-      { title:'الشهادات', meta:'ZIP · PDF', action:'تنزيل', desc:'وثائق مطابقة ISO 9001 وISO 14001 وCE وTSE وREACH.', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
+      { title:'كتالوج المنتجات', meta:'PDF · 24 MB', action:'تنزيل', desc:'جميع المنتجات التي يزيد عددها عن 700 منتج ضمن 11 فئة، مع الأكواد والمواصفات التقنية.', icon: ic('<path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6M8 14h8M8 18h5"></path>') },
+      { title:'الشهادات', meta:'ZIP · PDF', action:'تنزيل', desc:'شهادة ISO 9001:2015 ووثائق مطابقة CE للمنتجات المعنية.', icon: ic('<circle cx="12" cy="9" r="6"></circle><path d="M9 14l-2 7 5-3 5 3-2-7"></path><path d="M9.5 9l1.7 1.7L15 7"></path>') },
       { title:'مواد العلامة التجارية', meta:'ZIP · 60 MB', action:'تنزيل', desc:'الشعارات والرمز الماسي وقيم الألوان ودليل العلامة التجارية للموزعين.', icon: ic('<rect x="3" y="3" width="18" height="18" rx="1"></rect><circle cx="8.5" cy="8.5" r="1.8"></circle><path d="M21 16l-5-5L5 21"></path>') },
       { title:'ملفات PDF تقنية', meta:'PDF', action:'تنزيل', desc:'نشرات تقنية وبيانات المواد ومخططات الأبعاد لخطوط منتجات مختارة.', icon: ic('<path d="M3 12h4l2-7 4 14 2-7h6"></path>') },
       { title:'منشورات المنتجات', meta:'PDF', action:'تنزيل', desc:'نظرة عامة على الفئات وأبرز الميزات — مثالية للمبيعات وصالات العرض.', icon: ic('<path d="M4 5h7v15H6a2 2 0 0 1-2-2V5z"></path><path d="M20 5h-7v15h5a2 2 0 0 0 2-2V5z"></path>') },
@@ -449,10 +447,10 @@ class Component extends DCLogic {
     ];
 
     const faqData = [
-      { q:'كيف أصبح موزعًا معتمدًا لديكور؟', a:'قدّم طلبك عبر نموذج التوزيع لدينا مع بيانات شركتك وسوقك المستهدف. سيقوم فريق التصدير لدينا بمراجعة كل طلب والرد بالتسعير والشروط وخطوات العملية — عادةً خلال بضعة أيام عمل.' },
+      { q:'كيف أصبح موزعًا معتمدًا لديكور؟', a:'قدّم طلبك عبر نموذج التوزيع لدينا مع بيانات شركتك وسوقك المستهدف. سيقوم فريق التصدير لدينا بمراجعة كل طلب والرد بالتسعير والشروط وخطوات العملية.' },
       { q:'ما هو الحد الأدنى لكمية الطلب للتصدير؟', a:'تختلف كميات الطلب الأدنى حسب فئة المنتج والسوق المستهدف. نعمل مع الموزعين الراسخين والشركاء الإقليميين الناشئين على حد سواء، ونصمم الطلب الأول وفقًا لسوقك وقدرتك التخزينية.' },
       { q:'هل تقدمون تصنيعًا بعلامة خاصة أو OEM؟', a:'نعم. بفضل منشأتنا المتكاملة رأسيًا التي تبلغ مساحتها 21,000 متر مربع ووحدة البحث والتطوير الخاصة بنا، نصنّع أدوات بعلامة خاصة وOEM حسب مواصفاتك وعلامتك التجارية ومتطلبات التغليف.' },
-      { q:'ما هي الشهادات التي تحملها أدواتكم؟', a:'نظام الجودة لدينا معتمد وفق ISO 9001:2015؛ وتحمل خطوط منتجات ذات صلة اعتماد ISO 14001 للإدارة البيئية، وعلامة CE، وشهادة TSE، ومطابقة REACH.' },
+      { q:'ما هي الشهادات التي تحملها أدواتكم؟', a:'يتوافق نظام إدارة الجودة لدينا مع معيار ISO 9001:2015؛ وتوجد علامة CE على المنتجات المعنية (مثل معدات السلامة المهنية).' },
       { q:'ما هي مدد التسليم المعتادة لديكم؟', a:'تُشحن المنتجات المتوفرة في المخزون بسرعة بفضل أنظمتنا اللوجستية وB2B المتطورة. يتم التخطيط للتصنيع المخصص وبالعلامة الخاصة حسب كل طلب — سيؤكد مدير حسابك المدة الكاملة أثناء مرحلة عرض السعر.' },
       { q:'هل يمكنني الحصول على الكتالوج الكامل للمنتجات؟', a:'بالتأكيد. يمكنك تنزيل أحدث كتالوج من أي زر "تنزيل الكتالوج"، أو طلب نسخة مطبوعة وعينات فعلية مباشرة من فريق التصدير لدينا.' },
     ];

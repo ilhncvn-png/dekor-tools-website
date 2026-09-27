@@ -24,7 +24,7 @@
   .si-arrow{opacity:0;transition:opacity .15s ease;}
   .srch-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-family:'Archivo',sans-serif;font-size:clamp(20px,2.6vw,30px);font-weight:600;letter-spacing:-0.01em;}
   .srch-input::placeholder{color:rgba(255,255,255,.28);}
-  .srch-key{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:3px 7px;}
+  .srch-key{font-family:'Archivo',sans-serif;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:3px 7px;}
   .srch-chip{transition:border-color .2s ease,color .2s ease;cursor:pointer;}
   .srch-chip:hover{border-color:#0095DA;color:#fff;}
   @media(prefers-reduced-motion:reduce){.srch-back,.srch-card{animation:none;}}
@@ -43,11 +43,11 @@
         <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ false }}">
           <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
             <div style="margin-top:10px;">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">{{ g.label }}</div>
+              <div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">{{ g.label }}</div>
               <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
                 <a href="{{ it.href }}" onClick="{{ it.go }}" class="{{ it.cls }}" style="display:flex; align-items:center; gap:14px; padding:12px 12px; border-radius:4px; text-decoration:none;">
                   <span style="flex:0 0 auto; width:34px; height:34px; border-radius:3px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#0095DA; display:flex; align-items:center; justify-content:center;">{{ it.icon }}</span>
-                  <span style="min-width:0; flex:1;"><span style="display:block; font-size:15px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</span><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.4px; color:rgba(255,255,255,.45); margin-top:2px;">{{ it.sub }}</span></span>
+                  <span style="min-width:0; flex:1;"><span style="display:block; font-size:15px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</span><span style="display:block; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.4px; color:rgba(255,255,255,.45); margin-top:2px;">{{ it.sub }}</span></span>
                   <span class="si-arrow" style="flex:0 0 auto; font-size:15px; color:rgba(255,255,255,.5);">↵</span>
                 </a>
               </sc-for>
@@ -55,19 +55,19 @@
           </sc-for>
         </sc-if>
         <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:40px 16px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">KEINE ERGEBNISSE FÜR „{{ query }}"</div>
+          <div style="padding:40px 16px; text-align:center; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">KEINE ERGEBNISSE FÜR „{{ query }}"</div>
         </sc-if>
         <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
           <div>
             <sc-if value="{{ hasRecent }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">LETZTE SUCHANFRAGEN</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
+              <div style="margin-top:6px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">LETZTE SUCHANFRAGEN</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
             </sc-if>
-            <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">BELIEBTE PRODUKTE</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
-            <div style="margin-top:10px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">SCHNELLZUGRIFF</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#0095DA; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
+            <div style="margin-top:6px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">BELIEBTE PRODUKTE</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
+            <div style="margin-top:10px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">SCHNELLZUGRIFF</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#0095DA; display:flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
           </div>
         </sc-if>
       </div>
-      <div style="position:relative; display:flex; align-items:center; gap:18px; padding:12px clamp(18px,2.5vw,24px); border-top:1px solid rgba(255,255,255,.1); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:rgba(255,255,255,.4);">
+      <div style="position:relative; display:flex; align-items:center; gap:18px; padding:12px clamp(18px,2.5vw,24px); border-top:1px solid rgba(255,255,255,.1); font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:.8px; color:rgba(255,255,255,.4);">
         <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↑</span><span class="srch-key">↓</span> navigieren</span>
         <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↵</span> öffnen</span>
         <span style="display:inline-flex; align-items:center; gap:6px; margin-left:auto;"><span class="srch-key">⌘ K</span> überall</span>
@@ -110,14 +110,22 @@ class Component extends DCLogic {
     const _sq=(this.state.query||'').trim().toLowerCase();
     const icon=R('svg',{width:15,height:15,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.7,strokeLinecap:'round',strokeLinejoin:'round'},[R('rect',{key:0,x:4,y:4,width:16,height:16,rx:1}),R('path',{key:1,d:'M4 9h16'})]);
     const SINDEX=[
-      {g:'PRODUKTE',title:'Professioneller Spachtel',sub:'DKR-3017 · Spachtelwerkzeuge',href:'Decor Product Detail.de.dc.html',code:'DKR-3017'},
+      {g:'PRODUKTE',title:'Professioneller Spachtel',sub:'DKR-3017 · Trockenbauwerkzeuge',href:'Decor Product Detail.de.dc.html',code:'DKR-3017'},
       {g:'PRODUKTE',title:'Pro-Rollenbügel 240mm',sub:'DKR-4200 · Malerwerkzeuge',href:'Decor Category.de.dc.html',code:'DKR-4200'},
-      {g:'PRODUKTE',title:'Hartschaber 150mm',sub:'DKR-3120 · Spachtelwerkzeuge',href:'Decor Product Detail.de.dc.html',code:'DKR-3120'},
+      {g:'PRODUKTE',title:'Hartschaber 150mm',sub:'DKR-3120 · Trockenbauwerkzeuge',href:'Decor Product Detail.de.dc.html',code:'DKR-3120'},
       {g:'PRODUKTE',title:'Aluminium-Wasserwaage 60cm',sub:'DKR-7750 · Messwerkzeuge',href:'Decor Category.de.dc.html',code:'DKR-7750'},
-      {g:'PRODUKTE',title:'Edelstahl-Verputzkelle',sub:'DKR-1180 · Verputzen',href:'Decor Category.de.dc.html',code:'DKR-1180'},
-      {g:'KATEGORIEN',title:'Malerwerkzeuge',sub:'FAM-01 · 96 Produkte',href:'Decor Category.de.dc.html'},
-      {g:'KATEGORIEN',title:'Putz- / Spachtelwerkzeuge',sub:'FAM-04 · 63 Produkte',href:'Decor Category.de.dc.html'},
-      {g:'KATEGORIEN',title:'Messwerkzeuge',sub:'FAM-06 · 41 Produkte',href:'Decor Products.de.dc.html'},
+      {g:'PRODUKTE',title:'Edelstahl-Verputzkelle',sub:'DKR-1180 · Putzwerkzeuge',href:'Decor Category.de.dc.html',code:'DKR-1180'},
+      {g:'KATEGORIEN',title:'Malerwerkzeuge',sub:'FAM-01',href:'Decor Category.de.dc.html'},
+      {g:'KATEGORIEN',title:'Putzwerkzeuge',sub:'FAM-02',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Fliesenwerkzeuge',sub:'FAM-03',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Trockenbauwerkzeuge',sub:'FAM-04',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Dämmwerkzeuge',sub:'FAM-05',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Messwerkzeuge',sub:'FAM-06',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Arbeitsschutzausrüstung',sub:'FAM-07',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Werbe- und Präsentationsständer',sub:'FAM-08',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'dkr Markenprodukte',sub:'FAM-09',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Sonderanfertigungen',sub:'FAM-10',href:'Decor Products.de.dc.html'},
+      {g:'KATEGORIEN',title:'Neue Produkte',sub:'FAM-11',href:'Decor Products.de.dc.html'},
       {g:'SEITEN',title:'Fertigung',sub:'Vertikal integriert · 21.000 m²',href:'Decor Manufacturing.de.dc.html'},
       {g:'SEITEN',title:'Export',sub:'60 Länder · 4 Kontinente',href:'Decor Export.de.dc.html'},
       {g:'SEITEN',title:'Support-Center',sub:'Hilfe, downloadbare Dateien und FAQ',href:'Decor Support.de.dc.html'},

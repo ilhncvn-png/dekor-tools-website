@@ -24,7 +24,7 @@
   .si-arrow{opacity:0;transition:opacity .15s ease;}
   .srch-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-family:'Archivo',sans-serif;font-size:clamp(20px,2.6vw,30px);font-weight:600;letter-spacing:-0.01em;}
   .srch-input::placeholder{color:rgba(255,255,255,.28);}
-  .srch-key{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:3px 7px;}
+  .srch-key{font-family:'Archivo',sans-serif;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:3px 7px;}
   .srch-chip{transition:border-color .2s ease,color .2s ease;cursor:pointer;}
   .srch-chip:hover{border-color:#0095DA;color:#fff;}
   @media(prefers-reduced-motion:reduce){.srch-back,.srch-card{animation:none;}}
@@ -43,11 +43,11 @@
         <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ false }}">
           <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
             <div style="margin-top:10px;">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">{{ g.label }}</div>
+              <div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">{{ g.label }}</div>
               <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
                 <a href="{{ it.href }}" onClick="{{ it.go }}" class="{{ it.cls }}" style="display:flex; align-items:center; gap:14px; padding:12px 12px; border-radius:4px; text-decoration:none;">
                   <span style="flex:0 0 auto; width:34px; height:34px; border-radius:3px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#0095DA; display:flex; align-items:center; justify-content:center;">{{ it.icon }}</span>
-                  <span style="min-width:0; flex:1;"><span style="display:block; font-size:15px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</span><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.4px; color:rgba(255,255,255,.45); margin-top:2px;">{{ it.sub }}</span></span>
+                  <span style="min-width:0; flex:1;"><span style="display:block; font-size:15px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</span><span style="display:block; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.4px; color:rgba(255,255,255,.45); margin-top:2px;">{{ it.sub }}</span></span>
                   <span class="si-arrow" style="flex:0 0 auto; font-size:15px; color:rgba(255,255,255,.5);">↵</span>
                 </a>
               </sc-for>
@@ -55,19 +55,19 @@
           </sc-for>
         </sc-if>
         <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:40px 16px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">لا توجد نتائج لـ „{{ query }}"</div>
+          <div style="padding:40px 16px; text-align:center; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.45);">لا توجد نتائج لـ „{{ query }}"</div>
         </sc-if>
         <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
           <div>
             <sc-if value="{{ hasRecent }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">عمليات البحث الأخيرة</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
+              <div style="margin-top:6px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">عمليات البحث الأخيرة</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ r.label }}</button></sc-for></div></div>
             </sc-if>
-            <div style="margin-top:6px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">المنتجات الشائعة</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
-            <div style="margin-top:10px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">روابط سريعة</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#0095DA; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
+            <div style="margin-top:6px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">المنتجات الشائعة</div><div style="display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 6px;"><sc-for list="{{ popular }}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{ p.go }}" class="srch-chip" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:7px 14px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.5px; color:rgba(255,255,255,.7);">{{ p.label }}</button></sc-for></div></div>
+            <div style="margin-top:10px;"><div style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.4); padding:8px 12px;">روابط سريعة</div><sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="5"><a href="{{ q.href }}" class="srch-item" style="display:flex; align-items:center; gap:14px; padding:11px 12px; border-radius:4px; text-decoration:none;"><span style="flex:0 0 auto; width:30px; height:30px; border-radius:3px; border:1px solid rgba(255,255,255,.12); color:#0095DA; display:flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-size:11px;">→</span><span style="font-size:14px; font-weight:600; color:#fff;">{{ q.label }}</span></a></sc-for></div>
           </div>
         </sc-if>
       </div>
-      <div style="position:relative; display:flex; align-items:center; gap:18px; padding:12px clamp(18px,2.5vw,24px); border-top:1px solid rgba(255,255,255,.1); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.8px; color:rgba(255,255,255,.4);">
+      <div style="position:relative; display:flex; align-items:center; gap:18px; padding:12px clamp(18px,2.5vw,24px); border-top:1px solid rgba(255,255,255,.1); font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:.8px; color:rgba(255,255,255,.4);">
         <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↑</span><span class="srch-key">↓</span> للتنقل</span>
         <span style="display:inline-flex; align-items:center; gap:6px;"><span class="srch-key">↵</span> للفتح</span>
         <span style="display:inline-flex; align-items:center; gap:6px; margin-left:auto;"><span class="srch-key">⌘ K</span> في أي مكان</span>
@@ -110,14 +110,22 @@ class Component extends DCLogic {
     const _sq=(this.state.query||'').trim().toLowerCase();
     const icon=R('svg',{width:15,height:15,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.7,strokeLinecap:'round',strokeLinejoin:'round'},[R('rect',{key:0,x:4,y:4,width:16,height:16,rx:1}),R('path',{key:1,d:'M4 9h16'})]);
     const SINDEX=[
-      {g:'المنتجات',title:'ملعقة احترافية',sub:'DKR-3017 · أدوات الملعقة',href:'Decor Product Detail.ar.dc.html',code:'DKR-3017'},
-      {g:'المنتجات',title:'إطار رول احترافي 240 مم',sub:'DKR-4200 · أدوات الدهان',href:'Decor Category.ar.dc.html',code:'DKR-4200'},
-      {g:'المنتجات',title:'كاشطة صلبة 150 مم',sub:'DKR-3120 · أدوات الملعقة',href:'Decor Product Detail.ar.dc.html',code:'DKR-3120'},
+      {g:'المنتجات',title:'ملعقة احترافية',sub:'DKR-3017 · أدوات الجبس',href:'Decor Product Detail.ar.dc.html',code:'DKR-3017'},
+      {g:'المنتجات',title:'إطار رول احترافي 240 مم',sub:'DKR-4200 · أدوات الطلاء',href:'Decor Category.ar.dc.html',code:'DKR-4200'},
+      {g:'المنتجات',title:'كاشطة صلبة 150 مم',sub:'DKR-3120 · أدوات الجبس',href:'Decor Product Detail.ar.dc.html',code:'DKR-3120'},
       {g:'المنتجات',title:'ميزان ألمنيوم 60 سم',sub:'DKR-7750 · أدوات القياس',href:'Decor Category.ar.dc.html',code:'DKR-7750'},
-      {g:'المنتجات',title:'مسطرين تلييس من الفولاذ المقاوم للصدأ',sub:'DKR-1180 · التلييس',href:'Decor Category.ar.dc.html',code:'DKR-1180'},
-      {g:'الفئات',title:'أدوات الدهان',sub:'FAM-01 · 96 Produkte',href:'Decor Category.ar.dc.html'},
-      {g:'الفئات',title:'أدوات التلييس / الملعقة',sub:'FAM-04 · 63 Produkte',href:'Decor Category.ar.dc.html'},
-      {g:'الفئات',title:'أدوات القياس',sub:'FAM-06 · 41 Produkte',href:'Decor Products.ar.dc.html'},
+      {g:'المنتجات',title:'مسطرين تلييس من الفولاذ المقاوم للصدأ',sub:'DKR-1180 · أدوات اللياسة',href:'Decor Category.ar.dc.html',code:'DKR-1180'},
+      {g:'الفئات',title:'أدوات الطلاء',sub:'FAM-01',href:'Decor Category.ar.dc.html'},
+      {g:'الفئات',title:'أدوات اللياسة',sub:'FAM-02',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'أدوات البلاط',sub:'FAM-03',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'أدوات الجبس',sub:'FAM-04',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'أدوات العزل',sub:'FAM-05',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'أدوات القياس',sub:'FAM-06',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'معدات السلامة المهنية',sub:'FAM-07',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'منصات العرض الترويجية',sub:'FAM-08',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'منتجات علامة dkr',sub:'FAM-09',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'التصاميم الخاصة',sub:'FAM-10',href:'Decor Products.ar.dc.html'},
+      {g:'الفئات',title:'المنتجات الجديدة',sub:'FAM-11',href:'Decor Products.ar.dc.html'},
       {g:'الصفحات',title:'التصنيع',sub:'متكامل رأسيًا · 21.000 m²',href:'Decor Manufacturing.ar.dc.html'},
       {g:'الصفحات',title:'التصدير',sub:'60 دولة · 4 قارات',href:'Decor التصدير.ar.dc.html'},
       {g:'الصفحات',title:'مركز الدعم',sub:'المساعدة والملفات القابلة للتنزيل والأسئلة الشائعة',href:'Decor Support.ar.dc.html'},

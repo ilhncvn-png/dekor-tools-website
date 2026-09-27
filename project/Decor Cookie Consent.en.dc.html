@@ -42,7 +42,7 @@
     <div style="position:relative; padding:24px 24px 22px;">
       <div style="display:flex; align-items:center; gap:11px;">
         <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid rgba(255,255,255,.16); border-radius:3px; color:#0095DA;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px;"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"></path><circle cx="9.5" cy="11.5" r="1"></circle><circle cx="14.5" cy="14.5" r="1"></circle><circle cx="13" cy="8" r="1"></circle></svg></span>
-        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">COOKIE PREFERENCES</span>
+        <span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">COOKIE PREFERENCES</span>
       </div>
       <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:16px 0 0;">We use cookies to run the site, understand how it's used, and improve your experience. You can accept all, reject non-essential cookies, or choose exactly what you allow. See our <a href="Decor Cookies.en.dc.html" style="color:#0095DA; font-weight:600;">Cookie Policy</a>.</p>
 
@@ -50,7 +50,7 @@
         <div style="margin-top:20px; display:flex; flex-direction:column; gap:2px; border-top:1px solid rgba(255,255,255,.1); padding-top:8px;">
           <sc-for list="{{ categories }}" as="c" hint-placeholder-count="4">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.07);">
-              <div style="min-width:0;"><div style="font-size:14px; font-weight:700; color:#fff;">{{ c.name }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.5px; color:rgba(255,255,255,.45); margin-top:3px;">{{ c.desc }}</div></div>
+              <div style="min-width:0;"><div style="font-size:14px; font-weight:700; color:#fff;">{{ c.name }}</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:.5px; color:rgba(255,255,255,.45); margin-top:3px;">{{ c.desc }}</div></div>
               <div onClick="{{ c.toggle }}" class="{{ c.cls }}" role="switch" aria-checked="{{ c.on }}" aria-label="{{ c.name }}"></div>
             </div>
           </sc-for>

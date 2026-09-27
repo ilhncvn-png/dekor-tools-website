@@ -30,7 +30,7 @@
 <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0E0F11"><link rel="icon" type="image/png" sizes="32x32" href="uploads/icons/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="uploads/icons/favicon-16.png"><link rel="apple-touch-icon" href="uploads/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dekor"><meta name="mobile-web-app-capable" content="yes"><script src="./support.js"></script>
 </head>
 <body>
-<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
+<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,18 +106,18 @@
     [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
     [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
     [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
-  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  }  .mnav-link{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;}
   .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
   .mnav-toggle{display:none;}
-  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
   .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
   .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
   .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
   .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
   .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
-  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-sub a{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
   .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
-  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
   .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
   .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
   .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
@@ -133,70 +133,68 @@
       <img src="uploads/decor_logo_white.png" alt="Dekor" width="89" height="100" style="height:62px; width:auto; display:block;">
     </a>
     <div class="dkr-navlinks" style="display:flex; align-items:center; gap:22px;">
-      <a href="Decor Products.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">المنتجات</a>
-      <a href="Decor Manufacturing.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">التصنيع</a>
-      <a href="Decor Export.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">التصدير</a>
+      <a href="Decor Products.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">المنتجات</a>
+      <a href="Decor Manufacturing.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">التصنيع</a>
+      <a href="Decor Export.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">التصدير</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Authorized Dealers.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">المبيعات <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Authorized Dealers.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">المبيعات <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Authorized Dealers.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الموزعون المعتمدون</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ابحث عن موزع Dekor رسمي</span></span></a>
-          <a href="Decor Partner Resources.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">موارد الشركاء</span><span style="font-size:11px; color:rgba(255,255,255,.45);">قوائم الأسعار والكتالوجات ومواد العلامة التجارية</span></span></a>
-          <a href="Decor B2B Portal.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">بوابة B2B</span><span style="font-size:11px; color:rgba(255,255,255,.45);">منصة الطلبات الاحترافية</span></span></a>
-          <a href="Decor Online Payment.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الدفع عبر الإنترنت</span><span style="font-size:11px; color:rgba(255,255,255,.45);">دفع آمن للفواتير</span></span></a>
+          <a href="Decor Authorized Dealers.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الموزعون المعتمدون</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ابحث عن موزع Dekor رسمي</span></span></a>
+          <a href="Decor Partner Resources.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">موارد الشركاء</span><span style="font-size:11px; color:rgba(255,255,255,.45);">قوائم الأسعار والكتالوجات ومواد العلامة التجارية</span></span></a>
+          <a href="Decor B2B Portal.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">بوابة B2B</span><span style="font-size:11px; color:rgba(255,255,255,.45);">منصة الطلبات الاحترافية</span></span></a>
+          <a href="Decor Online Payment.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الدفع عبر الإنترنت</span><span style="font-size:11px; color:rgba(255,255,255,.45);">دفع الفواتير عبر الإنترنت</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Newsroom.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">الأخبار <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Newsroom.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">الأخبار <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Newsroom.ar.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">آخر الأخبار</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الإعلانات وتحديثات المنتجات</span></span></a>
-          <a href="Decor Newsroom.ar.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">المعارض التجارية</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المعارض والفعاليات</span></span></a>
-          <a href="Decor Newsroom.ar.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">أكاديمية التدريب</span><span style="font-size:11px; color:rgba(255,255,255,.45);">تدريب الحرفيين والموزعين</span></span></a>
-          <a href="Decor Newsroom.ar.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">حياة الشركة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الفعاليات والجوائز والثقافة</span></span></a>
+          <a href="Decor Newsroom.ar.dc.html#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الصحافة والإعلام</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الإعلانات وتحديثات المنتجات</span></span></a>
+          <a href="Decor Newsroom.ar.dc.html#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">المعارض التجارية</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المعارض والفعاليات</span></span></a>
+          <a href="Decor Newsroom.ar.dc.html#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">أكاديمية التدريب</span><span style="font-size:11px; color:rgba(255,255,255,.45);">تدريب الحرفيين والموزعين</span></span></a>
+          <a href="Decor Newsroom.ar.dc.html#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">حياة الشركة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الفعاليات والجوائز والثقافة</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor About.ar.dc.html" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">من نحن <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor About.ar.dc.html" class="dkr-link active" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">من نحن <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:322px;">
-          <a href="Decor About.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">عن Dekor</span><span style="font-size:11px; color:rgba(255,255,255,.45);">نظرة عامة على الشركة</span></span></a>
-          <a href="Decor Our Story.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">قصتنا</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ستون عامًا من الحرفية</span></span></a>
-          <a href="Decor Vision Mission.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الرؤية والرسالة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">القيم التي تدفعنا للأمام</span></span></a>
-          <a href="Decor RD Center.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">مركز البحث والتطوير</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الهندسة والابتكار</span></span></a>
-          <a href="Decor Quality Sustainability.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الجودة والاستدامة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المعايير والمسؤولية</span></span></a>
-          <a href="Decor Career.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الوظائف</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ابنِ مسيرتك المهنية معنا</span></span></a>
-          <a href="Decor Idea.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">لدي فكرة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">شاركها مع فريقنا</span></span></a>
+          <a href="Decor About.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">عن Dekor</span><span style="font-size:11px; color:rgba(255,255,255,.45);">نظرة عامة على الشركة</span></span></a>
+          <a href="Decor Our Story.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">قصتنا</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ستون عامًا من الحرفية</span></span></a>
+          <a href="Decor Vision Mission.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الرؤية والرسالة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">القيم التي تدفعنا للأمام</span></span></a>
+          <a href="Decor RD Center.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">مركز البحث والتطوير</span><span style="font-size:11px; color:rgba(255,255,255,.45);">الهندسة والابتكار</span></span></a>
+          <a href="Decor Quality Sustainability.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الجودة والاستدامة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المعايير والمسؤولية</span></span></a>
+          <a href="Decor Career.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الوظائف</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ابنِ مسيرتك المهنية معنا</span></span></a>
+          <a href="Decor Idea.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">لدي فكرة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">شاركها مع فريقنا</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Support.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">الدعم <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Support.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">الدعم <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="Decor Support.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">مركز الدعم</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المساعدة والأسئلة الشائعة ومركز التنزيلات</span></span></a>
-          <a href="Decor Support.ar.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">التنزيلات</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ملفات PDF التقنية والمستندات</span></span></a>
-          <a href="Decor Support.ar.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الشهادات</span><span style="font-size:11px; color:rgba(255,255,255,.45);">وثائق ISO وCE والمطابقة</span></span></a>
-          <a href="Decor Support.ar.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الكتالوجات</span><span style="font-size:11px; color:rgba(255,255,255,.45);">كتالوجات المنتجات الكاملة</span></span></a>
-          <a href="Decor Support.ar.dc.html#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الضمان</span><span style="font-size:11px; color:rgba(255,255,255,.45);">التغطية والتسجيل</span></span></a>
-          <a href="Decor Support.ar.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الأسئلة الشائعة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">أسئلة متكررة مع إجابات</span></span></a>
+          <a href="Decor Support.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">مركز الدعم</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المساعدة والأسئلة الشائعة ومركز التنزيلات</span></span></a>
+          <a href="Decor Support.ar.dc.html#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الكتالوجات</span><span style="font-size:11px; color:rgba(255,255,255,.45);">كتالوجات المنتجات الكاملة</span></span></a>
+          <a href="Decor Complaint.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الضمان</span><span style="font-size:11px; color:rgba(255,255,255,.45);">طلبات الضمان</span></span></a>
+          <a href="Decor Support.ar.dc.html#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">الأسئلة الشائعة</span><span style="font-size:11px; color:rgba(255,255,255,.45);">أسئلة متكررة مع إجابات</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="Decor Contact.ar.dc.html" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">اتصل بنا <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="Decor Contact.ar.dc.html" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">اتصل بنا <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel">
-          <a href="Decor Contact.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">اتصل بنا</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المكاتب والمصنع وفرق التصدير</span></span></a>
-          <a href="Decor Complaint.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">تقديم شكوى</span><span style="font-size:11px; color:rgba(255,255,255,.45);">مشاكل الخدمة والجودة</span></span></a>
+          <a href="Decor Contact.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">اتصل بنا</span><span style="font-size:11px; color:rgba(255,255,255,.45);">المكاتب والمصنع وفرق التصدير</span></span></a>
+          <a href="Decor Complaint.ar.dc.html" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">طلب دعم</span><span style="font-size:11px; color:rgba(255,255,255,.45);">طلبات المنتج والخدمة والجودة</span></span></a>
         </div>
       </div>
       <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <button type="button" class="dkr-link" aria-label="اختيار اللغة، النشط: العربية" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">AR</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <button type="button" class="dkr-link" aria-label="اختيار اللغة، النشط: العربية" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">AR</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
         <div class="nav-drop-panel" style="min-width:150px;">
-          <a href="Decor Our Story.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
-          <a href="Decor Our Story.en.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
-          <a href="Decor Our Story.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
-          <a href="Decor Our Story.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
-          <a href="Decor Our Story.ru.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
-          <a href="Decor Our Story.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
-          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇸🇦 AR</span></button>
+          <a href="Decor Our Story.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇹🇷 TR</span></a>
+          <a href="Decor Our Story.en.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <a href="Decor Our Story.de.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="Decor Our Story.fr.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="Decor Our Story.ru.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="Decor Our Story.az.dc.html" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:#fff;">🇸🇦 AR</span></button>
         </div>
       </div>
-      <button type="button" class="nav-search dekor-search-trigger" aria-label="بحث (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="بحث (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
       <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
       <a href="Decor Become a Dealer.ar.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">كن موزعًا</a>
     </div>
@@ -230,9 +228,9 @@
   <div class="bp-glint" style="left:70%; top:40%;"></div>
   <div class="bp-glint" style="left:36%; top:26%; animation-delay:2.6s;"></div>
   <div class="bp-particle" style="left:62%; top:64%;"></div>
-  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>وثيقة · من نحن / 01 · قصتنا</span><span>التأسيس 1964</span></div>
+  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>وثيقة · من نحن / 01 · قصتنا</span><span>التأسيس 1964</span></div>
   <div style="position:relative; max-width:1280px; margin:0 auto; width:100%; z-index:2;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.ar.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">الرئيسية</a> &nbsp;/&nbsp; <a href="Decor About.ar.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">من نحن</a> &nbsp;/&nbsp; <span style="color:#D32027;">قصتنا</span></div>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="Decor Home.ar.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">الرئيسية</a> &nbsp;/&nbsp; <a href="Decor About.ar.dc.html" class="dkr-link" style="color:rgba(255,255,255,.55);">من نحن</a> &nbsp;/&nbsp; <span style="color:#D32027;">قصتنا</span></div>
     <h1 style="font-size:clamp(46px,8vw,112px); font-weight:900; letter-spacing:-0.045em; color:#fff; line-height:0.86; margin:24px 0 0;">منذ 1964<br>باليد <span style="color:#D32027;">وحدها</span>.</h1>
     <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:28px 0 0; max-width:540px;">ستون عامًا تُروى بمحطات فارقة — من أخوين يصنعان أدواتهما بأنفسهما إلى مصنع بمساحة 21.000 م² يُصدّر إلى أربع قارات.</p>
   </div>
@@ -245,16 +243,16 @@
   <div class="seam-guide" style="left:84%; top:0; height:80px; background:rgba(0,149,218,.18); position:absolute; width:1px;" aria-hidden="true"></div>
   <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;" class="dkr-2col">
     <div data-reveal>
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>قصتنا</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>قصتنا</div>
       <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">مهنة واحدة، أخوان، شغف واحد.</h2>
-      <p style="font-size:16.5px; line-height:1.7; color:#5A6066; margin:22px 0 0;">قدم أحمد ودلاور حصدمير من قيصري إلى إسطنبول، وبدآ العمل في سن مبكرة كأسطى دهان في مواقع البناء. لم تكن الأدوات التي يحتاجونها متوفرة بالشكل الذي أرادوه — فصنعا أدواتهما بأنفسهما.</p>
-      <p style="font-size:16.5px; line-height:1.7; color:#5A6066; margin:18px 0 0;">وعندما استمر الأسطوات الآخرون في طلب هذه الأدوات، وُلدت علامة Dekor عام 1964. ومن منتج واحد في قبو عمارة، حملت رحلة صناعية صبورة Dekor إلى القرن الحادي والعشرين كجزء من مجموعة Hassan المتكاملة.</p>
+      <p style="font-size:16.5px; line-height:1.7; color:#5A6066; margin:22px 0 0;">أكثر من ستين عامًا من الخبرة، ثمرة شغف واحد. بدأت رحلة الإتقان لأحمد ودلاور حصدمير، القادمَين من قيصري إلى إسطنبول، عام 1964 بأول أداة صنعاها لتلبية احتياجاتهما الخاصة.</p>
+      <p style="font-size:16.5px; line-height:1.7; color:#5A6066; margin:18px 0 0;">واليوم تحوّلت Dekor، بصفتها مُصنّعًا تركيًا من الجيل الثاني تحت مظلة Hassan Group، إلى شركة هندسية تخدم أربع قارات بأدوات البناء اليدوية الاحترافية.</p>
     </div>
     <div data-reveal style="position:relative; aspect-ratio:4/5; background:#E6E8EB; border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
       <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:30px 30px;"></div>
-      <div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; background:#0E0F11; color:#fff; padding:5px 10px;">التأسيس 1964</div>
+      <div style="position:absolute; top:16px; left:16px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1px; background:#0E0F11; color:#fff; padding:5px 10px;">التأسيس 1964</div>
       <div style="position:absolute; bottom:16px; right:16px; width:44px; height:44px; background:#0095DA;"></div>
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa1a8; letter-spacing:1px;">المؤسسون / صورة أرشيفية</div>
+      <div style="font-family:'Archivo',sans-serif; font-size:11px; color:#9aa1a8; letter-spacing:1px;">المؤسسون / صورة أرشيفية</div>
     </div>
   </div>
 </section>
@@ -266,7 +264,7 @@
   <div class="bp-glint" style="left:88%; top:70%; animation-delay:3s;"></div>
   <div style="position:relative; max-width:1080px; margin:0 auto;">
     <div data-reveal style="margin-bottom:56px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>ستون عامًا · الجدول الزمني</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>ستون عامًا · الجدول الزمني</div>
       <h2 style="font-size:clamp(32px,4.5vw,56px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:16px 0 0;">الرحلة حتى الآن.</h2>
     </div>
     <div style="position:relative;">
@@ -287,7 +285,7 @@
               <p style="font-size:14.5px; line-height:1.65; color:rgba(255,255,255,.62); margin:10px 0 0; max-width:620px;">{{ t.desc }}</p>
               <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;">
                 <sc-for list="{{ t.tags }}" as="tag" hint-placeholder-count="2">
-                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.14); padding:5px 10px; border-radius:2px;">{{ tag }}</span>
+                  <span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.2px; color:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.14); padding:5px 10px; border-radius:2px;">{{ tag }}</span>
                 </sc-for>
               </div>
             </div>
@@ -302,14 +300,14 @@
 <section style="background:#F4F5F6; padding:clamp(56px,8vw,110px) clamp(20px,5vw,64px);">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="max-width:680px; margin-bottom:44px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>نمو الشركة</div>
-      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">ستون عامًا، بالأرقام.</h2>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>نمو الشركة</div>
+      <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">مسيرة تطوّر من الريادة الوطنية إلى مكانة علامة عالمية.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); border-top:1px solid #E2E5E9;">
       <sc-for list="{{ numbers }}" as="n" hint-placeholder-count="6">
         <div data-reveal style="padding:32px 24px 32px 0; border-bottom:1px solid #E2E5E9;">
           <div style="font-size:clamp(36px,4.5vw,58px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1;">{{ n.value }}</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8A9097; margin-top:12px;">{{ n.label }}</div>
+          <div style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.5px; color:#8A9097; margin-top:12px;">{{ n.label }}</div>
         </div>
       </sc-for>
     </div>
@@ -320,7 +318,7 @@
 <section style="position:relative; background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="max-width:680px; margin-bottom:44px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>معرض الشركة</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>معرض الشركة</div>
       <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:16px 0 0;">داخل Dekor.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:clamp(150px,18vw,230px); gap:14px;">
@@ -329,11 +327,11 @@
           <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:30px 30px;"></div>
           <div class="gal-bp" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.12) 1px,transparent 1px); background-size:24px 24px;"></div>
           <div style="position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.2px; background:#0E0F11; color:#fff; padding:5px 9px;">{{ g.code }}</div>
-          <div style="position:absolute; bottom:14px; left:14px; right:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#5A6066;">{{ g.label }}</div>
+          <div style="position:absolute; bottom:14px; left:14px; right:14px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1px; color:#5A6066;">{{ g.label }}</div>
         </div>
       </sc-for>
     </div>
-    <div data-reveal style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.4px; color:#A7ADB3; margin-top:18px;">مساحات الصور · سيتم إضافة صور المنشأة والأرشيف</div>
+    <div data-reveal style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.4px; color:#A7ADB3; margin-top:18px;">مساحات الصور · سيتم إضافة صور المنشأة والأرشيف</div>
   </div>
 </section>
 
@@ -344,7 +342,7 @@
   <div data-reveal style="position:relative; max-width:980px; margin:0 auto; text-align:center; z-index:2;">
     <div style="font-family:'Archivo'; font-size:90px; font-weight:900; color:#0095DA; line-height:0.5; height:42px;">&ldquo;</div>
     <p style="font-size:clamp(22px,3vw,38px); font-weight:800; letter-spacing:-0.02em; color:#fff; line-height:1.25; margin:0;">لم نهدف يومًا إلى تأسيس شركة. هدفنا كان صنع أداة أفضل — ورفضنا التوقف.</p>
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.55); margin-top:28px;">— قصة تأسيس Dekor</div>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.55); margin-top:28px;">— قصة تأسيس Dekor</div>
   </div>
 </section>
 
@@ -388,16 +386,16 @@ class Component extends DCLogic {
 
   renderVals(){
     const timeline = [
-      { year:'1964', code:'M-01', title:'ولادة علامة Dekor', desc:'يبدأ أسطوات الدهان أحمد ودلاور حصدمير في تصنيع أدوات يدوية للأسطوات الآخرين في قبو عمارة بإسطنبول.', tags:['إسطنبول','التأسيس'] },
-      { year:'السبعينيات', code:'M-02', title:'من الورشة إلى المصنع', desc:'الطلب المتزايد يحوّل ورشة ذات منتج واحد إلى عملية إنتاج كاملة تخدم القطاع التركي.', tags:['النمو','الإنتاج'] },
-      { year:'التسعينيات', code:'M-03', title:'ريادة السوق الوطنية', desc:'تصبح Dekor الاسم المرجعي لأدوات الدهان والجص الاحترافية في جميع أنحاء تركيا.', tags:['#1 تركيا','العلامة التجارية'] },
-      { year:'الألفينيات', code:'M-04', title:'حقبة مجموعة Hassan', desc:'تدخل Dekor القرن الحادي والعشرين كجزء من مجموعة شركات متكاملة، موسّعةً الإنتاج واللوجستيات.', tags:['مجموعة Hassan','اللوجستيات'] },
-      { year:'العقد الثاني من الألفية الثالثة', code:'M-05', title:'البحث والتطوير والتصدير العالمي', desc:'مركز بحث وتطوير متخصص وأنظمة B2B توجّه الصادرات إلى عشرات الدول في أربع قارات.', tags:['مركز البحث والتطوير','التصدير'] },
-      { year:'اليوم', code:'M-06', title:'أكثر من 400 منتج، 60 دولة', desc:'منشأة بمساحة 21.000 م²، وريادة سوقية محلية، وشبكة موزعين متنامية حول العالم.', tags:['21.000 م²','60 دولة'] },
+      { year:'1964', code:'M-01', title:'ولادة علامة Dekor', desc:'انطلقت مبادرة الإنتاج التي وُلدت من الحاجة لدى أسطوات الدهان أحمد ودلاور حصدمير في إسطنبول عام 1964 بتصنيع أولى أدواتهما اليدوية. وكانت هذه البداية المتواضعة الخطوة الأولى في رحلة تحوّلت اليوم إلى علامة عالمية في مجال أدوات البناء اليدوية الاحترافية.', tags:['إسطنبول','التأسيس'] },
+      { year:'1970', code:'M-02', title:'من الورشة إلى المصنع', desc:'حوّل الطلب المتزايد ورشةً ذات منتج واحد إلى منشأة إنتاج متكاملة تخدم قطاع البناء التركي. وشكّل هذا التحوّل بداية انتقال Dekor إلى طاقة إنتاجية على المستوى الصناعي وبداية مسيرتها المؤسسية.', tags:['النمو','الإنتاج'] },
+      { year:'1990', code:'M-03', title:'ريادة السوق الوطنية', desc:'أصبحت Dekor العلامة الرائدة في القطاع لأدوات الدهان والجص الاحترافية في جميع أنحاء تركيا. وفي هذه المرحلة، باتت منتجاتها المرجع الوطني للجودة والثقة.', tags:['#1 تركيا','العلامة التجارية'] },
+      { year:'2000', code:'M-04', title:'حقبة مجموعة Hassan', desc:'من خلال توسيع طاقتها الإنتاجية وشبكتها اللوجستية، أصبحت Dekor جزءًا من مجموعة Hassan المتكاملة. ويمثّل هذا الاندماج الاستراتيجي بداية التعزيز المؤسسي الذي حمل العلامة إلى القرن الحادي والعشرين، وبداية رؤية إنتاج على نطاق عالمي.', tags:['مجموعة Hassan','اللوجستيات'] },
+      { year:'2010', code:'M-05', title:'البحث والتطوير والتصدير العالمي', desc:'أدمجت Dekor الابتكار في هيكلها المؤسسي من خلال مركز بحث وتطوير متخصص وأنظمة B2B متكاملة. وأرست الحلول التي طُوّرت في هذه المرحلة أساس الصادرات إلى عشرات الدول في أربع قارات، لتصبح العلامة شريكًا هندسيًا موثوقًا على المستوى العالمي.', tags:['مركز البحث والتطوير','التصدير'] },
+      { year:'اليوم', code:'M-06', title:'أكثر من 700 منتج، 60 دولة', desc:'أكثر من 700 منتج طُوّرت في منشأة إنتاج حديثة بمساحة 21.000 م² تعزّز ريادة السوق في تركيا، ومع شبكة موزعين متنامية في 60 دولة حول العالم أصبحت Dekor علامة يختارها المحترفون بثقة.', tags:['21.000 م²','60 دولة'] },
     ];
     const numbers = [
       { value:'60', label:'عامًا من الحرفية' },
-      { value:'400+', label:'خط إنتاج' },
+      { value:'700+', label:'خط إنتاج' },
       { value:'60', label:'دولة نخدمها' },
       { value:'21.000', label:'م² مساحة إنتاج' },
       { value:'4', label:'قارات' },
@@ -405,7 +403,7 @@ class Component extends DCLogic {
     ];
     const gallery = [
       { code:'IMG-01', label:'موقع المصنع · جيبزة', col:7, row:2 },
-      { code:'IMG-02', label:'خط الدرفلة', col:5, row:1 },
+      { code:'IMG-02', label:'خط الإنتاج', col:5, row:1 },
       { code:'IMG-03', label:'مختبر الجودة', col:5, row:1 },
       { code:'IMG-04', label:'المؤسسون · الأرشيف', col:4, row:1 },
       { code:'IMG-05', label:'تشكيلة المنتجات', col:4, row:1 },

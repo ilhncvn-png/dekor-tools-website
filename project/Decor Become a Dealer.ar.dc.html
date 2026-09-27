@@ -18,7 +18,7 @@
 <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0E0F11"><link rel="icon" type="image/png" sizes="32x32" href="uploads/icons/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="uploads/icons/favicon-16.png"><link rel="apple-touch-icon" href="uploads/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dekor"><meta name="mobile-web-app-capable" content="yes"><script src="./support.js"></script>
 </head>
 <body>
-<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
+<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">انتقل إلى المحتوى الرئيسي</a>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,10 +84,13 @@
   @media(max-width:920px){.dkr-foot{grid-template-columns:1fr 1fr !important;}}
   @media(max-width:780px){.dkr-foot{grid-template-columns:1fr !important;}}
   /* forms */
-  .f-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.5px;color:#5A6066;display:block;margin-bottom:9px;}
+  .f-label{font-family:'Archivo',sans-serif;font-size:10.5px;letter-spacing:1.5px;color:#5A6066;display:block;margin-bottom:9px;}
   .f-input,.f-select,.f-area{width:100%;font-family:'Archivo',sans-serif;font-size:15px;color:#0E0F11;background:#fff;border:1px solid #D7DBE0;border-radius:2px;padding:13px 14px;outline:none;transition:border-color .25s ease,box-shadow .25s ease;-webkit-appearance:none;appearance:none;}
   .f-input:focus,.f-select:focus,.f-area:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.12);}
   .f-input::placeholder{color:#A7AEB5;}
+  .f-input[aria-invalid="true"]{border-color:#D32027;box-shadow:0 0 0 3px rgba(211,32,39,.12);}
+  .dealer-notice{max-width:560px;margin:20px auto 0;padding:14px 18px;background:rgba(14,15,17,.28);border:1px solid rgba(255,255,255,.45);border-left:3px solid #fff;border-radius:3px;font-size:14px;line-height:1.55;color:#fff;text-align:start;}
+  .dealer-notice-err{background:rgba(14,15,17,.42);border-left-color:#D32027;}
   .f-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%235A6066' stroke-width='1.6' d='M1 1.5L6 6l5-4.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:38px;}
   .f-select option{color:#0E0F11;}
   .f-area{resize:vertical;min-height:150px;line-height:1.6;}
@@ -101,7 +104,7 @@
   .f-chip.on{border-color:#0095DA;color:#0E0F11;background:#fff;}
   .f-chip.on .chk{background:#0095DA;border-color:#0095DA;}
   .f-chip.on .chk svg{opacity:1;transform:scale(1);}
-  .seg-btn{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:#5A6066;background:#fff;border:1px solid #D7DBE0;border-radius:2px;padding:11px 22px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+  .seg-btn{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:#5A6066;background:#fff;border:1px solid #D7DBE0;border-radius:2px;padding:11px 22px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
   .seg-btn:hover{border-color:#9aa0a7;}
   .seg-btn.on{border-color:#0095DA;color:#fff;background:#0095DA;}
   /* benefit cards */
@@ -148,18 +151,18 @@
     [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
     [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
     [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
-  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  }  .mnav-link{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;}
   .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
   .mnav-toggle{display:none;}
-  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
   .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
   .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
   .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
   .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
   .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
-  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-sub a{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
   .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
-  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
   .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
   .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
   .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
@@ -214,7 +217,7 @@
       <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
       <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="Decor Newsroom.dc.html#news">SON HABERLER</a>
+        <a href="Decor Newsroom.dc.html#news">الصحافة والإعلام</a>
         <a href="Decor Newsroom.dc.html#trade-shows">FUARLAR</a>
         <a href="Decor Newsroom.dc.html#training-academy">EĞİTİM AKADEMİSİ</a>
         <a href="Decor Newsroom.dc.html#company-life">ŞİRKET YAŞAMI</a>
@@ -238,12 +241,9 @@
       <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="Decor Support.dc.html">DESTEK MERKEZİ</a>
-        <a href="Decor Support.dc.html#downloads">İNDİRİLENLER</a>
-        <a href="Decor Support.dc.html#faq">SSS</a>
-        <a href="Decor Support.dc.html#downloads">SERTİFİKALAR</a>
-        <a href="Decor Support.dc.html#downloads">KATALOGLAR</a>
-        <a href="Decor Support.dc.html#categories">GARANTİ</a>
-        <a href="Decor Support.dc.html#faq">SSS</a>
+        <a href="Decor Support.dc.html#downloads">الكتالوجات</a>
+        <a href="Decor Complaint.ar.dc.html">الضمان</a>
+        <a href="Decor Support.dc.html#faq">الأسئلة الشائعة</a>
       </div>
     </div>
     <div class="mnav-group">
@@ -251,7 +251,7 @@
       <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="Decor Contact.dc.html">İLETİŞİM</a>
-        <a href="Decor Complaint.dc.html">ŞİKAYET BİLDİR</a>
+        <a href="Decor Complaint.dc.html">طلب دعم</a>
       </div>
     </div>
     <div class="mnav-langs">
@@ -280,11 +280,11 @@
   <div class="bp-particle" style="left:88%; top:88%; animation-delay:5s;"></div>
   <!-- factory footage slot -->
   <div style="position:absolute; inset:0; opacity:.16; background:repeating-linear-gradient(115deg,#11171d 0 38px,#161e26 38px 76px);"></div>
-  <div style="position:absolute; right:clamp(20px,5vw,64px); bottom:26px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.32);">FACTORY FOOTAGE · GEBZE/KOCAELİ · 21.000 m²</div>
+  <div style="position:absolute; right:clamp(20px,5vw,64px); bottom:26px; font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.32);">FACTORY FOOTAGE · GEBZE/KOCAELİ · 21.000 m²</div>
   <div class="hero-diagonal" style="position:absolute; top:-130px; right:-120px; width:300px; height:1150px; opacity:.9; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
-  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">برنامج التوزيع · توزيع عالمي · تأسست 1964</div>
+  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">برنامج التوزيع · توزيع عالمي · تأسست 1964</div>
   <div style="position:relative; z-index:2; max-width:1000px; margin:0 auto; text-align:center;">
-    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>كن شريكًا مع Dekor</div>
+    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>كن شريكًا مع Dekor</div>
     <h1 data-reveal style="font-size:clamp(40px,6.6vw,90px); font-weight:900; letter-spacing:-0.04em; color:#fff; line-height:0.92; margin:24px 0 0;">كن شريك أعمال <span style="color:#0095DA;">رسميًا لـ Dekor.</span></h1>
     <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:26px auto 0; max-width:540px;">انضم إلى شبكة توزيع احترافية تعمل في أكثر من 60 دولة — مدعومة بأكثر من 60 عامًا من خبرة التصنيع ومنشأة تبلغ مساحتها 21.000 م².</p>
     <div data-reveal style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:46px;">
@@ -293,10 +293,10 @@
     </div>
     <!-- proof strip -->
     <div data-reveal style="display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(26px,5vw,64px); margin-top:54px; padding-top:30px; border-top:1px solid rgba(255,255,255,.1);">
-      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">60+</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">دولة</div></div>
-      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">400+</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">منتج</div></div>
-      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">4</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">قارات</div></div>
-      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">1964</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">تأسست</div></div>
+      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">60+</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">دولة</div></div>
+      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">700+</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">منتج</div></div>
+      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">4</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">قارات</div></div>
+      <div><div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:34px; color:#fff; letter-spacing:-0.02em;">1964</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:#D32027; margin-top:5px;">تأسست</div></div>
     </div>
   </div>
 </header>
@@ -307,11 +307,11 @@
     <div style="position:absolute; left:16%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.20);"></div>
     <div style="position:absolute; left:50%; top:-96px; width:1px; height:192px; background:rgba(0,149,218,.28);"></div>
     <div style="position:absolute; left:84%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.20);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 01</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 01</div>
   </div>
   <div style="max-width:1280px; margin:0 auto;">
     <div data-reveal style="max-width:680px; margin-bottom:46px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>لماذا الشراكة مع Dekor</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>لماذا الشراكة مع Dekor</div>
       <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:16px 0 0;">شراكة على مستوى المُصنّع، مصممة للنمو.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px;">
@@ -337,14 +337,14 @@
     <div style="position:absolute; left:16%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
     <div style="position:absolute; left:50%; top:-96px; width:1px; height:192px; background:rgba(0,149,218,.3);"></div>
     <div style="position:absolute; left:84%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 02</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 02</div>
   </div>
   <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(130% 90% at 50% 20%,#000 50%,transparent 95%);"></div>
   <div class="bp-glint" style="left:10%; top:30%;"></div>
   <div class="bp-glint" style="left:90%; top:60%; animation-delay:3s;"></div>
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
     <div data-reveal style="max-width:680px; margin-bottom:46px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>متطلبات الشراكة</div>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>متطلبات الشراكة</div>
       <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:16px 0 0;">المواصفات الفنية لموزع مؤهل.</h2>
       <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.6); margin:16px 0 0;">نُقيم شراكات مع شركات راسخة قادرة على تمثيل Dekor بمعايير الهندسة ذاتها التي نضعها في كل أداة.</p>
     </div>
@@ -375,7 +375,7 @@
   <div class="bp-particle" style="left:12%; top:80%; animation-delay:2s;"></div>
   <div style="position:relative; z-index:2; max-width:980px; margin:0 auto;">
     <div data-reveal style="text-align:center; margin-bottom:54px;">
-      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>عملية التقديم</div>
+      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>عملية التقديم</div>
       <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:16px 0 0;">من الطلب إلى أول شحنة.</h2>
     </div>
     <div data-reveal style="position:relative; padding-left:clamp(46px,7vw,72px);">
@@ -388,7 +388,7 @@
             <div class="proc-node" style="position:absolute; left:calc(-1 * clamp(46px,7vw,72px) + clamp(8px,1.3vw,16px)); top:24px; width:clamp(20px,3vw,24px); height:clamp(20px,3vw,24px); border-radius:50%; background:#0E0F11; border:2px solid #0095DA; display:flex; align-items:center; justify-content:center;">
               <span style="width:6px; height:6px; border-radius:50%; background:#0095DA;"></span>
             </div>
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">الخطوة {{ s.num }}</div>
+            <div style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:2px; color:#0095DA; font-weight:600;">الخطوة {{ s.num }}</div>
             <h3 class="proc-title" style="font-size:clamp(20px,2.4vw,27px); font-weight:800; color:rgba(255,255,255,.92); letter-spacing:-0.02em; margin:7px 0 0; transition:color .3s ease;">{{ s.title }}</h3>
             <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,.55); margin:8px 0 0; max-width:640px;">{{ s.desc }}</p>
           </div>
@@ -404,51 +404,36 @@
     <div style="position:absolute; left:16%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
     <div style="position:absolute; left:50%; top:-96px; width:1px; height:192px; background:rgba(0,149,218,.3);"></div>
     <div style="position:absolute; left:84%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 03</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 03</div>
   </div>
   <div style="max-width:1080px; margin:0 auto;">
     <div data-reveal style="text-align:center; max-width:680px; margin:0 auto 44px;">
-      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>طلب التوزيع</div>
+      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>طلب التوزيع</div>
       <h2 style="font-size:clamp(28px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:16px 0 0;">أخبرنا عن شركتك.</h2>
       <p style="font-size:16px; line-height:1.6; color:#5A6066; margin:14px 0 0;">أكمل الطلب أدناه. الحقول المميزة بـ <span class="req">*</span> إلزامية. تتم مراجعة معلوماتك بسرية من قبل فريق التصدير لدينا.</p>
     </div>
 
-    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-      <div data-reveal style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; overflow:hidden;">
-        <div style="height:4px; background:#0095DA;"></div>
-        <div style="padding:clamp(48px,7vw,84px) 40px; text-align:center;">
-          <div style="width:72px; height:72px; border-radius:50%; background:#0095DA; color:#fff; display:flex; align-items:center; justify-content:center; font-size:34px; margin:0 auto;">✓</div>
-          <h3 style="font-size:clamp(26px,3.2vw,38px); font-weight:900; letter-spacing:-0.02em; color:#0E0F11; margin:26px 0 0;">تم استلام طلبك.</h3>
-          <p style="font-size:16px; line-height:1.6; color:#5A6066; margin:16px auto 0; max-width:460px;">رقمك المرجعي هو <strong style="font-family:'IBM Plex Mono',monospace; color:#0095DA;">{{ ref }}</strong>. عادةً ما يرد فريق التصدير لدينا خلال 3-5 أيام عمل.</p>
-          <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:30px;">
-            <a href="Decor Home.dc.html" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px;">العودة إلى الصفحة الرئيسية</a>
-            <button onClick="{{ reset }}" class="dkr-btn" style="background:#0E0F11; color:#fff; border:none; padding:14px 26px; font-weight:700; font-size:15px; border-radius:2px; cursor:pointer; font-family:'Archivo',sans-serif;">إرسال طلب جديد</button>
-          </div>
-        </div>
-      </div>
-    </sc-if>
 
-    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
       <div data-reveal style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:3px; overflow:hidden;">
         <div style="height:4px; background:#0095DA;"></div>
         <div style="padding:clamp(26px,3.4vw,46px);">
 
           <!-- SECTION 1 -->
           <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">01</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">01</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">معلومات الشركة</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
-            <div><label class="f-label">اسم الشركة <span class="req">*</span></label><input class="f-input" type="text" placeholder="الاسم التجاري"></div>
-            <div><label class="f-label">الاسم القانوني للشركة <span class="req">*</span></label><input class="f-input" type="text" placeholder="الكيان القانوني المسجل"></div>
+            <div><label class="f-label">اسم الشركة <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="الاسم التجاري"></div>
+            <div><label class="f-label">الاسم القانوني للشركة <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="الكيان القانوني المسجل"></div>
             <div><label class="f-label">رقم السجل التجاري</label><input class="f-input" type="text" placeholder="رقم السجل"></div>
-            <div><label class="f-label">الرقم الضريبي <span class="req">*</span></label><input class="f-input" type="text" placeholder="رقم التعريف الضريبي"></div>
+            <div><label class="f-label">الرقم الضريبي <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="رقم التعريف الضريبي"></div>
             <div><label class="f-label">رقم ضريبة القيمة المضافة</label><input class="f-input" type="text" placeholder="اختياري"></div>
-            <div><label class="f-label">الدولة <span class="req">*</span></label><input class="f-input" type="text" placeholder="الدولة"></div>
-            <div><label class="f-label">المدينة <span class="req">*</span></label><input class="f-input" type="text" placeholder="المدينة"></div>
+            <div><label class="f-label">الدولة <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="الدولة"></div>
+            <div><label class="f-label">المدينة <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="المدينة"></div>
             <div><label class="f-label">سنة التأسيس</label><input class="f-input" type="text" placeholder="مثال 2006"></div>
-            <div style="grid-column:1 / -1;"><label class="f-label">العنوان الكامل <span class="req">*</span></label><input class="f-input" type="text" placeholder="الشارع، الحي، الرمز البريدي"></div>
+            <div style="grid-column:1 / -1;"><label class="f-label">العنوان الكامل <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="الشارع، الحي، الرمز البريدي"></div>
             <div><label class="f-label">الموقع الإلكتروني للشركة</label><input class="f-input" type="text" placeholder="https://"></div>
             <div><label class="f-label">لينكدإن</label><input class="f-input" type="text" placeholder="linkedin.com/company/…"></div>
             <div><label class="f-label">عدد الموظفين</label>
@@ -458,15 +443,15 @@
 
           <!-- SECTION 2 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">02</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">02</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">جهة الاتصال</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
-            <div><label class="f-label">الاسم الكامل <span class="req">*</span></label><input class="f-input" type="text" placeholder="الاسم الأول والأخير"></div>
-            <div><label class="f-label">المنصب <span class="req">*</span></label><input class="f-input" type="text" placeholder="مثال: مدير المشتريات"></div>
-            <div><label class="f-label">البريد الإلكتروني <span class="req">*</span></label><input class="f-input" type="email" placeholder="you@company.com"></div>
-            <div><label class="f-label">رقم الجوال <span class="req">*</span></label><input class="f-input" type="tel" placeholder="+90 …"></div>
+            <div><label class="f-label">الاسم الكامل <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="الاسم الأول والأخير"></div>
+            <div><label class="f-label">المنصب <span class="req">*</span></label><input class="f-input" data-req="1" type="text" placeholder="مثال: مدير المشتريات"></div>
+            <div><label class="f-label">البريد الإلكتروني <span class="req">*</span></label><input class="f-input" data-req="1" type="email" placeholder="you@company.com"></div>
+            <div><label class="f-label">رقم الجوال <span class="req">*</span></label><input class="f-input" data-req="1" type="tel" placeholder="+90 …"></div>
             <div><label class="f-label">واتساب</label><input class="f-input" type="tel" placeholder="+90 …"></div>
             <div><label class="f-label">طريقة التواصل المفضلة</label>
               <select class="f-select"><option value="">اختر الطريقة</option><sc-for list="{{ contactOpts }}" as="o" hint-placeholder-count="3"><option>{{ o }}</option></sc-for></select>
@@ -475,7 +460,7 @@
 
           <!-- SECTION 3 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">03</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">03</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">معلومات النشاط التجاري</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
@@ -496,20 +481,20 @@
 
           <!-- SECTION 4 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">04</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">04</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">مجال الاهتمام بالتوزيع</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
           <label class="f-label" style="margin-bottom:14px;">اختر الفئات التي ترغب في توزيعها</label>
           <div style="display:flex; flex-wrap:wrap; gap:11px;">
-            <sc-for list="{{ interests }}" as="it" hint-placeholder-count="8">
+            <sc-for list="{{ interests }}" as="it" hint-placeholder-count="11">
               <button type="button" onClick="{{ it.toggle }}" class="{{ it.cls }}"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></span>{{ it.label }}</button>
             </sc-for>
           </div>
 
           <!-- SECTION 5 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">05</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">05</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">قدرات النشاط التجاري</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
@@ -528,19 +513,19 @@
 
           <!-- SECTION 6 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">06</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">06</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">المرفقات</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
             <sc-for list="{{ uploads }}" as="u" hint-placeholder-count="4">
-              <label class="f-file"><input type="file" style="display:none;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:1px; color:#5A6066;">＋ &nbsp;{{ u.label }}</div><div style="font-size:11.5px; color:#A7AEB5; margin-top:6px;">{{ u.hint }}</div></label>
+              <label class="f-file"><input type="file" style="display:none;"><div style="font-family:'Archivo',sans-serif; font-size:11.5px; letter-spacing:1px; color:#5A6066;">＋ &nbsp;{{ u.label }}</div><div style="font-size:11.5px; color:#A7AEB5; margin-top:6px;">{{ u.hint }}</div></label>
             </sc-for>
           </div>
 
           <!-- SECTION 7 -->
           <div style="display:flex; align-items:center; gap:14px; margin:38px 0 22px;">
-            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">07</span>
+            <span style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; color:#fff; background:#0E0F11; padding:6px 11px; border-radius:2px;">07</span>
             <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.01em; margin:0;">ملاحظات إضافية</h3>
             <span style="flex:1; height:1px; background:#E2E5E9;"></span>
           </div>
@@ -554,11 +539,16 @@
             <h3 style="font-size:clamp(26px,3.6vw,46px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:0;">لنبنِ المستقبل معًا.</h3>
             <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.85); margin:14px auto 0; max-width:520px;">أرسل طلبك وانضم إلى شبكة توزيع موثوقة من قِبل محترفين في أربع قارات.</p>
             <button onClick="{{ submit }}" class="dkr-btn" style="margin-top:30px; background:#0E0F11; color:#fff; border:none; padding:18px 40px; font-weight:700; font-size:17px; border-radius:2px; cursor:pointer; font-family:'Archivo',sans-serif;">إرسال طلب التوزيع ←</button>
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.2px; color:rgba(255,255,255,.8); margin-top:18px;">عادةً ما يرد فريق التصدير لدينا خلال 3-5 أيام عمل</div>
+            <div style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.2px; color:rgba(255,255,255,.8); margin-top:18px;">يقوم فريق التصدير لدينا بتقييم طلبك</div>
+            <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+              <div class="dealer-notice dealer-notice-err" role="alert">{{ errorMsg }}</div>
+            </sc-if>
+            <sc-if value="{{ hasNotice }}" hint-placeholder-val="{{ false }}">
+              <div class="dealer-notice" role="status">{{ noticeMsg }}</div>
+            </sc-if>
           </div>
         </div>
       </div>
-    </sc-if>
   </div>
 </section>
 
@@ -568,13 +558,13 @@
     <div style="position:absolute; left:16%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
     <div style="position:absolute; left:50%; top:-96px; width:1px; height:192px; background:rgba(0,149,218,.3);"></div>
     <div style="position:absolute; left:84%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.22);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 04</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · القسم 04</div>
   </div>
   <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.05) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(130% 90% at 50% 30%,#000 50%,transparent 95%);"></div>
   <div class="bp-glint" style="left:86%; top:24%; animation-delay:2s;"></div>
   <div style="position:relative; z-index:2; max-width:1080px; margin:0 auto;">
     <div data-reveal style="text-align:center; max-width:640px; margin:0 auto 44px;">
-      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>هل تريد التحدث أولاً؟</div>
+      <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>هل تريد التحدث أولاً؟</div>
       <h2 style="font-size:clamp(26px,3.4vw,42px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.04; margin:16px 0 0;">تحدث مع فريق التصدير لدينا.</h2>
       <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,.6); margin:14px 0 0;">لديك أسئلة قبل التقديم؟ خبراء التصدير المخصصون لدينا جاهزون للمساعدة.</p>
     </div>
@@ -586,7 +576,7 @@
             <span style="display:flex;" data-icon="{{ c.icon }}"></span>
           </div>
           <div>
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.45);">{{ c.label }}</div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,.45);">{{ c.label }}</div>
             <div style="font-size:16px; font-weight:700; color:#fff; letter-spacing:-0.01em; margin-top:6px; word-break:break-word;">{{ c.value }}</div>
           </div>
         </a>
@@ -602,7 +592,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { solid:false, menu:false, submitted:false, ref:'', interests:[], caps:{} };
+  state = { solid:false, menu:false, notice:'', error:'', interests:[], caps:{} };
 
   componentDidMount(){
     this._onScroll = ()=>{ const y = window.scrollY || 0; const s = y > 40; if(s !== this.state.solid) this.setState({ solid:s }); };
@@ -659,9 +649,16 @@ class Component extends DCLogic {
   setCap(q, val){ this.setState({ caps: { ...this.state.caps, [q]: val } }); }
 
   submit(){
-    const ref = 'DLR-' + Math.floor(100000 + Math.random()*900000);
-    this.setState({ submitted:true, ref });
-    try{ window.scrollTo({ top:0, behavior:'smooth' }); }catch(e){}
+    const fields = Array.from(document.querySelectorAll('#apply .f-input[data-req]'));
+    const invalid = fields.filter(el=>!String(el.value||'').trim() || (el.type==='email' && !el.checkValidity()));
+    fields.forEach(el=>el.setAttribute('aria-invalid', invalid.includes(el) ? 'true' : 'false'));
+    if(invalid.length){
+      this.setState({ error:'يرجى ملء جميع الحقول الإلزامية المميزة بـ * وإدخال عنوان بريد إلكتروني صالح.', notice:'' });
+      try{ invalid[0].focus(); }catch(e){}
+      return;
+    }
+    // No backend: never claim the application was sent.
+    this.setState({ error:'', notice:'إرسال النموذج عبر الإنترنت غير مفعّل بعد. يمكنكم إرسال طلبكم عبر البريد الإلكتروني أو الهاتف: export@dekor-tools.com · +90 262 658 30 10.' });
   }
 
   renderVals(){
@@ -672,8 +669,8 @@ class Component extends DCLogic {
       { code:'BNF·04', icon:'cap', title:'تدريب احترافي', desc:'تدريب فني وتدريب مبيعات لفريقك — عبر الإنترنت وفي موقعنا.' },
       { code:'BNF·05', icon:'bolt', title:'إنتاج سريع', desc:'أوقات تسليم قصيرة وموثوقة من منشأة تبلغ مساحتها 21.000 م² مصممة للإنتاج بحجم كبير.' },
       { code:'BNF·06', icon:'people', title:'فريق تصدير مخصص', desc:'مدير حساب مخصص وخبراء تصدير يدعمون منطقتك مباشرة.' },
-      { code:'BNF·07', icon:'factory', title:'قدرة إنتاجية عالية', desc:'أكثر من 400 منتج يُصنَّع على نطاق واسع بجودة ثابتة وتوفر مستمر للمخزون.' },
-      { code:'BNF·08', icon:'shield', title:'جودة منتجات فائقة', desc:'أدوات احترافية معتمدة من ISO موثوقة في مواقع البناء منذ أكثر من 60 عامًا.' },
+      { code:'BNF·07', icon:'factory', title:'قدرة إنتاجية عالية', desc:'أكثر من 70 منتج يُصنَّع على نطاق واسع بجودة ثابتة وتوفر مستمر للمخزون.' },
+      { code:'BNF·08', icon:'shield', title:'جودة منتجات فائقة', desc:'أدوات احترافية تُصنَّع وفق نظام إدارة الجودة ISO 9001:2015، موثوقة في مواقع البناء منذ أكثر من 60 عامًا.' },
     ];
     const requirements = [
       { code:'REQ·01', title:'شركة مسجلة', desc:'نشاط تجاري مسجل قانونيًا في الدولة التي تعمل بها.' },
@@ -686,7 +683,7 @@ class Component extends DCLogic {
     ];
     const steps = [
       { num:'01', title:'إرسال الطلب', desc:'أكمل طلب التوزيع مع معلومات شركتك وبيانات الاتصال.' },
-      { num:'02', title:'مراجعة الطلب', desc:'يراجع فريق التصدير لدينا طلبك عادةً خلال 3-5 أيام عمل.' },
+      { num:'02', title:'مراجعة الطلب', desc:'يراجع فريق التصدير لدينا طلبك.' },
       { num:'03', title:'تقييم النشاط التجاري', desc:'نقيّم ملاءمة السوق وتغطية المنطقة وقدرات التوزيع.' },
       { num:'04', title:'مكالمة تعارف', desc:'مكالمة أو اجتماع مع فريق التصدير لدينا لمواءمة الأهداف والتوقعات.' },
       { num:'05', title:'الموافقة على التوزيع', desc:'تتم الموافقة على الشروط التجارية والمنطقة وخطة العملية.' },
@@ -696,7 +693,7 @@ class Component extends DCLogic {
     const contactOpts = ['البريد الإلكتروني','الهاتف','واتساب'];
     const industryOpts = ['توزيع مواد البناء','تجارة التجزئة للأدوات المعدنية','البناء والتشييد','الدهانات والطلاءات','الأدوات والمعدات','الجملة / الاستيراد','أخرى'];
     const revenueOpts = ['أقل من مليون دولار','1 مليون – 5 مليون دولار','5 مليون – 20 مليون دولار','20 مليون – 50 مليون دولار','أكثر من 50 مليون دولار','أفضّل عدم الإفصاح'];
-    const interestList = ['أدوات الدهان','الجص والتلييس','القياس','العزل','الملحقات','OEM','تصنيع العلامة الخاصة','توزيع التصدير'];
+    const interestList = ['أدوات الدهان','أدوات اللياسة','أدوات البلاط','أدوات الجبس','أدوات العزل','أدوات القياس','معدات السلامة المهنية','حوامل العرض الترويجية','منتجات علامة dkr','تصاميم خاصة','منتجات جديدة'];
     const interests = interestList.map(label=>{
       const on = this.state.interests.includes(label);
       return { label, on, cls: on ? 'f-chip on' : 'f-chip', toggle: ()=>this.toggleInterest(label) };
@@ -727,11 +724,9 @@ class Component extends DCLogic {
       benefits, requirements, steps,
       employeeOpts, contactOpts, industryOpts, revenueOpts, uploads, contacts,
       interests, capabilities,
-      submitted: this.state.submitted,
-      notSubmitted: !this.state.submitted,
-      ref: this.state.ref,
+      hasError: !!this.state.error, errorMsg: this.state.error,
+      hasNotice: !!this.state.notice, noticeMsg: this.state.notice,
       submit: ()=>this.submit(),
-      reset: ()=>this.setState({ submitted:false, ref:'', interests:[], caps:{} }),
     };
   }
 }

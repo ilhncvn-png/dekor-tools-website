@@ -12,6 +12,7 @@
  * only published fields are read — a draft edit can never enter the snapshot.
  */
 import type { PrismaClient } from '@prisma/client';
+import { NEW_PRODUCTS_KEY, newUntil } from '@/lib/catalog/new-products';
 
 export const SNAPSHOT_SCHEMA_VERSION = 1;
 
@@ -73,6 +74,7 @@ export interface SnapshotCategory {
   subs: string[];       // real published subcategory labels (empty = no public subcategory filters)
   productCount: number;
   productCodes: string[]; // ordered product codes for this listing (primary + collection members)
+  newUntil?: Record<string, string>; // Yeni Ürünler only: code -> ISO end of its new-product window
 }
 
 export interface ProductSnapshotManifest {
@@ -333,6 +335,7 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     ? await prisma.productCategory.findMany({ where: { key: { in: [...allFamilyKeys] }, deletedAt: null }, include: { translations: { where: { languageCode: LANG } } } })
     : [];
   const famCatByKey = new Map(famCats.map((c) => [c.key, c]));
+  const now = Date.now();
   for (const key of allFamilyKeys) {
     const fc = famCatByKey.get(key);
     const ftr = fc ? firstTr(fc.translations) : undefined;
@@ -345,9 +348,17 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     // primary products use their product sortOrder; collection members use the
     // collection sortOrder — for a pure collection both are the list position, so
     // a single sort by order yields the correct listing.
+    // Yeni Ürünler members drop out once their window ends (the public page also
+    // re-checks newUntil, so they expire even without a republish).
+    const isNewCollection = key === NEW_PRODUCTS_KEY;
+    const members = collections
+      .filter((c) => c.collectionKey === key)
+      .map((c) => ({ code: idToSku.get(c.productId) ?? '', order: c.sortOrder, until: isNewCollection ? newUntil(c.createdAt) : null }))
+      .filter((c) => !c.until || c.until.getTime() > now);
+    if (isNewCollection) categoryMap[key].newUntil = Object.fromEntries(members.filter((c) => c.code && c.until).map((c) => [c.code, c.until!.toISOString()]));
     const merged = [
       ...(famPrimary[key] ?? []),
-      ...collections.filter((c) => c.collectionKey === key).map((c) => ({ code: idToSku.get(c.productId) ?? '', order: c.sortOrder })),
+      ...members.map(({ code, order }) => ({ code, order })),
     ].filter((e) => e.code).sort((a, b) => a.order - b.order);
     const seen = new Set<string>();
     const codes: string[] = [];

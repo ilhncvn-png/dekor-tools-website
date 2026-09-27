@@ -18,7 +18,7 @@
 <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0E0F11"><link rel="icon" type="image/png" sizes="32x32" href="uploads/icons/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="uploads/icons/favicon-16.png"><link rel="apple-touch-icon" href="uploads/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dekor"><meta name="mobile-web-app-capable" content="yes"><script src="./support.js"></script>
 </head>
 <body>
-<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">Ana içeriğe geç</a>
+<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">Ana içeriğe geç</a>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +83,7 @@
   @media(max-width:920px){.dkr-foot{grid-template-columns:1fr 1fr !important;}}
   @media(max-width:780px){.dkr-foot{grid-template-columns:1fr !important;}}
   /* controls */
-  .chip{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.4px;color:#5A6066;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:11px 17px;cursor:pointer;transition:border-color .25s ease,color .25s ease,background .25s ease,box-shadow .25s ease;white-space:nowrap;}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1.4px;color:#5A6066;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:11px 17px;cursor:pointer;transition:border-color .25s ease,color .25s ease,background .25s ease,box-shadow .25s ease;white-space:nowrap;}
   .chip:hover{border-color:#9aa0a7;color:#0E0F11;}
   .chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.4;transition:opacity .25s ease;}
   .chip.on{color:#fff;border-color:transparent;box-shadow:0 8px 22px rgba(14,15,17,.14);}
@@ -91,7 +91,7 @@
   .nf-input{width:100%;font-family:'Archivo',sans-serif;font-size:14px;color:#0E0F11;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:12px 14px 12px 42px;outline:none;transition:border-color .25s ease,box-shadow .25s ease;}
   .nf-input::placeholder{color:#A7AEB5;}
   .nf-input:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.12);}
-  .nf-select{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:#0E0F11;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:12px 34px 12px 14px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%235A6066' stroke-width='1.6' d='M1 1.5L6 6l5-4.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;transition:border-color .25s ease,box-shadow .25s ease;}
+  .nf-select{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:#0E0F11;background:#fff;border:1px solid #E2E5E9;border-radius:2px;padding:12px 34px 12px 14px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%235A6066' stroke-width='1.6' d='M1 1.5L6 6l5-4.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;transition:border-color .25s ease,box-shadow .25s ease;}
   .nf-select:focus{border-color:#0095DA;box-shadow:0 0 0 3px rgba(0,149,218,.12);}
   /* article card */
   .ncard{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #E6E8EB;border-radius:3px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
@@ -121,18 +121,18 @@
     [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
     [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
   }
-  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  .mnav-link{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;}
   .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
   .mnav-toggle{display:none;}
-  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
   .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
   .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
   .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
   .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
   .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
-  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-sub a{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
   .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
-  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
   .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
   .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
   .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
@@ -188,7 +188,7 @@
       <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
       <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="/haberler#news">SON HABERLER</a>
+        <a href="/haberler#news">BASIN VE MEDYA</a>
         <a href="/haberler#trade-shows">FUARLAR</a>
         <a href="/haberler#training-academy">EĞİTİM AKADEMİSİ</a>
         <a href="/haberler#company-life">ŞİRKET YAŞAMI</a>
@@ -213,11 +213,8 @@
       <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="/destek">DESTEK MERKEZİ</a>
-        <a href="/destek#downloads">İNDİRİLENLER</a>
-        <a href="/destek#faq">SSS</a>
-        <a href="/destek#downloads">SERTİFİKALAR</a>
         <a href="/destek#downloads">KATALOGLAR</a>
-        <a href="/destek#categories">GARANTİ</a>
+        <a href="/sikayet-bildir">GARANTİ</a>
         <a href="/destek#faq">SSS</a>
       </div>
     </div>
@@ -226,7 +223,7 @@
       <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="/iletisim">İLETİŞİM</a>
-        <a href="/sikayet-bildir">ŞİKAYET BİLDİR</a>
+        <a href="/sikayet-bildir">DESTEK TALEBİ</a>
       </div>
     </div>
     <div class="mnav-langs">
@@ -251,11 +248,11 @@
   <div class="bp-glint" style="left:64%; top:62%; animation-delay:3s;"></div>
   <div class="bp-particle" style="left:84%; top:78%;"></div>
   <div class="hero-diagonal" style="position:absolute; top:-130px; right:-120px; width:280px; height:1100px; opacity:.85; background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 26%),linear-gradient(180deg,#0095DA,#063a52); transform:rotate(20deg);"></div>
-  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">BASIN VE MEDYA · DEKOR HABER MERKEZİ · KURULUŞ 1964</div>
+  <div style="position:absolute; top:96px; left:clamp(20px,5vw,64px); font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:1.6px; color:rgba(255,255,255,.3);">BASIN VE MEDYA · DEKOR HABER MERKEZİ · KURULUŞ 1964</div>
   <div style="position:relative; z-index:2; max-width:1280px; margin:0 auto;">
-    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>BASIN VE MEDYA</div>
+    <div data-reveal style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:32px; height:2px; background:#D32027;"></span>BASIN VE MEDYA</div>
     <h1 data-reveal style="font-size:clamp(48px,8.4vw,124px); font-weight:900; letter-spacing:-0.045em; color:#fff; line-height:0.9; margin:22px 0 0;">Haberler<span style="color:#0095DA;">.</span></h1>
-    <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Dekor'dan en son haberler, fuarlar, ürün lansmanları ve şirket güncellemeleri — mühendislik ürünü aletler, içeriden anlatılıyor.</p>
+    <p data-reveal style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:24px 0 0; max-width:540px;">Dekor’dan en son haberler, fuar katılımları, ürün lansmanları ve şirket güncellemeleri. Mühendislik çözümlerimiz ve yenilikçi aletlerimiz, uzmanlarımızın anlatımıyla sizlere sunuluyor.</p>
   </div>
 </header>
 
@@ -265,7 +262,7 @@
     <div style="position:absolute; left:16%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.20);"></div>
     <div style="position:absolute; left:50%; top:-96px; width:1px; height:192px; background:rgba(0,149,218,.28);"></div>
     <div style="position:absolute; left:84%; top:-80px; width:1px; height:160px; background:rgba(0,149,218,.20);"></div>
-    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · BÖLÜM 01</div>
+    <div style="position:absolute; left:50%; top:18px; transform:translateX(14px); font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1.5px; color:#0095DA;">DATUM · BÖLÜM 01</div>
   </div>
   <div style="max-width:1280px; margin:0 auto;">
 
@@ -291,7 +288,7 @@
       </div>
     </div>
     <div data-reveal style="display:flex; align-items:center; gap:14px; margin:8px 0 32px;">
-      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8A9097;">{{ resultLabel }}</span>
+      <span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.5px; color:#8A9097;">{{ resultLabel }}</span>
       <span style="flex:1; height:1px; background:#E2E5E9;"></span>
     </div>
 
@@ -305,18 +302,18 @@
               <div class="ncard-imginner" style="background:{{ a.imgBg }};">
                 <div class="ncard-bp"></div>
                 <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;">
-                  <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.62); text-align:center; padding:0 18px;">{{ a.imageLabel }}</span>
-                  <span style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.5px; color:rgba(255,255,255,.32);">GÖRSEL ALANI</span>
+                  <span style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.62); text-align:center; padding:0 18px;">{{ a.imageLabel }}</span>
+                  <span style="font-family:'Archivo',sans-serif; font-size:8.5px; letter-spacing:1.5px; color:rgba(255,255,255,.32);">GÖRSEL ALANI</span>
                 </div>
               </div>
               <div class="ncard-scan"></div>
-              <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.4px; font-weight:600; color:#fff; background:{{ a.color }}; padding:5px 10px; border-radius:2px;">{{ a.catUpper }}</span>
+              <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.4px; font-weight:600; color:#fff; background:{{ a.color }}; padding:5px 10px; border-radius:2px;">{{ a.catUpper }}</span>
               <sc-if value="{{ a.featured }}" hint-placeholder-val="{{ false }}">
-                <span style="position:absolute; top:14px; right:14px; z-index:3; font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.4px; color:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.4); padding:4px 8px; border-radius:2px;">★ ÖNE ÇIKAN</span>
+                <span style="position:absolute; top:14px; right:14px; z-index:3; font-family:'Archivo',sans-serif; font-size:8.5px; letter-spacing:1.4px; color:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.4); padding:4px 8px; border-radius:2px;">★ ÖNE ÇIKAN</span>
               </sc-if>
             </div>
             <div style="padding:24px 24px 26px; display:flex; flex-direction:column; flex:1;">
-              <div style="display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1px; color:#8A9097;">
+              <div style="display:flex; align-items:center; gap:10px; font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:1px; color:#8A9097;">
                 <span>{{ a.dateLabel }}</span><span style="width:3px; height:3px; border-radius:50%; background:#C9CED4;"></span><span>{{ a.readingTime }}</span>
               </div>
               <h3 style="font-size:20px; font-weight:800; color:#0E0F11; letter-spacing:-0.015em; line-height:1.22; margin:12px 0 0;">{{ a.title }}</h3>
@@ -329,7 +326,7 @@
     </sc-if>
     <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
       <div style="text-align:center; padding:80px 20px; border:1px dashed #C9CED4; border-radius:2px;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:#8A9097;">BU FİLTREYE UYAN HABER YOK</div>
+        <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:#8A9097;">BU FİLTREYE UYAN HABER YOK</div>
         <button onClick="{{ reset }}" style="margin-top:18px; background:#0E0F11; color:#fff; border:none; padding:13px 24px; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; border-radius:2px; cursor:pointer;">Filtreleri Temizle</button>
       </div>
     </sc-if>
@@ -378,7 +375,7 @@ class Component extends DCLogic {
   renderVals(){
     const colors = this._colors || { 'News':'#D32027','Trade Shows':'#0095DA','Training Academy':'#1F8A5B','Company Life':'#B8851F' };
     const cats = this._cats || ['All','News','Trade Shows','Training Academy','Company Life'];
-    const catLabels = { 'All':'TÜMÜ', 'News':'HABERLER', 'Trade Shows':'FUARLAR', 'Training Academy':'EĞİTİM AKADEMİSİ', 'Company Life':'ŞİRKET YAŞAMI' };
+    const catLabels = { 'All':'TÜMÜ', 'News':'BASIN VE MEDYA', 'Trade Shows':'FUARLAR', 'Training Academy':'EĞİTİM AKADEMİSİ', 'Company Life':'ŞİRKET YAŞAMI' };
     const fmt = this._fmt || ((s)=>s);
     const all = this.state.articles || [];
 
@@ -433,7 +430,7 @@ class Component extends DCLogic {
       items: mapped,
       hasResults: n>0,
       noResults: this.state.articles!==null && n===0,
-      resultLabel: this.state.articles===null ? 'HABERLER YÜKLENİYOR…' : (n + (n===1?' HABER':' HABER')),
+      resultLabel: this.state.articles===null ? 'HABERLER YÜKLENİYOR…' : (n + ' HABER'),
     };
   }
 }

@@ -30,7 +30,7 @@
 <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0E0F11"><link rel="icon" type="image/png" sizes="32x32" href="uploads/icons/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="uploads/icons/favicon-16.png"><link rel="apple-touch-icon" href="uploads/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dekor"><meta name="mobile-web-app-capable" content="yes"><script src="./support.js"></script>
 </head>
 <body>
-<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">Ana içeriğe geç</a>
+<div id="dkr-loader" aria-hidden="true"><div class="dkr-loader-scan"></div><img src="uploads/decor_logo_white.png" alt="" width="104" height="117"></div><script>(function(){var MIN_MS=400,MAX_MS=6000,start=Date.now();var loader=document.getElementById('dkr-loader');var xdc=document.querySelector('x-dc');if(xdc)xdc.style.visibility='';function hide(){if(!loader||loader.dataset.hidden)return;loader.dataset.hidden='1';var wait=Math.max(0,MIN_MS-(Date.now()-start));setTimeout(function(){loader.classList.add('dkr-loader-out');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},500);},wait);}function ready(){return document.getElementById('dc-root');}if(ready()&&ready().children.length){hide();return;}var mo=new MutationObserver(function(){if(ready()&&ready().children.length){mo.disconnect();hide();}});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect();hide();},MAX_MS);})();</script><style>.dkr-skip-link{position:absolute;top:-48px;left:8px;z-index:10000;background:#0095DA;color:#fff;padding:12px 20px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:2px;transition:top .15s ease;}.dkr-skip-link:focus{top:8px;}</style><a href="#main-content" class="dkr-skip-link">Ana içeriğe geç</a>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,18 +101,18 @@
     [style*="letter-spacing:3px"]{letter-spacing:1.5px !important;}
     [style*="letter-spacing:2.5px"]{letter-spacing:1.3px !important;}
     [style*="letter-spacing:2px"]{letter-spacing:1.2px !important;}
-  }  .mnav-link{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;}
+  }  .mnav-link{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;}
   .mnav-group{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;}
   .mnav-toggle{display:none;}
-  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
+  .mnav-parent{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;cursor:pointer;padding:4px 0;}
   .mnav-chev{font-size:14px;color:#0095DA;transition:transform .25s ease;line-height:1;}
   .mnav-toggle:checked ~ .mnav-parent .mnav-chev{transform:rotate(45deg);}
   .mnav-toggle:checked ~ .mnav-parent{color:#0095DA;}
   .mnav-sub{max-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:0;transition:max-height .35s cubic-bezier(.2,.7,.2,1);}
   .mnav-toggle:checked ~ .mnav-sub{max-height:420px;}
-  .mnav-sub a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
+  .mnav-sub a{font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.6);padding:8px 0;}
   .mnav-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:320px;margin-top:4px;}
-  .mnav-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
+  .mnav-lang{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);border-radius:2px;padding:6px 10px;}
   .mnav-lang-active{color:#0095DA;border-color:#0095DA;}
   .mnav-lang-disabled{color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08);cursor:not-allowed;}
   .mnav-cta{background:#0095DA;color:#fff;padding:14px 26px;font-weight:700;border-radius:2px;margin-top:6px;font-family:'Archivo',sans-serif;}
@@ -128,71 +128,69 @@
       <img src="uploads/decor_logo_white.png" alt="Dekor" width="89" height="100" style="height:62px; width:auto; display:block;">
     </a>
     <div class="dkr-navlinks" style="display:flex; align-items:center; gap:22px;">
-      <a href="/urunler" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRÜNLER</a>
-      <a href="/uretim" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRETİM</a>
-      <a href="/ihracat" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">İHRACAT</a>
+      <a href="/urunler" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRÜNLER</a>
+      <a href="/uretim" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">ÜRETİM</a>
+      <a href="/ihracat" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">İHRACAT</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="/satis" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SATIŞ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="/satis" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">SATIŞ <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="/satis" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">YETKİLİ BAYİLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Resmi bir Dekor bayisi bulun</span></span></a>
-          <a href="/bayi-kaynaklari" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BAYİ KAYNAKLARI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fiyat listeleri, kataloglar ve marka varlıkları</span></span></a>
-          <a href="/b2b-portal" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTALI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Profesyonel sipariş platformu</span></span></a>
-          <a href="/online-odeme" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ÇEVRİMİÇİ ÖDEME</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Güvenli fatura ödemesi</span></span></a>
+          <a href="/satis" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">YETKİLİ BAYİLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Resmi bir Dekor bayisi bulun</span></span></a>
+          <a href="/bayi-kaynaklari" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BAYİ KAYNAKLARI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fiyat listeleri, kataloglar ve marka varlıkları</span></span></a>
+          <a href="/b2b-portal" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">B2B PORTALI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Profesyonel sipariş platformu</span></span></a>
+          <a href="/online-odeme" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ÇEVRİMİÇİ ÖDEME</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Çevrimiçi fatura ödemesi</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="/haberler" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">HABERLER <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="/haberler" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">HABERLER <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="/haberler#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SON HABERLER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Duyurular ve ürün güncellemeleri</span></span></a>
-          <a href="/haberler#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FUARLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fuarlar ve sergiler</span></span></a>
-          <a href="/haberler#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">EĞİTİM AKADEMİSİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Uygulayıcı ve bayi eğitimi</span></span></a>
-          <a href="/haberler#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ŞİRKET YAŞAMI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Etkinlikler, ödüller ve kültür</span></span></a>
+          <a href="/haberler#news" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BASIN VE MEDYA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Duyurular ve ürün güncellemeleri</span></span></a>
+          <a href="/haberler#trade-shows" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">FUARLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Fuarlar ve sergiler</span></span></a>
+          <a href="/haberler#training-academy" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">EĞİTİM AKADEMİSİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Uygulayıcı ve bayi eğitimi</span></span></a>
+          <a href="/haberler#company-life" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ŞİRKET YAŞAMI</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Etkinlikler, ödüller ve kültür</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="/hakkimizda" class="dkr-link active" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">HAKKIMIZDA <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="/hakkimizda" class="dkr-link active" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:#fff;">HAKKIMIZDA <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:322px;">
-          <a href="/hakkimizda" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DEKOR HAKKINDA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Şirket genel bakışı</span></span></a>
-          <a href="/hikayemiz" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">HİKAYEMİZ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Altmış yıllık zanaat</span></span></a>
-          <a href="/vizyon-misyon" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VİZYON VE MİSYON</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Bizi ileriye taşıyan değerler</span></span></a>
-          <a href="/ar-ge-merkezi" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AR-GE MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Mühendislik ve inovasyon</span></span></a>
-          <a href="/kalite-surdurulebilirlik" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KALİTE VE SÜRDÜRÜLEBİLİRLİK</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standartlar ve sorumluluk</span></span></a>
-          <a href="/kariyer" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KARİYER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Kariyerinizi bizimle inşa edin</span></span></a>
-          <a href="/fikrim-var" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BİR FİKRİM VAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ekibimizle paylaşın</span></span></a>
+          <a href="/hakkimizda" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DEKOR HAKKINDA</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Şirket genel bakışı</span></span></a>
+          <a href="/hikayemiz" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">HİKAYEMİZ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Altmış yıllık zanaat</span></span></a>
+          <a href="/vizyon-misyon" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">VİZYON VE MİSYON</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Bizi ileriye taşıyan değerler</span></span></a>
+          <a href="/ar-ge-merkezi" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">AR-GE MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Mühendislik ve inovasyon</span></span></a>
+          <a href="/kalite-surdurulebilirlik" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KALİTE VE SÜRDÜRÜLEBİLİRLİK</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Standartlar ve sorumluluk</span></span></a>
+          <a href="/kariyer" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KARİYER</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Kariyerinizi bizimle inşa edin</span></span></a>
+          <a href="/fikrim-var" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">BİR FİKRİM VAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ekibimizle paylaşın</span></span></a>
         </div>
       </div>
-      <a href="/kariyer" class="dkr-link" data-nav-ik style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">İK</a>
+      <a href="/kariyer" class="dkr-link" data-nav-ik style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; color:rgba(255,255,255,.7);">İK</a>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="/destek" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">DESTEK <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="/destek" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">DESTEK <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel" style="min-width:300px;">
-          <a href="/destek" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DESTEK MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Yardım, SSS ve indirme merkezi</span></span></a>
-          <a href="/destek#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">İNDİRİLEBİLİR DOSYALAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Teknik PDF'ler ve dosyalar</span></span></a>
-          <a href="/destek#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SERTİFİKALAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">ISO, CE ve uygunluk belgeleri</span></span></a>
-          <a href="/destek#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KATALOGLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Tam ürün katalogları</span></span></a>
-          <a href="/destek#categories" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">GARANTİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Kapsam ve kayıt</span></span></a>
-          <a href="/destek#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SSS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sık sorulan sorular, yanıtlandı</span></span></a>
+          <a href="/destek" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DESTEK MERKEZİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Yardım, SSS ve indirme merkezi</span></span></a>
+          <a href="/destek#downloads" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">KATALOGLAR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Tam ürün katalogları</span></span></a>
+          <a href="/sikayet-bildir" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">GARANTİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Garanti talepleri</span></span></a>
+          <a href="/destek#faq" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">SSS</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Sık sorulan sorular, yanıtlandı</span></span></a>
         </div>
       </div>
       <div class="nav-drop" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <a href="/iletisim" class="dkr-link" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">İLETİŞİM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
+        <a href="/iletisim" class="dkr-link" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:6px; color:rgba(255,255,255,.7);">İLETİŞİM <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></a>
         <div class="nav-drop-panel">
-          <a href="/iletisim" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">İLETİŞİM</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ofisler, fabrika ve ihracat ekipleri</span></span></a>
-          <a href="/sikayet-bildir" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">ŞİKAYET BİLDİR</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Hizmet ve kalite sorunları</span></span></a>
+          <a href="/iletisim" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">İLETİŞİM</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ofisler, fabrika ve ihracat ekipleri</span></span></a>
+          <a href="/sikayet-bildir" class="nav-drop-item"><span class="ndi-tick"></span><span style="display:flex; flex-direction:column; gap:3px;"><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">DESTEK TALEBİ</span><span style="font-size:11px; color:rgba(255,255,255,.45);">Ürün, hizmet ve kalite talepleri</span></span></a>
         </div>
       </div>
       <div class="nav-drop dkr-langsel" style="position:relative; display:inline-flex; align-items:center; height:16px;">
-        <button type="button" class="dkr-link" aria-label="Dil seçimi, aktif: Türkçe" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">TR</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
+        <button type="button" class="dkr-link" aria-label="Dil seçimi, aktif: Türkçe" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.6px; display:inline-flex; align-items:center; line-height:1; height:16px; gap:5px; color:rgba(255,255,255,.7); background:none; border:none; cursor:pointer; padding:0;"><span class="lang-code" style="color:#0095DA; transition:filter .22s ease;">TR</span> <span class="nav-caret" style="font-size:8px; color:#0095DA;">▾</span></button>
         <div class="nav-drop-panel" style="min-width:150px;">
-          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:#fff;">🇹🇷 TR</span></button>
-          <a href="/en/vision-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
-          <a href="/de/vision-und-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
-          <a href="/fr/vision-et-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
-          <a href="/ru/videnie-i-missiya" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
-          <a href="/az/viziya-ve-missiya" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
-          <a href="/ar/الرؤية-والرسالة" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
+          <button type="button" class="nav-drop-item" aria-current="true" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;"><span class="ndi-tick" style="width:16px;"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:#fff;">🇹🇷 TR</span></button>
+          <a href="/en/vision-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇬🇧 EN</span></a>
+          <a href="/de/vision-und-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇩🇪 DE</span></a>
+          <a href="/fr/vision-et-mission" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇫🇷 FR</span></a>
+          <a href="/ru/videnie-i-missiya" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇷🇺 RU</span></a>
+          <a href="/az/viziya-ve-missiya" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇦🇿 AZ</span></a>
+          <a href="/ar/الرؤية-والرسالة" class="nav-drop-item" style="width:100%; text-align:left; display:block;"><span class="ndi-tick"></span><span class="ndi-label" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1.4px; color:rgba(255,255,255,.85);">🇸🇦 AR</span></a>
         </div>
       </div>
-      <button type="button" class="nav-search dekor-search-trigger" aria-label="Ara (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
+      <button type="button" class="nav-search dekor-search-trigger" aria-label="Ara (Ctrl/Cmd+K)" style="background:none; border:1px solid rgba(255,255,255,.16); border-radius:3px; height:32px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.7); cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px;"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><span style="font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1px; color:rgba(255,255,255,.4);">⌘K</span></button>
       <span style="width:1px; height:22px; background:rgba(255,255,255,.16);"></span>
       <a href="/bayi-ol" class="dkr-btn dkr-btn-red" style="background:#0095DA; color:#fff; padding:12px 22px; font-weight:700; font-size:12.5px; letter-spacing:0.4px; border-radius:2px;">Bayi Ol</a>
     </div>
@@ -216,7 +214,7 @@
       <input type="radio" name="mnavacc" id="mnav-haberler" class="mnav-toggle">
       <label for="mnav-haberler" class="mnav-parent">HABERLER<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
-        <a href="/haberler#news">SON HABERLER</a>
+        <a href="/haberler#news">BASIN VE MEDYA</a>
         <a href="/haberler#trade-shows">FUARLAR</a>
         <a href="/haberler#training-academy">EĞİTİM AKADEMİSİ</a>
         <a href="/haberler#company-life">ŞİRKET YAŞAMI</a>
@@ -241,10 +239,8 @@
       <label for="mnav-destek" class="mnav-parent">DESTEK<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="/destek">DESTEK MERKEZİ</a>
-        <a href="/destek#downloads">İNDİRİLEBİLİR DOSYALAR</a>
-        <a href="/destek#downloads">SERTİFİKALAR</a>
         <a href="/destek#downloads">KATALOGLAR</a>
-        <a href="/destek#categories">GARANTİ</a>
+        <a href="/sikayet-bildir">GARANTİ</a>
         <a href="/destek#faq">SSS</a>
       </div>
     </div>
@@ -253,7 +249,7 @@
       <label for="mnav-iletisim" class="mnav-parent">İLETİŞİM<span class="mnav-chev">+</span></label>
       <div class="mnav-sub">
         <a href="/iletisim">İLETİŞİM</a>
-        <a href="/sikayet-bildir">ŞİKAYET BİLDİR</a>
+        <a href="/sikayet-bildir">DESTEK TALEBİ</a>
       </div>
     </div>
     <div class="mnav-langs">
@@ -279,9 +275,9 @@
   <div class="bp-scan"></div>
   <div class="bp-glint" style="left:30%; top:40%;"></div>
   <div class="bp-glint" style="left:70%; top:30%; animation-delay:2.6s;"></div>
-  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>BELGE · HAKKIMIZDA / 02 · VİZYON VE MİSYON</span><span>DEKOR · AMAÇ</span></div>
+  <div class="hero-docmark" style="position:absolute; top:118px; left:clamp(20px,5vw,64px); right:clamp(20px,5vw,64px); display:flex; justify-content:space-between; font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1.6px; color:rgba(255,255,255,.3); z-index:1;"><span>BELGE · HAKKIMIZDA / 02 · VİZYON VE MİSYON</span><span>DEKOR · AMAÇ</span></div>
   <div style="position:relative; max-width:1280px; margin:0 auto; width:100%; z-index:2;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/hakkimizda" class="dkr-link" style="color:rgba(255,255,255,.55);">HAKKIMIZDA</a> &nbsp;/&nbsp; <span style="color:#D32027;">VİZYON VE MİSYON</span></div>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.55);"><a href="/" class="dkr-link" style="color:rgba(255,255,255,.55);">ANA SAYFA</a> &nbsp;/&nbsp; <a href="/hakkimizda" class="dkr-link" style="color:rgba(255,255,255,.55);">HAKKIMIZDA</a> &nbsp;/&nbsp; <span style="color:#D32027;">VİZYON VE MİSYON</span></div>
     <h1 style="font-size:clamp(44px,7.5vw,108px); font-weight:900; letter-spacing:-0.045em; color:#fff; line-height:0.88; margin:24px 0 0;">Neden alet<br><span style="color:#0095DA;">üretiyoruz.</span></h1>
     <p style="font-size:clamp(17px,1.7vw,23px); font-weight:500; line-height:1.35; color:rgba(255,255,255,.8); margin:28px 0 0; max-width:540px;">Bir vizyon, nereye gittiğimizi gösterir. Bir misyon ise, oraya ulaşmak için her gün tuttuğumuz sözdür.</p>
   </div>
@@ -297,10 +293,10 @@
         <div class="vm-icon" style="width:56px; height:56px; border:1.5px solid rgba(0,149,218,.6); border-radius:50%; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7S19 19 12 19 1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#5fbbe6; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>VİZYON · NEREYE GİDİYORUZ</div>
-        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:18px 0 0;">Profesyonel el aletlerinde dünyanın en güvenilir ismi.</h2>
-        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:26px 0 0;">Dünyanın her yerinde bir profesyonelin elini uzattığı referans marka olmak — mühendislik, dayanıklılık ve dürüst değer ile tanınmak. Dekor aletlerini dört kıtadaki şantiyelerde, fiyat için değil, yıllar boyunca sorunsuz çalıştıkları için tercih edilir şekilde hayal ediyoruz.</p>
-        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:18px 0 0;">Türkiye'yi bir üretim mükemmelliği merkezi olarak görüyoruz ve Dekor'u, sektörü bilen insanlar tarafından üretilen bir aletin her yerde herkesle rekabet edebileceğinin kanıtı olarak görüyoruz.</p>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#5fbbe6; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>VİZYON · NEREYE GİDİYORUZ</div>
+        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.02; margin:18px 0 0;">Vizyonumuz</h2>
+        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:26px 0 0;">Toplam Kalite Yönetimi felsefesinden yola çıkarak, inşaat el aletleri sektöründeki öncü konumumuzu güçlendirmek, müşteri beklentilerini en üst seviyede karşılamak ve dünyanın önde gelen üreticileri arasında yer almak.</p>
+        <p style="font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.66); margin:18px 0 0;">Bunu yaparken iklim değişikliğine duyarlı, etik değerlere bağlı, dijital dönüşümü benimseyen ve çalışan refahını gözeten bir kalite kültürü oluşturmak.</p>
       </div>
     </div>
     <!-- MISSION (light) -->
@@ -310,11 +306,32 @@
         <div class="vm-icon" style="width:56px; height:56px; border:1.5px solid rgba(0,149,218,.5); border-radius:50%; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0095DA" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="#0095DA" stroke="none"/></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>MİSYON · HER GÜN YAPTIĞIMIZ</div>
-        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:18px 0 0;">Sektörün gerçekten ihtiyaç duyduğu aleti tasarlamak — ve bundan asla ödün vermemek.</h2>
-        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:26px 0 0;">Her ürüne gerçek bir şantiyedeki gerçek bir sorunla başlarız, Ar-Ge merkezimizde geliştiririz, dürüst malzemelerden döveriz ve Dekor adını kazanana kadar test ederiz. Ardından bunu 60 ülkedeki bayilere ve profesyonellere — ölçekte ve zamanında — sunarız.</p>
-        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:18px 0 0;">Ve geri yatırım yaparız: insanlarımıza, nitelikli meslek eğitimine ve kaliteyi bir özellik değil bir taahhüt olarak gören bir üretim kültürüne.</p>
+        <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-top:30px;"><span style="width:30px; height:2px; background:#D32027;"></span>MİSYON · HER GÜN YAPTIĞIMIZ</div>
+        <h2 style="font-size:clamp(30px,3.6vw,50px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1.02; margin:18px 0 0;">Misyonumuz</h2>
+        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:26px 0 0;">Kaynaklarımızı etkin kullanarak, çevreye ve insanlara duyarlı hareket etmek; rekabet edebilir kalitede, en az maliyetle en fazla üretim yapmak; yenilik ve gelişmeleri yakından takip etmek; müşteri ve çalışanlarımızın beklentilerini karşılamak.</p>
+        <p style="font-size:16.5px; line-height:1.75; color:#5A6066; margin:18px 0 0;">Ayrıca siber güvenlik, veri bütünlüğü, sürdürülebilir tedarik zinciri ve etik iş uygulamaları ile ülke ekonomisine ve çevre bilincine katkıda bulunan bir dünya şirketi olmak.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUALITY OBJECTIVES -->
+<section style="position:relative; background:#0E0F11; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); overflow:hidden;">
+  <div class="bp-live" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 80%);"></div>
+  <div class="bp-glint" style="left:16%; top:22%;"></div>
+  <div class="bp-glint" style="left:84%; top:68%; animation-delay:2.4s;"></div>
+  <div style="position:relative; max-width:1100px; margin:0 auto; z-index:2;">
+    <div data-reveal style="max-width:680px; margin-bottom:48px;">
+      <div style="display:flex; align-items:center; gap:12px; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>KALİTE YÖNETİMİ · HEDEFLER</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1; margin:18px 0 0;">Kalite Hedeflerimiz</h2>
+    </div>
+    <div class="dkr-2col" style="display:grid; grid-template-columns:1fr 1fr; column-gap:48px; border-top:1px solid rgba(255,255,255,.1);">
+      <sc-for list="{{ goals }}" as="g" hint-placeholder-count="6">
+        <div data-reveal class="pr-row" style="display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:baseline; padding:28px 0; border-bottom:1px solid rgba(255,255,255,.1);">
+          <div class="pr-num" style="font-size:18px; font-weight:600; color:rgba(255,255,255,.32);">{{ g.num }}</div>
+          <p style="font-size:16.5px; line-height:1.65; color:rgba(255,255,255,.74); margin:0;">{{ g.text }}</p>
+        </div>
+      </sc-for>
     </div>
   </div>
 </section>
@@ -323,18 +340,29 @@
 <section style="background:#F4F5F6; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px);">
   <div style="max-width:1100px; margin:0 auto;">
     <div data-reveal style="max-width:680px; margin-bottom:48px;">
-      <div style="display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>YOL GÖSTERİCİ İLKELER</div>
-      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">Her aletin arkasındaki dört taahhüt.</h2>
+      <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>KALİTE YÖNETİMİ · İLKELER</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">Kalite İlkelerimiz</h2>
     </div>
     <div style="border-top:1px solid #E2E5E9;">
-      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
+      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="5">
         <div data-reveal class="pr-row dkr-2col" style="display:grid; grid-template-columns:80px 280px 1fr; gap:28px; align-items:baseline; padding:30px 0; border-bottom:1px solid #E2E5E9;">
-          <div class="pr-num" style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; color:#C7CCD1;">{{ p.num }}</div>
+          <div class="pr-num" style="font-family:'Archivo',sans-serif; font-size:18px; font-weight:600; color:#C7CCD1;">{{ p.num }}</div>
           <h3 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:0;">{{ p.title }}</h3>
           <p style="font-size:15.5px; line-height:1.65; color:#5A6066; margin:0; max-width:560px;">{{ p.desc }}</p>
         </div>
       </sc-for>
     </div>
+  </div>
+</section>
+
+<!-- QUALITY POLICY -->
+<section style="position:relative; background:#fff; padding:clamp(64px,9vw,120px) clamp(20px,5vw,64px); border-top:1px solid #E2E5E9;">
+  <div data-reveal class="dkr-2col" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:340px 1fr; gap:clamp(28px,5vw,72px); align-items:start;">
+    <div>
+      <div style="display:flex; align-items:center; gap:12px; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>KALİTE YÖNETİMİ · POLİTİKA</div>
+      <h2 style="font-size:clamp(30px,4vw,52px); font-weight:900; letter-spacing:-0.03em; color:#0E0F11; line-height:1; margin:18px 0 0;">Kalite Politikamız</h2>
+    </div>
+    <p style="font-size:clamp(18px,1.6vw,22px); font-weight:500; line-height:1.6; color:#2A2E33; margin:0; padding-inline-start:clamp(18px,2.4vw,32px); border-inline-start:3px solid #0095DA;">Kuruluşumuz, inşaat el aletleri alanında faaliyet gösterirken ülke ekonomisine ve çevre bilincine katkıda bulunmayı, topluma ve çalışanlarına karşı sorumluluklarını yerine getirmeyi, müşteri beklentilerini en üst seviyede karşılamayı ve müşteri memnuniyetini sürekli artırmayı temel hedef olarak benimser. Bu süreçte etik değerler, sürdürülebilirlik, dijitalleşme ve tedarik zinciri dayanıklılığı kalite yönetim sistemimizin ayrılmaz parçasıdır.</p>
   </div>
 </section>
 
@@ -345,7 +373,7 @@
   <div class="bp-glint" style="left:20%; top:30%;"></div>
   <div class="bp-glint" style="left:80%; top:62%; animation-delay:2s;"></div>
   <div data-reveal style="position:relative; max-width:980px; margin:0 auto; z-index:2;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-bottom:24px;">DEKOR TAAHHÜDÜ</div>
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600; margin-bottom:24px;">DEKOR TAAHHÜDÜ</div>
     <p style="font-size:clamp(24px,3.4vw,44px); font-weight:800; letter-spacing:-0.025em; color:#fff; line-height:1.2; margin:0;">Adımızı taşıyorsa, bunu hak etmiştir — tezgahta, laboratuvarda ve şantiyede.</p>
   </div>
 </section>
@@ -388,12 +416,21 @@ class Component extends DCLogic {
 
   renderVals(){
     const principles = [
-      { num:'01', title:'Önce Mühendislik', desc:'Her alet, tek bir birim dövülmeden önce Ar-Ge merkezimizde geliştirilen, çözdüğü sektör sorunuyla başlar.' },
-      { num:'02', title:'Dayanıklı Üretim', desc:'Dövme çelik, gerçek testler ve dürüst malzemeler — dayanıklılık pazarlık konusu değildir, çünkü bir profesyonel gününü buna emanet eder.' },
-      { num:'03', title:'İnsan ve Topluluk', desc:'Burs programımız aracılığıyla eğitime ve nitelikli mesleklere yatırım yaparak yeni nesil ustaları yetiştiriyoruz.' },
-      { num:'04', title:'Küresel, Köklü', desc:'60 ülkeye hizmet verirken geldiğimiz İstanbul atölyesine bağlı kalıyoruz — küresel erişim, yerel vicdan.' },
+      { num:'01', title:'Müşteri, Çevre ve Etik', desc:'Çalışmalarımızda müşteri ihtiyaç ve beklentileri kadar çevresel etkiler, etik değerler ve sürdürülebilirlik kriterlerini de dikkate alırız.' },
+      { num:'02', title:'Toplam Kalite', desc:'Kaliteyi "Toplam Kalite", "Sürekli Gelişim" ve "Kalite Kültürü" felsefesi olarak benimseriz.' },
+      { num:'03', title:'Süreç ve Tedarik Zinciri', desc:'Ürünlerimizin kalitesini ancak süreç yönetimimizin, dijital altyapımızın ve tedarik zincirimizin kalitesini yükselterek elde edebileceğimizi kabul ederiz.' },
+      { num:'04', title:'Sürekli Eğitim', desc:'Çalışanlarımızı kalite, etik, dijital yetkinlik ve çevre bilinci konularında sürekli eğitiriz.' },
+      { num:'05', title:'İklim Değişikliği', desc:'İklim değişikliği risklerini ve fırsatlarını kalite yönetim sistemimizin ayrılmaz parçası olarak görürüz.' },
     ];
-    return { principles };
+    const goals = [
+      { num:'01', text:'Kalite yönetim sisteminin etkinliğini ve sürekli iyileştirmeyi sağlamak.' },
+      { num:'02', text:'Ulusal ve uluslararası standartlara (ISO, TSE, EN) ve iklim değişikliği gerekliliklerine uymak.' },
+      { num:'03', text:'Çalışanlarımızın memnuniyetini, çeşitliliğini ve psikolojik güvenliğini sağlamak.' },
+      { num:'04', text:'Müşteri istek ve beklentilerini doğru tespit ederek memnuniyeti artırmak.' },
+      { num:'05', text:'Tedarikçilerle işbirliğini etik, sürdürülebilirlik ve dayanıklılık kriterleriyle geliştirmek.' },
+      { num:'06', text:'Dijitalleşme ve otomasyon süreçlerini kalite yönetim sistemine entegre etmek.' },
+    ];
+    return { principles, goals };
   }
 }
 </script>

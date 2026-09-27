@@ -7,6 +7,7 @@ import { recordAuditLog, recordActivity } from '@/lib/audit';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
 import { WIZARD_LANGUAGES, type WizardTranslation, type WizardProduct } from '@/lib/wizard/product-wizard-types';
+import { NEW_FLAG, NEW_PRODUCTS_KEY } from '@/lib/catalog/new-products';
 
 const emptyTr = (): WizardTranslation => ({
   name: '', slug: '', eyebrow: '', heroSubtitle: '', shortDescription: '', description: '',
@@ -41,6 +42,9 @@ export async function getProductWizard(id: string): Promise<WizardProduct> {
     prisma.productMedia.findMany({ where: { productId: id }, orderBy: { sortOrder: 'asc' } }),
   ]);
   if (!p) throw new Error('Ürün bulunamadı');
+  // Existing Yeni Ürünler members (e.g. imported) show the "Yeni" switch on, so saving keeps them listed.
+  const inNewCollection = await prisma.productCollection.findUnique({ where: { productId_collectionKey: { productId: id, collectionKey: NEW_PRODUCTS_KEY } } });
+  const flags = inNewCollection && !p.flags.includes(NEW_FLAG) ? [...p.flags, NEW_FLAG] : p.flags;
 
   const translations = { ...emptyTranslations };
   for (const t of p.translations) {
@@ -54,7 +58,7 @@ export async function getProductWizard(id: string): Promise<WizardProduct> {
 
   return {
     id: p.id, sku: p.sku, categoryId: p.categoryId, status: DB_TO_UI[p.status] ?? 'taslak',
-    featured: p.featured, flags: p.flags, materialSummary: p.materialSummary ?? '', sortOrder: p.sortOrder,
+    featured: p.featured, flags, materialSummary: p.materialSummary ?? '', sortOrder: p.sortOrder,
     translations,
     variants: variants.map((v, i) => {
       const a = (v.attributes ?? {}) as Record<string, string>;
@@ -120,6 +124,17 @@ export async function saveProductWizard(w: WizardProduct): Promise<ActionResult>
         });
       }
       await tx.product.update({ where: { id: product.id }, data: { relatedProductIds: w.relatedProductIds } });
+
+      // The "Yeni" flag drives Yeni Ürünler membership; the row's createdAt starts the
+      // new-product window, so re-saving an already-new product keeps its original date.
+      if (w.flags.includes(NEW_FLAG)) {
+        await tx.productCollection.upsert({
+          where: { productId_collectionKey: { productId: product.id, collectionKey: NEW_PRODUCTS_KEY } },
+          update: {}, create: { productId: product.id, collectionKey: NEW_PRODUCTS_KEY },
+        });
+      } else {
+        await tx.productCollection.deleteMany({ where: { productId: product.id, collectionKey: NEW_PRODUCTS_KEY } });
+      }
 
       // Replace child collections in place (idempotent).
       await tx.productVariant.deleteMany({ where: { productId: product.id } });
