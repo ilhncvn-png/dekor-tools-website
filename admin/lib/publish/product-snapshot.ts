@@ -13,6 +13,7 @@
  */
 import type { PrismaClient } from '@prisma/client';
 import { NEW_PRODUCTS_KEY, newUntil } from '@/lib/catalog/new-products';
+import { HOME_FEATURED_KEY, orderFeatured } from '@/lib/catalog/home-featured';
 
 export const SNAPSHOT_SCHEMA_VERSION = 1;
 
@@ -87,6 +88,8 @@ export interface ProductSnapshotManifest {
   products: Record<string, SnapshotProduct>;
   index: SnapshotIndexCard[];
   categories: Record<string, SnapshotCategory>;
+  /** Home-page showcase: ordered product codes (keys of `products`). */
+  featured: string[];
 }
 
 const LANG = 'tr';
@@ -143,7 +146,9 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
 
   // Collection memberships: a canonical product shown in an additional listing
   // (Yeni Ürünler / DKR) beyond its primary category, with a per-collection order.
-  const collections = await prisma.productCollection.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } });
+  const allCollections = await prisma.productCollection.findMany({ where: { productId: { in: ids } }, orderBy: { sortOrder: 'asc' } });
+  // The home showcase order is a curated list, not a catalogue family listing.
+  const collections = allCollections.filter((c) => c.collectionKey !== HOME_FEATURED_KEY);
   const idToSku = new Map(products.map((p) => [p.id, p.sku]));
   // familyKey -> [{ code, order }] accumulated during the primary loop.
   const famPrimary: Record<string, { code: string; order: number }[]> = {};
@@ -382,5 +387,6 @@ export async function buildProductSnapshot(prisma: PrismaClient): Promise<Produc
     products: productMap,
     index,
     categories: categoryMap,
+    featured: orderFeatured(products, allCollections).filter((code) => Boolean(productMap[code])),
   };
 }

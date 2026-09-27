@@ -71,6 +71,7 @@ import {
   Map,
   ClipboardList,
   FileSignature,
+  Star,
 } from 'lucide-react';
 
 export const NAV_SECTIONS = [
@@ -134,6 +135,13 @@ export const primaryNavigation: NavEntry[] = [
     href: '/urun-yonetimi',
     icon: Package,
     description: 'Web sitesinde yayınlanan ürün kayıtlarını buradan ekleyebilir, düzenleyebilir ve yayına alabilirsiniz.',
+    section: 'İçerik Yönetimi',
+  },
+  {
+    label: 'Ana Sayfa Vitrini',
+    href: '/ana-sayfa-vitrini',
+    icon: Star,
+    description: 'Ana sayfadaki “Öne Çıkan Ürünler” kaydırıcısında gösterilecek ürünleri ve sıralarını yönetin.',
     section: 'İçerik Yönetimi',
   },
   {

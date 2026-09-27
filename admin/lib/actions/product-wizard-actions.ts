@@ -9,6 +9,7 @@ import type { ActionResult } from './category-actions';
 import { WIZARD_LANGUAGES, VARIANT_ATTR_KEYS, type VariantAttrKey, type WizardTranslation, type WizardProduct } from '@/lib/wizard/product-wizard-types';
 import type { Prisma } from '@prisma/client';
 import { NEW_FLAG, NEW_PRODUCTS_KEY } from '@/lib/catalog/new-products';
+import { HOME_FEATURED_KEY } from '@/lib/catalog/home-featured';
 
 const emptyTr = (): WizardTranslation => ({
   name: '', slug: '', eyebrow: '', heroSubtitle: '', shortDescription: '', description: '',
@@ -140,6 +141,10 @@ export async function saveProductWizard(w: WizardProduct): Promise<ActionResult>
         });
       } else {
         await tx.productCollection.deleteMany({ where: { productId: product.id, collectionKey: NEW_PRODUCTS_KEY } });
+      }
+      // Turning "Öne çıkan" off also drops the home-showcase position (Ana Sayfa Vitrini).
+      if (!w.featured) {
+        await tx.productCollection.deleteMany({ where: { productId: product.id, collectionKey: HOME_FEATURED_KEY } });
       }
 
       // Replace child collections in place (idempotent).

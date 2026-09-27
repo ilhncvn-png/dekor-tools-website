@@ -9,6 +9,7 @@ import { toUiProduct } from '@/lib/adapters/product-adapter';
 import type { Product } from '@/lib/mock-data';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { ActionResult } from './category-actions';
+import { HOME_FEATURED_KEY } from '@/lib/catalog/home-featured';
 
 export async function saveProduct(productId: string | null, input: ProductInput): Promise<ActionResult> {
   const user = await resolveCurrentUser();
@@ -87,6 +88,11 @@ export async function saveProduct(productId: string | null, input: ProductInput)
           update: trData,
           create: { productId: product.id, languageCode: t.languageCode, ...trData },
         });
+      }
+
+      // Turning "Öne çıkan ürün" off also drops the home-showcase position (Ana Sayfa Vitrini).
+      if (!data.featured) {
+        await tx.productCollection.deleteMany({ where: { productId: product.id, collectionKey: HOME_FEATURED_KEY } });
       }
 
       await tx.productFeature.deleteMany({ where: { productId: product.id } });
