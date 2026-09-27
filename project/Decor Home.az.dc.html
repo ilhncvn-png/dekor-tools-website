@@ -153,15 +153,15 @@
   .dkr-fam{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease,opacity .5s ease;}
   .dkr-fam:hover{transform:translateY(-10px);box-shadow:0 30px 70px rgba(14,15,17,.20);border-color:#0095DA !important;}
   .fam-grid:hover > a:not(:hover){opacity:.58;transform:scale(.985);}
-  .fam-blue{transition:opacity .6s ease;}
-  .dkr-fam:hover .fam-blue{opacity:.16;}
-  .fam-render{opacity:0;transition:opacity .6s ease;}
-  .dkr-fam:hover .fam-render{opacity:1;}
-  .fam-render-img{transition:transform .7s cubic-bezier(.2,.7,.2,1);}
-  .dkr-fam:hover .fam-render-img{transform:scale(1.05);}
-  .fam-chip{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
-  .dkr-fam:hover .fam-chip{opacity:1;transform:none;}
-  .dkr-fam:hover .fam-chip:nth-child(2){transition-delay:.09s;}
+  @media(max-width:767px){
+    #products .dkr-fam > div[style*="height:222px"],#products .dkr-fam > div[style*="height: 222px"]{height:160px !important;}
+    #products .dkr-fam > div[style*="padding:28px 26px 30px"],#products .dkr-fam > div[style*="padding: 28px 26px 30px"]{padding:20px 20px 22px !important;}
+  }
+  .fam-bp{opacity:0;transition:opacity .5s ease;}
+  .dkr-fam:hover .fam-bp{opacity:1;}
+  .fam-cover img{transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+  .dkr-fam:hover .fam-cover img{transform:scale(1.04);}
+  @media (prefers-reduced-motion:reduce){.fam-cover img{transition:none;}.dkr-fam:hover .fam-cover img{transform:none;}}
   .fam-code{transition:color .4s ease,box-shadow .4s ease;}
   .dkr-fam:hover .fam-code{color:#0095DA;box-shadow:0 0 0 1px rgba(0,149,218,.4);}
   .dkr-fam:hover .dkr-fam-arrow{transform:translate(4px,-4px);color:#0095DA;}
@@ -559,52 +559,35 @@
         <div style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>MƏHSUL EKOSİSTEMİ</div>
         <h2 style="font-size:clamp(34px,5vw,64px); font-weight:900; letter-spacing:-0.035em; color:#0E0F11; line-height:0.98; margin:18px 0 0;">On bir mühəndislik məhsul ailəsi.<br>Bir vahid standart.</h2>
       </div>
-      <p data-reveal style="max-width:380px; font-size:16px; line-height:1.6; color:#5A6066;">İlk boya tətbiqindən son ölçüyə qədər 700-dən çox peşəkar əl aləti; sahədə birlikdə işləyən bütöv bir sistem olaraq hazırlanır.</p>
+      <p data-reveal style="max-width:380px; font-size:16px; line-height:1.6; color:#5A6066;">{{ famIntro }}</p>
     </div>
     <div class="fam-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px;">
-      <sc-for list="{{ families }}" as="f" hint-placeholder-count="6">
-        <a href="Decor Products.az.dc.html" data-reveal class="dkr-fam" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:4px; overflow:hidden; display:flex; flex-direction:column;">
+      <sc-for list="{{ families }}" as="f" hint-placeholder-count="4">
+        <a href="{{ f.link }}" data-reveal class="dkr-fam" style="position:relative; background:#fff; border:1px solid #E2E5E9; border-radius:4px; overflow:hidden; display:flex; flex-direction:column;">
           <div style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ f.accent }}; z-index:5;"></div>
-          <!-- MEDIA: blueprint (default) transforms into product render (hover) -->
-          <div style="position:relative; height:222px; background:#E6E8EB; overflow:hidden;">
-            <div class="fam-blue" style="position:absolute; inset:0;">
-              <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:24px 24px;"></div>
-              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-size:11px; color:#9aa1a8; letter-spacing:1px;">{{ f.imglabel }}</div>
-              <div style="position:absolute; bottom:13px; right:14px; font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1px; color:#0095DA;">{{ f.coord }}</div>
-            </div>
-            <div class="fam-render" style="position:absolute; inset:0; background:linear-gradient(158deg,#22262b 0%,#0f1115 100%);">
-              <div style="position:absolute; inset:0; background:radial-gradient(120% 85% at 32% -5%, rgba(255,255,255,.15), transparent 58%);"></div>
-              <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:26px 26px;"></div>
-              <div class="fam-render-img" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; text-align:center;">
-                <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:2px; color:#c2c8ce;">{{ f.hero }}</div>
-                <div style="font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:2px; color:#565c63;">MƏHSUL TƏSVİRİ</div>
-              </div>
-              <div class="fam-dot" style="position:absolute; top:26%; right:24%; width:10px; height:10px;">
-                <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA;"></div>
-                <div style="position:absolute; inset:0; border-radius:50%; background:#0095DA; animation:dkrPulse 2.2s ease-out infinite;"></div>
-              </div>
-            </div>
-            <div class="fam-code" style="position:absolute; top:14px; left:14px; z-index:3; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:4px 9px;">{{ f.code }}</div>
-            <div style="position:absolute; bottom:13px; left:14px; right:14px; z-index:3; display:flex; gap:6px; flex-wrap:wrap;">
-              <span class="fam-chip" style="font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1px; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); padding:4px 8px;">{{ f.spec1 }}</span>
-              <span class="fam-chip" style="font-family:'Archivo',sans-serif; font-size:9px; letter-spacing:1px; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); padding:4px 8px;">{{ f.spec2 }}</span>
-            </div>
+          <!-- MEDIA: real category cover (same asset + hover language as /urunler) -->
+          <div style="position:relative; height:222px; background:#EAECEF; overflow:hidden;">
+            <div class="fam-cover" style="position:absolute; inset:0;">{{ f.visual }}</div>
+            <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:26px 26px;"></div>
+            <div class="fam-bp" style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.16) 1px,transparent 1px); background-size:26px 26px;"></div>
+            <div style="position:absolute; top:0; left:0; width:26px; height:26px; border-top:2px solid rgba(14,15,17,.18); border-left:2px solid rgba(14,15,17,.18);"></div>
+            <div style="position:absolute; bottom:0; right:0; width:26px; height:26px; border-bottom:2px solid rgba(0,149,218,.4); border-right:2px solid rgba(0,149,218,.4);"></div>
+            <div class="fam-code" style="position:absolute; top:14px; left:14px; z-index:3; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:5px 9px; border:1px solid #E2E5E9;">{{ f.code }}</div>
           </div>
           <!-- BODY -->
-          <div style="padding:28px 26px 30px;">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:2px; color:#0095DA; margin-bottom:14px;">{{ f.sku }}</div>
-            <h3 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:0; display:flex; align-items:center; justify-content:space-between; gap:12px;">{{ f.name }}<span class="dkr-fam-arrow" style="color:#9aa1a8; font-weight:700; flex:0 0 auto;">↗</span></h3>
-            <p style="font-size:14.5px; line-height:1.55; color:#5A6066; margin:12px 0 18px;">{{ f.desc }}</p>
-            <div style="display:flex; align-items:center; justify-content:space-between; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1px; color:#8A9097; border-top:1px solid #ECEEF1; padding-top:16px;">
-              <span>{{ f.count }}</span><span style="color:#5A6066;">{{ f.material }}</span>
+          <div style="padding:28px 26px 30px; display:flex; flex-direction:column; flex:1;">
+            <h3 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; color:#0E0F11; margin:0; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">{{ f.name }}<span class="dkr-fam-arrow" style="color:#9aa1a8; font-weight:700; flex:0 0 auto;">↗</span></h3>
+            <p style="font-size:14.5px; line-height:1.55; color:#5A6066; margin:12px 0 18px; flex:1;">{{ f.desc }}</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:1px; color:#8A9097; border-top:1px solid #ECEEF1; padding-top:16px;">
+              <span>{{ f.countLabel }}</span><span style="letter-spacing:1.4px; color:#0095DA; font-weight:600;">AİLƏYƏ BAX →</span>
             </div>
           </div>
         </a>
       </sc-for>
     </div>
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-top:36px; padding-top:28px; border-top:1px solid rgba(255,255,255,.1);">
-      <div style="display:inline-flex; align-items:center; gap:14px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.55);"><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; padding:0 12px; border:1px solid rgba(0,149,218,.45); color:#54bdee; border-radius:2px; font-weight:600;">+7</span>DAHA ÇOX MÜHƏNDİSLİK AİLƏSİ</div>
-      <a href="Decor Products.az.dc.html" class="dkr-btn dkr-btn-red" style="display:inline-flex; align-items:center; gap:10px; background:#0095DA; color:#fff; padding:15px 28px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(0,149,218,.35);">Bütün məhsul ailələrini kəşf edin →</a>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-top:36px; padding-top:28px; border-top:1px solid #E2E5E9;">
+      <div style="display:inline-flex; align-items:center; gap:14px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; color:#5A6066;"><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; padding:0 12px; border:1px solid rgba(0,149,218,.45); color:#54bdee; border-radius:2px; font-weight:600;">+{{ famMore }}</span>DAHA ÇOX MÜHƏNDİSLİK AİLƏSİ</div>
+      <a href="/az/mehsullar" class="dkr-btn dkr-btn-red" style="display:inline-flex; align-items:center; gap:10px; background:#0095DA; color:#fff; padding:15px 28px; font-weight:700; font-size:15px; border-radius:2px; box-shadow:0 12px 30px rgba(0,149,218,.35);">Bütün məhsul ailələrini kəşf edin →</a>
     </div>
   </div>
 </section>
@@ -1218,7 +1201,25 @@ class Component extends DCLogic {
   catLabel = (k) => (this.PRODUCT_CATS.find(c=>c.key===k)||{}).label || k;
   filteredProducts = () => { const cat = this.state.pcat || 'all'; return cat==='all' ? this.FEATURED_PRODUCTS : this.FEATURED_PRODUCTS.filter(p=>p.category===cat); };
 
+  // Product showcase: the same shared family data as /urunler (catalog-families.js):
+  // static fallback first, then the published snapshot (names, counts, category links).
+  async _loadFamilies(){
+    try{
+      const m = await import('./catalog-families.js');
+      const pick = (all)=>m.HOME_FEATURED.map((c)=>all.find((f)=>f.code===c)).filter(Boolean);
+      const apply = (catalog)=>{
+        const all = m.buildFamilies('az', catalog);
+        this.setState({ fams: pick(all), famAll: all.length, famTotal: catalog && typeof catalog.total==='number' ? catalog.total : null,
+          famTotalLabel: catalog && typeof catalog.total==='number' ? m.countLabel(catalog.total, 'az').toLowerCase() : '' });
+      };
+      apply(null);
+      const catalog = await m.loadCatalog();
+      if(catalog) apply(catalog);
+    }catch(e){ /* showcase stays empty only if the module itself fails to load */ }
+  }
+
   componentDidMount(){
+    this._loadFamilies();
     // Tesis-01 background video: some browsers/renderers don't reliably apply the
     // autoplay/loop/muted/playsinline attributes to dynamically-mounted <video>
     // elements, so every property is set explicitly in JS before playback starts.
@@ -1404,14 +1405,15 @@ class Component extends DCLogic {
       { count:1, suffix:'', comma:false, start:'0', label:'TÜRKİYƏDƏ #1' },
     ];
 
-    const families = [
-      { code:'PT · 01', name:'Boya Alətləri', desc:'Boya işlərində təmiz və peşəkar nəticə üçün hazırlanmış alətlər.', count:'120+ MƏHSUL', accent:red, imglabel:'RULONLAR · FIRÇALAR', hero:'PRO RULON KARKASI', sku:'DKR-4200 · HERO', material:'XROM ÖRTÜKLÜ POLAD', spec1:'XROM ÖRTÜKLÜ POLAD', spec2:'PRO SİNİF', coord:'Ø 38 · 240MM' },
-      { code:'PR · 02', name:'Suvaq Alətləri', desc:'Suvaq işlərində hamar və davamlı səthlər üçün peşəkar alətlər.', count:'90+ MƏHSUL', accent:'#1A1C1F', imglabel:'MALALAR · HAMARLAYICILAR', hero:'PASLANMAYAN MALA', sku:'DKR-1180 · HERO', material:'PASLANMAYAN', spec1:'PASLANMAYAN POLAD', spec2:'HƏSSAS CİLALANMIŞ', coord:'280 × 130MM' },
-      { code:'SC · 03', name:'Gips Alətləri', desc:'Gips, macun və səth hazırlığı işləri üçün peşəkar alətlər.', count:'70+ MƏHSUL', accent:red, imglabel:'BIÇAQLAR · QAZIYICILAR', hero:'PRO QAZIYICI', sku:'DKR-3120 · HERO', material:'KARBON POLAD', spec1:'KARBON POLAD', spec2:'İXRACATA HAZIR', coord:'150MM' },
-      { code:'MS · 04', name:'Ölçü Alətləri', desc:'Tikinti sahəsində dəqiq ölçmə və düzləndirmə üçün peşəkar ölçü alətləri.', count:'60+ MƏHSUL', accent:'#1A1C1F', imglabel:'TƏRƏZİLƏR · KVADRATLAR', hero:'SU TƏRƏZİSİ', sku:'DKR-7750 · HERO', material:'ALÜMİNİUM', spec1:'YÜKSƏK DAYANIQLI ALÜMİNİUM', spec2:'0,5MM / M', coord:'600MM · 3 QABARCIQ' },
-      { code:'IN · 05', name:'İzolyasiya Alətləri', desc:'İstilik və səs izolyasiyası işləri üçün hazırlanmış alətlər.', count:'40+ MƏHSUL', accent:red, imglabel:'BIÇAQLAR · KƏSİCİLƏR', hero:'MAKET BIÇAĞI', sku:'DKR-6010 · HERO', material:'KARBON POLAD', spec1:'KARBON POLAD', spec2:'ISO 9001', coord:'250MM' },
-      { code:'SP · 06', name:'Kafel Alətləri', desc:'Kafel və keramika işləri üçün dəqiq və davamlı alətlər.', count:'50+ MƏHSUL', accent:'#1A1C1F', imglabel:'ZIMPARA · QARIŞDIRMA', hero:'QARIŞDIRMA MALASI', sku:'DKR-5440 · HERO', material:'SİNK ÖRTÜKLÜ', spec1:'SİNK ÖRTÜKLÜ', spec2:'PRO SİNİF', coord:'120MM · ALTIBUCAQLI' },
-    ].slice(0,4);
+    const R = React.createElement;
+    const families = (this.state.fams || []).map((f)=>Object.assign({}, f, {
+      visual: f.cover ? R('img', { src:f.cover, alt:f.name, width:960, height:540, loading:'lazy', decoding:'async',
+        style:{ width:'100%', height:'100%', objectFit:'cover', display:'block' } }) : null,
+    }));
+    const nf = this.state.famAll || 11;
+    const total = this.state.famTotal, totalLabel = this.state.famTotalLabel;
+    const famIntro = total ? `İlk boya tətbiqindən son ölçüyə qədər ${nf} məhsul ailəsində ${total} peşəkar məhsul; sahədə birlikdə işləyən vahid sistem kimi hazırlanır.` : `İlk boya tətbiqindən son ölçüyə qədər ${nf} məhsul ailəsi; sahədə birlikdə işləyən vahid sistem kimi hazırlanır.`;
+    const famMore = Math.max(0, nf - families.length);
 
     const why = [
       { num:'01', title:'Sınaqdan Keçmiş Davamlılıq', desc:'Sahədə dözmək üçün layihələndirilir; hər dizayn davamlılıq və yorulma sınaqları ilə təsdiqlənir.' },
@@ -1543,7 +1545,7 @@ class Component extends DCLogic {
       logoStyle: 'height:'+(this.state.solid?62:74)+'px; width:auto; display:block; transition:height .3s ease-out;',
       menu: this.state.menu,
       toggleMenu: ()=>this.setState({ menu: !this.state.menu }),
-      trust, families, why, stages, regions, nodes, arcs, particles, dealerPerks, featured, certs, faqs, footCols,
+      trust, families, famIntro, famMore, why, stages, regions, nodes, arcs, particles, dealerPerks, featured, certs, faqs, footCols,
       n60:60, n400:700, n60b:60,
       // --- Featured Products (CMS-ready, reusable carousel) ---
       productCats: this.PRODUCT_CATS.map(c=>{ const on=(this.state.pcat||'all')===c.key; return { label:c.label, onClick:()=>this.setState({pcat:c.key, pslide:0}), activeBg:on?'#0095DA':'transparent', activeColor:on?'#fff':'rgba(255,255,255,.62)', activeBorder:on?'#0095DA':'rgba(255,255,255,.2)' }; }),

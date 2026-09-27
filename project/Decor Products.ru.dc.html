@@ -313,17 +313,15 @@ class Component extends DCLogic {
   }
   componentWillUnmount(){ if(this._check){ window.removeEventListener('scroll',this._check,{capture:true}); window.removeEventListener('resize',this._check); } }
 
-  // Published families (read-only snapshot) — used here only to point each
-  // family card at its own category route in this language (<category route>/<slug>).
+  // Family cards come from the shared catalog-families module: static fallback first,
+  // then the published snapshot (name/description/count/slug) once it loads.
   async _loadFamilies(){
     try{
-      const res = await fetch('/admin/api/public/products', { cache:'no-store' });
-      if(!res.ok) return;
-      const data = await res.json();
-      if(!data || data.published===false || !data.categories) return;
-      window.__DKR_FAMILIES__ = data.categories;
-      this.setState({ _fam: Date.now() });
-    }catch(e){ /* keep static fallback */ }
+      const m = await import('./catalog-families.js');
+      this.setState({ fams: m.buildFamilies('ru', null) });
+      const catalog = await m.loadCatalog();
+      if(catalog) this.setState({ fams: m.buildFamilies('ru', catalog) });
+    }catch(e){ /* grid stays empty only if the module itself fails to load */ }
   }
 
   _ico(children, size){
@@ -333,9 +331,6 @@ class Component extends DCLogic {
 
   renderVals(){
     const R = React.createElement;
-    const red = '#0095DA';
-    const dark = '#1A1C1F';
-    const link = "/ru/produkty/kategoriya";
 
     const icoPainting = this._ico([
       R('rect',{key:0,x:6,y:12,width:24,height:9,rx:1.5}),
@@ -390,51 +385,15 @@ class Component extends DCLogic {
       R('path',{key:0,d:'M24 5 l5 14 14 0 -11 8 4 14 -12 -8 -12 8 4 -14 -11 -8 14 0 Z'})
     ]);
 
-    const categories = [
-      { name:'Малярные инструменты', code:'FAM-01', countLabel:'', accent:red, link:link, icon:icoPainting,
-        desc:'Инструменты для чистого и профессионального результата при малярных работах.' },
-      { name:'Штукатурные инструменты', code:'FAM-02', countLabel:'', accent:dark, link:link, icon:icoPlaster,
-        desc:'Профессиональные инструменты для ровных и долговечных поверхностей при штукатурных работах.' },
-      { name:'Инструменты для плитки', code:'FAM-03', countLabel:'', accent:dark, link:link, icon:icoTile,
-        desc:'Точные и долговечные инструменты для работы с плиткой и керамикой.' },
-      { name:'Инструменты для гипсокартона', code:'FAM-04', countLabel:'', accent:red, link:link, icon:icoScraper,
-        desc:'Профессиональные инструменты для работ с гипсом, шпатлёвкой и подготовки поверхностей.' },
-      { name:'Инструменты для изоляции', code:'FAM-05', countLabel:'', accent:dark, link:link, icon:icoInsulation,
-        desc:'Инструменты для работ по тепло- и звукоизоляции.' },
-      { name:'Измерительные инструменты', code:'FAM-06', countLabel:'', accent:dark, link:link, icon:icoMeasuring,
-        desc:'Профессиональные измерительные инструменты для точных измерений и выравнивания на объекте.' },
-      { name:'Средства охраны труда', code:'FAM-07', countLabel:'', accent:red, link:link, icon:icoSafety,
-        desc:'Средства охраны труда для защиты пользователя на объекте.' },
-      { name:'Рекламные и выставочные стенды', code:'FAM-08', countLabel:'', accent:dark, link:link, icon:icoStand,
-        desc:'Рекламные и выставочные решения для представления продукции Dekor в точках продаж.' },
-      { name:'Продукция марки dkr', code:'FAM-09', countLabel:'', accent:red, link:link, icon:icoDKR,
-        desc:'Профессиональная продукция, выпускаемая под маркой dkr.' },
-      { name:'Специальные разработки', code:'FAM-10', countLabel:'', accent:dark, link:link, icon:icoSpecial,
-        desc:'Специальные изделия и промопродукция вне стандартного ассортимента, изготавливаемые по запросам экспортного и внутреннего рынков.' },
-      { name:'Новые продукты', code:'FAM-11', countLabel:'', accent:red, link:link, icon:icoNew,
-        desc:'Быстрый доступ в одном месте к новым продуктам, добавленным в наши товарные группы.' },
-    ];
-
-    // Each family card links to its own category route: /ru/produkty/kategoriya/<slug>.
-    const _fam = (typeof window!=='undefined' && window.__DKR_FAMILIES__) || null;
-    if(_fam){
-      for(const c of categories){
-        const f = _fam[(c.code||'').toLowerCase()];
-        if(f && f.slug) c.link = "/ru/produkty/kategoriya/" + f.slug;
-      }
-    }
-
-    // Category covers: real product photography (uploads/kategoriler). Families
-    // without verified photos (Özel Tasarımlar) keep their line-art icon.
-    const COVERS = { 'FAM-01':'boya', 'FAM-02':'siva', 'FAM-03':'fayans', 'FAM-04':'alci',
-      'FAM-05':'izolasyon', 'FAM-06':'olcu', 'FAM-07':'is-guvenligi', 'FAM-08':'teshir',
-      'FAM-09':'dkr', 'FAM-11':'yeni' };
-    for(const c of categories){
-      const k = COVERS[c.code];
-      c.visual = k ? R('img', { src:'uploads/kategoriler/'+k+'.webp', alt:c.name, width:960, height:540,
-        loading:'lazy', decoding:'async', style:{ width:'100%', height:'100%', objectFit:'cover', display:'block' } }) : null;
-      if(k) c.icon = null;
-    }
+    const ICONS = { 'FAM-01':icoPainting, 'FAM-02':icoPlaster, 'FAM-03':icoTile, 'FAM-04':icoScraper,
+      'FAM-05':icoInsulation, 'FAM-06':icoMeasuring, 'FAM-07':icoSafety, 'FAM-08':icoStand,
+      'FAM-09':icoDKR, 'FAM-10':icoSpecial, 'FAM-11':icoNew };
+    // Families without a verified cover photo (Özel Tasarımlar) keep their line-art icon.
+    const categories = ((this.state && this.state.fams) || []).map((f)=>Object.assign({}, f, {
+      icon: f.cover ? null : ICONS[f.code],
+      visual: f.cover ? R('img', { src:f.cover, alt:f.name, width:960, height:540, loading:'lazy', decoding:'async',
+        style:{ width:'100%', height:'100%', objectFit:'cover', display:'block' } }) : null,
+    }));
 
     return { categories };
   }

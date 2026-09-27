@@ -329,7 +329,7 @@
           <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(0,149,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,149,218,.07) 1px,transparent 1px); background-size:40px 40px;"></div>
           <div style="position:absolute; top:0; left:0; width:38px; height:38px; border-top:2px solid #0095DA; border-left:2px solid #0095DA;"></div>
           <div style="position:absolute; bottom:0; right:0; width:38px; height:38px; border-bottom:2px solid #0095DA; border-right:2px solid #0095DA;"></div>
-          <div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0095DA; border:1px solid rgba(0,149,218,.4); padding:4px 9px; background:rgba(14,15,17,.82);">{{ gal.code }}</div>
+          <sc-if value="{{ galHasCode }}" hint-placeholder-val="{{ true }}"><div style="position:absolute; top:16px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:#0095DA; border:1px solid rgba(0,149,218,.4); padding:4px 9px; background:rgba(14,15,17,.82);">{{ galCode }}</div></sc-if>
           <sc-if value="{{ heroHasImg }}" hint-placeholder-val="{{ false }}"><a href="{{ heroImg }}" target="_blank" rel="noopener noreferrer" style="position:absolute; top:16px; right:16px; z-index:3; display:inline-flex; align-items:center; gap:6px; font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.3); padding:4px 9px; background:rgba(14,15,17,.55);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:12px; height:12px;"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>ملء الشاشة</a></sc-if>
           <sc-if value="{{ heroNoImg }}" hint-placeholder-val="{{ true }}"><div style="text-align:center; position:relative; padding:20px;"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:3px; color:#aab1b8;">{{ gal.label }}</div><div style="font-family:'Archivo',sans-serif; font-size:10px; letter-spacing:2px; color:#6b7178; margin-top:8px;">{{ gal.caption }}</div></div></sc-if>
         </div>
@@ -349,7 +349,7 @@
       <div style="min-width:0;">
         <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:3px; color:#D32027; font-weight:600;"><span style="width:30px; height:2px; background:#D32027;"></span>{{ eyebrow }}</div>
         <h1 style="font-size:clamp(36px,4.6vw,62px); font-weight:900; letter-spacing:-0.035em; color:#fff; line-height:0.96; margin:18px 0 0;">{{ heroName }}<span style="color:#0095DA;">.</span></h1>
-        <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.45); margin-top:14px;">رمز المنتج · {{ code }}</div>
+        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}"><div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:1.5px; color:rgba(255,255,255,.45); margin-top:14px;">رمز المنتج · {{ displayCode }}</div></sc-if>
         <p style="font-size:clamp(16px,1.4vw,19px); font-weight:500; line-height:1.45; color:rgba(255,255,255,.78); margin:22px 0 0; max-width:520px;">{{ heroDesc }}</p>
         <sc-if value="{{ hasMaterial }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;">
@@ -593,7 +593,7 @@
           <div style="position:absolute; top:0; left:0; right:0; height:4px; background:{{ p.accent }}; z-index:3;"></div>
           <div style="position:relative; height:200px; background:#EAECEF; overflow:hidden; display:flex; align-items:center; justify-content:center;">
             <div class="rimg" style="position:absolute; inset:0; background-image:linear-gradient(rgba(14,15,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,15,17,.05) 1px,transparent 1px); background-size:24px 24px;"></div>
-            <div style="position:absolute; top:14px; left:14px; z-index:2; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:4px 9px; border:1px solid #E2E5E9;">{{ p.code }}</div>
+            <sc-if value="{{ p.hasCode }}" hint-placeholder-val="{{ true }}"><div style="position:absolute; top:14px; left:14px; z-index:2; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:#0E0F11; background:#fff; padding:4px 9px; border:1px solid #E2E5E9;">{{ p.displayCode }}</div></sc-if>
             <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}"><img class="rimg" src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" width="280" height="200" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:18px; box-sizing:border-box; background:#fff;"></sc-if>
             <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}"><div class="rimg" style="position:relative; font-family:'Archivo',sans-serif; font-size:11px; color:#9aa1a8; letter-spacing:1px;">صورة المنتج</div></sc-if>
           </div>
@@ -844,6 +844,9 @@ class Component extends DCLogic {
     const cards = ordered.map(c=>byCode[c]).filter(Boolean).slice(0, 8);
     return { cards, href };
   }
+  // Display-only: internal DB identifiers (LEGACY-…) are not real product codes,
+  // so they are never shown. Keys, lookups and URLs keep using the raw code.
+  _displayCode(code){ const c = (code==null ? '' : String(code)).trim(); return /^LEGACY-/i.test(c) ? '' : c; }
   _productKey(){
     try{
       // Unique clean route: <product route>/<slug>-<code> in this language.
@@ -880,10 +883,11 @@ class Component extends DCLogic {
     setMeta('meta[name="description"]','content',desc);
     // schema.org Product JSON-LD
     try{
-      const ld={ '@context':'https://schema.org','@type':'Product', name:p.name, description:desc, sku:p.code,
+      const ld={ '@context':'https://schema.org','@type':'Product', name:p.name, description:desc,
         brand:{'@type':'Brand',name:'Dekor'}, manufacturer:{'@type':'Organization',name:'Dekor Tools'},
         category:(p.familyLabel||''), url:p.canonical?this._locUrl(p.canonical):'' };
       if(img) ld.image=[img];
+      const _sku=this._displayCode(p.code); if(_sku) ld.sku=_sku;
       let s=document.getElementById('dkr-product-schema');
       if(!s){ s=document.createElement('script'); s.type='application/ld+json'; s.id='dkr-product-schema'; document.head.appendChild(s); }
       s.textContent=JSON.stringify(ld);
@@ -1214,6 +1218,7 @@ class Component extends DCLogic {
     const popular=['أشرطة القياس','سكاكين الحرفيين','موازين الماء','كماشات'].map(p=>({ label:p, go:()=>this.onSearch(p) }));
     const quickLinks=[ {label:'كن موزعًا',href:'Decor Become a Dealer.ar.dc.html'}, {label:'تنزيل الكتالوج',href:'Decor Support.ar.dc.html#downloads'}, {label:'التصنيع',href:'Decor Manufacturing.ar.dc.html'}, {label:'التصدير',href:'Decor Export.ar.dc.html'}, {label:'اتصل بنا',href:'Decor Contact.ar.dc.html'} ];
     return {
+      displayCode: this._displayCode(code), hasCode: !!this._displayCode(code),
       heroName, code, eyebrow, heroDesc, crumbCat, crumbCatHref, crumbName, heroNameUpper,
       searchOpen:this.state.searchOpen, query:this.state.query,
       openSearch:()=>this.openSearch(), closeSearch:()=>this.closeSearch(), onQuery:(e)=>this.onSearch(e.target.value),
@@ -1224,10 +1229,10 @@ class Component extends DCLogic {
       zoomIn:()=>this.zoomBy(0.25), zoomOut:()=>this.zoomBy(-0.25), fitPreview:()=>this.fitPreview(),
       onWheelZoom:(e)=>this.onWheelZoom(e), onTouchStart:(e)=>this._touchStart(e), onTouchEnd:(e)=>this._touchEnd(e),
       stopProp:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
-      gal: gallery[gi], thumbs, hasThumbs, heroImg, heroHasImg, heroNoImg, heroImgList: (heroHasImg ? [{ url: heroImg }] : []),
+      gal: gallery[gi], galCode: this._displayCode(gallery[gi] && gallery[gi].code), galHasCode: !!this._displayCode(gallery[gi] && gallery[gi].code), thumbs, hasThumbs, heroImg, heroHasImg, heroNoImg, heroImgList: (heroHasImg ? [{ url: heroImg }] : []),
       materialLabel, hasMaterial: !!materialLabel, usageChips, hasUsage: usageChips.length>0,
       heroSpecTable, hasHeroSpecs, specTable, hasSpecTable, specNote,
-      features, related, relTabs, hasRelTabs, relCatHref, relatedVideos,
+      features, related: related.map(r=>Object.assign({}, r, { displayCode:this._displayCode(r.code), hasCode:!!this._displayCode(r.code) })), relTabs, hasRelTabs, relCatHref, relatedVideos,
       overview, applications, downloads,
       playing: this.state.playing,
       notPlaying: !this.state.playing,
@@ -1240,7 +1245,7 @@ class Component extends DCLogic {
       noVideo: !(_snap && _snap.video && _snap.video.embedUrl),
       videoTitle: _snap ? (_snap.video ? (_snap.video.title||heroName) : heroName+" — منتج") : 'سباتولا احترافية — دليل الاستخدام',
       videoContext: _snap ? (_snap.video ? (_snap.video.description||'') : '') : 'شاهد كيف ينثني النصل المرن من الفولاذ الزنبركي وينحني أثناء عملية تشطيب جص حقيقية.',
-      videoTag: _snap ? (code + (_snap.video&&_snap.video.durationLabel ? ' · '+_snap.video.durationLabel : '')) : 'DKR-3017 · 3:40 · HD',
+      videoTag: _snap ? [this._displayCode(code), (_snap.video&&_snap.video.durationLabel)||''].filter(Boolean).join(' · ') : 'DKR-3017 · 3:40 · HD',
       shareOpen: this.state.shareOpen,
       openShare: ()=>this.setState({ shareOpen:true }),
       closeShare: ()=>this.setState({ shareOpen:false, copied:false }),
